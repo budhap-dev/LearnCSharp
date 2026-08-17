@@ -8,6 +8,7 @@ import csharp from 'highlight.js/lib/languages/csharp';
 import { loadNotes, stripFrontmatter, MODULE_INFO } from '../lib/lessons';
 import { useSyllabus } from '../lib/useSyllabus';
 import { LessonOutput } from '../components/LessonOutput';
+import { MarkdownLink } from '../components/MarkdownLink';
 import { Quiz, type Question } from '../components/Quiz';
 import { bestScore, setLessonState } from '../lib/progress';
 
@@ -85,7 +86,11 @@ export function Lesson() {
 
       {notes ? (
         <div className="prose">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={rehypePlugins}>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={rehypePlugins}
+            components={{ a: MarkdownLink }}
+          >
             {notes}
           </ReactMarkdown>
         </div>
