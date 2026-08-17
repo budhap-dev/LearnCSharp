@@ -21,11 +21,11 @@ For each topic:
 ## Running the lessons
 
 ```bash
-dotnet run --project src/LearnCSharp.Console              # interactive menu
-dotnet run --project src/LearnCSharp.Console -- 1.4       # one lesson
-dotnet run --project src/LearnCSharp.Console -- module 3  # a whole module
-dotnet run --project src/LearnCSharp.Console -- list      # the syllabus
-dotnet run --project src/LearnCSharp.Console -- all       # everything, start to finish
+dotnet run --project src/LearnCSharp.Lessons              # interactive menu
+dotnet run --project src/LearnCSharp.Lessons -- 1.4       # one lesson
+dotnet run --project src/LearnCSharp.Lessons -- module 3  # a whole module
+dotnet run --project src/LearnCSharp.Lessons -- list      # the syllabus
+dotnet run --project src/LearnCSharp.Lessons -- all       # everything, start to finish
 ```
 
 Requires the [.NET SDK](https://dotnet.microsoft.com/download) (10.0 or later).
@@ -49,7 +49,7 @@ Requires the [.NET SDK](https://dotnet.microsoft.com/download) (10.0 or later).
 ```
 docs/                      the notes - read these first
   module-1/ ... module-6/
-src/LearnCSharp.Console/
+src/LearnCSharp.Lessons/
   Program.cs               the menu and command-line runner
   Core/                    ILesson, the Ui helpers, the reflection-based registry
   Lessons/M1_Foundations/  one .cs file per lesson

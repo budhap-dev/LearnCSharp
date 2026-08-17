@@ -94,7 +94,7 @@ public sealed class L11_Reflection : LessonBase
 
         // LessonRegistry finds every ILesson in the assembly - no manual list to maintain.
         Out("lessons discovered by reflection", Core.LessonRegistry.All.Count);
-        Out("the code that does it", "src/LearnCSharp.Console/Core/LessonRegistry.cs");
+        Out("the code that does it", "src/LearnCSharp.Lessons/Core/LessonRegistry.cs");
 
         Section("The trade-offs");
 

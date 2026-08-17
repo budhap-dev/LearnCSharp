@@ -83,7 +83,7 @@ The existing .NET project is **not** thrown away. It becomes the guarantee that 
 the site is true:
 
 ```
-src/LearnCSharp.Console/        51 lessons, all compiling, all running
+src/LearnCSharp.Lessons/        51 lessons, all compiling, all running
         |
         |  build step: dotnet run -- all  > captured-output.json
         v
@@ -208,7 +208,7 @@ pathwayOrder:
   professional: skip          # 'skip' = not on the fast track, still reachable
 gcseLinks: ["3.1.2 Arithmetic operations", "3.1.3 Boolean operations"]
 aLevelLinks: ["4.1.1 Data types", "4.1.2 Programming concepts"]
-sourceFile: "src/LearnCSharp.Console/Lessons/M1_Foundations/L04_Operators.cs"
+sourceFile: "src/LearnCSharp.Lessons/Lessons/M1_Foundations/L04_Operators.cs"
 ---
 ```
 
