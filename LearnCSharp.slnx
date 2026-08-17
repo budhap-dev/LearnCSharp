@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LearnCSharp.Console/LearnCSharp.Console.csproj" />
+  </Folder>
+</Solution>
