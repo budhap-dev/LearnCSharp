@@ -27,7 +27,7 @@ Legend: ✅ done · 🟡 partly done · ⬜ not started. Each story below carrie
 | **Quizzes** | 🟡 the player works; **only 10 questions exist (lesson 1.4)** of the 620 planned |
 | **Progress** | 🟡 localStorage store + per-module bars; no dashboard, export UI, streaks or revision |
 | **Module 6 (Production C#)** | ⬜ the five lessons — the only C# left to write |
-| **Worksheets, reference, search, pathways, module tests** | ⬜ not started |
+| **Worksheets, reference, search, pathways, module tests, topic exams** | ⬜ not started |
 
 **The biggest gap between promise and product is the question bank** (E4/US-406): the product
 story is "never more than one screen of theory before something to do", and 56 of 57 lessons
@@ -221,6 +221,8 @@ site built by GitHub Actions and served from a global CDN.
 /module/1/1.4              a lesson page
 /module/1/1.4/quiz         the lesson quiz
 /module/1/test             end-of-module test
+/module/1/exam             topic exam - pick Foundation / Standard / Challenge
+/module/1/exam/results     marks, grade band, per-topic breakdown, full review
 /module/1/worksheet        printable worksheet
 /module/1/worksheet/answers   model answers
 /progress                  dashboard: completion, scores, streak, weak topics
@@ -296,6 +298,10 @@ Console.WriteLine(x / y);
   explanation: "Both operands are int, so C# does integer division and discards the .75."
   reviewLink: "1.4#arithmetic"
 ```
+
+`difficulty` does double duty: quizzes mix all three levels, while **topic exams (US-407)
+build their easy/medium/hard sets from it and award it as marks** — a difficulty-3 question
+is worth 3 marks. One bank, no duplicate authoring.
 
 ### 6.3 Diagrams
 
@@ -540,6 +546,31 @@ it, not just recognised it.
 - [ ] ≥25 per module test → **150+**
 - [ ] Balanced across difficulty 1–3
 - [ ] At least three `predict-output` questions per lesson, generated from verified code
+
+### US-407 · Topic exams with marks and graded sets *(Should, L)* · ⬜
+**As a** student **I want** a marked exam per topic at easy, medium or hard level **so that** I
+can test myself under exam conditions and see exactly where I stand.
+
+Exams are distinct from lesson quizzes: a quiz teaches (instant explanations, no stakes); an
+exam **measures** (marks, no help until the end).
+
+- [ ] Every module offers three question sets: **Foundation** (easy), **Standard** (medium),
+      **Challenge** (hard) — selectable before starting
+- [ ] Questions carry **marks (1–3)**, weighted by difficulty; the paper shows marks per
+      question and a total (e.g. *“Q7 — 2 marks”*, *“Total: 30 marks”*)
+- [ ] Exam conditions: no explanations mid-exam, questions answerable in any order, an
+      answer-sheet overview showing answered/unanswered, explicit **Submit**
+- [ ] Optional countdown timer (off by default); running out submits what is answered
+- [ ] **Results page**: marks scored / total, percentage, grade band
+      (*Distinction ≥ 80 · Merit ≥ 70 · Pass ≥ 55 · Not yet*), per-topic breakdown, and a
+      full review of every question with the explanation and the student’s answer
+- [ ] Results history in `localStorage`: every attempt with date, set, marks; best and most
+      recent surfaced; included in the US-603 export
+- [ ] Passing Standard *suggests* Challenge (never locks it); failing suggests the specific
+      lessons to revisit, like US-405
+- [ ] Draws from the same §6.2 question bank via the existing `difficulty` field —
+      easy = difficulty 1, medium = 2, hard = 3 — so exam papers grow automatically as the
+      bank grows
 
 ---
 
@@ -1007,6 +1038,7 @@ exercises with model answers · read end-to-end for tone and reading age.
    a real student. *← current task*
 3. Question bank for Modules 2–5 and 7.
 4. Write the five Module 6 lessons — code first, then notes (US-204).
-5. Remaining question types beyond multiple-choice (US-403), then module tests (US-405).
+5. Remaining question types beyond multiple-choice (US-403), then module tests (US-405) and
+   **topic exams with marks and graded sets (US-407)** — the bank from steps 2–3 feeds both.
 6. Progress dashboard + export UI (US-602, US-603).
 7. Diagrams tranche 2 (US-1003) and the bundle-size fixes from §3.3 (US-803).
