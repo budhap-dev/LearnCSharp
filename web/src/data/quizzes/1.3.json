@@ -1,0 +1,85 @@
+[
+  {
+    "id": "1.3-q1",
+    "topic": "ReadLine",
+    "stem": "What type does Console.ReadLine() always return?",
+    "options": ["int, if the user typed a number", "string? - text, possibly null", "object", "char"],
+    "answer": 1,
+    "explanation": "ReadLine always hands you text, even if the user typed 42 - and it can be null when the input stream ends. Converting to a number is your job."
+  },
+  {
+    "id": "1.3-q2",
+    "topic": "interpolation",
+    "stem": "Which prints: Name: Ada, age: 36",
+    "code": "string name = \"Ada\"; int age = 36;",
+    "options": ["Console.WriteLine(\"Name: {name}, age: {age}\");", "Console.WriteLine($\"Name: {name}, age: {age}\");", "Console.WriteLine(name + age);", "Console.WriteLine(%name, %age);"],
+    "answer": 1,
+    "explanation": "The $ prefix makes an interpolated string - expressions in {braces} are evaluated and pasted in. Without the $, the braces print literally."
+  },
+  {
+    "id": "1.3-q3",
+    "topic": "TryParse",
+    "stem": "What does this print?",
+    "code": "bool ok = int.TryParse(\"forty-two\", out int n);\nConsole.WriteLine($\"{ok} {n}\");",
+    "options": ["True 42", "False 0", "It throws FormatException", "False null"],
+    "answer": 1,
+    "explanation": "TryParse never throws: it returns false for bad input and sets the out variable to 0. That is exactly why it is the right choice for user input."
+  },
+  {
+    "id": "1.3-q4",
+    "topic": "Parse",
+    "stem": "What happens when int.Parse(\"abc\") runs?",
+    "options": ["Returns 0", "Returns -1", "Throws FormatException", "Returns null"],
+    "answer": 2,
+    "explanation": "Parse throws FormatException on anything that is not a number. Use it only when you are certain the text is valid - otherwise TryParse."
+  },
+  {
+    "id": "1.3-q5",
+    "topic": "format specifiers",
+    "stem": "What does $\"{1234.5678:F2}\" produce?",
+    "options": ["1234.5678", "1234.57", "1,234.57", "F21234.5678"],
+    "answer": 1,
+    "explanation": "F2 means fixed-point with 2 decimal places, rounding: 1234.57. N2 would add the thousands separator: 1,234.57."
+  },
+  {
+    "id": "1.3-q6",
+    "topic": "alignment",
+    "stem": "In $\"{name,-12}\", what does the -12 do?",
+    "options": ["Subtracts 12 characters", "Left-aligns name in 12 columns", "Right-aligns name in 12 columns", "Repeats name 12 times"],
+    "answer": 1,
+    "explanation": "The comma sets a column width: positive right-aligns, negative left-aligns. It is how you build neat tables in the console."
+  },
+  {
+    "id": "1.3-q7",
+    "topic": "string + number",
+    "stem": "What does this print?",
+    "code": "int a = 2, b = 3;\nConsole.WriteLine(\"Total: \" + a + b);",
+    "options": ["Total: 5", "Total: 23", "Total: a b", "It will not compile"],
+    "answer": 1,
+    "explanation": "Evaluation is left to right: \"Total: \" + 2 gives \"Total: 2\", then + 3 appends to give \"Total: 23\". Use $\"Total: {a + b}\" to get 5."
+  },
+  {
+    "id": "1.3-q8",
+    "topic": "null coalescing",
+    "stem": "Why write: string name = Console.ReadLine() ?? \"stranger\";",
+    "options": ["To repeat the prompt", "ReadLine can return null; ?? supplies a fallback", "To make the string uppercase", "It is required syntax"],
+    "answer": 1,
+    "explanation": "ReadLine returns string? - null when input ends. The ?? operator substitutes the fallback so name is never null afterwards."
+  },
+  {
+    "id": "1.3-q9",
+    "topic": "validation loop",
+    "stem": "A robust 'ask until valid' input loop is built from which pair?",
+    "options": ["for + Parse", "while (true) + TryParse", "do-while + Convert", "foreach + ReadKey"],
+    "answer": 1,
+    "explanation": "Loop forever, TryParse each attempt, return when both the parse and the range check pass. It cannot crash and cannot exit with bad data."
+  },
+  {
+    "id": "1.3-q10",
+    "topic": "Convert",
+    "stem": "Which is TRUE about Convert.ToInt32 versus int.Parse?",
+    "options": ["They are identical", "Convert.ToInt32(null) gives 0; int.Parse(null) throws", "int.Parse rounds doubles", "Convert only works on strings"],
+    "answer": 1,
+    "explanation": "Convert turns null into 0 rather than throwing; Parse throws ArgumentNullException. Convert.ToInt32 also rounds doubles, which Parse never sees."
+  }
+]

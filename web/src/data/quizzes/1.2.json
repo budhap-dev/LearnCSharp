@@ -1,0 +1,86 @@
+[
+  {
+    "id": "1.2-q1",
+    "topic": "declaration",
+    "stem": "Which line correctly declares a whole number variable?",
+    "options": ["number score = 0;", "int score = 0;", "score = 0;", "var score;"],
+    "answer": 1,
+    "explanation": "The pattern is type name = value. int is the whole-number type. 'var score;' fails because var needs a value to infer the type from."
+  },
+  {
+    "id": "1.2-q2",
+    "topic": "floating point",
+    "stem": "What does this print?",
+    "code": "double a = 0.1, b = 0.2;\nConsole.WriteLine(a + b == 0.3);",
+    "options": ["True", "False", "0.3", "It will not compile"],
+    "answer": 1,
+    "explanation": "False. Doubles store numbers in binary floating point, and 0.1 + 0.2 is actually 0.30000000000000004. Never compare doubles with == - compare the difference to a tolerance."
+  },
+  {
+    "id": "1.2-q3",
+    "topic": "decimal",
+    "stem": "Which type should hold an amount of money?",
+    "options": ["double", "float", "decimal", "int"],
+    "answer": 2,
+    "explanation": "decimal stores exact base-10 digits, so 0.1m + 0.2m really is 0.3m. Write money literals with the m suffix: 19.99m."
+  },
+  {
+    "id": "1.2-q4",
+    "topic": "char vs string",
+    "stem": "What is wrong with: char grade = \"A\";",
+    "options": ["Nothing", "Double quotes make a string; a char needs single quotes: 'A'", "char cannot hold letters", "grade is a reserved word"],
+    "answer": 1,
+    "explanation": "'A' is a char; \"A\" is a string of length 1. They are different types and the quotes are not interchangeable."
+  },
+  {
+    "id": "1.2-q5",
+    "topic": "overflow",
+    "stem": "What does this print?",
+    "code": "int big = int.MaxValue;\nConsole.WriteLine(unchecked(big + 1));",
+    "options": ["2147483648", "-2147483648", "0", "It throws OverflowException"],
+    "answer": 1,
+    "explanation": "By default integer arithmetic wraps around like an odometer: one past the maximum lands on the minimum, -2147483648. Only inside checked { } does it throw."
+  },
+  {
+    "id": "1.2-q6",
+    "topic": "var",
+    "stem": "After 'var count = 10;', what happens if you write count = \"ten\"; ?",
+    "options": ["count becomes a string", "A runtime error", "It does not compile - count is an int forever", "count becomes null"],
+    "answer": 2,
+    "explanation": "var is not dynamic typing. The compiler inferred int from 10, and the variable is strongly typed as int permanently."
+  },
+  {
+    "id": "1.2-q7",
+    "topic": "const",
+    "stem": "Which statement about const is true?",
+    "options": ["A const can be changed once", "A const must be known at compile time and can never change", "const only works with strings", "const variables are slower"],
+    "answer": 1,
+    "explanation": "const is baked in while compiling: const int MaxLives = 3. For values decided at run time but then locked, use readonly instead."
+  },
+  {
+    "id": "1.2-q8",
+    "topic": "type sizes",
+    "stem": "Which type uses 4 bytes and holds roughly plus or minus 2.1 billion?",
+    "options": ["byte", "short", "int", "long"],
+    "answer": 2,
+    "explanation": "int is 4 bytes: -2,147,483,648 to 2,147,483,647. byte is 1 byte (0-255), short 2 bytes, long 8 bytes. Use int unless you have a reason not to."
+  },
+  {
+    "id": "1.2-q9",
+    "topic": "char arithmetic",
+    "stem": "What does this print?",
+    "code": "char grade = 'A';\nConsole.WriteLine((char)(grade + 2));",
+    "options": ["A2", "C", "67", "It will not compile"],
+    "answer": 1,
+    "explanation": "A char is really a number - 'A' is 65. Adding 2 gives 67, and casting back to char gives 'C'. Without the cast it would print 67."
+  },
+  {
+    "id": "1.2-q10",
+    "topic": "defaults",
+    "stem": "What happens when you read a local variable you never assigned?",
+    "code": "int total;\nConsole.WriteLine(total);",
+    "options": ["Prints 0", "Prints null", "It does not compile", "Prints a random value"],
+    "answer": 2,
+    "explanation": "Fields get defaults (0, false, null) but LOCAL variables have no default: the compiler's definite-assignment rule refuses to let you read one before assigning it."
+  }
+]

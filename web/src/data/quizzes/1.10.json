@@ -1,0 +1,82 @@
+[
+  {
+    "id": "1.10-q1",
+    "topic": "casting",
+    "stem": "What is (int)9.99?",
+    "options": ["10", "9", "9.99", "It throws"],
+    "answer": 1,
+    "explanation": "A cast TRUNCATES towards zero - it never rounds. (int)9.99 is 9 and (int)-9.99 is -9. For rounding, use Math.Round."
+  },
+  {
+    "id": "1.10-q2",
+    "topic": "implicit conversion",
+    "stem": "Which assignment needs NO cast?",
+    "options": ["int from a double", "byte from an int", "long from an int", "int from a string"],
+    "answer": 2,
+    "explanation": "Widening is automatic because nothing can be lost: every int fits in a long. Narrowing (int to byte, double to int) needs an explicit cast; string to int needs Parse."
+  },
+  {
+    "id": "1.10-q3",
+    "topic": "banker's rounding",
+    "stem": "What does Math.Round(8.5) return?",
+    "options": ["9", "8", "8.5", "8.0 or 9.0 at random"],
+    "answer": 1,
+    "explanation": "8 - .NET rounds exact halves to the nearest EVEN number (banker's rounding), stopping long runs of .5 from drifting upwards. For the school rule, pass MidpointRounding.AwayFromZero."
+  },
+  {
+    "id": "1.10-q4",
+    "topic": "Convert vs cast",
+    "stem": "Which is TRUE?",
+    "options": ["(int)9.99 and Convert.ToInt32(9.99) are equal", "(int)9.99 is 9 but Convert.ToInt32(9.99) is 10", "Both throw", "Both give 10"],
+    "answer": 1,
+    "explanation": "The cast truncates to 9; Convert.ToInt32 ROUNDS to 10. Knowing the difference saves an off-by-one in money code."
+  },
+  {
+    "id": "1.10-q5",
+    "topic": "wrapping",
+    "stem": "What is (byte)300?",
+    "options": ["300", "255", "44", "It throws"],
+    "answer": 2,
+    "explanation": "A byte keeps only the bottom 8 bits. 300 is 100101100 in binary; dropping the top bit leaves 00101100 = 44. Casting a value that does not fit wraps silently."
+  },
+  {
+    "id": "1.10-q6",
+    "topic": "number bases",
+    "stem": "What does Convert.ToString(10, 2) produce?",
+    "options": ["\"10\"", "\"1010\"", "\"2\"", "\"A\""],
+    "answer": 1,
+    "explanation": "The 2 means base 2: ten in binary is 1010. Base 16 would give \"a\". Convert.ToInt32(\"1010\", 2) goes the other way."
+  },
+  {
+    "id": "1.10-q7",
+    "topic": "Math.Pow",
+    "stem": "Why does  int x = Math.Pow(2, 3);  fail to compile?",
+    "options": ["Pow needs three arguments", "Pow returns a double, which will not implicitly narrow to int", "2 and 3 must be doubles", "Pow is obsolete"],
+    "answer": 1,
+    "explanation": "Math.Pow returns double (8.0). Narrowing needs a cast - or for integer powers of two, 1 << 3 is exact and faster."
+  },
+  {
+    "id": "1.10-q8",
+    "topic": "Random bounds",
+    "stem": "You want a dice roll of 1 to 6. Which is correct?",
+    "options": ["random.Next(1, 6)", "random.Next(1, 7)", "random.Next(0, 6)", "random.Next(6)"],
+    "answer": 1,
+    "explanation": "Next's upper bound is EXCLUSIVE: Next(1, 7) gives 1-6. Next(1, 6) never rolls a six - a classic bug."
+  },
+  {
+    "id": "1.10-q9",
+    "topic": "seeded Random",
+    "stem": "What is special about new Random(42)?",
+    "options": ["It is more random", "The same seed produces the SAME sequence every run", "It only produces 42", "It is cryptographically secure"],
+    "answer": 1,
+    "explanation": "A fixed seed gives a repeatable sequence - ideal for tests and debugging. And Random is never cryptographically secure; that needs RandomNumberGenerator."
+  },
+  {
+    "id": "1.10-q10",
+    "topic": "Math helpers",
+    "stem": "What is Math.Clamp(150, 0, 100)?",
+    "options": ["150", "0", "100", "50"],
+    "answer": 2,
+    "explanation": "Clamp forces a value into a range: below the minimum returns the minimum, above the maximum returns the maximum - here 100."
+  }
+]

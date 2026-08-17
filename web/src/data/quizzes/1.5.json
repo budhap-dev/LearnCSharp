@@ -1,0 +1,86 @@
+[
+  {
+    "id": "1.5-q1",
+    "topic": "if order",
+    "stem": "What does this print when score is 85?",
+    "code": "if (score > 50) Console.WriteLine(\"B\");\nelse if (score > 70) Console.WriteLine(\"A\");\nelse Console.WriteLine(\"C\");",
+    "options": ["A", "B", "C", "A then B"],
+    "answer": 1,
+    "explanation": "Conditions are tested top to bottom and the FIRST true one wins. 85 > 50 is true, so B prints and the rest is skipped - even though 85 > 70 too. Order matters."
+  },
+  {
+    "id": "1.5-q2",
+    "topic": "braces",
+    "stem": "What does this print when raining is false?",
+    "code": "if (raining)\n    Console.WriteLine(\"umbrella\");\n    Console.WriteLine(\"boots\");",
+    "options": ["Nothing", "boots", "umbrella and boots", "It will not compile"],
+    "answer": 1,
+    "explanation": "Without braces only the FIRST statement belongs to the if. The boots line always runs, whatever the indentation suggests. Always write braces."
+  },
+  {
+    "id": "1.5-q3",
+    "topic": "switch statement",
+    "stem": "In a switch statement, what must end each non-empty case?",
+    "options": ["A semicolon", "break (or return/throw)", "continue", "Nothing - cases fall through"],
+    "answer": 1,
+    "explanation": "C# will not let you fall through by accident - each case must end with break, return or similar. Two labels sharing one body (case 6: case 7:) is allowed."
+  },
+  {
+    "id": "1.5-q4",
+    "topic": "switch expression",
+    "stem": "In a switch expression, what does _ mean?",
+    "code": "string name = day switch { 1 => \"Mon\", 6 or 7 => \"Weekend\", _ => \"Other\" };",
+    "options": ["An error", "The discard - matches anything else", "The previous value", "Null"],
+    "answer": 1,
+    "explanation": "_ is the catch-all arm, like default in a switch statement. Without it, an unmatched value throws SwitchExpressionException at run time."
+  },
+  {
+    "id": "1.5-q5",
+    "topic": "range patterns",
+    "stem": "Which value makes this produce \"Mild\"?",
+    "code": "string band = t switch\n{\n    < 0 => \"Freezing\",\n    >= 0 and < 10 => \"Cold\",\n    >= 10 and < 20 => \"Mild\",\n    _ => \"Warm\",\n};",
+    "options": ["-5", "9", "19", "20"],
+    "answer": 2,
+    "explanation": "19 satisfies >= 10 and < 20. 20 falls through to the discard arm, \"Warm\" - the < 20 boundary excludes it."
+  },
+  {
+    "id": "1.5-q6",
+    "topic": "type patterns",
+    "stem": "What does 'boxed is int number' do when it matches?",
+    "options": ["Only tests the type", "Tests the type AND gives you a typed variable called number", "Converts boxed to a string", "Boxes the value again"],
+    "answer": 1,
+    "explanation": "A type pattern tests and captures in one step: inside the if, number is a real int with no casting needed."
+  },
+  {
+    "id": "1.5-q7",
+    "topic": "ternary",
+    "stem": "What is the value of: mark >= 50 ? \"Pass\" : \"Fail\"  when mark is 50?",
+    "options": ["Pass", "Fail", "true", "50"],
+    "answer": 0,
+    "explanation": ">= includes 50, so the condition is true and the ternary yields the first value, \"Pass\"."
+  },
+  {
+    "id": "1.5-q8",
+    "topic": "when guards",
+    "stem": "In a switch arm, what does 'int i when i > 100' add?",
+    "options": ["A loop", "An extra condition the match must also satisfy", "A default value", "Nothing - when is decorative"],
+    "answer": 1,
+    "explanation": "The when clause is a guard: the arm matches only if the pattern fits AND the condition holds. Order still matters - put the guarded arm before the plain 'int i'."
+  },
+  {
+    "id": "1.5-q9",
+    "topic": "string comparison",
+    "stem": "The user typed \"YES\" but your code checks input == \"yes\". Best fix?",
+    "options": ["Use =", "input.Equals(\"yes\", StringComparison.OrdinalIgnoreCase)", "Convert to char", "Use a switch statement"],
+    "answer": 1,
+    "explanation": "== on strings is case sensitive. When case should not matter - almost always true of user input - say so explicitly with OrdinalIgnoreCase."
+  },
+  {
+    "id": "1.5-q10",
+    "topic": "is not",
+    "stem": "What does 'value is not null' evaluate to when value is null?",
+    "options": ["true", "false", "null", "It throws"],
+    "answer": 1,
+    "explanation": "'is not null' is the modern, clearest null test - false here because value IS null. It cannot be fooled by an overloaded == operator, either."
+  }
+]
