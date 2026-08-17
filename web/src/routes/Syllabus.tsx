@@ -16,38 +16,76 @@ export function Syllabus() {
   const progress = read();
   const modules = modulesOf(syllabus);
 
+  // Open the module the student is currently working through - the one holding their
+  // next incomplete lesson. Everything else starts collapsed.
+  const next = syllabus.find((l) => progress.lessons[l.id] !== 'done') ?? syllabus[0];
+  const currentModule = next.module;
+
   return (
     <>
       <h1>Syllabus</h1>
       <p className="lede">
-        {syllabus.length} lessons across {modules.length} modules.
+        {syllabus.length} lessons across {modules.length} modules. Your current module is open —
+        tap any other to expand it.
       </p>
 
-      {modules.map((m) => (
-        <section key={m} className="module-block">
-          <h2>
-            <span className="num">{m}</span> {MODULE_INFO[m]?.name}
-          </h2>
-          <p className="blurb">{MODULE_INFO[m]?.blurb}</p>
-          <ol className="lesson-list">
-            {lessonsIn(syllabus, m).map((l) => {
-              const state = progress.lessons[l.id];
-              return (
-                <li key={l.id}>
-                  <Link to={`/lesson/${l.id}`}>
-                    <span className="lid">{l.id}</span>
-                    <span className="ltitle">
-                      <strong>{l.title}</strong>
-                      <span className="lsummary">{l.summary}</span>
-                    </span>
-                    {state && <span className={`badge ${state}`}>{LABEL[state] ?? state}</span>}
-                  </Link>
-                </li>
-              );
-            })}
-          </ol>
-        </section>
-      ))}
+      {modules.map((m) => {
+        const inModule = lessonsIn(syllabus, m);
+        const done = inModule.filter((l) => progress.lessons[l.id] === 'done').length;
+
+        return (
+          // <details> gives us an accessible accordion with zero JS: keyboard,
+          // screen-reader and no-JS behaviour all come from the browser.
+          <details key={m} className="module-accordion" open={m === currentModule}>
+            <summary>
+              <span className="num">{m}</span>
+              <span className="module-title">
+                <strong>{MODULE_INFO[m]?.name}</strong>
+                <span className="module-meta">
+                  {done > 0 ? `${done} of ${inModule.length} lessons done` : `${inModule.length} lessons`}
+                </span>
+              </span>
+              {done === inModule.length && done > 0 && <span className="badge done">complete</span>}
+              <span className="chevron" aria-hidden="true" />
+            </summary>
+
+            <div className="module-body">
+              <p className="blurb">{MODULE_INFO[m]?.blurb}</p>
+
+              {done > 0 && (
+                <div
+                  className="module-progress"
+                  role="progressbar"
+                  aria-valuenow={done}
+                  aria-valuemin={0}
+                  aria-valuemax={inModule.length}
+                  aria-label={`${done} of ${inModule.length} lessons complete`}
+                >
+                  <span style={{ width: `${(done / inModule.length) * 100}%` }} />
+                </div>
+              )}
+
+              <ol className="lesson-list">
+                {inModule.map((l) => {
+                  const state = progress.lessons[l.id];
+                  return (
+                    <li key={l.id}>
+                      <Link to={`/lesson/${l.id}`}>
+                        <span className="lid">{l.id}</span>
+                        <span className="ltitle">
+                          <strong>{l.title}</strong>
+                          <span className="lsummary">{l.summary}</span>
+                        </span>
+                        {state && <span className={`badge ${state}`}>{LABEL[state] ?? state}</span>}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+          </details>
+        );
+      })}
     </>
   );
 }
