@@ -31,21 +31,21 @@ the *concepts*, then the C# that expresses them, then how to design with them.
 
 | # | Topic | Notes | Code |
 |---|---|---|---|
-| 2.1 | What is object-oriented programming? | _to write_ | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L01_WhatIsOop.cs) |
+| 2.1 | What is object-oriented programming? | [notes](module-2/2.1.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L01_WhatIsOop.cs) |
 | 2.2 | Classes, objects, fields and constructors | [notes](module-2/2.2.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L02_ClassesAndObjects.cs) |
-| 2.3 | Abstraction: showing what, hiding how | _to write_ | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L03_Abstraction.cs) |
+| 2.3 | Abstraction: showing what, hiding how | [notes](module-2/2.3.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L03_Abstraction.cs) |
 | 2.4 | Encapsulation, properties, access modifiers | [notes](module-2/2.4.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L04_Encapsulation.cs) |
-| 2.5 | Inheritance and the object hierarchy | _to write_ | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L05_Inheritance.cs) |
-| 2.6 | Polymorphism: virtual, override, abstract | _to write_ | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L06_Polymorphism.cs) |
-| 2.7 | Interfaces | _to write_ | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L07_Interfaces.cs) |
-| 2.8 | Value vs reference types, structs, enums | _to write_ | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L08_ValueVsReference.cs) |
-| 2.9 | Records and immutable data | _to write_ | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L09_Records.cs) |
-| 2.10 | ToString, Equals, GetHashCode, operators | _to write_ | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L10_ObjectMembers.cs) |
-| 2.11 | Static members, composition, good design | _to write_ | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L11_StaticAndComposition.cs) |
-| 2.12 | Class relationships and UML class diagrams | _to write_ | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L12_Relationships.cs) |
-| 2.13 | Coupling, cohesion and SOLID | _to write_ | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L13_SolidPrinciples.cs) |
-| 2.14 | Design patterns you will actually use | _to write_ | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L14_DesignPatterns.cs) |
-| 2.15 | Workshop: modelling a real system | _to write_ | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L15_ModellingWorkshop.cs) |
+| 2.5 | Inheritance and the object hierarchy | [notes](module-2/2.5.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L05_Inheritance.cs) |
+| 2.6 | Polymorphism: virtual, override, abstract | [notes](module-2/2.6.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L06_Polymorphism.cs) |
+| 2.7 | Interfaces | [notes](module-2/2.7.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L07_Interfaces.cs) |
+| 2.8 | Value vs reference types, structs, enums | [notes](module-2/2.8.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L08_ValueVsReference.cs) |
+| 2.9 | Records and immutable data | [notes](module-2/2.9.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L09_Records.cs) |
+| 2.10 | ToString, Equals, GetHashCode, operators | [notes](module-2/2.10.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L10_ObjectMembers.cs) |
+| 2.11 | Static members, composition, good design | [notes](module-2/2.11.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L11_StaticAndComposition.cs) |
+| 2.12 | Class relationships and UML class diagrams | [notes](module-2/2.12.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L12_Relationships.cs) |
+| 2.13 | Coupling, cohesion and SOLID | [notes](module-2/2.13.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L13_SolidPrinciples.cs) |
+| 2.14 | Design patterns you will actually use | [notes](module-2/2.14.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L14_DesignPatterns.cs) |
+| 2.15 | Workshop: modelling a real system | [notes](module-2/2.15.md) | [code](../src/LearnCSharp.Lessons/Lessons/M2_Oop/L15_ModellingWorkshop.cs) |
 
 ## Module 3 — Collections, generics and LINQ
 

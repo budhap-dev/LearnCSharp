@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "capture": "cd .. && dotnet run --project src/LearnCSharp.Lessons -- capture web/public/data",
-    "dev": "npm run capture && vite",
-    "build": "npm run capture && tsc -b && vite build",
+    "dev": "npm run capture && npm run content && vite",
+    "build": "npm run capture && npm run content && tsc -b && vite build",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "content": "node scripts/build-content.mjs"
   },
   "dependencies": {
     "highlight.js": "^11.12.0",
