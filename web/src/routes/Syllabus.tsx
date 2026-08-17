@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { MODULE_INFO, lessonsIn, modulesOf } from '../lib/lessons';
 import { useSyllabus } from '../lib/useSyllabus';
 import { read } from '../lib/progress';
@@ -11,15 +12,24 @@ const LABEL: Record<string, string> = {
 
 export function Syllabus() {
   const syllabus = useSyllabus();
+  const { hash } = useLocation();
+
+  // A "#m3" hash (from the home page's course cards) scrolls to that module.
+  useEffect(() => {
+    if (!hash || !syllabus) return;
+    document.getElementById(hash.slice(1))?.scrollIntoView({ block: 'start' });
+  }, [hash, syllabus]);
+
   if (!syllabus) return <p className="muted">Loading the syllabus…</p>;
 
   const progress = read();
   const modules = modulesOf(syllabus);
 
-  // Open the module the student is currently working through - the one holding their
-  // next incomplete lesson. Everything else starts collapsed.
+  // Which module starts open: one deep-linked from a course card, otherwise the one
+  // holding the student's next incomplete lesson.
+  const linked = /^#m(\d+)$/.exec(hash);
   const next = syllabus.find((l) => progress.lessons[l.id] !== 'done') ?? syllabus[0];
-  const currentModule = next.module;
+  const currentModule = linked ? Number(linked[1]) : next.module;
 
   return (
     <>
@@ -35,7 +45,7 @@ export function Syllabus() {
         return (
           // <details> gives us an accessible accordion with zero JS: keyboard,
           // screen-reader and no-JS behaviour all come from the browser.
-          <details key={m} className="module-accordion" open={m === currentModule}>
+          <details key={m} id={`m${m}`} className="module-accordion" open={m === currentModule}>
             <summary>
               <span className="num">{m}</span>
               <span className="module-title">

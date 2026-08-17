@@ -492,3 +492,13 @@ button:disabled { cursor: default; }
 @media (max-width: 640px) {
   .syllabus-lede { white-space: normal; }   /* phones: wrapping beats truncation */
 }
+
+/* course-card headings are links, styled as headings */
+.module-link {
+  display: flex; align-items: center; gap: 0.5rem;
+  color: var(--text); text-decoration: none;
+}
+.module-link:hover { color: var(--accent); }
+.module-card .more a { color: var(--muted); }
+.module-card .more a:hover { color: var(--accent); }
+.module-accordion { scroll-margin-top: 4.5rem; }   /* land below the sticky header */
