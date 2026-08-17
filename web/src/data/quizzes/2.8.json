@@ -1,0 +1,82 @@
+[
+  {
+    "id": "2.8-q1",
+    "topic": "the one distinction",
+    "stem": "PointStruct b = a; b.X = 99; What is a.X?",
+    "options": ["99", "Unchanged - b is a full independent copy", "0", "It throws"],
+    "answer": 1,
+    "explanation": "Assigning a VALUE type copies the value. Assigning a class copies the arrow. This one distinction explains a whole family of bugs."
+  },
+  {
+    "id": "2.8-q2",
+    "topic": "which is which",
+    "stem": "Which of these is a REFERENCE type?",
+    "options": ["int", "DateTime", "string", "bool"],
+    "answer": 2,
+    "explanation": "string is a reference type that FEELS value-like because it is immutable. int, bool and DateTime (a struct) are value types."
+  },
+  {
+    "id": "2.8-q3",
+    "topic": "method parameters",
+    "stem": "static void Mutate(PointStruct p) => p.X = 99; called with s. What happens to s?",
+    "options": ["s.X becomes 99", "Nothing - the method changed its own copy", "s becomes null", "Compile error"],
+    "answer": 1,
+    "explanation": "Value types pass as copies, so mutations vanish with the copy - the mutable-struct surprise. (A class parameter would show the change.)"
+  },
+  {
+    "id": "2.8-q4",
+    "topic": "struct equality",
+    "stem": "Two structs with identical field values - what does Equals say by default?",
+    "options": ["false - different instances", "true - structs compare field by field", "It throws", "Only if they override Equals"],
+    "answer": 1,
+    "explanation": "Structs get value equality by default; classes get REFERENCE equality (same object?) unless Equals is overridden (2.10)."
+  },
+  {
+    "id": "2.8-q5",
+    "topic": "nullable value types",
+    "stem": "int? maybe = null; What is maybe ?? -1?",
+    "options": ["null", "-1", "0", "It throws"],
+    "answer": 1,
+    "explanation": "int? is Nullable<int> - a struct with a HasValue flag. ?? supplies the fallback when empty. Reading .Value while null throws."
+  },
+  {
+    "id": "2.8-q6",
+    "topic": "when struct",
+    "stem": "Which type is the best candidate for a struct?",
+    "options": ["BankAccount with changing balance", "A small immutable Point copied in large numbers", "A Player with events", "A file handle"],
+    "answer": 1,
+    "explanation": "Struct when: small (~16 bytes), logically one value, immutable, created en masse. Identity-and-state things stay classes."
+  },
+  {
+    "id": "2.8-q7",
+    "topic": "enums",
+    "stem": "enum Difficulty { Easy, Medium, Hard }  What is (int)Difficulty.Hard?",
+    "options": ["3", "2", "1", "0"],
+    "answer": 1,
+    "explanation": "Values number from 0 by default: Easy=0, Medium=1, Hard=2. The names exist so code never says the bare numbers."
+  },
+  {
+    "id": "2.8-q8",
+    "topic": "flags",
+    "stem": "Why must [Flags] enum values be powers of two (1, 2, 4, 8...)?",
+    "options": ["Tradition", "Each value gets its own BIT, so combinations like Read | Write do not collide", "They compile faster", "Enums require it"],
+    "answer": 1,
+    "explanation": "Read=1 (001), Write=2 (010), Delete=4 (100): OR-ing sets independent bits and HasFlag tests them - the 1.4 bitwise operators at work."
+  },
+  {
+    "id": "2.8-q9",
+    "topic": "readonly struct",
+    "stem": "What does 'readonly struct Money' guarantee?",
+    "options": ["It is faster", "Nothing can change after construction - removing every mutable-struct surprise", "It cannot be copied", "It lives on the heap"],
+    "answer": 1,
+    "explanation": "The safest kind of struct: methods like Add return a NEW Money rather than mutating. Copies can never disagree with originals."
+  },
+  {
+    "id": "2.8-q10",
+    "topic": "enum safety",
+    "stem": "Enum.TryParse<Difficulty>(\"Silly\", out var d) returns:",
+    "options": ["true with d = Easy", "false", "It throws", "true with d = Silly"],
+    "answer": 1,
+    "explanation": "TryParse follows the family pattern (1.3): false for input that names no member, no exception. Enum.Parse would throw."
+  }
+]

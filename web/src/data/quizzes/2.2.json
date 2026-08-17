@@ -1,0 +1,83 @@
+[
+  {
+    "id": "2.2-q1",
+    "topic": "instantiation",
+    "stem": "What does 'new Book(\"Dune\", \"Herbert\", 412)' do?",
+    "options": ["Declares a class", "Creates an object and runs the matching constructor", "Copies an existing book", "Calls a static method"],
+    "answer": 1,
+    "explanation": "new allocates the object on the heap and runs the constructor whose parameters match, leaving the object in a valid starting state."
+  },
+  {
+    "id": "2.2-q2",
+    "topic": "constructors",
+    "stem": "What is a constructor's one job?",
+    "options": ["To print the object", "To leave the new object in a VALID state", "To free memory", "To return a value"],
+    "answer": 1,
+    "explanation": "A constructor has the class's name, no return type, and must establish everything a valid object needs - so no half-built objects exist."
+  },
+  {
+    "id": "2.2-q3",
+    "topic": "auto-properties",
+    "stem": "What does 'public string Title { get; }' mean?",
+    "options": ["Title can be changed anywhere", "Title is readable everywhere but settable only in the constructor", "Title is private", "Title is static"],
+    "answer": 1,
+    "explanation": "A get-only auto-property can be assigned in the constructor and never after - immutable from then on."
+  },
+  {
+    "id": "2.2-q4",
+    "topic": "reference semantics",
+    "stem": "What does this print?",
+    "code": "Book a = new Book(\"Dune\");\nBook b = a;\nb.Pages = 500;\nConsole.WriteLine(a.Pages);",
+    "options": ["0", "500", "412", "It will not compile"],
+    "answer": 1,
+    "explanation": "b = a copies the REFERENCE - both names point at one object, so the change shows through a. This is the single most important consequence of classes being reference types."
+  },
+  {
+    "id": "2.2-q5",
+    "topic": "constructor chaining",
+    "stem": "What does ': this(title, \"Unknown\", 0)' after a constructor signature do?",
+    "options": ["Inherits from another class", "Calls another constructor of the SAME class first", "Creates a second object", "Nothing - it is a comment"],
+    "answer": 1,
+    "explanation": "Constructor chaining: the short constructor forwards to the full one so the real initialisation logic lives in exactly one place."
+  },
+  {
+    "id": "2.2-q6",
+    "topic": "null",
+    "stem": "Book? b = null; What happens on b.Title?",
+    "options": ["Empty string", "null", "NullReferenceException", "The compiler always prevents it"],
+    "answer": 2,
+    "explanation": "A null reference points at no object, so using a member throws. b?.Title gives null instead of crashing; the ? annotation makes the compiler warn you first."
+  },
+  {
+    "id": "2.2-q7",
+    "topic": "static members",
+    "stem": "Book.Count tracks how many books were created. Why is it static?",
+    "options": ["It is faster", "It belongs to the CLASS - one counter shared by all objects", "So it is read-only", "Static means constant"],
+    "answer": 1,
+    "explanation": "Each object could not count its siblings. A static member has one value per class, reached as Book.Count, not myBook.Count."
+  },
+  {
+    "id": "2.2-q8",
+    "topic": "this",
+    "stem": "Inside a method, what does 'this' refer to?",
+    "options": ["The class definition", "The object the method was called on", "The previous object", "The Main method"],
+    "answer": 1,
+    "explanation": "this is the current instance - needed mainly when a parameter name shadows a field: this.title = title."
+  },
+  {
+    "id": "2.2-q9",
+    "topic": "default constructor",
+    "stem": "You add a constructor taking two parameters. What happens to the free parameterless one?",
+    "options": ["It remains", "It disappears - write it yourself if you still want it", "It becomes private", "It throws"],
+    "answer": 1,
+    "explanation": "C# supplies a parameterless constructor only when you define NO constructors. Define any, and the freebie is gone."
+  },
+  {
+    "id": "2.2-q10",
+    "topic": "object initialisers",
+    "stem": "What is 'new Book(\"X\") { Author = \"Me\", Pages = 100 }' doing?",
+    "options": ["Calling a three-argument constructor", "Running the constructor, then setting public properties", "Creating three objects", "Inheriting from Book"],
+    "answer": 1,
+    "explanation": "Object initialiser syntax: constructor first, then the listed property assignments - handy when most values are optional."
+  }
+]

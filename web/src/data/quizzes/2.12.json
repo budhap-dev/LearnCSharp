@@ -1,0 +1,82 @@
+[
+  {
+    "id": "2.12-q1",
+    "topic": "the five",
+    "stem": "A Team has Players who OUTLIVE the team and can join others. This is:",
+    "options": ["Composition", "Aggregation", "Inheritance", "Dependency"],
+    "answer": 1,
+    "explanation": "Aggregation: has-a where the part exists independently. The team is GIVEN players it did not create. UML: hollow diamond."
+  },
+  {
+    "id": "2.12-q2",
+    "topic": "composition",
+    "stem": "A House and its Rooms - demolish the house, the rooms are gone. This is:",
+    "options": ["Aggregation", "Composition", "Association", "Realisation"],
+    "answer": 1,
+    "explanation": "Composition: the whole OWNS the part; the part cannot outlive it. The House CREATES its rooms. UML: filled diamond on the House end."
+  },
+  {
+    "id": "2.12-q3",
+    "topic": "the code difference",
+    "stem": "In code, the composition/aggregation difference boils down to:",
+    "options": ["public vs private", "Whether the part is CREATED inside or PASSED IN", "List vs array", "Sealed vs abstract"],
+    "answer": 1,
+    "explanation": "_rooms.Add(new Room(...)) = composition. Sign(player) where the player arrived from outside = aggregation. That is the entire distinction."
+  },
+  {
+    "id": "2.12-q4",
+    "topic": "dependency",
+    "stem": "Printer.Print(Document d) uses the document and keeps no field. This weakest relationship is:",
+    "options": ["Association", "Dependency - uses-a, briefly", "Aggregation", "Inheritance"],
+    "answer": 1,
+    "explanation": "A passing acquaintance: parameter in, used, forgotten. Weakest coupling and usually the best - if a parameter will do, do not make it a field."
+  },
+  {
+    "id": "2.12-q5",
+    "topic": "arrows",
+    "stem": "In UML, a HOLLOW TRIANGLE arrowhead pointing at Animal means:",
+    "options": ["Dog uses Animal", "Dog inherits from Animal", "Animal owns Dog", "They are equal"],
+    "answer": 1,
+    "explanation": "The hollow triangle is inheritance (solid line) or interface realisation (dashed line), always pointing AT the parent/interface."
+  },
+  {
+    "id": "2.12-q6",
+    "topic": "multiplicity",
+    "stem": "Order *---- 1..* OrderLine reads as:",
+    "options": ["An order has at most one line", "An order has AT LEAST ONE line", "Lines have many orders", "Exactly one each"],
+    "answer": 1,
+    "explanation": "1..* = one or more. 0..1 = optional single. * = any number. The numbers sit at the end they describe."
+  },
+  {
+    "id": "2.12-q7",
+    "topic": "visibility marks",
+    "stem": "In a UML class box, the symbols -, +, # mean:",
+    "options": ["Minus, plus, comment", "private, public, protected", "static, virtual, abstract", "field, method, property"],
+    "answer": 1,
+    "explanation": "- private, + public, # protected; underlining marks static. The three compartments are name, attributes, operations."
+  },
+  {
+    "id": "2.12-q8",
+    "topic": "diamond placement",
+    "stem": "The diamond (filled or hollow) sits on which end of the line?",
+    "options": ["The part", "The OWNING whole", "Either", "The middle"],
+    "answer": 1,
+    "explanation": "The diamond marks the owner: House gets the filled diamond, Team the hollow one. The part end carries the multiplicity."
+  },
+  {
+    "id": "2.12-q9",
+    "topic": "choosing",
+    "stem": "Best general advice when unsure which relationship to use?",
+    "options": ["Inheritance - it is strongest", "The WEAKEST relationship that does the job - weaker is easier to change", "Association always", "Composition always"],
+    "answer": 1,
+    "explanation": "Strength ranks roughly: inheritance > composition > aggregation > association > dependency. Prefer the loosest that satisfies the need."
+  },
+  {
+    "id": "2.12-q10",
+    "topic": "bidirectional",
+    "stem": "Student knows Teacher AND Teacher lists tutees. The hazard of this bidirectional association?",
+    "options": ["It is illegal", "Setting one end and forgetting the other leaves the model inconsistent", "It is slow", "UML cannot draw it"],
+    "answer": 1,
+    "explanation": "Two ends must be kept in step (AssignTutor updates both). Prefer one-directional links where possible - fewer ways to be wrong."
+  }
+]

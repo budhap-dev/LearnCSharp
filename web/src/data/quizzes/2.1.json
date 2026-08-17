@@ -1,0 +1,82 @@
+[
+  {
+    "id": "2.1-q1",
+    "topic": "why OOP",
+    "stem": "What is the core idea of object-oriented programming?",
+    "options": ["Programs run faster", "Objects bundle data together with the rules that protect it", "Everything is a function", "No more loops"],
+    "answer": 1,
+    "explanation": "An object owns its data AND the methods that guard it - so the data cannot be put into an impossible state from outside."
+  },
+  {
+    "id": "2.1-q2",
+    "topic": "parallel arrays",
+    "stem": "Three parallel arrays (titles[], isOnLoan[], borrowers[]) share an index. What is the danger?",
+    "options": ["Arrays are slow", "Sort or edit one and the data silently corrupts - nothing keeps them in step", "They use too much memory", "Arrays cannot hold strings"],
+    "answer": 1,
+    "explanation": "Nothing enforces that index 3 in each array describes the same book. One sort, insert or typo and the data is scrambled with no error. A class keeps the facts together."
+  },
+  {
+    "id": "2.1-q3",
+    "topic": "nouns and verbs",
+    "stem": "Reading a brief, what do the NOUNS usually become?",
+    "options": ["Methods", "Candidate classes", "Variables only", "Comments"],
+    "answer": 1,
+    "explanation": "Nouns suggest classes, verbs suggest methods, adjectives and values suggest properties. It is a starting point, not a law - some nouns turn out to be properties."
+  },
+  {
+    "id": "2.1-q4",
+    "topic": "four pillars",
+    "stem": "Which is NOT one of the four pillars of OOP?",
+    "options": ["Encapsulation", "Inheritance", "Compilation", "Polymorphism"],
+    "answer": 2,
+    "explanation": "The four pillars are abstraction, encapsulation, inheritance and polymorphism. Compilation is how any C# runs, OOP or not."
+  },
+  {
+    "id": "2.1-q5",
+    "topic": "guarded state",
+    "stem": "In the LibraryBook class, why is _borrower private?",
+    "options": ["To save memory", "So nobody outside can forge or corrupt a loan - all changes go through Lend and Return", "private fields are faster", "So it can be null"],
+    "answer": 1,
+    "explanation": "The only way in is through methods that enforce the rules - a book already on loan refuses a second borrower. That is the entire point of the design."
+  },
+  {
+    "id": "2.1-q6",
+    "topic": "when not OOP",
+    "stem": "Which task LEAST needs a class?",
+    "options": ["A bank account with rules", "A 20-line script converting one file", "A game with players and enemies", "A library lending system"],
+    "answer": 1,
+    "explanation": "A short script gains ceremony and no protection from a class. OOP earns its keep when there is state with rules attached."
+  },
+  {
+    "id": "2.1-q7",
+    "topic": "smells",
+    "stem": "A class named DataManagerHelper is usually a sign of what?",
+    "options": ["Good naming", "A verb pretending to be a noun - the real object has not been found", "Too much inheritance", "A missing namespace"],
+    "answer": 1,
+    "explanation": "Manager, Helper, Processor and Data are what you name a class when you have not identified the actual thing. Look again for the real noun."
+  },
+  {
+    "id": "2.1-q8",
+    "topic": "paradigms",
+    "stem": "What kind of language is C#?",
+    "options": ["Purely object-oriented", "Purely functional", "Multi-paradigm: OO at heart, with functional and procedural styles available", "Procedural only"],
+    "answer": 2,
+    "explanation": "LINQ is functional in style, static helper classes are procedural, and classes are OO. Use whichever fits the problem."
+  },
+  {
+    "id": "2.1-q9",
+    "topic": "localised change",
+    "stem": "Fines are calculated in one Loan class. The fine rate changes. What needs editing?",
+    "options": ["Every file that mentions money", "Only Loan", "The whole program", "The database"],
+    "answer": 1,
+    "explanation": "Localising change is a core OOP payoff: one fact lives in one place, so one change touches one class."
+  },
+  {
+    "id": "2.1-q10",
+    "topic": "class vs object",
+    "stem": "What is the relationship between a class and an object?",
+    "options": ["They are synonyms", "A class is a blueprint; an object is one thing built from it", "Objects contain classes", "A class is one instance of an object"],
+    "answer": 1,
+    "explanation": "One Book class; ten thousand Book objects, each with its own title and state."
+  }
+]

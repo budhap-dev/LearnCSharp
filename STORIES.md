@@ -18,20 +18,19 @@ Legend: ✅ done · 🟡 partly done · ⬜ not started. Each story below carrie
 | Area | State |
 |---|---|
 | **Deployed site** | ✅ live on Azure Static Web Apps (Free), CI-gated deploys on every merge to `main` |
-| **Lesson code** | ✅ 57 / 62 compile and run (Module 6's five remain unwritten) |
-| **Theory notes** | ✅ **57 / 57 written lessons have full notes** — Modules 1–5 and 7 complete |
+| **Lesson code** | ✅ **62 / 62 compile and run** — the course C# is complete |
+| **Theory notes** | ✅ **62 / 62 lessons have full notes** — every module complete |
 | **Verified output pipeline** | ✅ capture → JSON → site, regenerated every build; a failing lesson fails the build |
 | **Summaries & objectives** | ✅ all 57 lessons self-describing on cards, syllabus and lesson pages |
 | **Site features** | ✅ home, accordion syllabus with deep links, lesson pages, prev/next, 6-theme picker, mobile pass |
 | **Diagrams** | 🟡 13 of ~110 (the most spatial concepts), themed SVG |
-| **Quizzes** | 🟡 the player works; **only 10 questions exist (lesson 1.4)** of the 620 planned |
+| **Quizzes** | 🟡 player works; **260 / 620 questions** — Modules 1 and 2 fully covered |
 | **Progress** | 🟡 localStorage store + per-module bars; no dashboard, export UI, streaks or revision |
-| **Module 6 (Production C#)** | ⬜ the five lessons — the only C# left to write |
+| **Module 6 (Production C#)** | ✅ written — threading, performance, security, serialization, DI |
 | **Worksheets, reference, search, pathways, module tests, topic exams** | ⬜ not started |
 
-**The biggest gap between promise and product is the question bank** (E4/US-406): the product
-story is "never more than one screen of theory before something to do", and 56 of 57 lessons
-currently end without a quiz.
+**Current biggest gaps:** questions for Modules 3–7 (360 remaining), the richer question
+types and module tests/exams (US-403/405/407), and the diagram set (13 of ~110).
 
 ---
 
@@ -950,13 +949,13 @@ Already written and verified in the console project — this is the raw material
 | 3 | Collections, generics, LINQ | 7 | ✅ 7 notes · 7 code | 70 | 25 |
 | 4 | Advanced C# | 11 | ✅ 11 notes · 11 code | 110 | 30 |
 | 5 | Data structures & algorithms | 9 | ✅ 9 notes · 9 code | 90 | 30 |
-| 6 | **Production C#** | **5** | ⬜ 0 notes · **0 code — to write** | 50 | 20 |
+| 6 | **Production C#** | **5** | ✅ 5 notes · 5 code | 50 | 20 |
 | 7 | Mini projects | 4 | ✅ 4 notes · 4 code | 40 | 15 |
-| | **Total** | **62** | **57 / 62 notes · 57 / 62 code** | **620** | **190** |
+| | **Total** | **62** | **✅ 62 / 62 notes · 62 / 62 code** | **620** | **190** |
 
-**Every written lesson now has both code and notes** — 57 of 62, verified by
-`dotnet run -- all` on every CI run. Module 6 (code + notes) is all that remains of the
-lesson content. The outstanding bulk is **questions (610 of 620)** and **diagrams (~97)**.
+**The lesson content is complete**: 62 lessons, all with code and notes, verified by
+`dotnet run -- all` on every CI run. The outstanding bulk is **questions (360 of 620
+remain: Modules 3–7)** and **diagrams (~97)**.
 
 ---
 
@@ -1034,10 +1033,9 @@ exercises with model answers · read end-to-end for tone and reading age.
 
 1. ~~Sign off this plan~~ · ~~scaffold `web/`~~ · ~~output capture~~ · ~~ship 1.4 end to end~~ ·
    ~~write all Module 1–5 and 7 notes~~ · ~~deploy to Azure Free~~ — **done, live**.
-2. **Question bank for Module 1** (~110 questions, US-406) — closes M1 and unlocks testing with
-   a real student. *← current task*
-3. Question bank for Modules 2–5 and 7.
-4. Write the five Module 6 lessons — code first, then notes (US-204).
+2. ~~Question bank for Modules 1 and 2~~ — **done: 260 questions**.
+3. Question bank for Modules 3–7 (~360 questions). *← current task*
+4. ~~Write the five Module 6 lessons~~ — **done, all 62 compile**.
 5. Remaining question types beyond multiple-choice (US-403), then module tests (US-405) and
    **topic exams with marks and graded sets (US-407)** — the bank from steps 2–3 feeds both.
 6. Progress dashboard + export UI (US-602, US-603).

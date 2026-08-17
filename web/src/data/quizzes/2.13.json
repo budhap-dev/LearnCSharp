@@ -1,0 +1,82 @@
+[
+  {
+    "id": "2.13-q1",
+    "topic": "coupling and cohesion",
+    "stem": "The goal for a healthy codebase is:",
+    "options": ["High coupling, high cohesion", "Low coupling, HIGH cohesion", "Low both", "High coupling, low cohesion"],
+    "answer": 1,
+    "explanation": "Classes should depend on each other lightly (low coupling) and each be sharply focused (high cohesion). Every SOLID principle is a technique for this."
+  },
+  {
+    "id": "2.13-q2",
+    "topic": "S",
+    "stem": "Single Responsibility is best tested by asking:",
+    "options": ["Is it under 100 lines?", "WHO would ask for this class to change? More than one answer = split it", "Does it compile?", "Is it public?"],
+    "answer": 1,
+    "explanation": "One reason to change. A Report that generates AND saves AND emails answers to three different stakeholders - three classes."
+  },
+  {
+    "id": "2.13-q3",
+    "topic": "O",
+    "stem": "Open/Closed means:",
+    "options": ["Files open and close properly", "Open to EXTENSION, closed to MODIFICATION - add a new case without editing existing code", "Classes must be sealed", "APIs stay open"],
+    "answer": 1,
+    "explanation": "The shapes example: adding Pentagon means one new class, zero edits, zero risk to what already worked - polymorphism (2.6) doing design work."
+  },
+  {
+    "id": "2.13-q4",
+    "topic": "L",
+    "stem": "Square : Rectangle breaks Liskov because:",
+    "options": ["Squares are not shapes", "Setting Width on what is 'really' a Square also changes Height - the parent's promise (independent sides) is broken", "Rectangles are sealed", "It is slower"],
+    "answer": 1,
+    "explanation": "A subclass must work anywhere its parent does, without surprises. Callers expecting area 20 get 16. Fix: siblings implementing one interface."
+  },
+  {
+    "id": "2.13-q5",
+    "topic": "L symptoms",
+    "stem": "Which is a classic Liskov-violation smell in a subclass?",
+    "options": ["Overriding ToString", "Throwing NotSupportedException from an inherited method", "Having extra methods", "Being sealed"],
+    "answer": 1,
+    "explanation": "Also: silently ignoring a setter, or forcing callers to type-check first. Each means the child cannot honour the parent's contract."
+  },
+  {
+    "id": "2.13-q6",
+    "topic": "I",
+    "stem": "IMachine { Print(); Scan(); Fax(); } forces an old printer to stub Scan and Fax. The fix?",
+    "options": ["Throw from them", "Split into IPrinter, IScanner - small interfaces; implement only what you can do", "Make them virtual", "Use abstract class"],
+    "answer": 1,
+    "explanation": "Interface segregation: no class should implement members it has no use for. AllInOne implements both; SimplePrinter implements one."
+  },
+  {
+    "id": "2.13-q7",
+    "topic": "D",
+    "stem": "Dependency inversion says a class should depend on:",
+    "options": ["Its subclasses", "Abstractions (interfaces), with concretions injected from outside", "Static helpers", "The framework"],
+    "answer": 1,
+    "explanation": "AlertService takes IMessageSender - so production injects SMTP, tests inject a RecordingSender, and the service never changes. This is what makes code testable."
+  },
+  {
+    "id": "2.13-q8",
+    "topic": "DRY",
+    "stem": "DRY is about repeated ____, not repeated ____:",
+    "options": ["lines / files", "KNOWLEDGE / characters", "methods / classes", "code / comments"],
+    "answer": 1,
+    "explanation": "Two identical lines that would change for DIFFERENT reasons are not duplication - merging them couples unrelated things. One fact, one place."
+  },
+  {
+    "id": "2.13-q9",
+    "topic": "Law of Demeter",
+    "stem": "order.Customer.Address.Postcode.Trim() violates the Law of Demeter because:",
+    "options": ["It is long", "The caller knows FOUR levels of someone else's structure - any change breaks it", "Trim is slow", "Postcodes are private"],
+    "answer": 1,
+    "explanation": "Talk to your friends, not your friends' friends: order.CustomerPostcode() hides the structure behind one intention."
+  },
+  {
+    "id": "2.13-q10",
+    "topic": "proportion",
+    "stem": "When should you APPLY a SOLID principle?",
+    "options": ["Everywhere, always, maximally", "When you feel the pain it removes - duplicated changes, untestable code, switch-editing", "Never in small projects", "Only in reviews"],
+    "answer": 1,
+    "explanation": "Heuristics, not laws. Nine classes and four interfaces for a 20-line program is worse, not better. Principles answer pains; no pain, no prescription."
+  }
+]

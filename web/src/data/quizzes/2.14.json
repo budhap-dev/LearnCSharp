@@ -1,0 +1,82 @@
+[
+  {
+    "id": "2.14-q1",
+    "topic": "what patterns are",
+    "stem": "The primary benefit of design patterns is:",
+    "options": ["Free code to paste", "A shared VOCABULARY - 'use a factory here' replaces a paragraph", "Faster programs", "Fewer classes"],
+    "answer": 1,
+    "explanation": "A pattern is a named, proven solution to a recurring problem. The name is the point: designers can discuss structure in single words."
+  },
+  {
+    "id": "2.14-q2",
+    "topic": "strategy",
+    "stem": "Basket.Checkout(IDiscount discount) with NoDiscount / PercentageDiscount / StudentDiscount is which pattern?",
+    "options": ["Factory", "Strategy - swap the algorithm at run time", "Singleton", "Adapter"],
+    "answer": 1,
+    "explanation": "Interchangeable behaviours behind one interface. You have used it all course: List.Sort(comparison) and Where(predicate) are Strategy."
+  },
+  {
+    "id": "2.14-q3",
+    "topic": "factory",
+    "stem": "EnemyFactory.Create(\"dragon\") centralises what?",
+    "options": ["Rendering", "HOW enemies are constructed - one place to change or extend creation", "Enemy AI", "Memory management"],
+    "answer": 1,
+    "explanation": "Game code never says new Dragon(). Change how dragons are built, or add a Lich, and only the factory is touched."
+  },
+  {
+    "id": "2.14-q4",
+    "topic": "observer",
+    "stem": "Which C# language feature IS the Observer pattern built in?",
+    "options": ["interface", "event (4.3)", "abstract", "using"],
+    "answer": 1,
+    "explanation": "Publisher announces, subscribers react, neither knows the other - += / -= and ?.Invoke are Observer with language support."
+  },
+  {
+    "id": "2.14-q5",
+    "topic": "singleton warning",
+    "stem": "Why is Singleton 'the most over-used pattern'?",
+    "options": ["It is slow", "It is GLOBAL STATE in disguise: hard to test, hides dependencies, threading hazards", "It needs too many classes", "It is old"],
+    "answer": 1,
+    "explanation": "Almost always you actually want ONE instance created at startup and INJECTED (2.13 D) - visible, swappable, testable. Recognise Singleton; use it rarely."
+  },
+  {
+    "id": "2.14-q6",
+    "topic": "repository",
+    "stem": "IBookRepository with InMemory / Sql / Json implementations hides what from callers?",
+    "options": ["Book titles", "WHERE the data lives - storage is swappable without touching business code", "Validation", "Networking"],
+    "answer": 1,
+    "explanation": "Repository is Strategy applied to storage. Project 7.4's ITodoStore is exactly this - and its in-memory fake is the testing payoff."
+  },
+  {
+    "id": "2.14-q7",
+    "topic": "adapter",
+    "stem": "When do you reach for an Adapter?",
+    "options": ["To speed up a class", "When you CANNOT CHANGE the other class - a package, a legacy API - and must fit it to your interface", "To add caching", "To create objects"],
+    "answer": 1,
+    "explanation": "The adapter translates your interface into calls on the incompatible thing: LegacyLoggerAdapter turns ILogTarget.Write into legacy.WriteEntry(1, ...)."
+  },
+  {
+    "id": "2.14-q8",
+    "topic": "decorator",
+    "stem": "new WithSyrup(new WithMilk(new SimpleCoffee())) beats subclassing because:",
+    "options": ["It is shorter", "Every COMBINATION would need its own subclass; wrapping composes any mix at run time", "Constructors are faster", "It avoids interfaces"],
+    "answer": 1,
+    "explanation": "MilkSyrupExtraShotCoffee, SyrupOnlyCoffee... the class count explodes. Decorators stack. .NET streams work this way: new GZipStream(new FileStream(...))."
+  },
+  {
+    "id": "2.14-q9",
+    "topic": "already used",
+    "stem": "foreach over IEnumerable is which classic pattern, built into the language?",
+    "options": ["Command", "Iterator", "Facade", "Proxy"],
+    "answer": 1,
+    "explanation": "Iterator: sequential access without exposing the underlying structure. Also built-in: events=Observer, delegates-as-parameters=Strategy, streams=Decorator."
+  },
+  {
+    "id": "2.14-q10",
+    "topic": "the health warning",
+    "stem": "The right time to introduce a pattern is:",
+    "options": ["At project start, everywhere", "When the SIMPLE version starts to hurt - patterns answer problems you HAVE", "Whenever you recognise one", "In code review"],
+    "answer": 1,
+    "explanation": "Forcing five patterns into a small program makes it harder to read, not easier. Write the simple version first; reach for the pattern when its pain appears."
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "2.5-q1",
+    "topic": "is-a",
+    "stem": "When is inheritance the right relationship?",
+    "options": ["Whenever two classes share code", "When the child genuinely IS A kind of the parent", "When classes are in the same file", "Always"],
+    "answer": 1,
+    "explanation": "A Dog IS AN Animal - inheritance. A Car HAS AN Engine - composition. Inheriting merely to reuse code creates tight coupling you will regret."
+  },
+  {
+    "id": "2.5-q2",
+    "topic": "constructor order",
+    "stem": "When you construct a Dog : Animal, which constructor body runs FIRST?",
+    "options": ["Dog's", "Animal's", "They run together", "Neither - constructors are optional"],
+    "answer": 1,
+    "explanation": "Base first: the parent must be fully built before the child adds to it. ': base(name, age)' passes the arguments up."
+  },
+  {
+    "id": "2.5-q3",
+    "topic": "inherited members",
+    "stem": "Dog defines no Describe method, yet rex.Describe() works. Why?",
+    "options": ["C# guesses", "Describe was inherited from Animal", "Describe is static", "It does not work"],
+    "answer": 1,
+    "explanation": "A derived class gets every public and protected member of its base. That reuse is half the point of inheritance."
+  },
+  {
+    "id": "2.5-q4",
+    "topic": "upcast/downcast",
+    "stem": "Animal a = rex; is always safe, but Dog d = (Dog)someAnimal; can throw. Why?",
+    "options": ["Casting is random", "Every Dog IS an Animal, but not every Animal is a Dog", "Animals are sealed", "Dogs are structs"],
+    "answer": 1,
+    "explanation": "Up the hierarchy is guaranteed; down is a claim that might be false - InvalidCastException when it is. Check with 'is' or 'as' instead."
+  },
+  {
+    "id": "2.5-q5",
+    "topic": "safe downcast",
+    "stem": "What is the best way to get a Dog back from an Animal variable?",
+    "options": ["(Dog)animal and hope", "if (animal is Dog dog) { dog.Fetch(); }", "animal.ToDog()", "new Dog(animal)"],
+    "answer": 1,
+    "explanation": "The pattern form tests AND captures in one step: no exception possible, and dog is typed inside the block."
+  },
+  {
+    "id": "2.5-q6",
+    "topic": "sealed",
+    "stem": "public sealed class Puppy : Dog - what does sealed do?",
+    "options": ["Makes Puppy immutable", "Nothing may inherit from Puppy", "Puppy cannot be instantiated", "Hides Puppy from other files"],
+    "answer": 1,
+    "explanation": "sealed ends the hierarchy - no surprises from further subclassing, and the compiler can optimise. string is sealed, which is why extension methods exist."
+  },
+  {
+    "id": "2.5-q7",
+    "topic": "single inheritance",
+    "stem": "How many BASE CLASSES may a C# class have?",
+    "options": ["As many as it likes", "Exactly one", "Two", "None"],
+    "answer": 1,
+    "explanation": "Single inheritance avoids the diamond problem. To combine capabilities, implement multiple interfaces (2.7) or compose (2.11)."
+  },
+  {
+    "id": "2.5-q8",
+    "topic": "object root",
+    "stem": "typeof(Animal).BaseType is what, if Animal declares no base?",
+    "options": ["null", "Animal", "object", "System.Type"],
+    "answer": 2,
+    "explanation": "Everything ultimately derives from object - which is why every value has ToString, Equals and GetHashCode (2.10)."
+  },
+  {
+    "id": "2.5-q9",
+    "topic": "protected in action",
+    "stem": "Dog.Fetch() can decrement Animal's _energy field because _energy is:",
+    "options": ["public", "private", "protected", "static"],
+    "answer": 2,
+    "explanation": "protected: invisible to outside code, available to subclasses. Private would block even Dog; public would let anyone drain the energy."
+  },
+  {
+    "id": "2.5-q10",
+    "topic": "as operator",
+    "stem": "Cat c = ...; Dog? d = c as Dog; What is d?",
+    "options": ["A Dog", "null", "It throws InvalidCastException", "A Cat"],
+    "answer": 1,
+    "explanation": "'as' returns null instead of throwing when the cast fails. A Cat is not a Dog, so d is null - check before using it."
+  }
+]

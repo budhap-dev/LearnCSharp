@@ -1,0 +1,82 @@
+[
+  {
+    "id": "2.10-q1",
+    "topic": "default ToString",
+    "stem": "Without overriding ToString, printing an object gives you:",
+    "options": ["Its field values", "The type's full name - useless in logs and debuggers", "An empty string", "A hash code"],
+    "answer": 1,
+    "explanation": "MyApp.Vector tells you nothing. One override - $\"({X}, {Y})\" - and printing, logging and interpolation all improve at once."
+  },
+  {
+    "id": "2.10-q2",
+    "topic": "the contract",
+    "stem": "The rule binding Equals and GetHashCode is:",
+    "options": ["They must be private together", "If a.Equals(b), then a.GetHashCode() == b.GetHashCode() MUST hold", "Hash codes must be unique", "Equals must be static"],
+    "answer": 1,
+    "explanation": "Dictionaries find the bucket by hash FIRST, then check Equals within it. Equal objects with different hashes land in different buckets and never meet."
+  },
+  {
+    "id": "2.10-q3",
+    "topic": "the symptom",
+    "stem": "You override Equals but not GetHashCode. What goes wrong?",
+    "options": ["Compile error", "HashSet and Dictionary silently mishandle your objects - duplicates survive, lookups miss", "Equals stops working", "Nothing"],
+    "answer": 1,
+    "explanation": "The compiler warns; the runtime does not. Two 'equal' vectors hash to different buckets, so a HashSet happily keeps both. Always override the pair."
+  },
+  {
+    "id": "2.10-q4",
+    "topic": "HashCode.Combine",
+    "stem": "The recommended way to build a hash from several fields is:",
+    "options": ["X + Y", "X * Y", "HashCode.Combine(X, Y)", "X.ToString().Length"],
+    "answer": 2,
+    "explanation": "HashCode.Combine mixes fields properly (X + Y would collide for (1,2) and (2,1)). One line, correct distribution."
+  },
+  {
+    "id": "2.10-q5",
+    "topic": "operator pairs",
+    "stem": "You overload operator ==. What else MUST you provide?",
+    "options": ["operator +", "operator != - they come in required pairs", "A constructor", "IComparable"],
+    "answer": 1,
+    "explanation": "== with !=, < with >, <= with >= - C# enforces the pairs so the operators can never disagree by omission."
+  },
+  {
+    "id": "2.10-q6",
+    "topic": "implicit vs explicit",
+    "stem": "When should a conversion operator be implicit rather than explicit?",
+    "options": ["Always - it is convenient", "Only when the conversion cannot fail and loses nothing", "Never", "When it is fast"],
+    "answer": 1,
+    "explanation": "The rule mirrors the built-ins (1.10): widening is silent, narrowing demands a visible cast. An implicit conversion that can lose data hides bugs."
+  },
+  {
+    "id": "2.10-q7",
+    "topic": "when to overload",
+    "stem": "Which operator overload is a GOOD idea?",
+    "options": ["+ on two Vectors", "+ on two Customers", "* on two Invoices", "- on two Emails"],
+    "answer": 0,
+    "explanation": "Overload only when the meaning is obvious - vector addition is maths. 'customer1 + customer2' is a riddle; write a named method."
+  },
+  {
+    "id": "2.10-q8",
+    "topic": "Equals shape",
+    "stem": "public override bool Equals(object? obj) => obj is Vector other && ...; What does the pattern handle?",
+    "options": ["Nothing extra", "Null AND wrong-type in one step, giving a typed 'other'", "Only null", "Boxing"],
+    "answer": 1,
+    "explanation": "obj is Vector other is false for null and for non-Vectors, and captures a typed variable when it matches - the whole preamble in one expression."
+  },
+  {
+    "id": "2.10-q9",
+    "topic": "mutable hash fields",
+    "stem": "Building GetHashCode from a MUTABLE property risks:",
+    "options": ["Slow hashing", "The object getting lost in a dictionary when the property changes (5.9)", "Stack overflow", "Nothing"],
+    "answer": 1,
+    "explanation": "Change the field, change the hash - but the dictionary filed it under the OLD hash. The entry exists in a bucket nobody will search. Hash from immutable state."
+  },
+  {
+    "id": "2.10-q10",
+    "topic": "records connection",
+    "stem": "How does all of this relate to records (2.9)?",
+    "options": ["Records cannot override these", "Records GENERATE correct ToString, Equals, GetHashCode and operators - this lesson is what they automate", "Records use reference equality", "No relation"],
+    "answer": 1,
+    "explanation": "Everything on this page is hand-writing what a record generates - which is why records are the default for value-like data, and why you learn the manual version."
+  }
+]

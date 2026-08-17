@@ -1,0 +1,83 @@
+[
+  {
+    "id": "2.4-q1",
+    "topic": "public fields",
+    "stem": "Why is 'public decimal Balance;' as a field dangerous?",
+    "options": ["Fields are slow", "Any code can set it to anything - like -5000 - with no rule able to object", "decimal cannot be public", "It uses more memory"],
+    "answer": 1,
+    "explanation": "A public field means the object cannot protect its own correctness. Keep state private and force every change through a method that checks."
+  },
+  {
+    "id": "2.4-q2",
+    "topic": "properties",
+    "stem": "In a property setter, what is 'value'?",
+    "code": "public int Health\n{\n    get => _health;\n    set => _health = Math.Clamp(value, 0, 100);\n}",
+    "options": ["A reserved variable holding whatever was assigned", "The old value", "Always zero", "A method"],
+    "answer": 0,
+    "explanation": "value is the incoming assignment: player.Health = 150 runs the setter with value = 150, and the clamp stores 100."
+  },
+  {
+    "id": "2.4-q3",
+    "topic": "computed properties",
+    "stem": "public bool IsOverdrawn => _balance < 0;  How much storage does IsOverdrawn use?",
+    "options": ["One bool", "Four bytes", "None - it is computed on demand from _balance", "One byte per object"],
+    "answer": 2,
+    "explanation": "An expression-bodied property stores nothing; it evaluates when read. No stored copy means it can never disagree with _balance."
+  },
+  {
+    "id": "2.4-q4",
+    "topic": "access modifiers",
+    "stem": "What is the default access level for a class MEMBER you write with no modifier?",
+    "options": ["public", "private", "protected", "internal"],
+    "answer": 1,
+    "explanation": "Members default to private - the safe direction. (Top-level classes default to internal.) Widen only when something genuinely needs it."
+  },
+  {
+    "id": "2.4-q5",
+    "topic": "throw vs return",
+    "stem": "Deposit(-10) throws but Withdraw(9999) returns false. Why the difference?",
+    "options": ["Inconsistent design", "A negative deposit is a caller BUG; insufficient funds is a normal expected outcome", "Withdraw cannot throw", "Deposits are more important"],
+    "answer": 1,
+    "explanation": "Throw when the caller broke the contract; return false when failure is ordinary business. Choosing correctly is a real design skill (4.7 formalises it)."
+  },
+  {
+    "id": "2.4-q6",
+    "topic": "private set",
+    "stem": "public decimal Balance { get; private set; } means:",
+    "options": ["Nobody can read Balance", "Anyone reads; only code inside the class writes", "Only the constructor reads it", "Balance is constant"],
+    "answer": 1,
+    "explanation": "Asymmetric access: the world can see the balance, but only Deposit/Withdraw - which enforce the rules - can change it."
+  },
+  {
+    "id": "2.4-q7",
+    "topic": "read-only collections",
+    "stem": "Why expose IReadOnlyList<string> instead of the private List<string> itself?",
+    "options": ["It is faster", "Callers could Add/Remove behind your back through the List reference", "Lists cannot be public", "IReadOnlyList uses less memory"],
+    "answer": 1,
+    "explanation": "Returning the List hands out a reference to your internal state - outsiders can mutate it, dodging every rule. The read-only view lets them look but not touch."
+  },
+  {
+    "id": "2.4-q8",
+    "topic": "init",
+    "stem": "public int Port { get; init; } allows Port to be set:",
+    "options": ["Anywhere, any time", "Only during object construction (constructor or initialiser), then frozen", "Only by subclasses", "Never"],
+    "answer": 1,
+    "explanation": "init-only: assignable while the object is being built - including object-initialiser syntax - and immutable afterwards."
+  },
+  {
+    "id": "2.4-q9",
+    "topic": "protected",
+    "stem": "A protected member is visible to:",
+    "options": ["Everyone", "The class itself and anything that inherits from it", "Only the same file", "The same namespace"],
+    "answer": 1,
+    "explanation": "protected sits between private and public: hidden from outsiders, shared with children - the modifier inheritance (2.5) exists for."
+  },
+  {
+    "id": "2.4-q10",
+    "topic": "property vs method",
+    "stem": "Which should be a METHOD rather than a property?",
+    "options": ["Balance", "IsOverdrawn", "RecalculateInterestAndPost() - it does work and could fail", "Owner"],
+    "answer": 2,
+    "explanation": "Properties should feel like data: cheap, no side effects. Anything that does significant work, takes arguments or can fail reads more honestly as a method."
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "2.3-q1",
+    "topic": "definition",
+    "stem": "Abstraction means:",
+    "options": ["Making code abstract art", "Exposing WHAT something does while hiding HOW", "Using only abstract classes", "Removing all methods"],
+    "answer": 1,
+    "explanation": "car.Start() exposes an intention; the fuel pump, starter motor and ignition stay hidden. Choosing that simple view is abstraction."
+  },
+  {
+    "id": "2.3-q2",
+    "topic": "vs encapsulation",
+    "stem": "Abstraction vs encapsulation - which is right?",
+    "options": ["They are identical", "Abstraction chooses the simple view; encapsulation enforces it with private fields and methods", "Encapsulation is about design; abstraction is about fields", "Neither involves hiding"],
+    "answer": 1,
+    "explanation": "Abstraction is the DESIGN idea (what to expose); encapsulation is the MECHANISM (private state, guarded access). One chooses, the other enforces."
+  },
+  {
+    "id": "2.3-q3",
+    "topic": "abstract classes",
+    "stem": "Why can you not write 'new PaymentMethod()' when PaymentMethod is abstract?",
+    "options": ["It is sealed", "Its abstract members have no bodies - there is nothing to run", "It has no constructor", "abstract classes are static"],
+    "answer": 1,
+    "explanation": "An abstract class is a partly-finished blueprint. Only concrete subclasses that supply the missing bodies can be instantiated."
+  },
+  {
+    "id": "2.3-q4",
+    "topic": "abstract members",
+    "stem": "public abstract string Pay(decimal amount); - what does this force?",
+    "options": ["Nothing", "Every concrete subclass MUST provide its own Pay body", "Pay cannot be called", "Pay is optional"],
+    "answer": 1,
+    "explanation": "abstract = declared with no body. Each concrete child must override it - the base defines WHAT, each child defines HOW."
+  },
+  {
+    "id": "2.3-q5",
+    "topic": "levels",
+    "stem": "player.Attack(goblin) sits above sprite.Animate() sits above DrawTriangle(). What is this an example of?",
+    "options": ["Inheritance", "Layers of abstraction - each offers a simpler view of the one below", "Recursion", "Polymorphism"],
+    "answer": 1,
+    "explanation": "Layered abstraction is how something as complex as a computer stays comprehensible: each level ignores the details of the one beneath."
+  },
+  {
+    "id": "2.3-q6",
+    "topic": "leaky abstractions",
+    "stem": "list.Sort() hides the algorithm - until 10 million items make you care. This is called:",
+    "options": ["A bug", "A leaky abstraction", "Encapsulation failure", "Overloading"],
+    "answer": 1,
+    "explanation": "An abstraction leaks when the hidden details start to matter anyway. None are perfect; good ones are right almost all the time."
+  },
+  {
+    "id": "2.3-q7",
+    "topic": "right level",
+    "stem": "Which public surface shows the RIGHT level of abstraction?",
+    "options": ["engine.PrimeFuelPump(); engine.EngageStarter(); engine.Ignite();", "car.DoThing(\"start\");", "car.Start();", "car.Voltage = 12.6;"],
+    "answer": 2,
+    "explanation": "One clear intention. The first makes the caller do the engine's job; the second says too little; the last exposes internals."
+  },
+  {
+    "id": "2.3-q8",
+    "topic": "abstract vs virtual",
+    "stem": "In an abstract class, what is the difference between an abstract method and a virtual one?",
+    "options": ["None", "abstract has no body and MUST be overridden; virtual has a default that MAY be replaced", "virtual has no body", "abstract methods are private"],
+    "answer": 1,
+    "explanation": "abstract = pure requirement. virtual = default offered. A class mixing both defines what every child does, sharing code where it can."
+  },
+  {
+    "id": "2.3-q9",
+    "topic": "shared code",
+    "stem": "PaymentMethod has a normal Receipt() method with a body. What do subclasses get?",
+    "options": ["A compile error", "Receipt() inherited free - written once, shared by all", "They must override it", "Nothing"],
+    "answer": 1,
+    "explanation": "Non-abstract members of an abstract class are ordinary inherited code - the 'some what, some how' that distinguishes abstract classes from interfaces."
+  },
+  {
+    "id": "2.3-q10",
+    "topic": "everyday abstraction",
+    "stem": "Console.WriteLine is an abstraction because:",
+    "options": ["It is in the System namespace", "You print text with no idea how it reaches the screen", "It is static", "It takes a string"],
+    "answer": 1,
+    "explanation": "You rely on the WHAT (text appears) with the HOW (buffers, OS calls, rendering) fully hidden - abstraction you have used since lesson 1.1."
+  }
+]
