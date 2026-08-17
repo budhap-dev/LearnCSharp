@@ -420,3 +420,24 @@ button:disabled { cursor: default; }
   .theme-button { padding: 0.35rem 0.5rem; }
   .theme-button > :not(.swatch) { display: none; }   /* icon-only on phones */
 }
+
+/* ---- lesson diagrams ---- */
+
+.diagram {
+  margin: 1.5rem 0 2rem;
+}
+.diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+.diagram figcaption {
+  margin-top: 0.5rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+}
