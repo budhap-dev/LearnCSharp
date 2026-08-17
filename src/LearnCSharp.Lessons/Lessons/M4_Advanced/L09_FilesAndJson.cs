@@ -9,6 +9,17 @@ public sealed class L09_FilesAndJson : LessonBase
     public override string Id => "4.9";
     public override string Title => "Files, directories and JSON";
 
+    public override string Summary =>
+        "Reading and writing files safely, and turning objects into JSON and back again - the "
+        + "basis of saving anything at all.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Build file paths portably and handle missing files",
+        "Choose between reading a file at once and streaming it",
+        "Serialise and deserialise objects with JSON",
+    ];
+
     public override void Run()
     {
         // Everything happens in a temporary folder that is deleted at the end,

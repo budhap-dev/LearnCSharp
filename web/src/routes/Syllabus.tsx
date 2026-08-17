@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MODULE_NAMES, lessonsIn, modulesOf } from '../lib/lessons';
+import { MODULE_INFO, lessonsIn, modulesOf } from '../lib/lessons';
 import { useSyllabus } from '../lib/useSyllabus';
 import { read } from '../lib/progress';
 
@@ -26,8 +26,9 @@ export function Syllabus() {
       {modules.map((m) => (
         <section key={m} className="module-block">
           <h2>
-            <span className="num">{m}</span> {MODULE_NAMES[m]}
+            <span className="num">{m}</span> {MODULE_INFO[m]?.name}
           </h2>
+          <p className="blurb">{MODULE_INFO[m]?.blurb}</p>
           <ol className="lesson-list">
             {lessonsIn(syllabus, m).map((l) => {
               const state = progress.lessons[l.id];
@@ -35,7 +36,10 @@ export function Syllabus() {
                 <li key={l.id}>
                   <Link to={`/lesson/${l.id}`}>
                     <span className="lid">{l.id}</span>
-                    <span className="ltitle">{l.title}</span>
+                    <span className="ltitle">
+                      <strong>{l.title}</strong>
+                      <span className="lsummary">{l.summary}</span>
+                    </span>
                     {state && <span className={`badge ${state}`}>{LABEL[state] ?? state}</span>}
                   </Link>
                 </li>

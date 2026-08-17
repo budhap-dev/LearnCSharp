@@ -8,6 +8,17 @@ public sealed class L08_DisposableAndMemory : LessonBase
     public override string Id => "4.8";
     public override string Title => "IDisposable, using, and how memory is managed";
 
+    public override string Summary =>
+        "The garbage collector frees memory, but it will not close a file handle or a socket. "
+        + "IDisposable and using are how you release those.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Explain the stack, the heap and GC generations",
+        "Implement IDisposable and use using",
+        "Identify the common memory leaks in managed code",
+    ];
+
     public override void Run()
     {
         Section("Stack and heap");

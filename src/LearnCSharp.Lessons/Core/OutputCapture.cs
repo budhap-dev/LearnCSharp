@@ -61,6 +61,8 @@ public static partial class OutputCapture
                 captured[lesson.Id] = new CapturedLesson(
                     lesson.Id,
                     lesson.Title,
+                    lesson.Summary,
+                    lesson.Objectives,
                     lesson.Doc,
                     text.TrimEnd(),
                     SplitIntoSections(text),
@@ -88,6 +90,8 @@ public static partial class OutputCapture
             .Select(l => new SyllabusEntry(
                 l.Id,
                 l.Title,
+                l.Summary,
+                l.Objectives,
                 int.Parse(l.Id.Split('.')[0]),
                 l.Doc,
                 l.Sections.Keys.ToList()))
@@ -132,11 +136,20 @@ public static partial class OutputCapture
         return sections;
     }
 
-    private record SyllabusEntry(string Id, string Title, int Module, string Doc, List<string> Sections);
+    private record SyllabusEntry(
+        string Id,
+        string Title,
+        string Summary,
+        IReadOnlyList<string> Objectives,
+        int Module,
+        string Doc,
+        List<string> Sections);
 
     private record CapturedLesson(
         string Id,
         string Title,
+        string Summary,
+        IReadOnlyList<string> Objectives,
         string Doc,
         string FullOutput,
         Dictionary<string, string> Sections,

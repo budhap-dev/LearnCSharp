@@ -8,6 +8,17 @@ public sealed class L05_LinkedLists : LessonBase
     public override string Id => "5.5";
     public override string Title => "Linked lists, built from scratch";
 
+    public override string Summary =>
+        "Nodes joined by pointers, built here from scratch. Cheap inserts, no indexing - and "
+        + "the structure that trees are built from.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Implement a singly and a doubly linked list",
+        "Reverse a linked list in a single pass",
+        "Compare linked lists with arrays operation by operation",
+    ];
+
     public override void Run()
     {
         Section("The idea");

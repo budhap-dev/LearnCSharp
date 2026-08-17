@@ -8,6 +8,17 @@ public sealed class L07_Trees : LessonBase
     public override string Id => "5.7";
     public override string Title => "Binary search trees and traversals";
 
+    public override string Summary =>
+        "A binary search tree keeps everything in order, giving O(log n) search - right up "
+        + "until unbalanced input quietly turns it back into a linked list.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Insert, search and delete in a binary search tree",
+        "Implement the four traversals and know what each is for",
+        "Explain why balance matters so much",
+    ];
+
     public override void Run()
     {
         Section("Tree vocabulary");

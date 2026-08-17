@@ -8,6 +8,17 @@ public sealed class L03_TextAdventure : LessonBase
     public override string Id => "7.3";
     public override string Title => "Project: text adventure (inheritance and interfaces)";
 
+    public override string Summary =>
+        "Interfaces, inheritance, events and a graph, combined into a playable game whose map "
+        + "can be solved automatically by breadth-first search.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Use interfaces to give unrelated types a shared capability",
+        "Model a world as a graph and search it",
+        "Drive commands from a table of delegates",
+    ];
+
     public override void Run()
     {
         Section("What this project uses");

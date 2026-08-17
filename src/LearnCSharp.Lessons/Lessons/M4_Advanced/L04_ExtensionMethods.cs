@@ -8,6 +8,17 @@ public sealed class L04_ExtensionMethods : LessonBase
     public override string Id => "4.4";
     public override string Title => "Extension methods: adding methods to types you do not own";
 
+    public override string Summary =>
+        "Add methods to types you do not own, including sealed framework types such as "
+        + "string. This is exactly how LINQ is built.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Write extension methods",
+        "Explain how the compiler resolves them",
+        "Recognise that LINQ is nothing more than extension methods",
+    ];
+
     public override void Run()
     {
         Section("Calling an extension method looks like a normal method");

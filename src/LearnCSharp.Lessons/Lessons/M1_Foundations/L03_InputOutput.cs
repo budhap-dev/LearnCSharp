@@ -9,6 +9,17 @@ public sealed class L03_InputOutput : LessonBase
     public override string Id => "1.3";
     public override string Title => "Console input, output and formatting";
 
+    public override string Summary =>
+        "Everything a user types arrives as text. Format output neatly, and convert input "
+        + "into numbers without ever crashing.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Format numbers, currency and aligned tables",
+        "Convert text to numbers safely with TryParse",
+        "Write an input loop that survives any input",
+    ];
+
     public override void Run()
     {
         Section("String interpolation");

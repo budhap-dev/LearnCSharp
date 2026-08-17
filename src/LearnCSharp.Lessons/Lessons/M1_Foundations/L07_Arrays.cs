@@ -8,6 +8,17 @@ public sealed class L07_Arrays : LessonBase
     public override string Id => "1.7";
     public override string Title => "Arrays: 1D, 2D and jagged";
 
+    public override string Summary =>
+        "Fixed-size blocks of same-typed data laid side by side in memory. Indexing from "
+        + "zero, 2D grids for games and boards, and jagged rows.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Create and index 1D, 2D and jagged arrays",
+        "Write the sum, max, min and count algorithms by hand",
+        "Explain why assigning an array does not copy it",
+    ];
+
     public override void Run()
     {
         Section("Creating arrays");

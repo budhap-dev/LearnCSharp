@@ -8,6 +8,17 @@ public sealed class L03_StacksQueues : LessonBase
     public override string Id => "3.3";
     public override string Title => "Stack, Queue and LinkedList";
 
+    public override string Summary =>
+        "Last-in-first-out, first-in-first-out, and a chain of nodes. Choosing the right one "
+        + "makes many algorithms almost trivial.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Use Stack, Queue, PriorityQueue and LinkedList",
+        "Match a real problem to the right collection",
+        "Implement bracket matching with a stack",
+    ];
+
     public override void Run()
     {
         Section("Stack: last in, first out (LIFO)");

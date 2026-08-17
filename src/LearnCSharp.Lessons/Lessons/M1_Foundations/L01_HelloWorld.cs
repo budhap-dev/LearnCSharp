@@ -8,6 +8,18 @@ public sealed class L01_HelloWorld : LessonBase
     public override string Id => "1.1";
     public override string Title => "Hello World and the shape of a C# program";
 
+    public override string Summary =>
+        "Every C# program has the same shape: namespaces, classes, and a Main method the "
+        + "computer starts at. Learn what each piece is for, and why C# gets compiled twice "
+        + "before it runs.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Explain what a namespace, class, method and statement are",
+        "Write and run a C# program from scratch",
+        "Describe how source code becomes machine code via IL and the JIT",
+    ];
+
     public override void Run()
     {
         Section("Output");

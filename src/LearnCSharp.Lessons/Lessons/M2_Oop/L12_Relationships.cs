@@ -8,6 +8,17 @@ public sealed class L12_Relationships : LessonBase
     public override string Id => "2.12";
     public override string Title => "Class relationships and UML class diagrams";
 
+    public override string Summary =>
+        "Classes relate to each other in five ways: is-a, has-a in two flavours, uses-a and "
+        + "knows-a. UML class diagrams are how designers write those relationships down.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Distinguish association, aggregation, composition, dependency and inheritance",
+        "Read a UML class diagram and turn it into C#",
+        "Choose the loosest relationship that does the job",
+    ];
+
     public override void Run()
     {
         Section("The five relationships between classes");

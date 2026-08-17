@@ -9,6 +9,18 @@ public sealed class L10_Async : LessonBase
     public override string Id => "4.10";
     public override string Title => "Asynchronous programming: async, await and Task";
 
+    public override string Summary =>
+        "await frees the thread while waiting instead of blocking it. The difference between "
+        + "awaiting one at a time and starting tasks concurrently is dramatic, and measured "
+        + "here.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Write async methods returning Task and Task<T>",
+        "Use WhenAll to run independent work concurrently",
+        "Explain why calling .Result can deadlock",
+    ];
+
     public override void Run()
     {
         // Run is synchronous, so we bridge into async code once, here, with GetAwaiter().GetResult().

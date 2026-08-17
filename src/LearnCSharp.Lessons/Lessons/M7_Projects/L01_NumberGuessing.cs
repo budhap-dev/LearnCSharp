@@ -8,6 +8,17 @@ public sealed class L01_NumberGuessing : LessonBase
     public override string Id => "7.1";
     public override string Title => "Project: number guessing game";
 
+    public override string Summary =>
+        "A complete game built from loops, validation and a class - then solved optimally by "
+        + "the computer using binary search.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Separate game rules from console input and output",
+        "Apply binary search as a playing strategy",
+        "Compare linear and binary guessing empirically",
+    ];
+
     public override void Run()
     {
         Section("What this project uses");

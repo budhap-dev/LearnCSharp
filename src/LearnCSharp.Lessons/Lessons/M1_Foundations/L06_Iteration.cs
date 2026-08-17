@@ -9,6 +9,17 @@ public sealed class L06_Iteration : LessonBase
     public override string Id => "1.6";
     public override string Title => "Iteration: for, while, do-while, foreach";
 
+    public override string Summary =>
+        "Count-controlled and condition-controlled loops, how to choose between them, and the "
+        + "off-by-one error that catches absolutely everyone.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Choose correctly between for, while, do-while and foreach",
+        "Avoid off-by-one errors",
+        "Use break and continue deliberately",
+    ];
+
     public override void Run()
     {
         Section("for - when you know how many times");

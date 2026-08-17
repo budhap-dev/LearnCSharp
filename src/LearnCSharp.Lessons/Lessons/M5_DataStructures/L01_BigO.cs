@@ -9,6 +9,17 @@ public sealed class L01_BigO : LessonBase
     public override string Id => "5.1";
     public override string Title => "Complexity and Big-O notation";
 
+    public override string Summary =>
+        "How the work grows as the data grows. This is the language for comparing algorithms, "
+        + "and the reason an O(n^2) sort is hopeless on real data.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "State the complexity of common operations",
+        "Work out the Big-O of a loop or a nested loop",
+        "Explain the practical difference between O(n log n) and O(n^2)",
+    ];
+
     public override void Run()
     {
         Section("Big-O describes how the work GROWS with the input size");

@@ -8,6 +8,17 @@ public sealed class L02_Variables : LessonBase
     public override string Id => "1.2";
     public override string Title => "Variables, data types and constants";
 
+    public override string Summary =>
+        "C# is statically typed: every variable's type is fixed when you write it and the "
+        + "compiler enforces it. Pick the right type, and understand why 0.1 + 0.2 is not 0.3.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Declare variables of every built-in type",
+        "Choose between int, double and decimal for a given job",
+        "Explain integer overflow and floating-point imprecision",
+    ];
+
     public override void Run()
     {
         Section("Declaring variables: type name = value;");

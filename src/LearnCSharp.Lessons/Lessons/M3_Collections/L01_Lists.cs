@@ -8,6 +8,17 @@ public sealed class L01_Lists : LessonBase
     public override string Id => "3.1";
     public override string Title => "List<T>: the array that grows";
 
+    public override string Summary =>
+        "The array that grows. Your default collection, with built-in methods for searching, "
+        + "sorting, inserting and removing.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Add, insert, remove and search a List",
+        "Explain capacity doubling and what it costs",
+        "Avoid modifying a collection while iterating over it",
+    ];
+
     public override void Run()
     {
         Section("Creating and adding");

@@ -8,6 +8,17 @@ public sealed class L01_Delegates : LessonBase
     public override string Id => "4.1";
     public override string Title => "Delegates: variables that hold methods";
 
+    public override string Summary =>
+        "A variable that holds a method, so behaviour can be passed around like data. This is "
+        + "the foundation underneath both LINQ and events.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Declare and invoke delegates",
+        "Use the built-in Func, Action and Predicate",
+        "Pass behaviour into a method to vary its algorithm",
+    ];
+
     public override void Run()
     {
         Section("A delegate is a type-safe reference to a method");

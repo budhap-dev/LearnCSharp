@@ -8,6 +8,17 @@ public sealed class L14_DesignPatterns : LessonBase
     public override string Id => "2.14";
     public override string Title => "Design patterns you will actually use";
 
+    public override string Summary =>
+        "Named, proven solutions to problems that keep coming back - and a shared vocabulary, "
+        + "so that 'use a factory here' replaces a paragraph of explanation.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Recognise and implement Strategy, Factory, Observer, Repository, Adapter and Decorator",
+        "Explain why Singleton is usually a mistake",
+        "Identify the patterns you already use without naming them",
+    ];
+
     public override void Run()
     {
         Section("What a design pattern is");

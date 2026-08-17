@@ -9,6 +9,18 @@ public sealed class L08_Strings : LessonBase
     public override string Id => "1.8";
     public override string Title => "Strings and text handling";
 
+    public override string Summary =>
+        "Strings are immutable: every method that looks like it changes one actually returns "
+        + "a new one. That single fact explains everything else, including why += in a loop is "
+        + "slow.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Use the essential string methods confidently",
+        "Explain immutability and its consequences",
+        "Know when to reach for StringBuilder instead",
+    ];
+
     public override void Run()
     {
         Section("Strings are immutable");

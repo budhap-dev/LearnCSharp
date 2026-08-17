@@ -8,6 +8,17 @@ public sealed class L07_Exceptions : LessonBase
     public override string Id => "4.7";
     public override string Title => "Exceptions in depth and custom exception types";
 
+    public override string Summary =>
+        "The exception hierarchy, filters, custom exception types, and the crucial difference "
+        + "between throw and throw ex.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Catch specific exceptions in the correct order",
+        "Write a custom exception that carries useful data",
+        "Explain why throw ex destroys the stack trace",
+    ];
+
     public override void Run()
     {
         Section("The exception hierarchy");

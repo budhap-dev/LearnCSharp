@@ -9,6 +9,17 @@ public sealed class L03_Sorting : LessonBase
     public override string Id => "5.3";
     public override string Title => "Sorting: bubble, insertion, selection, merge, quick";
 
+    public override string Summary =>
+        "Five sorting algorithms, traced step by step and then raced against each other on "
+        + "real data so the complexity difference is visible, not theoretical.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Implement bubble, insertion, selection, merge and quick sort",
+        "Compare their complexity and stability",
+        "Explain what .NET's built-in sort actually does",
+    ];
+
     public override void Run()
     {
         int[] original = [5, 2, 9, 1, 7, 3];

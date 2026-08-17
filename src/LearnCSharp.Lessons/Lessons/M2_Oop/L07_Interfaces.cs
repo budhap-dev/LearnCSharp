@@ -8,6 +8,17 @@ public sealed class L07_Interfaces : LessonBase
     public override string Id => "2.7";
     public override string Title => "Interfaces: contracts without implementation";
 
+    public override string Summary =>
+        "A contract with no implementation behind it. A class may implement as many as it "
+        + "likes, which gives C# the flexibility of multiple inheritance without the problems.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Define and implement an interface",
+        "Explain when to use an interface rather than an abstract class",
+        "Write code against an interface so implementations can be swapped",
+    ];
+
     public override void Run()
     {
         Section("One interface, several unrelated implementations");

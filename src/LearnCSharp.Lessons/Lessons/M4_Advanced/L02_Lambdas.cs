@@ -8,6 +8,17 @@ public sealed class L02_Lambdas : LessonBase
     public override string Id => "4.2";
     public override string Title => "Lambdas, closures and functional style";
 
+    public override string Summary =>
+        "Small anonymous functions written inline. They are what make LINQ readable, and they "
+        + "capture the variables around them.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Write lambdas in all their forms",
+        "Explain closures and what exactly they capture",
+        "Avoid the loop-variable capture trap",
+    ];
+
     public override void Run()
     {
         Section("Lambda syntax, from long to short");

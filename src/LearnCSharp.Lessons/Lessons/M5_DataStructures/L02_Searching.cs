@@ -8,6 +8,17 @@ public sealed class L02_Searching : LessonBase
     public override string Id => "5.2";
     public override string Title => "Searching: linear and binary";
 
+    public override string Summary =>
+        "Linear search checks every item; binary search halves the problem at every step - "
+        + "but only works if the data is already sorted.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Implement linear search and binary search",
+        "Explain why binary search requires sorted data",
+        "Calculate the worst-case comparisons for a given size",
+    ];
+
     public override void Run()
     {
         Section("Linear search - check every item in turn");

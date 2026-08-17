@@ -8,6 +8,17 @@ public sealed class L15_ModellingWorkshop : LessonBase
     public override string Id => "2.15";
     public override string Title => "Workshop: modelling a real system";
 
+    public override string Summary =>
+        "Everything in this module applied end to end: a written brief becomes a working "
+        + "class model, which is then critiqued and improved.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Turn a written brief into a class model",
+        "Decide which class each rule belongs to",
+        "Critique a design and identify its next refactor",
+    ];
+
     public override void Run()
     {
         Section("The brief");

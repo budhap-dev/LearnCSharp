@@ -8,6 +8,17 @@ public sealed class L02_StudentManager : LessonBase
     public override string Id => "7.2";
     public override string Title => "Project: student grade manager";
 
+    public override string Summary =>
+        "Classes, collections and LINQ combined into a working system with validation, per- "
+        + "student reports and whole-class statistics.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Model a domain with classes and validation",
+        "Produce grouped reports with LINQ",
+        "Expose collections without letting callers corrupt them",
+    ];
+
     public override void Run()
     {
         Section("What this project uses");

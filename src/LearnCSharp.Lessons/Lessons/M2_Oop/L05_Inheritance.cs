@@ -8,6 +8,17 @@ public sealed class L05_Inheritance : LessonBase
     public override string Id => "2.5";
     public override string Title => "Inheritance and the object hierarchy";
 
+    public override string Summary =>
+        "A new class built on an existing one, inheriting everything it has. Constructors run "
+        + "base-first, and casting back down must always be checked.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Write a derived class and call a base constructor",
+        "Use protected members appropriately",
+        "Downcast safely with patterns instead of hard casts",
+    ];
+
     public override void Run()
     {
         Section("A derived class gets everything the base class has");

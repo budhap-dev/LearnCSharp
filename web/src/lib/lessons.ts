@@ -7,6 +7,10 @@
 export interface SyllabusEntry {
   id: string;
   title: string;
+  /** What this topic is and why it matters - shown before any code. */
+  summary: string;
+  /** What the student should be able to do afterwards. */
+  objectives: string[];
   module: number;
   doc: string;
   /** Section headings available in the captured output. */
@@ -19,6 +23,55 @@ export interface LessonOutputData {
   fullOutput: string;
   sections: Record<string, string>;
 }
+
+/** What each module is about, so a student can see the shape of the course at a glance. */
+export const MODULE_INFO: Record<number, { name: string; blurb: string }> = {
+  1: {
+    name: 'Foundations',
+    blurb:
+      'The building blocks every program is made of: variables, decisions, loops, arrays, ' +
+      'text and methods. Starts from GCSE pseudocode and ends with you able to write any ' +
+      'small console program and debug it.',
+  },
+  2: {
+    name: 'Object-Oriented Programming',
+    blurb:
+      'The big shift: from a list of instructions to a set of objects that own their data ' +
+      'and collaborate. Covers the concepts first, then the C# that expresses them, then how ' +
+      'to design and critique a model of your own.',
+  },
+  3: {
+    name: 'Collections, Generics and LINQ',
+    blurb:
+      'Choosing the right way to store many things - lists, dictionaries, sets, stacks and ' +
+      'queues - and then querying them in one readable line instead of a loop.',
+  },
+  4: {
+    name: 'Advanced C#',
+    blurb:
+      'The features that separate a beginner from someone employable: delegates, lambdas, ' +
+      'events, null safety, exceptions, files, JSON, async and reflection.',
+  },
+  5: {
+    name: 'Data Structures and Algorithms',
+    blurb:
+      'How to measure an algorithm and how the classic ones actually work. Searching, ' +
+      'sorting, recursion, linked lists, trees, graphs and hashing - each built from scratch ' +
+      'and timed on real data.',
+  },
+  6: {
+    name: 'Production C#',
+    blurb:
+      'Writing code other people depend on: threading, performance, security, serialization ' +
+      'and dependency injection. (Lessons still to be written.)',
+  },
+  7: {
+    name: 'Mini Projects',
+    blurb:
+      'Everything above combined into complete, working programs - a game, a grade manager, ' +
+      'a text adventure and a to-do app that saves to disk.',
+  },
+};
 
 export const MODULE_NAMES: Record<number, string> = {
   1: 'Foundations',
@@ -37,14 +90,27 @@ let syllabusPromise: Promise<SyllabusEntry[]> | null = null;
 export function loadSyllabus(): Promise<SyllabusEntry[]> {
   syllabusPromise ??= fetch(`${base}data/syllabus.json`)
     .then((r) => r.json())
-    .then((raw: { Id: string; Title: string; Module: number; Doc: string; Sections: string[] }[]) =>
-      raw.map((l) => ({
-        id: l.Id,
-        title: l.Title,
-        module: l.Module,
-        doc: l.Doc,
-        sections: l.Sections,
-      })),
+    .then(
+      (
+        raw: {
+          Id: string;
+          Title: string;
+          Summary: string;
+          Objectives: string[];
+          Module: number;
+          Doc: string;
+          Sections: string[];
+        }[],
+      ) =>
+        raw.map((l) => ({
+          id: l.Id,
+          title: l.Title,
+          summary: l.Summary,
+          objectives: l.Objectives,
+          module: l.Module,
+          doc: l.Doc,
+          sections: l.Sections,
+        })),
     );
 
   return syllabusPromise;

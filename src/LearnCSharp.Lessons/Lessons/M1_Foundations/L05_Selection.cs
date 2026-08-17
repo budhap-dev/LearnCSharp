@@ -8,6 +8,17 @@ public sealed class L05_Selection : LessonBase
     public override string Id => "1.5";
     public override string Title => "Selection: if, else, switch, pattern matching";
 
+    public override string Summary =>
+        "Making decisions. The GCSE IF/ELSE block translated into C#, plus the switch "
+        + "expression and pattern matching that modern C# actually uses.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Write if/else chains that test conditions in the right order",
+        "Convert an if-ladder into a switch expression",
+        "Match on ranges, types and properties using patterns",
+    ];
+
     public override void Run()
     {
         Section("if / else if / else");

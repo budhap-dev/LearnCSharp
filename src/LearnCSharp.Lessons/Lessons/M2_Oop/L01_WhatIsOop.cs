@@ -8,6 +8,18 @@ public sealed class L01_WhatIsOop : LessonBase
     public override string Id => "2.1";
     public override string Title => "What is object-oriented programming?";
 
+    public override string Summary =>
+        "Objects bundle data together with the rules that protect it. See one problem solved "
+        + "procedurally and then with objects, and learn to find the classes hiding in a "
+        + "written brief.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Explain why OOP exists and what problem it solves",
+        "Turn a written requirement into candidate classes and methods",
+        "Name the four pillars, and recognise when OOP is the wrong tool",
+    ];
+
     public override void Run()
     {
         Section("The same problem, solved twice");

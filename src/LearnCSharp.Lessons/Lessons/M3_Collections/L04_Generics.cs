@@ -8,6 +8,17 @@ public sealed class L04_Generics : LessonBase
     public override string Id => "3.4";
     public override string Title => "Generics: one algorithm, any type";
 
+    public override string Summary =>
+        "Write an algorithm once and use it with any type, keeping full compile-time safety "
+        + "and needing no casts.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Write generic classes and generic methods",
+        "Apply constraints to demand capabilities of T",
+        "Explain why generics are both faster and safer than using object",
+    ];
+
     public override void Run()
     {
         Section("The problem generics solve");

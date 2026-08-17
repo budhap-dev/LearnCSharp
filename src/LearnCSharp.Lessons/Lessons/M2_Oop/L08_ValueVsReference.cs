@@ -8,6 +8,17 @@ public sealed class L08_ValueVsReference : LessonBase
     public override string Id => "2.8";
     public override string Title => "Value types, reference types, structs and enums";
 
+    public override string Summary =>
+        "Assigning a struct copies the value; assigning a class copies the arrow. This one "
+        + "distinction explains a whole category of otherwise baffling bugs.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Predict whether a change made inside a method is visible to the caller",
+        "Choose between a class, a struct and an enum",
+        "Use nullable value types and flags enums",
+    ];
+
     public override void Run()
     {
         Section("Assigning a VALUE type copies the value");

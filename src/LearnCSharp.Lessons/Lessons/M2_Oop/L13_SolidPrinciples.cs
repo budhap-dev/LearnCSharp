@@ -8,6 +8,17 @@ public sealed class L13_SolidPrinciples : LessonBase
     public override string Id => "2.13";
     public override string Title => "Coupling, cohesion and the SOLID principles";
 
+    public override string Summary =>
+        "Low coupling and high cohesion are the goal. SOLID is five specific techniques for "
+        + "getting there, each shown here as a before and an after.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Explain coupling and cohesion",
+        "Apply each SOLID principle to a concrete example",
+        "Recognise when applying a principle would be overkill",
+    ];
+
     public override void Run()
     {
         Section("Coupling: how much classes depend on each other");

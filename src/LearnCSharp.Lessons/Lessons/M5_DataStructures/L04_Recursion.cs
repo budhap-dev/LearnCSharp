@@ -8,6 +8,17 @@ public sealed class L04_Recursion : LessonBase
     public override string Id => "5.4";
     public override string Title => "Recursion";
 
+    public override string Summary =>
+        "A method that calls itself, with a base case that stops it. Natural for trees and "
+        + "folders, and disastrous if written naively for Fibonacci.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Write recursive methods with a correct base case",
+        "Trace the call stack through a recursive call",
+        "Fix exponential recursion with memoisation",
+    ];
+
     public override void Run()
     {
         Section("Every recursive method needs two things");

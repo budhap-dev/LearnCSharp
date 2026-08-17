@@ -8,6 +8,17 @@ public sealed class L08_Graphs : LessonBase
     public override string Id => "5.8";
     public override string Title => "Graphs: breadth-first, depth-first and Dijkstra";
 
+    public override string Summary =>
+        "Nodes joined by edges: maps, networks, social connections. Breadth-first finds the "
+        + "fewest steps, while Dijkstra finds the cheapest route.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Represent a graph as an adjacency list or matrix",
+        "Implement breadth-first and depth-first search",
+        "Explain when Dijkstra gives a different answer from BFS",
+    ];
+
     public override void Run()
     {
         Section("A graph is nodes joined by edges");

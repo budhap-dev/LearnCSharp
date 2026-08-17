@@ -8,6 +8,17 @@ public sealed class L09_Methods : LessonBase
     public override string Id => "1.9";
     public override string Title => "Methods: parameters, return values, overloading";
 
+    public override string Summary =>
+        "Breaking a problem into named, reusable pieces - the GCSE subroutine topic, with "
+        + "C#'s parameters, overloads, ref, out and params.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Write methods with parameters and return values",
+        "Explain the difference between passing a value and a reference",
+        "Use overloading, optional arguments, ref, out and params",
+    ];
+
     public override void Run()
     {
         Section("A method that returns a value");

@@ -8,6 +8,17 @@ public sealed class L04_Encapsulation : LessonBase
     public override string Id => "2.4";
     public override string Title => "Encapsulation, properties and access modifiers";
 
+    public override string Summary =>
+        "Keep data private and force every change through a method that checks it, so an "
+        + "object can never be put into an impossible state.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Replace public fields with validated properties",
+        "Choose the right access modifier for each member",
+        "Decide when to throw an exception and when to return false",
+    ];
+
     public override void Run()
     {
         Section("Why a public field is dangerous");

@@ -8,6 +8,17 @@ public sealed class L02_Dictionaries : LessonBase
     public override string Id => "3.2";
     public override string Title => "Dictionary and HashSet: lookup by key";
 
+    public override string Summary =>
+        "Look something up by key in constant time instead of checking every item in turn. "
+        + "This is the single biggest performance win available to a beginner.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Use Dictionary and HashSet for lookup and uniqueness",
+        "Read and write dictionary entries safely",
+        "Explain why hashing gives O(1) lookup",
+    ];
+
     public override void Run()
     {
         Section("A dictionary maps keys to values");

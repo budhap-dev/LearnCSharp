@@ -9,6 +9,17 @@ public sealed class L11_Reflection : LessonBase
     public override string Id => "4.11";
     public override string Title => "Attributes and reflection";
 
+    public override string Summary =>
+        "A program inspecting itself while it runs. It powers serialisers, test runners and "
+        + "dependency injection - including this course's own lesson menu.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Inspect types and invoke members at run time",
+        "Write and read custom attributes",
+        "Explain the cost and the risk of using reflection",
+    ];
+
     public override void Run()
     {
         Section("Reflection: a program inspecting itself");

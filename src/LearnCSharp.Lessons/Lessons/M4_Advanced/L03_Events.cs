@@ -8,6 +8,17 @@ public sealed class L03_Events : LessonBase
     public override string Id => "4.3";
     public override string Title => "Events: broadcasting that something happened";
 
+    public override string Summary =>
+        "A publisher announces that something happened and any number of subscribers react. "
+        + "It is the Observer pattern built directly into the language.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Declare, raise and subscribe to events",
+        "Use the standard EventHandler pattern",
+        "Explain why an event must be raised with ?.Invoke",
+    ];
+
     public override void Run()
     {
         Section("Subscribing with +=");

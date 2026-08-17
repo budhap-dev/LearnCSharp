@@ -8,6 +8,17 @@ public sealed class L04_Operators : LessonBase
     public override string Id => "1.4";
     public override string Title => "Operators and expressions";
 
+    public override string Summary =>
+        "Arithmetic, comparison and logic - including the integer-division trap that silently "
+        + "produces wrong answers with no error at all.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Predict the result of integer versus floating-point division",
+        "Use % for wrap-around and for splitting durations",
+        "Explain short-circuit evaluation and why it makes null checks safe",
+    ];
+
     public override void Run()
     {
         Section("Arithmetic - watch the division");

@@ -9,6 +9,17 @@ public sealed class L04_TodoApp : LessonBase
     public override string Id => "7.4";
     public override string Title => "Project: to-do list with file storage";
 
+    public override string Summary =>
+        "Records, LINQ, async and JSON storage behind an interface - so the very same logic "
+        + "works against a real file or an in-memory test double.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Persist and reload data as JSON",
+        "Hide storage behind an interface to make it testable",
+        "Write async methods from top to bottom",
+    ];
+
     public override void Run()
     {
         RunAsync().GetAwaiter().GetResult();

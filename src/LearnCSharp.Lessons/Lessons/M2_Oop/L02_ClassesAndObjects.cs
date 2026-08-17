@@ -8,6 +8,17 @@ public sealed class L02_ClassesAndObjects : LessonBase
     public override string Id => "2.2";
     public override string Title => "Classes, objects, fields and constructors";
 
+    public override string Summary =>
+        "A class is a blueprint; an object is one thing built from it. Fields hold state, "
+        + "constructors establish it, and methods are the only way to change it.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Write a class with fields, properties, constructors and methods",
+        "Explain the difference between a class and an object",
+        "Describe what happens when you assign one object variable to another",
+    ];
+
     public override void Run()
     {
         Section("A class is a blueprint; an object is one thing built from it");

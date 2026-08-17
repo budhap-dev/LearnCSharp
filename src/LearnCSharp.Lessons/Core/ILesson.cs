@@ -15,6 +15,16 @@ public interface ILesson
     /// <summary>Title shown in the menu.</summary>
     string Title { get; }
 
+    /// <summary>
+    /// One or two sentences saying what this topic IS and why it matters. Shown on the
+    /// module cards, the syllabus and at the top of the lesson - so a student always knows
+    /// what they are about to learn before they see any code.
+    /// </summary>
+    string Summary { get; }
+
+    /// <summary>What the student should be able to do once they have finished.</summary>
+    IReadOnlyList<string> Objectives { get; }
+
     /// <summary>Path to the markdown notes for this lesson, relative to the repo root.</summary>
     string Doc { get; }
 
@@ -38,7 +48,10 @@ public abstract class LessonBase : ILesson
 {
     public abstract string Id { get; }
     public abstract string Title { get; }
+    public abstract string Summary { get; }
     public abstract void Run();
+
+    public virtual IReadOnlyList<string> Objectives => [];
 
     /// <summary>Defaults to the conventional docs path; lessons rarely need to override it.</summary>
     public virtual string Doc => $"docs/module-{Id.Split('.')[0]}/{Id}.md";

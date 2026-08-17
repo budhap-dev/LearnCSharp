@@ -8,6 +8,17 @@ public sealed class L09_Hashing : LessonBase
     public override string Id => "5.9";
     public override string Title => "Hashing and hash tables";
 
+    public override string Summary =>
+        "Compute an index from the data itself and jump straight to it. Collisions are "
+        + "mathematically unavoidable, and chaining and probing are the two answers.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Explain how a hash function produces an index",
+        "Compare chaining with open addressing",
+        "State the contract between Equals and GetHashCode",
+    ];
+
     public override void Run()
     {
         Section("The idea");

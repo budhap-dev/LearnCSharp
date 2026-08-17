@@ -9,6 +9,17 @@ public sealed class L05_Enumerables : LessonBase
     public override string Id => "3.5";
     public override string Title => "IEnumerable, iterators and yield";
 
+    public override string Summary =>
+        "The interface behind foreach, and how yield lets you describe a sequence - even an "
+        + "infinite one - without ever building it in memory.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Explain what foreach really does",
+        "Write an iterator with yield return",
+        "Explain deferred execution and when to force it with ToList",
+    ];
+
     public override void Run()
     {
         Section("IEnumerable<T> is the thing foreach understands");

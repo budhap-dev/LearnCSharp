@@ -9,6 +9,17 @@ public sealed class L10_TypeConversion : LessonBase
     public override string Id => "1.10";
     public override string Title => "Type conversion, casting, Math and Random";
 
+    public override string Summary =>
+        "Widening happens automatically; narrowing needs a cast and can lose data silently. "
+        + "Plus the Math library and how to generate random numbers correctly.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Predict what a cast does to a value that does not fit",
+        "Choose between casting, Parse, TryParse and Convert",
+        "Use Math and Random correctly, including the exclusive upper bound",
+    ];
+
     public override void Run()
     {
         Section("Implicit conversion - always safe, automatic");

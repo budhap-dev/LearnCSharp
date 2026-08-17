@@ -8,6 +8,17 @@ public sealed class L06_StacksQueuesFromScratch : LessonBase
     public override string Id => "5.6";
     public override string Title => "Stacks and queues, built from scratch";
 
+    public override string Summary =>
+        "Build both from an array and from nodes, including the circular buffer trick that "
+        + "keeps dequeue at O(1) instead of shuffling everything along.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Implement a stack and a queue from scratch",
+        "Explain how a circular queue avoids shuffling",
+        "Apply a stack to RPN evaluation and base conversion",
+    ];
+
     public override void Run()
     {
         Section("A stack on an array");

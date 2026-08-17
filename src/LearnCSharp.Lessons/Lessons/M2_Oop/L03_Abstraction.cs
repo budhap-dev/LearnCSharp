@@ -8,6 +8,17 @@ public sealed class L03_Abstraction : LessonBase
     public override string Id => "2.3";
     public override string Title => "Abstraction: showing what, hiding how";
 
+    public override string Summary =>
+        "Show what something does and hide how it does it. This is the design skill behind "
+        + "every good class - and it is not the same thing as encapsulation.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Explain abstraction and how it differs from encapsulation",
+        "Design a public surface that expresses intent rather than steps",
+        "Use an abstract class to define what without fixing how",
+    ];
+
     public override void Run()
     {
         Section("You already rely on abstraction constantly");

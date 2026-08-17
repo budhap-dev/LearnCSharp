@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MODULE_NAMES, lessonsIn, modulesOf } from '../lib/lessons';
+import { MODULE_INFO, lessonsIn, modulesOf } from '../lib/lessons';
 import { useSyllabus } from '../lib/useSyllabus';
 import { read } from '../lib/progress';
 
@@ -46,9 +46,10 @@ export function Home() {
             return (
               <article key={m} className="module-card">
                 <h3>
-                  <span className="num">{m}</span> {MODULE_NAMES[m]}
+                  <span className="num">{m}</span> {MODULE_INFO[m]?.name}
                 </h3>
-                <p>{inModule.length} lessons</p>
+                <p className="blurb">{MODULE_INFO[m]?.blurb}</p>
+                <p className="count">{inModule.length} lessons</p>
                 <ul>
                   {inModule.slice(0, 3).map((l) => (
                     <li key={l.id}>

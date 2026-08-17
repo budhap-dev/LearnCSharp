@@ -8,6 +8,17 @@ public sealed class L10_ObjectMembers : LessonBase
     public override string Id => "2.10";
     public override string Title => "ToString, Equals, GetHashCode and operator overloading";
 
+    public override string Summary =>
+        "Every type inherits ToString, Equals and GetHashCode. Override them properly - and "
+        + "understand why Equals and GetHashCode must always be changed together.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Override ToString, Equals and GetHashCode correctly",
+        "Explain the contract between Equals and GetHashCode",
+        "Overload operators and conversions",
+    ];
+
     public override void Run()
     {
         Section("Without ToString you get the type name");

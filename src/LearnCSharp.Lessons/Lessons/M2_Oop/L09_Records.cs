@@ -8,6 +8,17 @@ public sealed class L09_Records : LessonBase
     public override string Id => "2.9";
     public override string Title => "Records and immutable data";
 
+    public override string Summary =>
+        "One line gives you an entire immutable data type, with equality, ToString and "
+        + "copying generated for you.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Declare positional and full records",
+        "Explain value equality and how it differs from reference equality",
+        "Use with-expressions to copy and modify",
+    ];
+
     public override void Run()
     {
         Section("One line gives you a whole data class");

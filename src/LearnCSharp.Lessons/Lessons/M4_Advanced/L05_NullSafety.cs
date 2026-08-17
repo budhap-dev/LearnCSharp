@@ -8,6 +8,17 @@ public sealed class L05_NullSafety : LessonBase
     public override string Id => "4.5";
     public override string Title => "Null safety and nullable reference types";
 
+    public override string Summary =>
+        "Null was called its inventor's billion dollar mistake. Nullable reference types let "
+        + "the compiler warn you before it becomes a crash.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Use ?, ?., ?? and ??= correctly",
+        "Explain how the compiler narrows nullability after a check",
+        "Distinguish nullable value types from nullable reference types",
+    ];
+
     public override void Run()
     {
         Section("The problem");

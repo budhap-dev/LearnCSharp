@@ -217,3 +217,75 @@ button:disabled { cursor: default; }
   h1 { font-size: 1.55rem; }
   .pager { flex-direction: column; }
 }
+
+/* ---- lesson framing: what this is about, before any code ---- */
+
+.summary {
+  font-size: 1.12rem;
+  line-height: 1.6;
+  color: var(--text);
+  max-width: 44rem;
+  margin: 0 0 1.5rem;
+}
+
+.objectives {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--surface);
+  padding: 1rem 1.25rem;
+  margin: 0 0 2rem;
+  max-width: 44rem;
+}
+.objectives h2 {
+  margin: 0 0 0.5rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.objectives ul { margin: 0; padding-left: 1.1rem; }
+.objectives li { margin: 0.2rem 0; }
+
+.source-note {
+  font-size: 0.85rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  margin-top: 2.5rem;
+}
+.source-note code {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+/* ---- module framing ---- */
+
+.blurb {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0 0 0.75rem;
+  max-width: 46rem;
+}
+.module-card .blurb { font-size: 0.87rem; }
+.module-card .count {
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.6rem;
+}
+
+/* syllabus rows carry their summary too */
+.lesson-list a { align-items: flex-start; padding: 0.7rem 0.75rem; }
+.lesson-list .lid { padding-top: 0.15rem; }
+.ltitle { display: flex; flex-direction: column; gap: 0.15rem; }
+.lsummary {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}

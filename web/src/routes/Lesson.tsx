@@ -5,7 +5,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import type { PluggableList } from 'unified';
 import csharp from 'highlight.js/lib/languages/csharp';
-import { loadNotes, stripFrontmatter, MODULE_NAMES } from '../lib/lessons';
+import { loadNotes, stripFrontmatter, MODULE_INFO } from '../lib/lessons';
 import { useSyllabus } from '../lib/useSyllabus';
 import { LessonOutput } from '../components/LessonOutput';
 import { Quiz, type Question } from '../components/Quiz';
@@ -61,7 +61,7 @@ export function Lesson() {
       <nav className="crumbs">
         <Link to="/syllabus">Syllabus</Link> <span>/</span>{' '}
         <span>
-          Module {lesson.module} — {MODULE_NAMES[lesson.module]}
+          Module {lesson.module} — {MODULE_INFO[lesson.module]?.name}
         </span>
       </nav>
 
@@ -69,6 +69,19 @@ export function Lesson() {
         <span className="lid big">{lesson.id}</span>
         {lesson.title}
       </h1>
+
+      <p className="summary">{lesson.summary}</p>
+
+      {lesson.objectives.length > 0 && (
+        <section className="objectives">
+          <h2>By the end of this lesson you will be able to</h2>
+          <ul>
+            {lesson.objectives.map((o) => (
+              <li key={o}>{o}</li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {notes ? (
         <div className="prose">
@@ -78,12 +91,14 @@ export function Lesson() {
         </div>
       ) : (
         <p className="callout">
-          Written notes for this lesson are still to come. The verified output from the
-          worked example is below — it shows exactly what the code produces.
+          <strong>The written notes for this lesson are still being prepared.</strong> The
+          worked example below is complete and runnable — it shows the idea in code, with the
+          real output underneath. Open the source file listed at the foot of this page to read
+          the fully commented version.
         </p>
       )}
 
-      <h2>What the code prints</h2>
+      <h2>The worked example, and what it prints</h2>
       <p className="muted">
         Captured by running the real lesson, so it can never drift out of date.
       </p>
@@ -108,6 +123,11 @@ export function Lesson() {
           </>
         )}
       </section>
+
+      <p className="source-note">
+        Source: <code>{lesson.doc.replace('docs/', '').replace('.md', '')}</code> — run it
+        yourself with <code>dotnet run --project src/LearnCSharp.Lessons -- {lesson.id}</code>
+      </p>
 
       <nav className="pager">
         {previous ? (

@@ -8,6 +8,17 @@ public sealed class L06_Linq : LessonBase
     public override string Id => "3.6";
     public override string Title => "LINQ part 1: filtering, projecting, ordering";
 
+    public override string Summary =>
+        "Query any collection in one readable line: filter, transform and sort without "
+        + "writing a single loop.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Use Where, Select, OrderBy and the aggregation operators",
+        "Choose correctly between First, FirstOrDefault and Single",
+        "Read and write both method syntax and query syntax",
+    ];
+
     public override void Run()
     {
         List<Pupil> pupils =

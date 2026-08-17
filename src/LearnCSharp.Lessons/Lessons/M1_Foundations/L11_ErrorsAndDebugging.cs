@@ -8,6 +8,17 @@ public sealed class L11_ErrorsAndDebugging : LessonBase
     public override string Id => "1.11";
     public override string Title => "Errors, exceptions and debugging";
 
+    public override string Summary =>
+        "The three kinds of error from the GCSE specification - syntax, runtime and logic - "
+        + "what to do about each, and how to read a stack trace properly.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Distinguish syntax, runtime and logic errors",
+        "Handle exceptions with try, catch and finally",
+        "Read a stack trace and debug systematically",
+    ];
+
     public override void Run()
     {
         Section("A logic error: no crash, just a wrong answer");

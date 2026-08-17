@@ -8,6 +8,18 @@ public sealed class L06_Polymorphism : LessonBase
     public override string Id => "2.6";
     public override string Title => "Polymorphism: virtual, override and abstract";
 
+    public override string Summary =>
+        "One variable, many behaviours. Declare something as a Shape and each object still runs "
+        + "its own Area code - which is what lets new types be added without editing any "
+        + "existing code.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Override virtual methods and implement abstract ones",
+        "Explain how the runtime picks which method body to run",
+        "Explain why new hides rather than overrides, and why that is usually a bug",
+    ];
+
     public override void Run()
     {
         Section("One variable, many behaviours");

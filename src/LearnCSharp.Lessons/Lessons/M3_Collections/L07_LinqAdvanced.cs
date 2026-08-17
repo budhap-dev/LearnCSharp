@@ -8,6 +8,17 @@ public sealed class L07_LinqAdvanced : LessonBase
     public override string Id => "3.7";
     public override string Title => "LINQ part 2: grouping, joining, aggregating";
 
+    public override string Summary =>
+        "Grouping, joining and aggregating - the operations that turn a flat list of records "
+        + "into an actual report.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Group data and project it into a summary shape",
+        "Join two sequences on a shared key",
+        "Flatten nested collections with SelectMany",
+    ];
+
     public override void Run()
     {
         List<Sale> sales =

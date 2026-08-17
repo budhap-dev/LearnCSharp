@@ -8,6 +8,17 @@ public sealed class L11_StaticAndComposition : LessonBase
     public override string Id => "2.11";
     public override string Title => "Static members, composition and good design";
 
+    public override string Summary =>
+        "Static members belong to the class rather than to any object. Composition builds an "
+        + "object out of other objects, and is usually a better tool than inheritance.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Use static members, static classes and static constructors",
+        "Build a class by composition instead of inheritance",
+        "Explain dependency injection and why it makes testing easy",
+    ];
+
     public override void Run()
     {
         Section("Static members belong to the class, not to any object");

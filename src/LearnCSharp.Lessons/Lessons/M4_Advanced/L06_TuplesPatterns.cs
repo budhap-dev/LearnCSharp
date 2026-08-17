@@ -8,6 +8,17 @@ public sealed class L06_TuplesPatterns : LessonBase
     public override string Id => "4.6";
     public override string Title => "Tuples, deconstruction and advanced pattern matching";
 
+    public override string Summary =>
+        "Return several values without declaring a type, and match on shape, range and "
+        + "structure rather than just equality.";
+
+    public override IReadOnlyList<string> Objectives =>
+    [
+        "Return and deconstruct tuples",
+        "Use property, relational and list patterns",
+        "Choose appropriately between a tuple and a record",
+    ];
+
     public override void Run()
     {
         Section("A tuple groups values without declaring a type");
