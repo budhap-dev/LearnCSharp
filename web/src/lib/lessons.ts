@@ -63,7 +63,7 @@ export const MODULE_INFO: Record<number, { name: string; blurb: string }> = {
     name: 'Production C#',
     blurb:
       'Writing code other people depend on: threading, performance, security, serialization ' +
-      'and dependency injection. (Lessons still to be written.)',
+      'and dependency injection - the module that turns working code into dependable code.',
   },
   7: {
     name: 'Mini Projects',

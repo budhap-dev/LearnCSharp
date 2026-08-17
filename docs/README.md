@@ -98,15 +98,15 @@ The AQA algorithms topics, implemented properly in C# and measured for real.
 ## Module 6 — Production C#
 
 Concurrency, performance, security, serialization and dependency injection — the topics that
-separate "it works on my machine" from code other people depend on. *(Lessons to be written.)*
+separate "it works on my machine" from code other people depend on.
 
 | # | Topic | Notes | Code |
 |---|---|---|---|
-| 6.1 | Threading and concurrency | _to write_ | _to write_ |
-| 6.2 | Performance and benchmarking | _to write_ | _to write_ |
-| 6.3 | Security essentials | _to write_ | _to write_ |
-| 6.4 | Serialization in depth | _to write_ | _to write_ |
-| 6.5 | Dependency injection and architecture | _to write_ | _to write_ |
+| 6.1 | Threading and concurrency | [notes](module-6/6.1.md) | [code](../src/LearnCSharp.Lessons/Lessons/M6_Production/L01_Threading.cs) |
+| 6.2 | Performance and benchmarking | [notes](module-6/6.2.md) | [code](../src/LearnCSharp.Lessons/Lessons/M6_Production/L02_Performance.cs) |
+| 6.3 | Security essentials | [notes](module-6/6.3.md) | [code](../src/LearnCSharp.Lessons/Lessons/M6_Production/L03_Security.cs) |
+| 6.4 | Serialization in depth | [notes](module-6/6.4.md) | [code](../src/LearnCSharp.Lessons/Lessons/M6_Production/L04_Serialization.cs) |
+| 6.5 | Dependency injection and architecture | [notes](module-6/6.5.md) | [code](../src/LearnCSharp.Lessons/Lessons/M6_Production/L05_DependencyInjection.cs) |
 
 ## Module 7 — Mini projects
 
