@@ -5,7 +5,33 @@ An interactive **static web app** that teaches C# from first principles to advan
 62 illustrated lessons, ~110 diagrams, 620 quiz questions and printable worksheets, on three
 guided pathways through one shared body of content. Hosted on Azure at no cost.
 
-**Status:** planning · **Last updated:** 17 August 2026
+**Status:** in delivery — **live at
+[red-dune-0f7372e10.7.azurestaticapps.net](https://red-dune-0f7372e10.7.azurestaticapps.net)** ·
+**Last updated:** 17 August 2026
+
+---
+
+## 0. Delivery status — at a glance
+
+Legend: ✅ done · 🟡 partly done · ⬜ not started. Each story below carries the same tag.
+
+| Area | State |
+|---|---|
+| **Deployed site** | ✅ live on Azure Static Web Apps (Free), CI-gated deploys on every merge to `main` |
+| **Lesson code** | ✅ 57 / 62 compile and run (Module 6's five remain unwritten) |
+| **Theory notes** | ✅ **57 / 57 written lessons have full notes** — Modules 1–5 and 7 complete |
+| **Verified output pipeline** | ✅ capture → JSON → site, regenerated every build; a failing lesson fails the build |
+| **Summaries & objectives** | ✅ all 57 lessons self-describing on cards, syllabus and lesson pages |
+| **Site features** | ✅ home, accordion syllabus with deep links, lesson pages, prev/next, 6-theme picker, mobile pass |
+| **Diagrams** | 🟡 13 of ~110 (the most spatial concepts), themed SVG |
+| **Quizzes** | 🟡 the player works; **only 10 questions exist (lesson 1.4)** of the 620 planned |
+| **Progress** | 🟡 localStorage store + per-module bars; no dashboard, export UI, streaks or revision |
+| **Module 6 (Production C#)** | ⬜ the five lessons — the only C# left to write |
+| **Worksheets, reference, search, pathways, module tests** | ⬜ not started |
+
+**The biggest gap between promise and product is the question bank** (E4/US-406): the product
+story is "never more than one screen of theory before something to do", and 56 of 57 lessons
+currently end without a quiz.
 
 ---
 
@@ -83,13 +109,13 @@ The existing .NET project is **not** thrown away. It becomes the guarantee that 
 the site is true:
 
 ```
-src/LearnCSharp.Lessons/        51 lessons, all compiling, all running
+src/LearnCSharp.Lessons/        57 lessons, all compiling, all running
         |
-        |  build step: dotnet run -- all  > captured-output.json
+        |  build step: dotnet run -- capture  -> public/data/*.json
         v
 web/src/content/                Markdown + captured real output
         |
-        |  astro build
+        |  vite build
         v
 dist/                           the static site
 ```
@@ -329,16 +355,16 @@ description, and remain legible at 320px.
 
 ## E1 — Foundation & shell
 
-### US-101 · Project skeleton *(Must, M)*
-**As a** developer **I want** an Astro + TypeScript project **so that** content can be built into
-a static site.
+### US-101 · Project skeleton *(Must, M)* · ✅ done
+**As a** developer **I want** a typed, buildable web project **so that** content can be built
+into a static site. *(Delivered with React + Vite per the §3 stack decision, not Astro.)*
 
-- [ ] `web/` created with Astro, TypeScript strict, ESLint + Prettier
-- [ ] `npm run dev`, `npm run build`, `npm run preview` all work
-- [ ] `npm run build` produces `dist/` with no server dependency
-- [ ] README documents setup in under five commands
+- [x] `web/` created with Vite + React, TypeScript strict
+- [x] `npm run dev`, `npm run build`, `npm run preview` all work
+- [x] `npm run build` produces `dist/` with no server dependency
+- [x] README documents setup
 
-### US-102 · Site shell and layout *(Must, M)*
+### US-102 · Site shell and layout *(Must, M)* · 🟡 partial — *header/footer/theme picker live; no sidebar, search box or progress ring*
 **As a** student **I want** consistent header, sidebar and footer **so that** every page feels
 like one product.
 
@@ -347,7 +373,7 @@ like one product.
 - [ ] Footer: previous/next lesson, "edit this page" link
 - [ ] Sidebar collapses to a drawer under 768px
 
-### US-103 · Deploy pipeline to Azure *(Must, S)*
+### US-103 · Deploy pipeline to Azure *(Must, S)* · ✅ done — *deployed and gated; custom domain and budget alert still open*
 **As a** developer **I want** a push to `main` to publish the site **so that** shipping is not a
 manual chore.
 
@@ -359,7 +385,7 @@ manual chore.
 - [ ] Custom domain with managed SSL
 - [ ] A £0 budget alert exists on the subscription
 
-### US-104 · Design system *(Should, M)*
+### US-104 · Design system *(Should, M)* · 🟡 partial — *tokens, palettes and type scale in; no callout components*
 **As a** student **I want** readable typography and clear code styling **so that** long study
 sessions do not hurt.
 
@@ -372,7 +398,7 @@ sessions do not hurt.
 
 ## E2 — Lesson content pipeline
 
-### US-201 · Content collection with schema *(Must, M)*
+### US-201 · Content collection with schema *(Must, M)* · ⬜
 **As an** author **I want** typed frontmatter **so that** a broken lesson fails the build, not
 the student.
 
@@ -380,7 +406,7 @@ the student.
 - [ ] Missing or malformed field ⇒ build error naming the file
 - [ ] `prerequisites` must reference lessons that exist
 
-### US-202 · Lesson page template *(Must, M)*
+### US-202 · Lesson page template *(Must, M)* · 🟡 partial — *title/summary/objectives/body/output/quiz render; no TOC, prereq chips or time estimate*
 **As a** student **I want** every lesson laid out the same way **so that** I know where to look.
 
 - [ ] Renders: title · estimated time · objectives · body · exercises · quiz call-to-action
@@ -388,7 +414,7 @@ the student.
 - [ ] Prerequisite chips linking back to earlier lessons
 - [ ] "Mark as complete" button at the foot
 
-### US-203 · Migrate existing notes *(Must, L)*
+### US-203 · Migrate existing notes *(Must, L)* · ✅ done — *single-sourced from docs/ via the content build step*
 **As an** author **I want** the 13 written Markdown docs moved into the site **so that** nothing
 is rewritten twice.
 
@@ -396,7 +422,7 @@ is rewritten twice.
 - [ ] Relative links rewritten to site routes
 - [ ] Existing tables, callouts and code blocks render correctly
 
-### US-204 · Write the remaining 38 lessons *(Must, XL)*
+### US-204 · Write the remaining 38 lessons *(Must, XL)* · 🟡 partial — *57/57 written-lesson notes done; Module 6 lessons (code + notes) remain*
 **As a** student **I want** all six modules **so that** the course is complete.
 
 - [ ] Module 2 (2.3–2.9), Module 3 (3.1–3.7), Module 4 (4.1–4.11), Module 5 (5.1–5.9),
@@ -405,7 +431,7 @@ is rewritten twice.
 - [ ] Each references its verified `.cs` lesson file
 - [ ] Each includes the diagrams listed for it in §8.3
 
-### US-205 · Syntax highlighting *(Must, S)*
+### US-205 · Syntax highlighting *(Must, S)* · 🟡 partial — *highlight.js client-side, C#-only; Shiki-at-build and copy buttons pending*
 **As a** student **I want** C# coloured the way my IDE colours it **so that** the site and VS Code
 look like the same language.
 
@@ -414,7 +440,7 @@ look like the same language.
 - [ ] Copy-to-clipboard button on every block
 - [ ] Diff blocks for "wrong vs right" comparisons
 
-### US-206 · Verified output blocks *(Must, M)*
+### US-206 · Verified output blocks *(Must, M)* · ✅ done — *per-lesson JSON, section-addressable, regenerated every build*
 **As a** student **I want** to see exactly what the code prints **so that** I can check my
 understanding without running anything.
 
@@ -423,7 +449,7 @@ understanding without running anything.
 - [ ] A missing marker fails the build
 - [ ] Long output collapses with "show all"
 
-### US-207 · Inline check-yourself cards *(Should, M)*
+### US-207 · Inline check-yourself cards *(Should, M)* · ⬜
 **As a** student **I want** a question in the middle of a lesson **so that** misconceptions are
 caught as they form.
 
@@ -436,7 +462,7 @@ caught as they form.
 
 ## E3 — Navigation & discovery
 
-### US-301 · Syllabus page *(Must, M)*
+### US-301 · Syllabus page *(Must, M)* · ✅ done — *accordion per module, progress bars and badges*
 **As a** student **I want** the whole course on one page **so that** I can see where I am going.
 
 - [ ] All 6 modules, 51 lessons, grouped, with estimated times
@@ -444,19 +470,19 @@ caught as they form.
 - [ ] Module completion bars
 - [ ] Filter by difficulty; jump to first incomplete lesson
 
-### US-302 · Continue where you left off *(Must, S)*
+### US-302 · Continue where you left off *(Must, S)* · ✅ done
 **As a** returning student **I want** one button that resumes **so that** I never hunt for my
 place.
 
 - [ ] Home shows the next incomplete lesson as the primary action
 - [ ] First-time visitors see "Start at 1.1" instead
 
-### US-303 · Previous / next navigation *(Must, S)*
+### US-303 · Previous / next navigation *(Must, S)* · 🟡 partial — *prev/next live; no keyboard shortcuts or module-test hand-off*
 - [ ] Every lesson has prev/next with the real title
 - [ ] Last lesson of a module points at the module test
 - [ ] `←` / `→` keyboard shortcuts
 
-### US-304 · Full-text search *(Should, M)*
+### US-304 · Full-text search *(Should, M)* · ⬜
 **As a** student **I want** to search everything **so that** I can find "yield" without knowing
 which lesson it is in.
 
@@ -465,7 +491,7 @@ which lesson it is in.
 - [ ] Matches lesson text, code and glossary terms
 - [ ] Usable entirely by keyboard
 
-### US-305 · Module overview pages *(Must, S)*
+### US-305 · Module overview pages *(Must, S)* · 🟡 partial — *the syllabus accordion serves this; no separate pages*
 - [ ] What the module covers, what you will be able to do, prerequisites
 - [ ] Lesson list with progress; links to worksheet and module test
 
@@ -473,12 +499,12 @@ which lesson it is in.
 
 ## E4 — Quizzes & assessment
 
-### US-401 · Quiz data model and loader *(Must, M)*
+### US-401 · Quiz data model and loader *(Must, M)* · 🟡 partial — *JSON per lesson with topic tags; no build-time validation*
 - [ ] Questions authored as YAML/JSON per lesson, validated against §6.2
 - [ ] Build fails on: no correct answer, duplicate IDs, missing explanation
 - [ ] Questions carry a `topic` tag, used later for weak-topic revision
 
-### US-402 · Quiz player *(Must, L)*
+### US-402 · Quiz player *(Must, L)* · 🟡 partial — *one-at-a-time with instant explanations; no back-navigation or section links*
 **As a** student **I want** to answer questions one at a time with instant feedback **so that** I
 learn from mistakes while they are fresh.
 
@@ -488,19 +514,19 @@ learn from mistakes while they are fresh.
 - [ ] Cannot skip forward without answering; can go back to review
 - [ ] Fully keyboard-operable, announced correctly by screen readers
 
-### US-403 · Question type components *(Must, L)*
+### US-403 · Question type components *(Must, L)* · 🟡 partial — *multiple-choice only — 1 of 9 types*
 - [ ] All nine types in §6.3 implemented
 - [ ] Each has a keyboard path and a touch path
 - [ ] `ordering` works with drag **and** with arrow-key move up/down
 - [ ] `short-answer` reveals a model answer and asks the student to self-mark
 
-### US-404 · Results screen *(Must, M)*
+### US-404 · Results screen *(Must, M)* · 🟡 partial — *score, misses, retry-all and the 80% rule; no per-topic breakdown*
 - [ ] Score, time taken, per-topic breakdown
 - [ ] List of missed questions with explanations
 - [ ] "Retry wrong ones only" and "Retry all"
 - [ ] ≥80% marks the lesson complete; below that marks it *needs review*
 
-### US-405 · End-of-module tests *(Must, M)*
+### US-405 · End-of-module tests *(Must, M)* · ⬜
 **As a** student **I want** a longer test after each module **so that** I know I have retained
 it, not just recognised it.
 
@@ -509,7 +535,7 @@ it, not just recognised it.
 - [ ] Pass mark 70%; result recorded per attempt
 - [ ] Failing suggests the specific lessons to revisit
 
-### US-406 · Question bank *(Must, XL)*
+### US-406 · Question bank *(Must, XL)* · ⬜ — *10 of 620+ questions exist (lesson 1.4)*
 - [ ] ≥10 questions per lesson → **510+**
 - [ ] ≥25 per module test → **150+**
 - [ ] Balanced across difficulty 1–3
@@ -519,7 +545,7 @@ it, not just recognised it.
 
 ## E5 — Worksheets
 
-### US-501 · Printable worksheets *(Should, M)*
+### US-501 · Printable worksheets *(Should, M)* · ⬜
 **As a** student **I want** a paper worksheet **so that** I can practise away from the screen.
 
 - [ ] One per module, gathering that module's exercises
@@ -527,12 +553,12 @@ it, not just recognised it.
 - [ ] Space to write; question numbers and mark allocations
 - [ ] Header with name and date fields
 
-### US-502 · Model answers *(Should, M)*
+### US-502 · Model answers *(Should, M)* · ⬜
 - [ ] A separate answers page per worksheet, not linked from the worksheet itself
 - [ ] Full worked solutions with commentary, not bare answers
 - [ ] Marked with the lesson each answer draws on
 
-### US-503 · Programming challenges *(Could, M)*
+### US-503 · Programming challenges *(Could, M)* · ⬜
 **As a** student **I want** bigger tasks **so that** I build something real rather than fragments.
 
 - [ ] 3–5 per module: brief, required behaviour, worked solution
@@ -543,19 +569,19 @@ it, not just recognised it.
 
 ## E6 — Progress & motivation
 
-### US-601 · Progress store *(Must, M)*
+### US-601 · Progress store *(Must, M)* · ✅ done — *versioned localStorage store*
 - [ ] Typed `localStorage` wrapper; versioned schema with migrations
 - [ ] Records per lesson: state, quiz attempts, best score, last visited
 - [ ] Handles storage being unavailable or full without breaking the site
 - [ ] Never stores anything personally identifying
 
-### US-602 · Progress dashboard *(Must, M)*
+### US-602 · Progress dashboard *(Must, M)* · ⬜ — *home shows a completion count only*
 - [ ] Overall completion; per-module bars; total time invested
 - [ ] Quiz average and trend over time
 - [ ] Weakest topics, ranked
 - [ ] Next recommended lesson
 
-### US-603 · Export / import progress *(Must, S)*
+### US-603 · Export / import progress *(Must, S)* · 🟡 partial — *export/reset functions exist in code; no UI*
 **As a** student **I want** to move my progress between devices **so that** clearing my browser
 does not erase months of work.
 
@@ -563,12 +589,12 @@ does not erase months of work.
 - [ ] Import validates and merges, keeping the better score on conflicts
 - [ ] "Reset all progress" behind a confirmation
 
-### US-604 · Streaks and milestones *(Could, S)*
+### US-604 · Streaks and milestones *(Could, S)* · ⬜
 - [ ] Consecutive-day streak counter
 - [ ] Badges: first lesson, first module, all quizzes ≥80%, course complete
 - [ ] Encouraging, never punishing — losing a streak is not shamed
 
-### US-605 · Weak-topic revision *(Should, M)*
+### US-605 · Weak-topic revision *(Should, M)* · ⬜
 **As a** student **I want** a quiz built from what I keep getting wrong **so that** revision time
 goes where it is needed.
 
@@ -580,22 +606,22 @@ goes where it is needed.
 
 ## E7 — Reference & revision
 
-### US-701 · Pseudocode → C# reference *(Must, S)*
+### US-701 · Pseudocode → C# reference *(Must, S)* · ⬜
 **As a** GCSE student **I want** my exam pseudocode next to the C# **so that** I can translate
 what I already know.
 
 - [ ] Full AQA pseudocode table with C# equivalents and links to the teaching lesson
 - [ ] Printable
 
-### US-702 · Glossary *(Should, M)*
+### US-702 · Glossary *(Should, M)* · ⬜
 - [ ] Every technical term defined in one sentence, linked to its lesson
 - [ ] Alphabetical, filterable, deep-linkable (`/reference/glossary#polymorphism`)
 
-### US-703 · Cheat sheets *(Should, M)*
+### US-703 · Cheat sheets *(Should, M)* · ⬜
 - [ ] One printable card per module: syntax, methods, complexities
 - [ ] Big-O table; collection-choice decision table; LINQ operator table
 
-### US-704 · GCSE / A-level mapping *(Could, S)*
+### US-704 · GCSE / A-level mapping *(Could, S)* · ⬜
 **As a** tutor **I want** to see which lessons cover which specification points **so that** I can
 set relevant homework.
 
@@ -605,29 +631,29 @@ set relevant homework.
 
 ## E8 — Quality & accessibility
 
-### US-801 · Responsive *(Must, M)*
+### US-801 · Responsive *(Must, M)* · ✅ done — *dedicated mobile pass; 44px targets, no horizontal scroll*
 - [ ] Usable at 320px through to ultrawide
 - [ ] Code blocks scroll horizontally; the page never does
 - [ ] Tap targets ≥44px; quizzes comfortable one-handed on a phone
 
-### US-802 · Accessibility *(Must, L)*
+### US-802 · Accessibility *(Must, L)* · 🟡 partial — *ARIA on quiz/accordion/diagrams, reduced-motion honoured; no audit run*
 - [ ] WCAG 2.1 AA: contrast, focus order, visible focus rings
 - [ ] Every interaction reachable by keyboard alone
 - [ ] Correct ARIA on quizzes; results announced to screen readers
 - [ ] Respects `prefers-reduced-motion`; zero automated axe violations
 
-### US-803 · Performance *(Must, M)*
+### US-803 · Performance *(Must, M)* · 🟡 partial — *75KB gz initial / +102KB lesson vs 50KB target; Shiki+prerender fixes identified in §3.3*
 - [ ] Lighthouse ≥95 in all four categories
 - [ ] Lesson pages ship <50KB of JavaScript
 - [ ] Largest Contentful Paint under 1.5s on a mid-range phone
 - [ ] Fonts self-hosted; no third-party requests at runtime
 
-### US-804 · Dark mode *(Should, S)*
+### US-804 · Dark mode *(Should, S)* · ✅ done — *exceeded: six themes with a picker, no-flash load*
 - [ ] Follows the OS by default, with a manual override that persists
 - [ ] No flash of the wrong theme on load
 - [ ] Code themes swap with the site theme
 
-### US-805 · Offline / installable *(Could, M)*
+### US-805 · Offline / installable *(Could, M)* · ⬜
 **As a** student **I want** the site to work on the train **so that** a bad signal does not stop
 me studying.
 
@@ -639,17 +665,17 @@ me studying.
 
 ## E9 — Authoring & CI
 
-### US-901 · Content authoring guide *(Should, S)*
+### US-901 · Content authoring guide *(Should, S)* · ⬜
 - [ ] `CONTRIBUTING.md`: how to add a lesson, a quiz, a worksheet
 - [ ] Lesson and question templates to copy
 - [ ] House style: British English, second person, no jargon before it is defined
 
-### US-902 · Continuous integration *(Must, M)*
+### US-902 · Continuous integration *(Must, M)* · 🟡 partial — *dotnet build + all-lessons run + site build gate every PR; no link/axe/Lighthouse checks*
 - [ ] On every PR: `dotnet build`, `dotnet run -- all`, `astro build`, link check, axe, Lighthouse
 - [ ] Content schema validation and quiz validation
 - [ ] Any failure blocks the merge
 
-### US-903 · Code-snippet verification *(Must, M)*
+### US-903 · Code-snippet verification *(Must, M)* · 🟡 partial — *capture regenerated every build; snippet-to-source tracing not enforced*
 **As an** author **I want** proof that every snippet compiles **so that** no student is taught
 something that does not work.
 
@@ -661,7 +687,7 @@ something that does not work.
 
 ## E10 — Diagrams & visualisation
 
-### US-1001 · Diagram component and pipeline *(Must, M)*
+### US-1001 · Diagram component and pipeline *(Must, M)* · ✅ done — *as a typed component registry + ```diagram fences rather than SVG files*
 **As an** author **I want** one way to put a diagram in a lesson **so that** all 100+ diagrams
 look and behave alike.
 
@@ -671,7 +697,7 @@ look and behave alike.
 - [ ] Build fails if a diagram is missing an `alt` description
 - [ ] Legible at 320px; scrolls inside its own container rather than breaking the page
 
-### US-1002 · Mermaid at build time *(Should, S)*
+### US-1002 · Mermaid at build time *(Should, S)* · ⬜
 **As an** author **I want** to write flowcharts as text **so that** simple diagrams are quick to
 produce and easy to review in a pull request.
 
@@ -679,7 +705,7 @@ produce and easy to review in a pull request.
 - [ ] **Zero** Mermaid JavaScript reaches the browser
 - [ ] Light and dark variants generated from the site tokens
 
-### US-1003 · Core diagram set *(Must, XL)*
+### US-1003 · Core diagram set *(Must, XL)* · 🟡 partial — *13 of ~110 delivered*
 **As a** student **I want** a picture of every structural idea **so that** I can see what the
 words mean.
 
@@ -687,7 +713,7 @@ words mean.
 - [ ] Each is referenced from the paragraph it explains, not floated at the end
 - [ ] Each has a caption stating the takeaway in one sentence
 
-### US-1004 · Algorithm steppers *(Should, L)*
+### US-1004 · Algorithm steppers *(Should, L)* · ⬜
 **As a** student **I want** to step through an algorithm one operation at a time **so that** I
 can watch it work instead of imagining it.
 
@@ -698,7 +724,7 @@ can watch it work instead of imagining it.
 - [ ] Fully keyboard-operable; honours `prefers-reduced-motion` by starting paused
 - [ ] Under 10KB of JS per stepper, lazy-loaded only when scrolled into view
 
-### US-1005 · Diagrams in quizzes *(Could, M)*
+### US-1005 · Diagrams in quizzes *(Could, M)* · ⬜
 **As a** student **I want** to be asked questions *about* diagrams **so that** I have to read them
 properly.
 
@@ -706,7 +732,7 @@ properly.
 - [ ] `label-the-diagram`: drag labels onto a memory layout or tree
 - [ ] Both keyboard-accessible
 
-### US-1006 · Printable diagrams *(Could, S)*
+### US-1006 · Printable diagrams *(Could, S)* · ⬜
 - [ ] Diagrams print cleanly in worksheets and cheat sheets — black on white, no lost detail
 - [ ] Steppers print as a static "key frames" strip
 
@@ -714,7 +740,7 @@ properly.
 
 ## E11 — Audience pathways
 
-### US-1101 · Pathway chooser *(Must, M)*
+### US-1101 · Pathway chooser *(Must, M)* · ⬜
 **As a** first-time visitor **I want** to say who I am **so that** the site starts me in the right
 place at the right depth.
 
@@ -723,7 +749,7 @@ place at the right depth.
 - [ ] Each option shows its route, its length and where it starts
 - [ ] Dismissible — "just browsing" gives the full syllabus with nothing hidden
 
-### US-1102 · Pathway-aware ordering *(Must, M)*
+### US-1102 · Pathway-aware ordering *(Must, M)* · ⬜
 **As a** student **I want** "next lesson" to follow *my* route **so that** I am never sent
 somewhere irrelevant.
 
@@ -732,7 +758,7 @@ somewhere irrelevant.
 - [ ] Progress is measured against your own pathway, not all 62 lessons
 - [ ] Switching pathway re-maps progress rather than discarding it
 
-### US-1103 · Depth toggles *(Should, M)*
+### US-1103 · Depth toggles *(Should, M)* · ⬜
 **As a** professional **I want** to skip the basics inside a lesson **so that** I am not made to
 read what a variable is.
 
@@ -741,7 +767,7 @@ read what a variable is.
 - [ ] "Go deeper" blocks expand by default for A-Level and professionals
 - [ ] The reader can always override, and the choice sticks
 
-### US-1104 · Fast track for experienced developers *(Should, L)*
+### US-1104 · Fast track for experienced developers *(Should, L)* · ⬜
 **As a** developer who already knows Java or Python **I want** a two-week route **so that** I
 learn what is *different* rather than what is the same.
 
@@ -750,13 +776,13 @@ learn what is *different* rather than what is the same.
 - [ ] Leads with: properties, LINQ, async, records, pattern matching, DI, nullable refs
 - [ ] Ends with a "you are ready" checklist and pointers into the deep material
 
-### US-1105 · Language-transfer guides *(Should, M)*
+### US-1105 · Language-transfer guides *(Should, M)* · ⬜
 - [ ] `/reference/from-java` and `/reference/from-python`
 - [ ] Side-by-side tables of the same task in both languages
 - [ ] The traps specifically: Java's `==` on strings vs C#'s · Python's dynamic typing vs `var` ·
       checked exceptions · properties vs getters · LINQ vs streams/comprehensions
 
-### US-1106 · Specification coverage *(Should, M)*
+### US-1106 · Specification coverage *(Should, M)* · ⬜
 **As a** teacher **I want** to see which lessons cover which exam points **so that** I can set
 work that matches the specification.
 
@@ -765,7 +791,7 @@ work that matches the specification.
 - [ ] Gaps stated honestly where the site goes beyond, or does not cover, a spec point
 - [ ] Printable
 
-### US-1107 · Audience-tagged questions *(Should, M)*
+### US-1107 · Audience-tagged questions *(Should, M)* · ⬜
 **As a** student **I want** questions pitched at my level **so that** they are challenging but
 not crushing.
 
@@ -774,7 +800,7 @@ not crushing.
 - [ ] A-Level quizzes include exam-style extended-answer questions
 - [ ] Professional quizzes lean on `predict-output` and `spot-the-bug`
 
-### US-1108 · NEA / project guidance *(Could, M)*
+### US-1108 · NEA / project guidance *(Could, M)* · ⬜
 **As an** A-Level student **I want** help with my coursework **so that** I can apply this to my
 NEA project.
 
@@ -889,44 +915,45 @@ Already written and verified in the console project — this is the raw material
 | Module | Title | Lessons | Written | Quiz Qs | Test Qs |
 |---|---|---|---|---|---|
 | 1 | Foundations | 11 | ✅ 11 notes · 11 code | 110 | 30 |
-| 2 | Object-oriented programming | **15** | 🟡 2 notes · **15 code** | 150 | 40 |
-| 3 | Collections, generics, LINQ | 7 | ⬜ 0 notes · 7 code | 70 | 25 |
-| 4 | Advanced C# | 11 | ⬜ 0 notes · 11 code | 110 | 30 |
-| 5 | Data structures & algorithms | 9 | ⬜ 0 notes · 9 code | 90 | 30 |
-| 6 | **Production C#** *(new)* | **5** | ⬜ 0 notes · **0 code — to write** | 50 | 20 |
-| 7 | Mini projects | 4 | ⬜ 0 notes · 4 code | 40 | 15 |
-| | **Total** | **62** | **13 / 62 notes · 57 / 62 code** | **620** | **190** |
+| 2 | Object-oriented programming | **15** | ✅ 15 notes · 15 code | 150 | 40 |
+| 3 | Collections, generics, LINQ | 7 | ✅ 7 notes · 7 code | 70 | 25 |
+| 4 | Advanced C# | 11 | ✅ 11 notes · 11 code | 110 | 30 |
+| 5 | Data structures & algorithms | 9 | ✅ 9 notes · 9 code | 90 | 30 |
+| 6 | **Production C#** | **5** | ⬜ 0 notes · **0 code — to write** | 50 | 20 |
+| 7 | Mini projects | 4 | ✅ 4 notes · 4 code | 40 | 15 |
+| | **Total** | **62** | **57 / 62 notes · 57 / 62 code** | **620** | **190** |
 
-**57 of the 62 lessons of C# already compile and run**, verified by `dotnet run -- all`. The
-only C# still to write is the five Module 6 lessons; everything else remaining is prose,
-diagrams and questions.
+**Every written lesson now has both code and notes** — 57 of 62, verified by
+`dotnet run -- all` on every CI run. Module 6 (code + notes) is all that remains of the
+lesson content. The outstanding bulk is **questions (610 of 620)** and **diagrams (~97)**.
 
 ---
 
 ## 10. Milestones
 
-### M0 — Walking skeleton ✅ *built*
-US-101, 102, 103 (workflow), 202, **206** · Lesson 1.4 renders end to end from verified output,
-with a working 10-question quiz and localStorage progress. **Remaining:** create the Azure
-resource and add the deployment token — see §14.
+### M0 — Walking skeleton · ✅ **complete**
+US-101, 102, 103, 202, 206 · Lesson 1.4 renders end to end from verified output with a working
+quiz and localStorage progress — **and the site is live on Azure**, deploying on every merge.
 
-### M1 — Module 1 vertical slice *(3 weeks)*
+### M1 — Module 1 vertical slice · 🟡 **mostly done — blocked on questions**
 US-104, 203, 205, 206, 207, 301–303, 305, 401–404, 601, 602, **1001, 1002, 1101, 1102**
 **Done when:** a student can complete all 11 Module 1 lessons with quizzes and see progress.
-**This is the point to put it in front of a real student and watch them use it.**
+Reading, navigation and progress all work; **only lesson 1.4 has a quiz**, so the
+lesson-completion loop exists for one lesson in eleven. Writing Module 1's ~110 questions is
+what closes this milestone — then put it in front of a real student.
 
-### M2 — Full content *(6 weeks)*
+### M2 — Full content · 🟡 **theory done; assessment not started**
 US-204, 405, 406, 501, 502, **1003, 1107** · **Done when:** all 62 lessons, 620 quiz questions,
 ~110 diagrams, 7 worksheets and 7 module tests are live.
+**57/62 lessons fully written and live** (Modules 1–5, 7 with notes, code, verified output);
+13/~110 diagrams. Remaining: Module 6 (five lessons), 610 questions, worksheets, module tests.
 
-> Includes writing the five **Module 6** lessons — the only remaining C# still to be written.
-
-### M3 — Retention & revision *(2 weeks)*
+### M3 — Retention & revision · ⬜ *(2 weeks)*
 US-603, 605, 701, 702, 703, **1004, 1103, 1104, 1105, 1106** · **Done when:** weak-topic
 revision, export/import, the reference section, the fast track, the transfer guides and the
 algorithm steppers all work.
 
-### M4 — Polish *(2 weeks)*
+### M4 — Polish · ⬜ *(2 weeks)*
 US-304, 604, 704, 801–805, 901–903, **1005, 1006, 1108** · **Done when:** Lighthouse ≥95, zero axe
 violations, offline-capable, CI green.
 
@@ -974,10 +1001,12 @@ exercises with model answers · read end-to-end for tone and reading age.
 
 ## 14. Next actions
 
-1. Sign off this plan.
-2. Scaffold `web/` with Astro + TypeScript (**US-101**).
-3. Create the Azure Static Web App on the **Free** tier and wire up GitHub Actions (**US-103**).
-4. Build the output-capture step from the console app (**US-206**).
-5. Ship lesson 1.4 end to end — text, verified output, two diagrams, a 10-question quiz (**M0**).
-6. Write the five Module 6 lessons in the console project, so all 62 compile (**US-204**).
-7. Complete Module 1 and test it with a real student (**M1**).
+1. ~~Sign off this plan~~ · ~~scaffold `web/`~~ · ~~output capture~~ · ~~ship 1.4 end to end~~ ·
+   ~~write all Module 1–5 and 7 notes~~ · ~~deploy to Azure Free~~ — **done, live**.
+2. **Question bank for Module 1** (~110 questions, US-406) — closes M1 and unlocks testing with
+   a real student. *← current task*
+3. Question bank for Modules 2–5 and 7.
+4. Write the five Module 6 lessons — code first, then notes (US-204).
+5. Remaining question types beyond multiple-choice (US-403), then module tests (US-405).
+6. Progress dashboard + export UI (US-602, US-603).
+7. Diagrams tranche 2 (US-1003) and the bundle-size fixes from §3.3 (US-803).
