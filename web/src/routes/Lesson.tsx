@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -9,10 +9,24 @@ import { loadNotes, stripFrontmatter, MODULE_INFO } from '../lib/lessons';
 import { useSyllabus } from '../lib/useSyllabus';
 import { LessonOutput } from '../components/LessonOutput';
 import { MarkdownLink } from '../components/MarkdownLink';
+import { Diagram } from '../components/Diagram';
 import { Quiz, type Question } from '../components/Quiz';
 import { bestScore, setLessonState } from '../lib/progress';
 
 const quizzes = import.meta.glob('../data/quizzes/*.json', { import: 'default' });
+
+// A ```diagram fence names a themed SVG from the registry; everything else is a
+// normal code block. We intercept at <pre> so the diagram is not nested inside one.
+function PreBlock(props: React.ComponentProps<'pre'>) {
+  const child = props.children as React.ReactElement<{ className?: string; children?: React.ReactNode }> | undefined;
+  const className = child?.props?.className ?? '';
+
+  if (/language-diagram/.test(className)) {
+    return <Diagram name={String(child?.props?.children).trim()} />;
+  }
+
+  return <pre {...props} />;
+}
 
 // Only C# is registered, so highlight.js does not drag in 190 other grammars.
 const rehypePlugins: PluggableList = [[rehypeHighlight, { languages: { csharp }, detect: false }]];
@@ -89,7 +103,7 @@ export function Lesson() {
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={rehypePlugins}
-            components={{ a: MarkdownLink }}
+            components={{ a: MarkdownLink, pre: PreBlock }}
           >
             {notes}
           </ReactMarkdown>

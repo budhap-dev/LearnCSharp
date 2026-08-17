@@ -549,3 +549,24 @@ button:disabled { cursor: default; }
 .module-card .more a { color: var(--muted); }
 .module-card .more a:hover { color: var(--accent); }
 .module-accordion { scroll-margin-top: 4.5rem; }   /* land below the sticky header */
+
+/* ---- lesson diagrams ---- */
+
+.diagram {
+  margin: 1.5rem 0 2rem;
+}
+.diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+.diagram figcaption {
+  margin-top: 0.5rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+}
