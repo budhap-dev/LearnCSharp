@@ -1,0 +1,88 @@
+[
+  {
+    "id": "1.6-q1",
+    "topic": "for loops",
+    "stem": "How many times does this loop run?",
+    "code": "for (int i = 0; i < 5; i++) { }",
+    "options": ["4", "5", "6", "Forever"],
+    "answer": 1,
+    "explanation": "i takes 0, 1, 2, 3, 4 - five iterations. The shape 'i = 0; i < n' runs exactly n times; learn it by heart."
+  },
+  {
+    "id": "1.6-q2",
+    "topic": "off by one",
+    "stem": "And this one?",
+    "code": "for (int i = 0; i <= 5; i++) { }",
+    "options": ["5", "6", "4", "Forever"],
+    "answer": 1,
+    "explanation": "<= includes 5, so it runs six times: 0 through 5. Mixing up < and <= is the off-by-one error - the most common loop bug there is."
+  },
+  {
+    "id": "1.6-q3",
+    "topic": "while vs do-while",
+    "stem": "What is the difference between while and do-while?",
+    "options": ["do-while is faster", "while may run zero times; do-while always runs at least once", "while cannot use break", "There is none"],
+    "answer": 1,
+    "explanation": "while checks BEFORE the first pass; do-while checks after, so its body always runs at least once - perfect for menus and input validation."
+  },
+  {
+    "id": "1.6-q4",
+    "topic": "foreach limits",
+    "stem": "What happens if you Remove an item from a List while foreach-ing it?",
+    "options": ["It works fine", "The loop skips one item", "InvalidOperationException is thrown", "The list is cleared"],
+    "answer": 2,
+    "explanation": "The enumerator detects the modification and throws. Use RemoveAll, or a for loop counting backwards, when you need to remove while iterating."
+  },
+  {
+    "id": "1.6-q5",
+    "topic": "break and continue",
+    "stem": "What does this print?",
+    "code": "for (int i = 1; i <= 5; i++)\n{\n    if (i == 3) continue;\n    if (i == 5) break;\n    Console.Write(i);\n}",
+    "options": ["1245", "124", "12345", "12"],
+    "answer": 1,
+    "explanation": "continue skips 3; break leaves the loop at 5 before printing it. So 1, 2, then 4 - output 124."
+  },
+  {
+    "id": "1.6-q6",
+    "topic": "infinite loops",
+    "stem": "Why does this loop never end?",
+    "code": "int i = 0;\nwhile (i < 10)\n{\n    Console.WriteLine(i);\n}",
+    "options": ["while loops never end", "Nothing inside the loop changes i", "10 is too large", "WriteLine blocks forever"],
+    "answer": 1,
+    "explanation": "The condition depends on i, but the body never changes it - the classic accidental infinite loop. The missing line is i++."
+  },
+  {
+    "id": "1.6-q7",
+    "topic": "nested loops",
+    "stem": "How many stars does this print in total?",
+    "code": "for (int row = 0; row < 3; row++)\n    for (int col = 0; col < 4; col++)\n        Console.Write(\"*\");",
+    "options": ["7", "12", "boxes", "34"],
+    "answer": 1,
+    "explanation": "The inner loop runs completely for EACH pass of the outer one: 3 x 4 = 12. Nested loops multiply - which is where O(n squared) comes from."
+  },
+  {
+    "id": "1.6-q8",
+    "topic": "choosing loops",
+    "stem": "You need to process every item in an array and do not need the index. Best loop?",
+    "options": ["for", "while", "do-while", "foreach"],
+    "answer": 3,
+    "explanation": "foreach is the safest choice: no counter to get wrong and no way to go out of bounds. Reach for 'for' when you need the index or must modify."
+  },
+  {
+    "id": "1.6-q9",
+    "topic": "loop variables",
+    "stem": "What does this print?",
+    "code": "int total = 0, n = 1;\nwhile (total < 10)\n{\n    total += n;\n    n++;\n}\nConsole.WriteLine(n);",
+    "options": ["4", "5", "10", "3"],
+    "answer": 1,
+    "explanation": "total accumulates 1, 3, 6, 10 as n goes 2, 3, 4, 5. The loop exits when total reaches 10, with n already incremented to 5."
+  },
+  {
+    "id": "1.6-q10",
+    "topic": "counting down",
+    "stem": "Which for loop prints 10 8 6 4 2 0?",
+    "options": ["for (int i = 10; i >= 0; i -= 2)", "for (int i = 10; i > 0; i -= 2)", "for (int i = 0; i <= 10; i += 2)", "for (int i = 10; i >= 0; i--)"],
+    "answer": 0,
+    "explanation": "Start at 10, keep going while i >= 0 (so 0 is included), step down in twos. Option B stops before 0; option C counts up."
+  }
+]

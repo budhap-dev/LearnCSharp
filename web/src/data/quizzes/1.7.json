@@ -1,0 +1,83 @@
+[
+  {
+    "id": "1.7-q1",
+    "topic": "indexing",
+    "stem": "For int[] a = {10, 20, 30};  what is a[1]?",
+    "options": ["10", "20", "30", "IndexOutOfRangeException"],
+    "answer": 1,
+    "explanation": "Indexing starts at ZERO: a[0] is 10, a[1] is 20. The valid indexes of a length-3 array are 0, 1 and 2."
+  },
+  {
+    "id": "1.7-q2",
+    "topic": "bounds",
+    "stem": "What happens when you read a[3] on that same array?",
+    "options": ["Returns 0", "Returns the last item", "IndexOutOfRangeException at run time", "It will not compile"],
+    "answer": 2,
+    "explanation": "The last valid index is Length - 1 = 2. C# bounds-checks every access and throws immediately - unlike C, which would silently read random memory."
+  },
+  {
+    "id": "1.7-q3",
+    "topic": "reference semantics",
+    "stem": "What does this print?",
+    "code": "int[] a = { 1, 2, 3 };\nint[] b = a;\nb[0] = 99;\nConsole.WriteLine(a[0]);",
+    "options": ["1", "99", "0", "It will not compile"],
+    "answer": 1,
+    "explanation": "Arrays are reference types: b = a copies the ARROW, not the boxes. Both names point at one array, so the change shows through a. Use a.ToArray() for a real copy."
+  },
+  {
+    "id": "1.7-q4",
+    "topic": "index from end",
+    "stem": "What is primes[^1] for int[] primes = {2, 3, 5, 7, 11}?",
+    "options": ["2", "11", "7", "An error"],
+    "answer": 1,
+    "explanation": "^1 means one from the end - the last item, 11. ^2 would be 7. It reads as 'Length minus n'."
+  },
+  {
+    "id": "1.7-q5",
+    "topic": "ranges",
+    "stem": "What does primes[1..4] give for {2, 3, 5, 7, 11}?",
+    "options": ["{3, 5, 7, 11}", "{3, 5, 7}", "{2, 3, 5, 7}", "{5, 7, 11}"],
+    "answer": 1,
+    "explanation": "A range is inclusive at the start, EXCLUSIVE at the end: indexes 1, 2 and 3 - values 3, 5, 7."
+  },
+  {
+    "id": "1.7-q6",
+    "topic": "max algorithm",
+    "stem": "Why must the classic find-the-max loop start with max = data[0] rather than max = 0?",
+    "options": ["It is faster", "If every value is negative, 0 would wrongly win", "Arrays cannot start at 0", "It avoids overflow"],
+    "answer": 1,
+    "explanation": "With all-negative data, a max seeded at 0 beats every real value and the answer is wrong. Seed from the data itself. A favourite exam trap."
+  },
+  {
+    "id": "1.7-q7",
+    "topic": "2D arrays",
+    "stem": "For int[,] grid = new int[3, 4];  what is grid.GetLength(1)?",
+    "options": ["3", "4", "12", "1"],
+    "answer": 1,
+    "explanation": "GetLength(0) is rows (3), GetLength(1) is columns (4). Plain Length gives the total cells, 12."
+  },
+  {
+    "id": "1.7-q8",
+    "topic": "jagged arrays",
+    "stem": "What makes int[][] different from int[,]?",
+    "options": ["Nothing", "Jagged rows can have different lengths", "int[][] is 3-dimensional", "int[,] cannot store negatives"],
+    "answer": 1,
+    "explanation": "int[][] is an array OF arrays - each row is separate and can differ in length. int[,] is one rectangular block where every row is equal."
+  },
+  {
+    "id": "1.7-q9",
+    "topic": "fixed size",
+    "stem": "How do you add an extra element to an existing array?",
+    "options": ["array.Add(x)", "array.Length++", "You cannot - arrays are fixed size; use a List<T>", "array[^0] = x"],
+    "answer": 2,
+    "explanation": "An array's size is fixed at creation. When you need growth, List<T> wraps an array and manages resizing for you."
+  },
+  {
+    "id": "1.7-q10",
+    "topic": "average trap",
+    "stem": "sum is 23 (int) and data.Length is 4. What does sum / data.Length give?",
+    "options": ["5.75", "5", "6", "It throws"],
+    "answer": 1,
+    "explanation": "Both operands are int, so integer division discards the fraction: 5. Cast one side - (double)sum / data.Length - to get 5.75."
+  }
+]

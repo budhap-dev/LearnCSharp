@@ -1,0 +1,83 @@
+[
+  {
+    "id": "1.8-q1",
+    "topic": "immutability",
+    "stem": "What does this print?",
+    "code": "string s = \"hello\";\ns.ToUpper();\nConsole.WriteLine(s);",
+    "options": ["HELLO", "hello", "Hello", "It will not compile"],
+    "answer": 1,
+    "explanation": "Strings are immutable: ToUpper RETURNS a new string and leaves the original alone. Discarding the result means nothing changed. Write s = s.ToUpper()."
+  },
+  {
+    "id": "1.8-q2",
+    "topic": "IndexOf",
+    "stem": "What does \"hello\".IndexOf(\"z\") return?",
+    "options": ["0", "null", "-1", "It throws"],
+    "answer": 2,
+    "explanation": "IndexOf returns -1 when the text is not found - not null, not an exception. Always check for -1 before using the result as an index."
+  },
+  {
+    "id": "1.8-q3",
+    "topic": "Substring",
+    "stem": "What is \"Computer\".Substring(0, 4)?",
+    "options": ["Comp", "Compu", "uter", "C"],
+    "answer": 0,
+    "explanation": "The second argument is a LENGTH, not an end index: start at 0, take 4 characters - \"Comp\". The range form \"Computer\"[0..4] gives the same."
+  },
+  {
+    "id": "1.8-q4",
+    "topic": "read-only indexing",
+    "stem": "Why does word[0] = 'X'; fail to compile?",
+    "options": ["Strings index from 1", "Strings are read-only - you cannot assign to a character", "char cannot be assigned", "It needs double quotes"],
+    "answer": 1,
+    "explanation": "A string behaves like a read-only char array. To change a character you must build a new string."
+  },
+  {
+    "id": "1.8-q5",
+    "topic": "Split and Join",
+    "stem": "What does string.Join(\"-\", \"a,b,c\".Split(',')) produce?",
+    "options": ["a,b,c", "a-b-c", "abc", "[a, b, c]"],
+    "answer": 1,
+    "explanation": "Split(',') gives [\"a\", \"b\", \"c\"]; Join glues them back with \"-\": a-b-c."
+  },
+  {
+    "id": "1.8-q6",
+    "topic": "comparison",
+    "stem": "What does \"ABC\" == \"abc\" evaluate to?",
+    "options": ["true", "false", "It depends on the OS", "It will not compile"],
+    "answer": 1,
+    "explanation": "== on strings compares the characters, case-sensitively - so false. For case-insensitive checks use Equals with StringComparison.OrdinalIgnoreCase."
+  },
+  {
+    "id": "1.8-q7",
+    "topic": "whitespace",
+    "stem": "Which returns true for the string \"   \" (three spaces)?",
+    "options": ["string.IsNullOrEmpty", "string.IsNullOrWhiteSpace", "Both", "Neither"],
+    "answer": 1,
+    "explanation": "Spaces are characters, so the string is not empty - IsNullOrEmpty says false. IsNullOrWhiteSpace treats it as blank, which is what input validation usually wants."
+  },
+  {
+    "id": "1.8-q8",
+    "topic": "StringBuilder",
+    "stem": "Why is  text += \"x\"  inside a 20,000-iteration loop slow?",
+    "options": ["+= is always slow", "Each += builds a whole NEW string and discards the old one", "The console is slow", "Strings have a length limit"],
+    "answer": 1,
+    "explanation": "Immutability means every += copies everything so far into a fresh string - quadratic work overall. StringBuilder keeps one growable buffer and turns minutes into milliseconds."
+  },
+  {
+    "id": "1.8-q9",
+    "topic": "verbatim strings",
+    "stem": "What does @\"C:\\Users\\Ada\" mean?",
+    "options": ["An error - backslashes must be escaped", "A verbatim string: backslashes are literal", "A file that gets opened", "A regular expression"],
+    "answer": 1,
+    "explanation": "The @ prefix makes a verbatim string where \\ is just a backslash. Without it you would need C:\\\\Users\\\\Ada."
+  },
+  {
+    "id": "1.8-q10",
+    "topic": "escape sequences",
+    "stem": "What does \\n mean inside a normal string literal?",
+    "options": ["The letter n", "A new line", "Null", "A tab"],
+    "answer": 1,
+    "explanation": "\\n is the new-line escape; \\t is tab, \\\" a literal quote, \\\\ a literal backslash."
+  }
+]

@@ -1,0 +1,84 @@
+[
+  {
+    "id": "1.1-q1",
+    "topic": "program structure",
+    "stem": "Where does a C# program start running?",
+    "options": ["The first line of the file", "The Main method", "The class named Program", "The namespace declaration"],
+    "answer": 1,
+    "explanation": "The runtime looks for a method called Main and starts there. With top-level statements the compiler writes Main for you, but it still exists."
+  },
+  {
+    "id": "1.1-q2",
+    "topic": "statements",
+    "stem": "What does every C# statement end with?",
+    "options": ["A full stop", "A new line", "A semicolon", "A closing brace"],
+    "answer": 2,
+    "explanation": "Statements end with a semicolon. New lines and indentation mean nothing to the compiler - they are purely for humans."
+  },
+  {
+    "id": "1.1-q3",
+    "topic": "output",
+    "stem": "What does this print?",
+    "code": "Console.Write(\"A\");\nConsole.Write(\"B\");\nConsole.WriteLine(\"C\");",
+    "options": ["A B C on three lines", "ABC on one line", "AB then C on a new line", "It will not compile"],
+    "answer": 1,
+    "explanation": "Write prints without a line break, so A, B and C all land on one line. Only WriteLine moves to a new line - after printing C."
+  },
+  {
+    "id": "1.1-q4",
+    "topic": "case sensitivity",
+    "stem": "Why does console.WriteLine(\"hi\"); fail to compile?",
+    "options": ["The brackets are wrong", "C# is case sensitive - it is Console", "WriteLine needs two arguments", "It is missing a namespace"],
+    "answer": 1,
+    "explanation": "C# is case sensitive: console and Console are different names. The class is Console with a capital C."
+  },
+  {
+    "id": "1.1-q5",
+    "topic": "using directives",
+    "stem": "What does 'using System;' at the top of a file do?",
+    "options": ["Runs the System program", "Lets you write Console instead of System.Console", "Imports your own code", "Starts the garbage collector"],
+    "answer": 1,
+    "explanation": "System is a namespace full of built-in types. The using directive means you can refer to them by their short names."
+  },
+  {
+    "id": "1.1-q6",
+    "topic": "compilation",
+    "stem": "What does the C# compiler produce from your source code?",
+    "options": ["Machine code for your CPU", "IL - Intermediate Language - in a .dll", "A text file of instructions", "JavaScript"],
+    "answer": 1,
+    "explanation": "The compiler produces IL, a CPU-independent bytecode. The JIT compiler turns that into real machine code when the program runs - which is why one .dll runs on Windows, macOS and Linux."
+  },
+  {
+    "id": "1.1-q7",
+    "topic": "the stray semicolon",
+    "stem": "What does this print when score is 10?",
+    "code": "int score = 10;\nif (score > 1000) ;\n{\n    Console.WriteLine(\"Huge score!\");\n}",
+    "options": ["Nothing", "Huge score!", "It will not compile", "An exception is thrown"],
+    "answer": 1,
+    "explanation": "The semicolon straight after the if ENDS the if statement - it guards an empty statement. The block below is not attached to the if, so it always runs. A classic bug."
+  },
+  {
+    "id": "1.1-q8",
+    "topic": "comments",
+    "stem": "Which of these is a valid single-line comment?",
+    "options": ["# this is a comment", "<!-- this is a comment -->", "// this is a comment", "'' this is a comment"],
+    "answer": 2,
+    "explanation": "C# uses // for single-line comments and /* */ for blocks. # is Python; <!-- --> is HTML."
+  },
+  {
+    "id": "1.1-q9",
+    "topic": "blocks",
+    "stem": "What groups statements together into a block in C#?",
+    "options": ["Indentation", "Curly braces { }", "BEGIN and END keywords", "Round brackets ( )"],
+    "answer": 1,
+    "explanation": "Braces group statements, exactly where GCSE pseudocode used ENDIF or ENDWHILE. Indentation is only for human readers - unlike Python."
+  },
+  {
+    "id": "1.1-q10",
+    "topic": "top-level statements",
+    "stem": "A file contains just: Console.WriteLine(\"hi\"); Is this a valid program?",
+    "options": ["No - Main is required", "No - a class is required", "Yes - the compiler wraps it in Main for you", "Only in debug builds"],
+    "answer": 2,
+    "explanation": "Since C# 9, top-level statements are allowed in one file. The compiler generates the class and Main around them - the long form still exists underneath."
+  }
+]

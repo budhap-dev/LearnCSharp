@@ -1,0 +1,83 @@
+[
+  {
+    "id": "1.11-q1",
+    "topic": "error kinds",
+    "stem": "Your program compiles, runs without crashing, and prints the wrong average. What kind of error is this?",
+    "options": ["Syntax error", "Runtime error", "Logic error", "Linker error"],
+    "answer": 2,
+    "explanation": "A logic error: no message, no crash, just a wrong answer. The compiler catches syntax errors and the runtime reports exceptions - only TESTING finds logic errors."
+  },
+  {
+    "id": "1.11-q2",
+    "topic": "catch order",
+    "stem": "Why must catch (Exception) come LAST in a chain of catch blocks?",
+    "options": ["It is slower", "Earlier specific handlers would be unreachable - the compiler rejects it", "Style preference only", "It must come first"],
+    "answer": 1,
+    "explanation": "The first matching block wins, and Exception matches everything - so anything after it could never run. C# makes this a compile error."
+  },
+  {
+    "id": "1.11-q3",
+    "topic": "finally",
+    "stem": "When does a finally block run?",
+    "options": ["Only after an exception", "Only when there is no exception", "On every path out of the try - normal end, return or exception", "Only in Debug builds"],
+    "answer": 2,
+    "explanation": "finally always runs - even after a return. That guarantee is what makes it right for cleanup, and it is what the using statement compiles into."
+  },
+  {
+    "id": "1.11-q4",
+    "topic": "exception types",
+    "stem": "What does int.Parse(\"99999999999999999999\") throw?",
+    "options": ["FormatException", "OverflowException", "ArgumentException", "Nothing - it returns int.MaxValue"],
+    "answer": 1,
+    "explanation": "The text IS a valid number - just too big for int. That is OverflowException; FormatException is for text that is not a number at all."
+  },
+  {
+    "id": "1.11-q5",
+    "topic": "stack traces",
+    "stem": "In a stack trace, where is the line where the exception was actually thrown?",
+    "options": ["At the bottom", "At the top", "In the middle", "It is not shown"],
+    "answer": 1,
+    "explanation": "Read from the TOP: the first line is where it broke; each line below is the caller. Find the first line naming YOUR file - the bug is almost always there."
+  },
+  {
+    "id": "1.11-q6",
+    "topic": "null",
+    "stem": "What does this throw?",
+    "code": "string? s = null;\nConsole.WriteLine(s.Length);",
+    "options": ["ArgumentException", "NullReferenceException", "IndexOutOfRangeException", "Nothing - prints 0"],
+    "answer": 1,
+    "explanation": "Using a member of an object that is not there is NullReferenceException - the most common crash in the industry. s?.Length would give null instead of crashing."
+  },
+  {
+    "id": "1.11-q7",
+    "topic": "empty catch",
+    "stem": "Why is  catch { }  (an empty catch block) considered harmful?",
+    "options": ["It does not compile", "It swallows the error, so the bug resurfaces later with no clue where it came from", "It is slow", "It catches too little"],
+    "answer": 1,
+    "explanation": "Swallowing an exception hides the evidence. If you cannot handle it, do not catch it - let it travel up to something that can."
+  },
+  {
+    "id": "1.11-q8",
+    "topic": "validation strategy",
+    "stem": "For validating user input that is often wrong, why is TryParse better than try/catch around Parse?",
+    "options": ["TryParse is more accurate", "Exceptions are slow and bad input is not exceptional", "Parse cannot read numbers", "catch blocks cannot see the input"],
+    "answer": 1,
+    "explanation": "Throwing is expensive - hundreds of ms for thousands of failures versus ~1ms with TryParse - and expected bad input is normal flow, not an exceptional event."
+  },
+  {
+    "id": "1.11-q9",
+    "topic": "throwing",
+    "stem": "A caller passes age = -5 to SetAge. What should SetAge do?",
+    "options": ["Return quietly", "Set age to 0", "throw new ArgumentOutOfRangeException(nameof(age), ...)", "Print a warning"],
+    "answer": 2,
+    "explanation": "A negative age is the CALLER's bug - throw so it is heard. nameof(age) keeps the message correct through renames."
+  },
+  {
+    "id": "1.11-q10",
+    "topic": "divide by zero",
+    "stem": "Which throws DivideByZeroException?",
+    "options": ["17.0 / 0", "17 / zero  (where int zero = 0)", "0.0 / 0.0", "Math.Sqrt(-1)"],
+    "answer": 1,
+    "explanation": "Only INTEGER division by zero throws. 17.0/0 gives Infinity, 0.0/0.0 gives NaN, and Math.Sqrt(-1) gives NaN - doubles never throw here."
+  }
+]

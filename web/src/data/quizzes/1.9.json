@@ -1,0 +1,85 @@
+[
+  {
+    "id": "1.9-q1",
+    "topic": "return types",
+    "stem": "What does 'void' mean in a method signature?",
+    "options": ["The method is empty", "The method returns nothing", "The method is private", "The method can fail"],
+    "answer": 1,
+    "explanation": "void = no return value - what GCSE called a procedure. A method with a return type is what GCSE called a function."
+  },
+  {
+    "id": "1.9-q2",
+    "topic": "pass by value",
+    "stem": "What does this print?",
+    "code": "static void Double(int value) => value *= 2;\n\nint n = 10;\nDouble(n);\nConsole.WriteLine(n);",
+    "options": ["20", "10", "0", "It will not compile"],
+    "answer": 1,
+    "explanation": "Value types are passed as a COPY - the method doubled its own copy and threw it away. To affect the caller use ref, or return the new value."
+  },
+  {
+    "id": "1.9-q3",
+    "topic": "arrays as parameters",
+    "stem": "And this?",
+    "code": "static void Change(int[] a) => a[0] = 99;\n\nint[] data = { 1, 2, 3 };\nChange(data);\nConsole.WriteLine(data[0]);",
+    "options": ["1", "99", "0", "It throws"],
+    "answer": 1,
+    "explanation": "The parameter copies the REFERENCE, so both point at the same array - changes to its contents are visible to the caller. (Reassigning the parameter itself would not be.)"
+  },
+  {
+    "id": "1.9-q4",
+    "topic": "out parameters",
+    "stem": "What must a method do with an out parameter?",
+    "options": ["Read it first", "Assign it on every path before returning", "Declare it static", "Return it"],
+    "answer": 1,
+    "explanation": "out means 'I will definitely give you a value' - the compiler enforces assignment on every path. This is the TryParse pattern."
+  },
+  {
+    "id": "1.9-q5",
+    "topic": "overloading",
+    "stem": "Which pair is a VALID overload?",
+    "options": ["int F(int x) and string F(int x)", "int F(int x) and int F(int x, int y)", "int F(int x) and int F(int y)", "void F() and void F()"],
+    "answer": 1,
+    "explanation": "Overloads must differ in their PARAMETER LIST. Return type alone (option A) or parameter name alone (option C) is not enough."
+  },
+  {
+    "id": "1.9-q6",
+    "topic": "optional parameters",
+    "stem": "Given Greet(string name, string greeting = \"Hello\"), what does Greet(\"Ada\") produce?",
+    "options": ["A compile error", "Greeting Ada with \"Hello\"", "Greeting Ada with an empty greeting", "null"],
+    "answer": 1,
+    "explanation": "An omitted optional parameter takes its default - greeting becomes \"Hello\". Named arguments let you skip middle parameters: Greet(\"Ada\", punctuation: \"?\")."
+  },
+  {
+    "id": "1.9-q7",
+    "topic": "params",
+    "stem": "static int Total(params int[] xs)  - which call is INVALID?",
+    "options": ["Total()", "Total(1, 2, 3)", "Total(new[] { 1, 2 })", "None - all three are valid"],
+    "answer": 3,
+    "explanation": "params accepts no arguments, a comma-separated list, or a real array - all three work. It must be the last parameter."
+  },
+  {
+    "id": "1.9-q8",
+    "topic": "recursion",
+    "stem": "What happens if a recursive method has no base case?",
+    "options": ["It returns 0", "The compiler rejects it", "StackOverflowException - which cannot be caught", "It runs once"],
+    "answer": 2,
+    "explanation": "Every call adds a stack frame; without a base case the stack fills and the process dies with StackOverflowException - one of the few exceptions you cannot catch."
+  },
+  {
+    "id": "1.9-q9",
+    "topic": "expression bodies",
+    "stem": "What is  static double Square(double x) => x * x;  shorthand for?",
+    "options": ["A lambda variable", "A full method with { return x * x; }", "A property", "A delegate declaration"],
+    "answer": 1,
+    "explanation": "The => here is an expression-bodied METHOD - identical to the braced version, just shorter. (The same arrow means something different in lambdas.)"
+  },
+  {
+    "id": "1.9-q10",
+    "topic": "ref",
+    "stem": "What does this print?",
+    "code": "static void Swap(ref int a, ref int b) => (a, b) = (b, a);\n\nint x = 1, y = 2;\nSwap(ref x, ref y);\nConsole.WriteLine($\"{x} {y}\");",
+    "options": ["1 2", "2 1", "2 2", "It will not compile"],
+    "answer": 1,
+    "explanation": "ref passes the variables themselves, so the tuple swap really exchanges the caller's x and y - printing 2 1. Note ref is required at the call site too."
+  }
+]
