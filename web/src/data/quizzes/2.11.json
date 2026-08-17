@@ -1,0 +1,82 @@
+[
+  {
+    "id": "2.11-q1",
+    "topic": "static",
+    "stem": "A static field differs from an instance field how?",
+    "options": ["It cannot change", "ONE value shared by the whole class, not one per object", "It is public", "It is faster"],
+    "answer": 1,
+    "explanation": "Three Counter objects each have their own Id, but all share one _created. Reached via the class name: Counter.Created."
+  },
+  {
+    "id": "2.11-q2",
+    "topic": "static classes",
+    "stem": "What can you NOT do with a static class like Math?",
+    "options": ["Call its methods", "Create an instance with new", "Give it fields", "Put it in a namespace"],
+    "answer": 1,
+    "explanation": "A static class is a bag of functions - no instances, ever. Math, Console and File all work this way."
+  },
+  {
+    "id": "2.11-q3",
+    "topic": "static constructor",
+    "stem": "When does a static constructor run?",
+    "options": ["Every time an object is made", "Automatically, exactly once, before the class is first used", "When you call it", "At compile time"],
+    "answer": 1,
+    "explanation": "No modifier, no parameters, never called by you - the runtime guarantees exactly one execution before first touch."
+  },
+  {
+    "id": "2.11-q4",
+    "topic": "composition",
+    "stem": "A Car with a private Engine field is an example of:",
+    "options": ["Inheritance - Car is an Engine", "Composition - Car HAS an Engine", "Polymorphism", "Encapsulation only"],
+    "answer": 1,
+    "explanation": "HAS-A, not IS-A. The car is BUILT FROM parts - and new Car(\"Leaf\", new ElectricEngine(150)) swaps the part at run time, which inheritance never can."
+  },
+  {
+    "id": "2.11-q5",
+    "topic": "composition vs inheritance",
+    "stem": "\"Favour composition over inheritance\" mainly because composition is:",
+    "options": ["Newer", "Looser - swap parts at run time, mix many, test with fakes", "Faster", "Required by C#"],
+    "answer": 1,
+    "explanation": "Inheritance locks one base at compile time and couples you to everything in it. Composition takes only what you need and can be handed a fake for testing."
+  },
+  {
+    "id": "2.11-q6",
+    "topic": "dependency injection",
+    "stem": "Game's constructor takes an ILogger instead of creating a ConsoleLogger inside. The payoff?",
+    "options": ["Fewer lines", "Game can be tested with a MemoryLogger - no console, no noise - and rewired without edits", "Loggers run faster", "It cannot be null"],
+    "answer": 1,
+    "explanation": "Injected dependencies are visible and swappable. new-ing them inside welds the class to one implementation forever."
+  },
+  {
+    "id": "2.11-q7",
+    "topic": "static trouble",
+    "stem": "Why is static MUTABLE data a testing problem?",
+    "options": ["It is slow", "It is global state: tests interfere with each other, and nothing can swap it for a fake", "Static cannot be read", "It uses the heap"],
+    "answer": 1,
+    "explanation": "One shared value leaks between tests and hides in no signature. Static shines for PURE functions (Math.Sqrt); be suspicious of static data."
+  },
+  {
+    "id": "2.11-q8",
+    "topic": "solid preview",
+    "stem": "\"Depend on ILogger, not ConsoleLogger\" is which SOLID principle?",
+    "options": ["Single responsibility", "Open/closed", "Liskov substitution", "Dependency inversion"],
+    "answer": 3,
+    "explanation": "D - depend on abstractions, not concretions. 2.13 treats all five properly."
+  },
+  {
+    "id": "2.11-q9",
+    "topic": "access syntax",
+    "stem": "Which is the correct way to read a static property?",
+    "options": ["myCounter.Created", "Counter.Created", "new Counter().Created", "this.Created"],
+    "answer": 1,
+    "explanation": "Static members are reached through the CLASS name. Instance-reference access does not even compile in C#."
+  },
+  {
+    "id": "2.11-q10",
+    "topic": "choosing",
+    "stem": "When IS inheritance still the right call?",
+    "options": ["Whenever code repeats", "When the child is genuinely a KIND of the parent and you want its behaviour", "Never", "When classes share a file"],
+    "answer": 1,
+    "explanation": "IS-A plus wanted behaviour = inheritance (Dog : Animal). Reuse alone = composition. The test is the sentence, not the convenience."
+  }
+]

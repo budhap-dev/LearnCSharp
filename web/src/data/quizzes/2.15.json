@@ -1,0 +1,82 @@
+[
+  {
+    "id": "2.15-q1",
+    "topic": "finding classes",
+    "stem": "In the library brief, why does LOAN deserve to be a class when 'fine' does not?",
+    "options": ["Loans are longer words", "A loan is a relationship with its own facts (dates); a fine is just a CALCULATION on those facts", "Fines are decimals", "Tradition"],
+    "answer": 1,
+    "explanation": "Nouns are candidates, not certainties. Loan owns BorrowedOn/DueOn/ReturnedOn; FineOn(date) is derived from them - a method, not a class."
+  },
+  {
+    "id": "2.15-q2",
+    "topic": "the key insight",
+    "stem": "Why is DueDate on Book a design mistake?",
+    "options": ["Dates are big", "A due date belongs to the RELATIONSHIP between member and book - lend it twice and Book has nowhere for two histories", "Books cannot have properties", "It should be on Member"],
+    "answer": 1,
+    "explanation": "When a fact belongs to a relationship rather than a thing, the relationship wants its own class. This is the workshop's central lesson."
+  },
+  {
+    "id": "2.15-q3",
+    "topic": "rule placement",
+    "stem": "\"A member may borrow up to 3 books\" lives in Library, not Member, because:",
+    "options": ["Library is bigger", "Only the Library can SEE all of a member's open loans - the rule lives with the data it needs", "Members are records", "It is alphabetical"],
+    "answer": 1,
+    "explanation": "The guiding question of the whole module: which object owns the data this rule needs? A rule far from its data is how code tangles."
+  },
+  {
+    "id": "2.15-q4",
+    "topic": "rule placement 2",
+    "stem": "And \"10p per day late\" lives in Loan because:",
+    "options": ["Loans like money", "The fine is computed from the loan's OWN dates - Loan.FineOn(date) uses nothing else", "Library was full", "Members pay it"],
+    "answer": 1,
+    "explanation": "Same principle, opposite direction: this rule needs only DueOn and the query date, both Loan's own state."
+  },
+  {
+    "id": "2.15-q5",
+    "topic": "the ordering bug",
+    "stem": "Return() printed \"0 days late - fine £0.70\". The cause?",
+    "options": ["Wrong fine rate", "The loan was CLOSED before DaysLateOn was read - and a closed loan correctly reports 0", "Decimal rounding", "A null date"],
+    "answer": 1,
+    "explanation": "Both numbers came from one loan and disagreed. When state changes alter what methods report, READ ORDER becomes logic: capture both values, then close."
+  },
+  {
+    "id": "2.15-q6",
+    "topic": "guard clauses",
+    "stem": "Borrow() starts with four early-return checks (unknown member, unknown book, unavailable, over limit). This style is:",
+    "options": ["Wasteful", "Guard clauses - handle every bad case first, leaving the happy path unindented (1.5)", "Recursion", "Pattern matching"],
+    "answer": 1,
+    "explanation": "Each guard is one sentence of the brief, in order. The success path reads straight down with no nesting."
+  },
+  {
+    "id": "2.15-q7",
+    "topic": "state protection",
+    "stem": "Book.MarkLent() is internal and Library calls it. Why not let anyone set IsAvailable?",
+    "options": ["Performance", "Availability must only change through a real loan - encapsulation (2.4) protecting the workflow", "internal is faster", "Books are sealed"],
+    "answer": 1,
+    "explanation": "Book reports state; Library decides. A public setter would let code mark books lent with no loan existing."
+  },
+  {
+    "id": "2.15-q8",
+    "topic": "critique",
+    "stem": "The workshop's own critique flags Library as weakening. Its suggested refactor?",
+    "options": ["Delete Library", "Extract a LendingPolicy (max loans, loan length, fine rate) - Library is accumulating unrelated jobs", "Merge Loan into Book", "Make everything static"],
+    "answer": 1,
+    "explanation": "Stock + members + policy = cohesion dropping (2.13 S). Extracting policy gives rules one home and makes 'weekend rates' a one-class change."
+  },
+  {
+    "id": "2.15-q9",
+    "topic": "design truth",
+    "stem": "\"The measure of a good model is not that it was right first time, but that ____\"",
+    "options": ["it compiles", "changing it later is CHEAP", "it uses patterns", "it has UML"],
+    "answer": 1,
+    "explanation": "First designs are never final. Localised rules, guarded state and loose coupling are what make the second draft affordable."
+  },
+  {
+    "id": "2.15-q10",
+    "topic": "transfer",
+    "stem": "Modelling the cinema (films, screens, showings, seats, bookings) - which fact belongs to SHOWING rather than Film?",
+    "options": ["The title", "The running time", "The START TIME", "The director"],
+    "answer": 2,
+    "explanation": "Running time is the film's own; a start time only exists for a film-on-a-screen-at-a-moment - the Loan lesson again: relationship facts get relationship classes."
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "2.7-q1",
+    "topic": "contracts",
+    "stem": "What does an interface contain?",
+    "options": ["Fields and constructors", "A list of promised members with no implementation (bar optional defaults)", "Only static methods", "Private helpers"],
+    "answer": 1,
+    "explanation": "An interface is a contract: what implementers must provide, nothing about how. No fields, no constructors."
+  },
+  {
+    "id": "2.7-q2",
+    "topic": "many interfaces",
+    "stem": "class Robot : IMovable, ISpeaker - is this allowed?",
+    "options": ["No - one interface only", "Yes - a class may implement any number of interfaces", "Only if they share members", "Only for sealed classes"],
+    "answer": 1,
+    "explanation": "One base class, unlimited interfaces - C#'s answer to multiple inheritance without its ambiguity."
+  },
+  {
+    "id": "2.7-q3",
+    "topic": "programming to interfaces",
+    "stem": "SaveGame(IStorage storage) instead of SaveGame(FileStorage storage) buys you what?",
+    "options": ["Speed", "Any implementation - memory, file, cloud, test fake - can be swapped in without changing SaveGame", "Smaller binaries", "Automatic saving"],
+    "answer": 1,
+    "explanation": "Program to the interface, not the implementation. It is the D of SOLID and the single habit that makes code testable."
+  },
+  {
+    "id": "2.7-q4",
+    "topic": "IComparable",
+    "stem": "students.Sort() works on your Student class if it implements:",
+    "options": ["IEnumerable<Student>", "IComparable<Student> with CompareTo", "IDisposable", "ToString"],
+    "answer": 1,
+    "explanation": "CompareTo teaches the framework your ordering: negative = I come first, 0 = equal, positive = later. Sort calls it."
+  },
+  {
+    "id": "2.7-q5",
+    "topic": "interface vs abstract class",
+    "stem": "You want to share FIELDS and some implemented code among related classes. Which fits?",
+    "options": ["An interface", "An abstract class", "A sealed class", "A struct"],
+    "answer": 1,
+    "explanation": "Interfaces cannot hold state. An abstract class can carry fields, constructors and shared code - at the cost of using the class's single inheritance slot."
+  },
+  {
+    "id": "2.7-q6",
+    "topic": "capability naming",
+    "stem": "Rule of thumb: use an interface for a ____ .",
+    "options": ["Base of a deep hierarchy", "Capability - ICanBeSaved, IMovable", "Data bag", "Constant store"],
+    "answer": 1,
+    "explanation": "Interfaces name what something CAN DO. Unrelated types - a Robot and a Duck - can share a capability with no shared ancestry."
+  },
+  {
+    "id": "2.7-q7",
+    "topic": "default methods",
+    "stem": "An interface method WITH a body (C# 8 default implementation) is reachable how?",
+    "options": ["robot.Introduce() directly", "Only through an interface-typed reference: ((ISpeaker)robot).Introduce()", "It cannot be called", "Only statically"],
+    "answer": 1,
+    "explanation": "Defaults live on the interface, not the class - a surprise worth knowing. Their main use is evolving a published interface without breaking implementers."
+  },
+  {
+    "id": "2.7-q8",
+    "topic": "explicit implementation",
+    "stem": "string IFlyer.Fly() => ...;  (no access modifier, interface-qualified name) makes Fly:",
+    "options": ["Public on the class", "Reachable ONLY through an IFlyer reference", "Private forever", "Static"],
+    "answer": 1,
+    "explanation": "Explicit implementation hides the member from the class's own surface - used for name clashes between interfaces, or to keep the contract off the main API."
+  },
+  {
+    "id": "2.7-q9",
+    "topic": "framework interfaces",
+    "stem": "Implementing IEnumerable<T> on your class gives it:",
+    "options": ["Sorting", "foreach support AND all of LINQ", "Serialization", "Thread safety"],
+    "answer": 1,
+    "explanation": "foreach and every LINQ operator are written against IEnumerable<T> - one GetEnumerator and your Playlist joins the ecosystem (3.5)."
+  },
+  {
+    "id": "2.7-q10",
+    "topic": "member modifiers",
+    "stem": "Why does writing 'public' on an interface member declaration cause an error in classic style?",
+    "options": ["Members are private", "Interface members are public BY DEFINITION - the modifier is redundant/disallowed", "Interfaces need internal", "It is fine"],
+    "answer": 1,
+    "explanation": "A contract that nobody could see would be pointless - interface members are inherently public, so the modifier is not written."
+  }
+]

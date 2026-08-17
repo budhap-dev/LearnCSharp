@@ -1,0 +1,83 @@
+[
+  {
+    "id": "2.6-q1",
+    "topic": "dynamic dispatch",
+    "stem": "Shape s = new Circle(3); s.Area(); Whose Area body runs?",
+    "options": ["Shape's", "Circle's - the runtime looks at the REAL type", "Both", "It depends on the compiler"],
+    "answer": 1,
+    "explanation": "Dynamic dispatch: the declared type says what you may CALL; the runtime type decides which BODY runs. That is polymorphism."
+  },
+  {
+    "id": "2.6-q2",
+    "topic": "open/closed payoff",
+    "stem": "TotalArea sums s.Area() over a Shape[]. You add a new Pentagon class. What changes in TotalArea?",
+    "options": ["A new case is added", "Nothing at all", "It must be recompiled with a flag", "It breaks"],
+    "answer": 1,
+    "explanation": "Polymorphism lets old code call new code: Pentagon brings its own Area, and TotalArea never knew about specific shapes in the first place."
+  },
+  {
+    "id": "2.6-q3",
+    "topic": "virtual/override",
+    "stem": "To replace a parent's method behaviour properly, the parent and child need which keywords?",
+    "options": ["Nothing - it is automatic", "virtual on the parent, override on the child", "static on both", "new on both"],
+    "answer": 1,
+    "explanation": "Both ends are explicit in C# - a deliberate contrast with Java. No virtual = cannot override; no override = you are hiding, not replacing."
+  },
+  {
+    "id": "2.6-q4",
+    "topic": "new vs override",
+    "stem": "What does this print?",
+    "code": "class Base { public virtual string Speak() => \"Base\"; }\nclass Derived : Base { public new string Speak() => \"Derived\"; }\n\nBase b = new Derived();\nConsole.WriteLine(b.Speak());",
+    "options": ["Derived", "Base", "It will not compile", "Nothing"],
+    "answer": 1,
+    "explanation": "new HIDES rather than replaces: which method runs depends on the DECLARED type of the variable. Through a Base variable, Base.Speak runs. Almost always a bug - use override."
+  },
+  {
+    "id": "2.6-q5",
+    "topic": "abstract methods",
+    "stem": "public abstract double Area(); in Shape means:",
+    "options": ["Area returns 0 by default", "Every concrete subclass must supply an Area body, and Shape itself cannot be instantiated", "Area is optional", "Area is private"],
+    "answer": 1,
+    "explanation": "abstract = requirement without implementation. The compiler enforces that every concrete child overrides it."
+  },
+  {
+    "id": "2.6-q6",
+    "topic": "base call",
+    "stem": "public override string Send(string m) => base.Send(m) + \" !!!\"; What does base.Send do?",
+    "options": ["Recursion", "Calls the PARENT's version, letting the child extend rather than replace", "Calls the first version ever written", "Throws"],
+    "answer": 1,
+    "explanation": "base.Method() reaches one level up the hierarchy - decorate the parent's behaviour instead of duplicating it."
+  },
+  {
+    "id": "2.6-q7",
+    "topic": "ToString",
+    "stem": "Why override ToString()?",
+    "options": ["It is required", "Printing and interpolation use it - your object gets a readable form everywhere at once", "It makes equality work", "It speeds up the class"],
+    "answer": 1,
+    "explanation": "$\"{shape}\" and Console.WriteLine(shape) both call ToString. One override, readable output everywhere - the most useful override there is."
+  },
+  {
+    "id": "2.6-q8",
+    "topic": "switch vs polymorphism",
+    "stem": "Replacing 'switch (shape.Type)' with virtual Area() methods mainly buys you:",
+    "options": ["Speed", "New shapes need NO edits to existing code", "Shorter files", "Fewer classes"],
+    "answer": 1,
+    "explanation": "The switch must be found and edited for every new shape - and every place like it. Virtual dispatch puts the knowledge with the type. (Pattern switches have their place too - 4.6.)"
+  },
+  {
+    "id": "2.6-q9",
+    "topic": "kinds of polymorphism",
+    "stem": "Method OVERLOADING is resolved when?",
+    "options": ["At run time, like override", "At compile time, from the argument types", "Randomly", "At deployment"],
+    "answer": 1,
+    "explanation": "Overloading (same name, different parameters) is compile-time; overriding (virtual/override) is run-time. When people say polymorphism they usually mean the latter."
+  },
+  {
+    "id": "2.6-q10",
+    "topic": "compiler enforcement",
+    "stem": "You write override on a method whose parent version is not virtual. What happens?",
+    "options": ["It silently hides", "Compile error - there is nothing to override", "It works", "The parent becomes virtual"],
+    "answer": 1,
+    "explanation": "C# refuses: override requires a virtual or abstract member. This explicitness prevents accidental hiding."
+  }
+]

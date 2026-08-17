@@ -1,0 +1,82 @@
+[
+  {
+    "id": "2.9-q1",
+    "topic": "what you get",
+    "stem": "public record Person(string Name, int Age); generates all of the following EXCEPT:",
+    "options": ["Value-based Equals and GetHashCode", "ToString listing the values", "A database table", "Init-only properties and a constructor"],
+    "answer": 2,
+    "explanation": "One line yields constructor, properties, equality, hashing, ToString, Deconstruct and with-support. Databases remain your problem."
+  },
+  {
+    "id": "2.9-q2",
+    "topic": "value equality",
+    "stem": "var a = new Person(\"Ada\", 36); var b = new Person(\"Ada\", 36); What is a == b?",
+    "options": ["false - different objects", "true - records compare by VALUE", "It throws", "Only true with =="],
+    "answer": 1,
+    "explanation": "A record asks 'same data?'; a class asks 'same object?'. ReferenceEquals(a, b) is still false - two objects, equal values."
+  },
+  {
+    "id": "2.9-q3",
+    "topic": "with",
+    "stem": "var older = ada with { Age = 37 }; What happened to ada?",
+    "options": ["Its Age is now 37", "Nothing - with produces a modified COPY", "It was disposed", "It equals older"],
+    "answer": 1,
+    "explanation": "Non-destructive mutation: a new record with one change, original untouched. The core habit of immutable programming."
+  },
+  {
+    "id": "2.9-q4",
+    "topic": "the List trap",
+    "stem": "record Player(string Name, List<string> Items); Two Players with identical names and identical item lists: equal?",
+    "options": ["Yes", "No - List<string> compares by REFERENCE, and they are two different lists", "Only if sorted", "It throws"],
+    "answer": 1,
+    "explanation": "Generated equality compares each member with ITS equality - and List's is reference-based. Compare contents with SequenceEqual, or use immutable collections."
+  },
+  {
+    "id": "2.9-q5",
+    "topic": "records as keys",
+    "stem": "Why do records work perfectly as Dictionary keys and in HashSets?",
+    "options": ["They are small", "Correct Equals AND GetHashCode are generated together, and init-only properties keep them stable", "They are structs", "They cannot be null"],
+    "answer": 1,
+    "explanation": "The 2.10 contract - equal values, equal hashes - comes generated and consistent, and immutability means the hash cannot change while stored (5.9's disaster)."
+  },
+  {
+    "id": "2.9-q6",
+    "topic": "record vs class",
+    "stem": "Which should NOT be a record?",
+    "options": ["Coordinate(X, Y)", "BankAccount with a changing balance and an identity", "Config settings", "An event DTO"],
+    "answer": 1,
+    "explanation": "Two accounts with the same balance are NOT the same account - identity plus mutable state wants a class. Data defined by its values wants a record."
+  },
+  {
+    "id": "2.9-q7",
+    "topic": "record struct",
+    "stem": "readonly record struct Coordinate(int X, int Y) combines:",
+    "options": ["Reference semantics with mutability", "Value-type storage AND generated members", "Inheritance and events", "Nothing new"],
+    "answer": 1,
+    "explanation": "Stack/inline storage, no per-instance allocation, plus the generated equality and ToString - ideal for small data copied often."
+  },
+  {
+    "id": "2.9-q8",
+    "topic": "validation",
+    "stem": "Can a record have a body with validation and computed properties?",
+    "options": ["No - one line only", "Yes - a full body works; positional syntax is just the shorthand", "Only records without parameters", "Only structs"],
+    "answer": 1,
+    "explanation": "Records accept constructors that validate (Temperature throwing below absolute zero), computed properties and methods - they are classes with generated extras."
+  },
+  {
+    "id": "2.9-q9",
+    "topic": "deconstruction",
+    "stem": "(string first, string last, int age) = ada; works because positional records generate:",
+    "options": ["ToString", "A Deconstruct method", "An implicit cast", "An indexer"],
+    "answer": 1,
+    "explanation": "Deconstruct(out ..., out ..., out ...) comes free with positional records - the same mechanism 4.6 writes by hand for classes."
+  },
+  {
+    "id": "2.9-q10",
+    "topic": "inheritance and equality",
+    "stem": "record Employee(...) : Person(...). Does a Person ever equal an Employee with the same values?",
+    "options": ["Yes", "No - generated equality also checks the exact record type", "Only with ==", "Only when cast"],
+    "answer": 1,
+    "explanation": "Record equality includes an EqualityContract type check, so instances of different record types are never equal - even with matching data."
+  }
+]
