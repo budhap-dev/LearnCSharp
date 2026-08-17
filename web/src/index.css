@@ -481,3 +481,14 @@ button:disabled { cursor: default; }
 @media (prefers-reduced-motion: reduce) {
   .chevron { transition: none; }
 }
+
+/* The syllabus intro is deliberately one compact line */
+.syllabus-lede {
+  max-width: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 640px) {
+  .syllabus-lede { white-space: normal; }   /* phones: wrapping beats truncation */
+}

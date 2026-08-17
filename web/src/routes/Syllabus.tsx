@@ -24,9 +24,8 @@ export function Syllabus() {
   return (
     <>
       <h1>Syllabus</h1>
-      <p className="lede">
-        {syllabus.length} lessons across {modules.length} modules. Your current module is open —
-        tap any other to expand it.
+      <p className="lede syllabus-lede">
+        {syllabus.length} lessons across {modules.length} modules — your current module is open.
       </p>
 
       {modules.map((m) => {
