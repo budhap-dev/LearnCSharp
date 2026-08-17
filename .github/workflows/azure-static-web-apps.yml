@@ -12,6 +12,11 @@ jobs:
     if: github.event_name == 'push' || github.event.action != 'closed'
     runs-on: ubuntu-latest
     name: Build and deploy
+    env:
+      # Empty until the Azure Static Web App exists and its token is added as a repo
+      # secret. Until then the build and verification steps still run - only the deploy
+      # is skipped, so CI stays green and useful from the first commit.
+      SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
@@ -43,6 +48,7 @@ jobs:
         working-directory: web
 
       - name: Deploy to Azure Static Web Apps
+        if: env.SWA_TOKEN != ''
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
@@ -53,12 +59,22 @@ jobs:
           api_location: ''
           skip_app_build: true
 
+      - name: Deployment skipped
+        if: env.SWA_TOKEN == ''
+        run: |
+          echo "::notice::Site built successfully but was not deployed."
+          echo "::notice::Create an Azure Static Web App on the Free plan, then add its"
+          echo "::notice::deployment token as the AZURE_STATIC_WEB_APPS_API_TOKEN secret."
+
   close_pull_request:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Close staging environment
+    env:
+      SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
     steps:
-      - uses: Azure/static-web-apps-deploy@v1
+      - if: env.SWA_TOKEN != ''
+        uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           action: close
