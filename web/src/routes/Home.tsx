@@ -46,7 +46,9 @@ export function Home() {
             return (
               <article key={m} className="module-card">
                 <h3>
-                  <span className="num">{m}</span> {MODULE_INFO[m]?.name}
+                  <Link to={`/syllabus#m${m}`} className="module-link">
+                    <span className="num">{m}</span> {MODULE_INFO[m]?.name}
+                  </Link>
                 </h3>
                 <p className="blurb">{MODULE_INFO[m]?.blurb}</p>
                 <p className="count">{inModule.length} lessons</p>
@@ -58,7 +60,11 @@ export function Home() {
                       </Link>
                     </li>
                   ))}
-                  {inModule.length > 3 && <li className="more">…and {inModule.length - 3} more</li>}
+                  {inModule.length > 3 && (
+                    <li className="more">
+                      <Link to={`/syllabus#m${m}`}>…and {inModule.length - 3} more</Link>
+                    </li>
+                  )}
                 </ul>
               </article>
             );
