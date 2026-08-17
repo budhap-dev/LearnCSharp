@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>LearnCSharp</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <!-- Lesson 1.1 deliberately shows "if (x > 1000) ;" to teach why the stray
+         semicolon is a bug. That is the only warning we suppress. -->
+    <NoWarn>$(NoWarn);CS0642</NoWarn>
+  </PropertyGroup>
+
+</Project>
