@@ -1,0 +1,92 @@
+[
+  {
+    "id": "1.4-q1",
+    "topic": "integer division",
+    "stem": "What does this print?",
+    "code": "int x = 17, y = 5;\nConsole.WriteLine(x / y);",
+    "options": ["3.4", "3", "4", "Compile error"],
+    "answer": 1,
+    "explanation": "Both sides are int, so C# does integer division and throws the fraction away. 17 / 5 is 3, not 3.4."
+  },
+  {
+    "id": "1.4-q2",
+    "topic": "integer division",
+    "stem": "Which of these gives 3.4?",
+    "code": "int x = 17, y = 5;",
+    "options": ["x / y", "(double)(x / y)", "(double)x / y", "x / y * 1.0"],
+    "answer": 2,
+    "explanation": "You must cast BEFORE the division. (double)(x / y) divides first — giving 3 — then converts to 3.0, which is too late."
+  },
+  {
+    "id": "1.4-q3",
+    "topic": "modulus",
+    "stem": "What is the value of 3725 % 60?",
+    "options": ["62", "5", "60", "3"],
+    "answer": 1,
+    "explanation": "% gives the remainder after division. 3725 = 62 x 60 + 5, so the remainder is 5 — the seconds part of 1h 2m 5s."
+  },
+  {
+    "id": "1.4-q4",
+    "topic": "division by zero",
+    "stem": "What happens when you run this?",
+    "code": "int zero = 0;\nConsole.WriteLine(17 / zero);",
+    "options": ["prints Infinity", "prints 0", "throws DivideByZeroException", "will not compile"],
+    "answer": 2,
+    "explanation": "Integer division by zero throws DivideByZeroException. Only floating-point division gives Infinity — 17.0 / 0 prints Infinity."
+  },
+  {
+    "id": "1.4-q5",
+    "topic": "increment operators",
+    "stem": "What does this print?",
+    "code": "int n = 10;\nConsole.WriteLine(n++);\nConsole.WriteLine(n);",
+    "options": ["10 then 11", "11 then 11", "10 then 10", "11 then 10"],
+    "answer": 0,
+    "explanation": "n++ returns the OLD value and then adds 1, so the first line prints 10 and n becomes 11."
+  },
+  {
+    "id": "1.4-q6",
+    "topic": "short-circuiting",
+    "stem": "Why is this safe when words is null?",
+    "code": "if (words != null && words.Length > 0)",
+    "options": [
+      "C# checks for null automatically",
+      "&& stops as soon as the left side is false",
+      "Length returns 0 for null",
+      "It is not safe — it throws"
+    ],
+    "answer": 1,
+    "explanation": "&& short-circuits: once the left side is false the answer is settled, so the right side never runs and Length is never touched. A single & would evaluate both and crash."
+  },
+  {
+    "id": "1.4-q7",
+    "topic": "precedence",
+    "stem": "What is the value of 2 + 3 * 4?",
+    "options": ["20", "14", "24", "9"],
+    "answer": 1,
+    "explanation": "* binds tighter than +, so it is 2 + (3 * 4) = 14. Brackets are free — use them when in doubt."
+  },
+  {
+    "id": "1.4-q8",
+    "topic": "bitwise shift",
+    "stem": "What is 12 >> 1?",
+    "options": ["24", "6", "11", "13"],
+    "answer": 1,
+    "explanation": "A right shift by 1 halves the number: 1100 in binary becomes 0110, which is 6. A left shift doubles it."
+  },
+  {
+    "id": "1.4-q9",
+    "topic": "null operators",
+    "stem": "Given string? name = null; what does name ?? \"guest\" evaluate to?",
+    "options": ["null", "\"guest\"", "an empty string", "it throws"],
+    "answer": 1,
+    "explanation": "?? is the null-coalescing operator: it returns the left side unless that is null, in which case it supplies the fallback."
+  },
+  {
+    "id": "1.4-q10",
+    "topic": "modulus",
+    "stem": "Which expression is true only when n is even?",
+    "options": ["n % 2 == 1", "n / 2 == 0", "n % 2 == 0", "n % 0 == 2"],
+    "answer": 2,
+    "explanation": "An even number divides by 2 with no remainder, so n % 2 == 0. Note n % 0 would throw."
+  }
+]

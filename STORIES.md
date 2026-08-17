@@ -71,7 +71,7 @@ the pathway changes the **route, framing and emphasis**, never the ceiling.
 | Decision | Choice | Why |
 |---|---|---|
 | **Hosting** | **Azure Static Web Apps — Free tier** | £0 forever for this workload; free SSL, custom domain, global CDN, GitHub Actions built in. See §3.2 |
-| **Stack** | **Astro + TypeScript** | Content-first, ships near-zero JS, keeps lessons as Markdown, interactive bits as islands |
+| **Stack** | **React + TypeScript (Vite)** | Chosen for maintainability — the person who owns this repo knows React. Astro would ship less JS, but a framework nobody on the team knows is the bigger risk. See §3.3 |
 | **Code execution** | **None in-browser.** Snippets are highlighted and read-only | Smallest, fastest, most reliable build. Students write real code in their own IDE, which is the skill we want anyway |
 | **Output shown** | Pre-captured from the existing .NET console project | Output is *real*, never hand-written and wrong |
 | **Progress storage** | **`localStorage` only**, with JSON export/import | No accounts, no backend, no personal data leaves the device |
@@ -96,6 +96,35 @@ dist/                           the static site
 
 If a snippet stops compiling, CI fails. **No lesson can ever show output the code does not
 actually produce.**
+
+### 3.3 What React costs us, and the plan for it
+
+React was chosen over Astro deliberately, but it is not free. Recording the trade-off honestly
+so nobody is surprised later:
+
+| | Astro | React SPA (what we built) |
+|---|---|---|
+| JS on a content page | ~0 KB | 75 KB gzipped, +102 KB when a lesson opens |
+| Markdown rendering | build time | **client side**, via react-markdown |
+| Routing | static files per page | client side, HashRouter |
+| Familiarity here | low | **high** |
+
+**Current measured bundle** (`npm run build`):
+
+```
+index      234 KB  ->  75 KB gzipped     home + syllabus
+Lesson     330 KB  -> 102 KB gzipped     lazy, only when a lesson is opened
+```
+
+US-803 targets under 50 KB of JS per page, which this does **not** yet meet. Two fixes are
+already identified, neither of which changes the framework:
+
+1. **Pre-render Markdown to HTML at build time** and drop `react-markdown` from the client
+   entirely. This is the big one — it removes most of the 102 KB lesson chunk.
+2. **Pre-highlight code at build time** with Shiki, removing `highlight.js` too.
+
+Both are build-step changes behind the same components, so they can land any time. Until then
+the site is fast enough to develop against and the architecture is right.
 
 ### 3.2 Azure hosting — and how it stays free
 
@@ -876,8 +905,10 @@ diagrams and questions.
 
 ## 10. Milestones
 
-### M0 — Walking skeleton *(1 week)*
-US-101, 102, 103, 201, 202 · **Done when:** one real lesson (1.4) is live on the internet.
+### M0 — Walking skeleton ✅ *built*
+US-101, 102, 103 (workflow), 202, **206** · Lesson 1.4 renders end to end from verified output,
+with a working 10-question quiz and localStorage progress. **Remaining:** create the Azure
+resource and add the deployment token — see §14.
 
 ### M1 — Module 1 vertical slice *(3 weeks)*
 US-104, 203, 205, 206, 207, 301–303, 305, 401–404, 601, 602, **1001, 1002, 1101, 1102**

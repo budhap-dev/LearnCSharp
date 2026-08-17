@@ -9,6 +9,7 @@ using LearnCSharp.Core;
 //     dotnet run -- module 3     -> run every lesson in module 3
 //     dotnet run -- all          -> run the whole course top to bottom
 //     dotnet run -- list         -> print the syllabus
+//     dotnet run -- capture <d>  -> write verified lesson output to JSON for the website
 // ---------------------------------------------------------------------------
 
 if (args.Length > 0)
@@ -29,6 +30,11 @@ static int RunFromCommandLine(string[] args)
         case "syllabus":
             PrintSyllabus();
             return 0;
+
+        case "capture":
+            // Used by the website build: emits verified lesson output as JSON.
+            return LearnCSharp.Core.OutputCapture.WriteTo(
+                args.Length > 1 ? args[1] : "web/public/data");
 
         case "all":
             foreach (ILesson lesson in LessonRegistry.All) RunLesson(lesson);
