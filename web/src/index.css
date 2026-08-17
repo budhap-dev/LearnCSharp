@@ -1,5 +1,14 @@
-/* Design tokens. Light is the base; dark redefines only the colours. */
+/*
+  Design tokens and themes.
+
+  The palette lives entirely in custom properties. A data-theme attribute on <html>
+  selects a named theme; with no attribute, "system" behaviour applies - light tokens
+  by default, dark tokens under prefers-color-scheme. Every component styles itself
+  from the tokens, so a theme is nothing more than one block of overrides.
+*/
+
 :root {
+  /* light - the base palette */
   --bg: #fbfbfd;
   --surface: #ffffff;
   --border: #e3e5ea;
@@ -18,8 +27,9 @@
   --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
+/* system dark: applies only when no explicit theme is chosen */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --bg: #14161c;
     --surface: #1b1e26;
     --border: #2b2f3a;
@@ -32,8 +42,80 @@
     --wrong: #ff8b96;
     --wrong-soft: #3a1d22;
     --term-bg: #0e1016;
-    --term-text: #d7dbe6;
   }
+}
+
+/* Light: identical to the base, stated explicitly so the choice is stable */
+:root[data-theme="light"] { color-scheme: light; }
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #14161c;
+  --surface: #1b1e26;
+  --border: #2b2f3a;
+  --text: #e6e8ee;
+  --muted: #9aa1b1;
+  --accent: #a394ff;
+  --accent-soft: #262040;
+  --correct: #58d19b;
+  --correct-soft: #143028;
+  --wrong: #ff8b96;
+  --wrong-soft: #3a1d22;
+  --term-bg: #0e1016;
+}
+
+/* Slate: muted blue-grey light, navy accent - quiet and office-friendly */
+:root[data-theme="slate"] {
+  color-scheme: light;
+  --bg: #f4f6f8;
+  --surface: #fdfefe;
+  --border: #d8dee6;
+  --text: #232b36;
+  --muted: #5c6875;
+  --accent: #33567d;
+  --accent-soft: #e2eaf2;
+  --correct: #2e6b4f;
+  --correct-soft: #e2efe8;
+  --wrong: #a63d4a;
+  --wrong-soft: #f7e6e8;
+  --term-bg: #232b36;
+  --term-text: #d6dde5;
+}
+
+/* Midnight: deep navy dark, cyan accent */
+:root[data-theme="midnight"] {
+  color-scheme: dark;
+  --bg: #0b1220;
+  --surface: #111a2c;
+  --border: #223050;
+  --text: #dbe4f3;
+  --muted: #8b9bb8;
+  --accent: #4fc3d9;
+  --accent-soft: #12293a;
+  --correct: #4ecf9a;
+  --correct-soft: #0f2c22;
+  --wrong: #ff8ba0;
+  --wrong-soft: #331a24;
+  --term-bg: #060b15;
+  --term-text: #c9d6ea;
+}
+
+/* Paper: warm sepia light - long-reading comfort */
+:root[data-theme="paper"] {
+  color-scheme: light;
+  --bg: #f7f2e9;
+  --surface: #fdfaf3;
+  --border: #e2d9c8;
+  --text: #3b332a;
+  --muted: #7a6f5f;
+  --accent: #8a5a2b;
+  --accent-soft: #f0e6d6;
+  --correct: #4a6b3a;
+  --correct-soft: #e8eedd;
+  --wrong: #a34832;
+  --wrong-soft: #f5e3dd;
+  --term-bg: #322c24;
+  --term-text: #e5ddd0;
 }
 
 * { box-sizing: border-box; }
@@ -288,4 +370,53 @@ button:disabled { cursor: default; }
   color: var(--muted);
   font-size: 0.85rem;
   line-height: 1.5;
+}
+
+/* ---- theme picker ---- */
+
+.header-right { margin-left: auto; }
+
+.theme-picker { position: relative; }
+
+.theme-button {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 0.35rem 0.7rem; font-size: 0.85rem;
+}
+.theme-button:hover { border-color: var(--accent); }
+
+.swatch {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 1px solid var(--border); flex: none;
+}
+.swatch[data-swatch="system"]   { background: linear-gradient(90deg, #fbfbfd 50%, #14161c 50%); }
+.swatch[data-swatch="light"]    { background: #fbfbfd; }
+.swatch[data-swatch="dark"]     { background: #14161c; }
+.swatch[data-swatch="slate"]    { background: linear-gradient(135deg, #f4f6f8 50%, #33567d 50%); }
+.swatch[data-swatch="midnight"] { background: linear-gradient(135deg, #0b1220 50%, #4fc3d9 50%); }
+.swatch[data-swatch="paper"]    { background: linear-gradient(135deg, #f7f2e9 50%, #8a5a2b 50%); }
+
+.theme-menu {
+  position: absolute; right: 0; top: calc(100% + 6px); z-index: 20;
+  min-width: 15rem;
+  list-style: none; margin: 0; padding: 0.35rem;
+  background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.14);
+}
+.theme-menu button {
+  width: 100%; display: flex; align-items: center; gap: 0.6rem;
+  background: none; color: var(--text);
+  border: none; border-radius: 6px;
+  padding: 0.5rem 0.6rem; font-size: 0.88rem; text-align: left;
+}
+.theme-menu button:hover { background: var(--accent-soft); }
+.theme-menu button.selected { background: var(--accent-soft); color: var(--accent); }
+.theme-name { font-weight: 600; }
+.theme-hint { margin-left: auto; color: var(--muted); font-size: 0.78rem; }
+
+@media (max-width: 640px) {
+  .theme-button { padding: 0.35rem 0.5rem; }
+  .theme-button > :not(.swatch) { display: none; }   /* icon-only on phones */
 }
