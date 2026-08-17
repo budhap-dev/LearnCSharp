@@ -120,6 +120,11 @@
 
 * { box-sizing: border-box; }
 
+html {
+  /* Stop iOS inflating text in landscape, and keep 100vw honest */
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -131,12 +136,18 @@ body {
 
 code, pre { font-family: var(--mono); }
 
+/* Long identifiers and URLs must wrap rather than force the page wider */
+.prose :not(pre) > code { overflow-wrap: anywhere; }
+.prose p, .prose li, .lsummary, .ltitle { overflow-wrap: break-word; }
+
+button, .button { touch-action: manipulation; }   /* no double-tap zoom delay on controls */
+
 a { color: var(--accent); }
 
 .shell { min-height: 100vh; display: flex; flex-direction: column; }
 
 header {
-  display: flex; align-items: center; gap: 1.5rem;
+  display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
   padding: 0.9rem 1.5rem;
   border-bottom: 1px solid var(--border);
   background: var(--surface);
@@ -271,7 +282,9 @@ button:disabled { cursor: default; }
   width: 100%; display: flex; align-items: center; gap: 0.75rem; text-align: left;
   background: var(--bg); color: var(--text);
   border: 1px solid var(--border); border-radius: 8px; padding: 0.65rem 0.9rem;
+  min-height: 44px;                          /* comfortable thumb target */
 }
+.option code { white-space: pre-wrap; overflow-wrap: anywhere; }
 .option:hover:not(:disabled) { border-color: var(--accent); }
 .option .letter {
   display: inline-grid; place-items: center; flex: none;
@@ -294,10 +307,44 @@ button:disabled { cursor: default; }
   font-size: 0.92rem;
 }
 
+/* ---- small screens ---- */
+
 @media (max-width: 640px) {
   main { padding: 1.25rem 1rem 3rem; }
+
   h1 { font-size: 1.55rem; }
+  h2 { font-size: 1.15rem; }
+  .lede, .summary { font-size: 1rem; }
+
+  header { padding: 0.7rem 1rem; gap: 0.75rem; }
+  header nav { gap: 0.85rem; }
+
+  .hero { padding-top: 0.25rem; }
+  .cta { flex-direction: column; }
+  .cta .button { text-align: center; }        /* full-width, thumb-reachable actions */
+
+  .module-grid { grid-template-columns: 1fr; }
+
+  /* syllabus rows: summary below title, badge stays readable */
+  .lesson-list a { padding: 0.6rem 0.5rem; gap: 0.6rem; }
+  .lid { min-width: 2.2rem; }
+  .badge { align-self: flex-start; }
+
+  .output pre, .quiz-code, .prose pre { font-size: 0.78rem; padding: 0.75rem 0.9rem; }
+  .prose th, .prose td { padding: 0.35rem 0.5rem; font-size: 0.85rem; }
+
+  .objectives { padding: 0.85rem 1rem; }
+  .quiz-panel { padding: 1rem; }
+
   .pager { flex-direction: column; }
+  .pager a { padding: 0.35rem 0; }            /* taller tap targets for prev/next */
+}
+
+@media (max-width: 400px) {
+  h1 { font-size: 1.35rem; }
+  .brand { font-size: 1.05rem; }
+  header nav a { font-size: 0.88rem; }
+  .lid.big { display: block; margin-bottom: 0.2rem; }
 }
 
 /* ---- lesson framing: what this is about, before any code ---- */
