@@ -1,0 +1,82 @@
+[
+  {
+    "id": "3.5-q1",
+    "topic": "what foreach is",
+    "stem": "foreach compiles down to calls on:",
+    "options": ["for with an index", "GetEnumerator, then MoveNext/Current in a loop", "LINQ", "goto"],
+    "answer": 1,
+    "explanation": "An enumerator is a cursor: MoveNext advances and reports success; Current is the item under it. foreach is shorthand for that machine."
+  },
+  {
+    "id": "3.5-q2",
+    "topic": "yield pause",
+    "stem": "When a method hits 'yield return i', it:",
+    "options": ["Returns and forgets everything", "Hands over ONE item and FREEZES - locals intact - until the next item is asked for", "Throws", "Starts a thread"],
+    "answer": 1,
+    "explanation": "Iterator methods run lazily, one step per request. That pause-and-resume is what the compiler builds for you."
+  },
+  {
+    "id": "3.5-q3",
+    "topic": "infinite sequences",
+    "stem": "Fibonacci() contains while(true) yet Take(10) finishes instantly. Why?",
+    "options": ["Take kills the thread", "Nothing runs until asked: Take(10) asks ten times, then stops asking", "The compiler unrolls it", "It does not finish"],
+    "answer": 1,
+    "explanation": "Lazy evaluation: the iterator DESCRIBES an endless sequence; the consumer decides how much exists. Infinite generators are safe - until Count() asks for all of it."
+  },
+  {
+    "id": "3.5-q4",
+    "topic": "deferred execution",
+    "stem": "var q = source.Select(n => n * 2); source.Add(4); What does q include?",
+    "options": ["Only the original items", "The 4 as well - the query re-reads its SOURCE when enumerated", "Nothing", "It throws"],
+    "answer": 1,
+    "explanation": "A query is a recipe, not a result - it captured the source, not a snapshot. ToList() at write time is how you pin one."
+  },
+  {
+    "id": "3.5-q5",
+    "topic": "re-enumeration",
+    "stem": "Enumerating the same expensive LINQ query twice:",
+    "options": ["Uses a cache", "RUNS IT TWICE - materialise with ToList() if you need it repeatedly", "Throws", "Is impossible"],
+    "answer": 1,
+    "explanation": "Every foreach/Count/Sum over a query re-executes it from the source. A WriteLine inside the lambda prints twice - try it."
+  },
+  {
+    "id": "3.5-q6",
+    "topic": "yield break",
+    "stem": "'yield break;' inside an iterator does what?",
+    "options": ["Skips one item", "ENDS the sequence right there", "Restarts it", "Throws"],
+    "answer": 1,
+    "explanation": "The sequence simply stops - TakeUntilNegative uses it to cut off at the first negative value."
+  },
+  {
+    "id": "3.5-q7",
+    "topic": "your own foreach",
+    "stem": "Making a Playlist class work with foreach AND all of LINQ requires:",
+    "options": ["Inheriting List", "Implementing IEnumerable<T> - one GetEnumerator using yield", "An indexer", "An extension method"],
+    "answer": 1,
+    "explanation": "One interface joins the whole ecosystem: foreach, Where, Count, First - all written against IEnumerable<T> (which is also 4.4's punchline)."
+  },
+  {
+    "id": "3.5-q8",
+    "topic": "streaming files",
+    "stem": "File.ReadLines vs File.ReadAllLines on a 10 GB log:",
+    "options": ["Identical", "ReadLines streams one line at a time in constant memory; ReadAllLines loads ALL of it", "ReadAllLines is lazy", "Both crash"],
+    "answer": 1,
+    "explanation": "Same loop on the outside, IEnumerable laziness on the inside. The principle behind processing data bigger than RAM."
+  },
+  {
+    "id": "3.5-q9",
+    "topic": "signature choice",
+    "stem": "A method PARAMETER typed IEnumerable<T> rather than List<T> means:",
+    "options": ["Slower calls", "It welcomes arrays, lists, queries - anything enumerable", "Callers must convert", "It can modify the caller's list"],
+    "answer": 1,
+    "explanation": "Ask for the least you need: IEnumerable to read once through; IReadOnlyList when you need Count/indexing; List only to mutate."
+  },
+  {
+    "id": "3.5-q10",
+    "topic": "the trap",
+    "stem": "Count() on an infinite iterator like EvenNumbers():",
+    "options": ["Returns int.MaxValue", "Runs FOREVER - it must enumerate everything to count", "Returns 0", "Throws immediately"],
+    "answer": 1,
+    "explanation": "Laziness protects you only while consumers stay finite. Take(n) first, or do not ask totalising questions of infinite sequences."
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "3.2-q1",
+    "topic": "why dictionaries",
+    "stem": "Dictionary lookup is O(1) because it:",
+    "options": ["Keeps items sorted", "COMPUTES where the item lives from the key's hash and jumps straight there", "Caches recent finds", "Uses binary search"],
+    "answer": 1,
+    "explanation": "hash(key) % buckets gives the location directly - no scanning. 5.9 opens the machinery; here you trust the API."
+  },
+  {
+    "id": "3.2-q2",
+    "topic": "missing keys",
+    "stem": "ages[\"Nobody\"] when the key is absent:",
+    "options": ["Returns 0", "Returns null", "Throws KeyNotFoundException", "Adds it"],
+    "answer": 2,
+    "explanation": "Reading a missing key throws. TryGetValue or GetValueOrDefault are the safe reads - same family as TryParse."
+  },
+  {
+    "id": "3.2-q3",
+    "topic": "indexer vs Add",
+    "stem": "The key already exists. ages[\"Ada\"] = 37 versus ages.Add(\"Ada\", 37):",
+    "options": ["Both overwrite", "Indexer OVERWRITES; Add THROWS ArgumentException", "Both throw", "Add overwrites"],
+    "answer": 1,
+    "explanation": "Choose by intent: indexer when overwriting is fine; Add when a duplicate would be a bug you want to hear about; TryAdd to test-and-add."
+  },
+  {
+    "id": "3.2-q4",
+    "topic": "the counting pattern",
+    "stem": "counts[word] = counts.GetValueOrDefault(word) + 1; handles a NEW word how?",
+    "options": ["Throws", "GetValueOrDefault supplies 0, so the word is stored with count 1", "Skips it", "Stores null"],
+    "answer": 1,
+    "explanation": "Missing -> default 0 -> store 1; present -> increment. Two lines that appear in half of all real programs."
+  },
+  {
+    "id": "3.2-q5",
+    "topic": "ordering",
+    "stem": "The order you get pairs back from a Dictionary is:",
+    "options": ["Insertion order, guaranteed", "Alphabetical", "NOT guaranteed - none exists", "Reverse insertion"],
+    "answer": 2,
+    "explanation": "Hash tables trade order for speed. Need order? Sort the keys when reading, or use SortedDictionary (O(log n), always sorted)."
+  },
+  {
+    "id": "3.2-q6",
+    "topic": "key requirements",
+    "stem": "Why do records make excellent dictionary keys?",
+    "options": ["They are small", "Value-based Equals AND GetHashCode generated together, plus immutability", "They are classes", "They serialise well"],
+    "answer": 1,
+    "explanation": "A good key needs consistent equality+hash (2.10) and must never mutate while stored (5.9's lost-entry disaster). Records tick every box."
+  },
+  {
+    "id": "3.2-q7",
+    "topic": "HashSet.Add",
+    "stem": "What does HashSet.Add return, and why is it useful?",
+    "options": ["void", "bool - false if already present, giving test-and-record in ONE call", "The count", "The item"],
+    "answer": 1,
+    "explanation": "if (seen.Add(item)) processes each item exactly once - the idiom BFS is built on (5.8)."
+  },
+  {
+    "id": "3.2-q8",
+    "topic": "accidental O(n²)",
+    "stem": "Calling list.Contains inside a loop over big data is a trap because:",
+    "options": ["Contains throws", "Each Contains is O(n), making the loop O(n²) - a HashSet makes each check O(1)", "Lists cannot Contains", "It allocates"],
+    "answer": 1,
+    "explanation": "The 3.2 lesson measures it: 2,000 lookups in 200k items - ~1500ms by list, ~0ms by set. The most common accidental quadratic."
+  },
+  {
+    "id": "3.2-q9",
+    "topic": "set operations",
+    "stem": "a.IntersectWith(b) on a HashSet does what?",
+    "options": ["Returns a new set of common items", "MUTATES a to keep only items also in b", "Merges b into a", "Compares counts"],
+    "answer": 1,
+    "explanation": "The ...With methods mutate in place; LINQ's Intersect/Union/Except return new sequences and leave both inputs alone."
+  },
+  {
+    "id": "3.2-q10",
+    "topic": "case-insensitive keys",
+    "stem": "You want dict[\"ADA\"] and dict[\"ada\"] to hit the same entry. How?",
+    "options": ["Impossible", "new Dictionary<string,int>(StringComparer.OrdinalIgnoreCase)", "ToLower every read manually forever", "Use a List"],
+    "answer": 1,
+    "explanation": "Hand the dictionary a comparer at construction and both hashing and equality become case-insensitive - once, centrally."
+  }
+]
