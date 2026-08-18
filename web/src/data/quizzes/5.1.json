@@ -1,0 +1,82 @@
+[
+  {
+    "id": "5.1-q1",
+    "topic": "what Big-O measures",
+    "stem": "Big-O notation describes:",
+    "options": ["Exact running time in ms", "How the WORK GROWS as the input grows - machine and constants ignored", "Memory only", "Code quality"],
+    "answer": 1,
+    "explanation": "The shape of the curve, not the speed of the box. An O(n) algorithm on a slow machine still beats O(n squared) once n is large enough."
+  },
+  {
+    "id": "5.1-q2",
+    "topic": "classify",
+    "stem": "for (i..n) for (j..n) { ... } is:",
+    "options": ["O(n)", "O(n squared) - nested loops MULTIPLY", "O(2n)", "O(n log n)"],
+    "answer": 1,
+    "explanation": "The inner loop runs fully per outer pass: n x n. (Sequential loops ADD, staying O(n).)"
+  },
+  {
+    "id": "5.1-q3",
+    "topic": "halving",
+    "stem": "while (n > 1) n /= 2; is:",
+    "options": ["O(n)", "O(log n) - halving each step", "O(1)", "O(n/2)"],
+    "answer": 1,
+    "explanation": "Rule 5: halving means log. 1,000,000 halves to 1 in ~20 steps - the shape behind binary search."
+  },
+  {
+    "id": "5.1-q4",
+    "topic": "drop rules",
+    "stem": "O(3n squared + 5n + 100) simplifies to:",
+    "options": ["O(3n squared)", "O(n squared) - drop constants AND lower terms", "O(n)", "O(100)"],
+    "answer": 1,
+    "explanation": "Constants do not change the curve's shape; n squared dominates n as n grows. Only the fastest-growing term survives."
+  },
+  {
+    "id": "5.1-q5",
+    "topic": "the measured proof",
+    "stem": "The lesson quadruples the data and linear search gets ~4x slower while binary search barely moves. Because:",
+    "options": ["Caching", "O(n) scales with n; O(log n) needs only TWO extra comparisons for 4x data", "The JIT warmed up", "Luck"],
+    "answer": 1,
+    "explanation": "log2(4n) = log2(n) + 2. The curve shapes made physical - a billion sorted items need just 30 comparisons."
+  },
+  {
+    "id": "5.1-q6",
+    "topic": "worst case",
+    "stem": "Big-O conventionally describes which case?",
+    "options": ["Best", "Average", "WORST - the guarantee you can plan around", "Random"],
+    "answer": 2,
+    "explanation": "Linear search's best case is 1 step, but you design for the n-step worst. When average and worst differ wildly (quicksort), state both."
+  },
+  {
+    "id": "5.1-q7",
+    "topic": "O(1) meaning",
+    "stem": "\"O(1) means fast\" is wrong because:",
+    "options": ["O(1) is slowest", "O(1) means CONSTANT - one slow fixed step is still O(1)", "Nothing is O(1)", "It is right"],
+    "answer": 1,
+    "explanation": "Constant = independent of n, not quick. Conversely a big constant inside O(n) can beat O(log n) at small n - measure (6.2)."
+  },
+  {
+    "id": "5.1-q8",
+    "topic": "hidden loops",
+    "stem": "for (i..n) if (list.Contains(x)) - the real complexity is:",
+    "options": ["O(n)", "O(n squared) - Contains is itself an O(n) loop", "O(1)", "O(log n)"],
+    "answer": 1,
+    "explanation": "The classic ACCIDENTAL quadratic (3.2): the inner loop hides in a method call. A HashSet makes each check O(1)."
+  },
+  {
+    "id": "5.1-q9",
+    "topic": "space complexity",
+    "stem": "Merge sort is O(n log n) time but needs O(n) SPACE because:",
+    "options": ["Recursion is free", "Merging requires temporary arrays; bubble sort sorts in place at O(1) extra", "It copies the CPU", "It does not"],
+    "answer": 1,
+    "explanation": "Time and space both get the notation - and often trade against each other (5.4's memoisation buys time with memory)."
+  },
+  {
+    "id": "5.1-q10",
+    "topic": "exponential",
+    "stem": "An O(2 to the n) algorithm at n=50, if n=20 took one second, takes roughly:",
+    "options": ["2.5 seconds", "A BILLION seconds - each +1 doubles the work", "50 seconds", "One minute"],
+    "answer": 1,
+    "explanation": "2 to the 30 more work is about 10 to the 9. This is naive Fibonacci's fate (5.4), and why exponential algorithms are 'hopeless' beyond toy sizes."
+  }
+]

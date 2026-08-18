@@ -1,0 +1,82 @@
+[
+  {
+    "id": "5.4-q1",
+    "topic": "the two parts",
+    "stem": "Every correct recursive method needs:",
+    "options": ["A loop and a return", "A BASE CASE, and a recursive case that moves TOWARDS it", "Two parameters", "Static methods"],
+    "answer": 1,
+    "explanation": "Factorial: n <= 1 answers directly; n * Factorial(n-1) shrinks n. Miss either and the stack overflows."
+  },
+  {
+    "id": "5.4-q2",
+    "topic": "unwinding",
+    "stem": "Factorial(4) = 4 * (3 * (2 * 1)). The multiplications actually happen:",
+    "options": ["On the way down", "On the way BACK UP as calls return - the unwinding", "In parallel", "At compile time"],
+    "answer": 1,
+    "explanation": "Calls descend to the base case first; each frame then completes its pending multiply as results bubble back."
+  },
+  {
+    "id": "5.4-q3",
+    "topic": "stack overflow",
+    "stem": "StackOverflowException is special because:",
+    "options": ["It is common", "It CANNOT BE CAUGHT - the process dies; prevention is the only cure", "It is a warning", "GC handles it"],
+    "answer": 1,
+    "explanation": "Each call takes a frame (~1MB total budget). No base case, or too-deep descent on big input, and it is over - convert to a loop with an explicit Stack<T>."
+  },
+  {
+    "id": "5.4-q4",
+    "topic": "naive Fibonacci",
+    "stem": "Fib(n) => Fib(n-1) + Fib(n-2) naively is O(2 to the n) because:",
+    "options": ["Addition is slow", "The SAME values are recomputed endlessly - Fib(20) takes 21,891 calls", "The stack is deep", "n is big"],
+    "answer": 1,
+    "explanation": "Each call spawns two; the tree of repeated work doubles per level. The lesson counts the calls live."
+  },
+  {
+    "id": "5.4-q5",
+    "topic": "memoisation",
+    "stem": "Adding a Dictionary cache to Fib changes its complexity to:",
+    "options": ["O(2 to the n) still", "O(n) - each value computed exactly ONCE, then looked up", "O(1)", "O(n squared)"],
+    "answer": 1,
+    "explanation": "Fib(50): 49 computed entries, instant answer. Time bought with memory - 5.1's trade, powered by 3.2's dictionary."
+  },
+  {
+    "id": "5.4-q6",
+    "topic": "recursion vs iteration",
+    "stem": "Anything recursive can be written iteratively, so recursion is chosen when:",
+    "options": ["Speed matters", "It makes the code CLEARER - especially on recursive DATA like trees and folders", "Loops are banned", "Memory is tight"],
+    "answer": 1,
+    "explanation": "TotalSize(folder) in one line vs a loop juggling an explicit stack. For flat accumulation (factorial), the loop is arguably clearer."
+  },
+  {
+    "id": "5.4-q7",
+    "topic": "recursive data",
+    "stem": "folder.Files.Sum(...) + folder.Folders.Sum(TotalSize) traverses any depth because:",
+    "options": ["Sum is magic", "The DATA is recursive - folders contain folders - so recursive code fits it exactly", "Folders are arrays", "It does not"],
+    "answer": 1,
+    "explanation": "The same shape powers trees (5.7), graphs (5.8), JSON, and merge sort's divide-and-conquer."
+  },
+  {
+    "id": "5.4-q8",
+    "topic": "Euclid",
+    "stem": "Gcd(a, b) => b == 0 ? a : Gcd(b, a % b); What is Gcd(48, 18)?",
+    "options": ["2", "6", "3", "18"],
+    "answer": 1,
+    "explanation": "48,18 -> 18,12 -> 12,6 -> 6,0 -> 6. Two thousand years old, three tokens of C#."
+  },
+  {
+    "id": "5.4-q9",
+    "topic": "Hanoi",
+    "stem": "Towers of Hanoi with n discs needs how many moves?",
+    "options": ["n squared", "2 to the n minus 1 - 64 discs would outlast the universe", "n log n", "n factorial"],
+    "answer": 1,
+    "explanation": "Move n-1 away, move the big disc, move n-1 back: M(n) = 2M(n-1) + 1. Legitimately exponential - no algorithm can beat it."
+  },
+  {
+    "id": "5.4-q10",
+    "topic": "depth check",
+    "stem": "Recursive binary search on a BILLION items overflows the stack: true or false, and why?",
+    "options": ["True - a billion frames", "FALSE - depth is only ~30, because the range HALVES each call", "True - strings are copied", "Depends on the OS"],
+    "answer": 1,
+    "explanation": "Depth = log2(n), not n. Divide-and-conquer recursion is shallow; linear recursion (one item per call) is what overflows."
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "5.5-q1",
+    "topic": "the trade",
+    "stem": "A linked list gives up O(1) indexing in exchange for:",
+    "options": ["Less memory", "O(1) insertion at a KNOWN position - re-point two arrows, nothing shuffles", "Sorting", "Thread safety"],
+    "answer": 1,
+    "explanation": "An array's contiguity gives index maths but forces shuffles; scattered nodes give cheap splicing but demand walking."
+  },
+  {
+    "id": "5.5-q2",
+    "topic": "AddFirst",
+    "stem": "AddFirst on a singly linked list is O(1) because:",
+    "options": ["The list is short", "New node points at old head; head points at new node - TWO writes, regardless of length", "It caches", "It is amortised"],
+    "answer": 1,
+    "explanation": "The same operation on a List<T> shuffles every element right - O(n). This asymmetry is the whole comparison table."
+  },
+  {
+    "id": "5.5-q3",
+    "topic": "tail pointer",
+    "stem": "Keeping a _tail reference makes which operation O(1)?",
+    "options": ["Search", "AddLast - without it you would walk the whole chain to find the end", "RemoveLast", "Indexing"],
+    "answer": 1,
+    "explanation": "One extra field, constant-time appends. Note RemoveLast stays O(n) on a SINGLY linked list - the tail cannot see backwards."
+  },
+  {
+    "id": "5.5-q4",
+    "topic": "removal bookkeeping",
+    "stem": "Removing a node from a singly linked list requires tracking 'previous' because:",
+    "options": ["Style", "You bypass the node by pointing PREVIOUS.Next past it - and a node cannot see backwards", "GC needs it", "Count breaks"],
+    "answer": 1,
+    "explanation": "previous.Next = current.Next splices it out. Head removal is the special case with no previous - where linked-list bugs live."
+  },
+  {
+    "id": "5.5-q5",
+    "topic": "reverse trace",
+    "stem": "In the one-pass Reverse, why save 'next = current.Next' BEFORE re-pointing?",
+    "options": ["Speed", "Turning the arrow around DESTROYS the only route to the rest of the chain - save it first", "GC safety", "It is optional"],
+    "answer": 1,
+    "explanation": "Remember where you were going, turn the arrow, advance both pointers. Miss step 1 and the tail is garbage-collected mid-walk."
+  },
+  {
+    "id": "5.5-q6",
+    "topic": "reverse cost",
+    "stem": "Reversing a singly linked list in one pass costs:",
+    "options": ["O(n) time, O(n) space", "O(n) time, O(1) SPACE - three pointers, no copies", "O(n squared)", "O(log n)"],
+    "answer": 1,
+    "explanation": "previous/current/next walk once, re-pointing as they go. THE pointer-manipulation exercise, hence its interview fame."
+  },
+  {
+    "id": "5.5-q7",
+    "topic": "doubly linked",
+    "stem": "A doubly linked list buys O(1) RemoveLast and backwards walking by paying:",
+    "options": ["Nothing", "One extra pointer per node and DOUBLE the wiring to keep consistent", "O(n) adds", "Loss of foreach"],
+    "answer": 1,
+    "explanation": "Previous pointers must be maintained in every operation. Browser back/forward history is the canonical use."
+  },
+  {
+    "id": "5.5-q8",
+    "topic": "the honest verdict",
+    "stem": "In practice List<T> usually beats LinkedList<T> even at insertion-heavy work because:",
+    "options": ["LinkedList is buggy", "CPU CACHES love contiguous arrays - chasing scattered pointers stalls modern hardware", "It is newer", "Lists are O(1) everywhere"],
+    "answer": 1,
+    "explanation": "The theory table lies about constants. You study linked lists because the NODE-AND-POINTER idea builds trees and graphs."
+  },
+  {
+    "id": "5.5-q9",
+    "topic": "losing the head",
+    "stem": "If the only head reference is overwritten without saving it:",
+    "options": ["Nothing", "The ENTIRE chain becomes unreachable and is garbage-collected", "The tail survives", "Compile error"],
+    "answer": 1,
+    "explanation": "Reachability is everything (4.8): nodes hold each other, but nothing holds the first one. One careless assignment, whole list gone."
+  },
+  {
+    "id": "5.5-q10",
+    "topic": "IEnumerable payoff",
+    "stem": "Ten lines of GetEnumerator with yield gave the hand-built list:",
+    "options": ["Sorting", "foreach AND all of LINQ - Where, Sum, the lot (3.5's interface)", "Thread safety", "An indexer"],
+    "answer": 1,
+    "explanation": "Implement IEnumerable<T> once and your type joins the entire ecosystem - the same move as Playlist in 3.5."
+  }
+]

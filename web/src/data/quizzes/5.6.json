@@ -1,0 +1,82 @@
+[
+  {
+    "id": "5.6-q1",
+    "topic": "array stack",
+    "stem": "The array-based stack doubles its array when full - the same strategy as:",
+    "options": ["Dictionary", "List<T> (3.1) - occasional O(n) copies, O(1) AMORTISED pushes", "Queue", "string"],
+    "answer": 1,
+    "explanation": "One growth strategy powers half the collections you use. Push/Pop at the array's end are otherwise pure O(1)."
+  },
+  {
+    "id": "5.6-q2",
+    "topic": "GC courtesy",
+    "stem": "Pop sets the vacated slot to default before returning. Why?",
+    "options": ["Correctness of Count", "The stale REFERENCE would keep the popped object alive - clearing lets the GC reclaim it (4.8)", "Speed", "It must compile"],
+    "answer": 1,
+    "explanation": "The item is logically gone but physically referenced. A subtle managed leak inside your own data structure."
+  },
+  {
+    "id": "5.6-q3",
+    "topic": "linked stack",
+    "stem": "The linked-list stack is really:",
+    "options": ["A queue", "AddFirst/RemoveFirst from 5.5 wearing a different interface - a list touched at ONE end", "An array in disguise", "A tree"],
+    "answer": 1,
+    "explanation": "Push = new node pointing at old top. No capacity, no resizing, two pointer moves per operation."
+  },
+  {
+    "id": "5.6-q4",
+    "topic": "the naive queue",
+    "stem": "Using RemoveAt(0) as dequeue is O(n) because:",
+    "options": ["Removal always is", "Every remaining element SHUFFLES left to close the gap", "Queues sort", "The GC runs"],
+    "answer": 1,
+    "explanation": "The problem the circular buffer exists to solve: move the INDICES, not the data."
+  },
+  {
+    "id": "5.6-q5",
+    "topic": "the wrap",
+    "stem": "_tail = (_tail + 1) % _items.Length; - the % does what?",
+    "options": ["Rounds", "WRAPS the index past the end back to 0 - the ring in ring buffer", "Halves it", "Randomises"],
+    "answer": 1,
+    "explanation": "1.4's 'wrap around a circle of size n' promise, kept. The lesson's trace shows Eve physically at [0] while logically last."
+  },
+  {
+    "id": "5.6-q6",
+    "topic": "empty vs full",
+    "stem": "A circular queue tracks Count separately because head == tail alone:",
+    "options": ["Is slow", "Cannot DISTINGUISH empty from full - both states look identical", "Overflows", "Breaks foreach"],
+    "answer": 1,
+    "explanation": "After wrapping, the two indices meet in both extremes. (The alternative trick: sacrifice one slot.)"
+  },
+  {
+    "id": "5.6-q7",
+    "topic": "RPN order",
+    "stem": "Evaluating RPN, an operator pops right then left. For \"5 3 -\" the answer must be:",
+    "options": ["-2", "2 - the SECOND pop is the left operand; swap them and subtraction inverts", "8", "15"],
+    "answer": 1,
+    "explanation": "right = Pop(); left = Pop(); left - right. The classic RPN bug is popping into the wrong order."
+  },
+  {
+    "id": "5.6-q8",
+    "topic": "RPN meaning",
+    "stem": "\"5 1 2 + 4 * + 3 -\" evaluates to:",
+    "options": ["10", "14", "9", "18"],
+    "answer": 1,
+    "explanation": "1+2=3; 3*4=12; 5+12=17; 17-3=14. No brackets, no precedence - the ordering IS the notation, and IL evaluates your C# the same way."
+  },
+  {
+    "id": "5.6-q9",
+    "topic": "binary conversion",
+    "stem": "Repeated division by 2 produces bits BACKWARDS; the fix is:",
+    "options": ["Reverse the string", "PUSH each bit and pop them all - the stack un-reverses for free", "Divide by 10", "Start from the left"],
+    "answer": 1,
+    "explanation": "LIFO as a tool: whatever comes out backwards, route it through a stack. (Same trick reverses 'stressed' to 'desserts'.)"
+  },
+  {
+    "id": "5.6-q10",
+    "topic": "round robin",
+    "stem": "In the round-robin scheduler, an unfinished job:",
+    "options": ["Blocks the queue", "REJOINS THE BACK of the queue for another slice - how OS schedulers share a CPU fairly", "Is dropped", "Jumps the queue"],
+    "answer": 1,
+    "explanation": "Dequeue, work one slice, enqueue if unfinished. Fairness from FIFO plus a loop."
+  }
+]
