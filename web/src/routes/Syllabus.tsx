@@ -61,7 +61,7 @@ export function Syllabus() {
             <div className="module-body">
               <p className="blurb">{MODULE_INFO[m]?.blurb}</p>
 
-              <Link className="exam-link" to={`/module/${m}/exam`}>
+              <Link className="exam-link" to={`/module/${m}/exam`} state={{ from: 'syllabus' }}>
                 Take the Module {m} exam →
               </Link>
 

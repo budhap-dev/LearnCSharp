@@ -1,5 +1,6 @@
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { ThemePicker } from './ThemePicker';
+import { SearchBox } from './SearchBox';
 
 export function Layout() {
   return (
@@ -11,8 +12,10 @@ export function Layout() {
         <nav>
           <NavLink to="/">Home</NavLink>
           <NavLink to="/syllabus">Syllabus</NavLink>
+          <NavLink to="/practice">Practice</NavLink>
         </nav>
         <div className="header-right">
+          <SearchBox />
           <ThemePicker />
         </div>
       </header>
