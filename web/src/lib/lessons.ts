@@ -17,13 +17,6 @@ export interface SyllabusEntry {
   sections: string[];
 }
 
-export interface LessonOutputData {
-  id: string;
-  title: string;
-  fullOutput: string;
-  sections: Record<string, string>;
-}
-
 /** What each module is about, so a student can see the shape of the course at a glance. */
 export const MODULE_INFO: Record<number, { name: string; blurb: string; emoji: string }> = {
   1: {
@@ -121,29 +114,6 @@ export function loadSyllabus(): Promise<SyllabusEntry[]> {
     );
 
   return syllabusPromise;
-}
-
-const outputCache = new Map<string, Promise<LessonOutputData>>();
-
-export function loadOutput(id: string): Promise<LessonOutputData> {
-  if (!outputCache.has(id)) {
-    outputCache.set(
-      id,
-      fetch(`${base}data/lessons/${id}.json`)
-        .then((r) => {
-          if (!r.ok) throw new Error(`No captured output for lesson ${id}`);
-          return r.json();
-        })
-        .then((raw: { Id: string; Title: string; FullOutput: string; Sections: Record<string, string> }) => ({
-          id: raw.Id,
-          title: raw.Title,
-          fullOutput: raw.FullOutput,
-          sections: raw.Sections,
-        })),
-    );
-  }
-
-  return outputCache.get(id)!;
 }
 
 export function modulesOf(syllabus: SyllabusEntry[]): number[] {

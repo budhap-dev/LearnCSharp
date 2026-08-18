@@ -1,8 +1,9 @@
 /**
  * Theme handling. The chosen theme is a data-theme attribute on <html>, which the
  * stylesheet keys off; "system" removes the attribute and lets prefers-color-scheme
- * decide. The choice persists in localStorage and is applied before first paint by a
- * tiny inline script in index.html, so there is no flash of the wrong theme.
+ * decide. Slate is the default for a first visit. The choice persists in localStorage
+ * and is applied before first paint by a tiny inline script in index.html (which must
+ * agree with DEFAULT_THEME), so there is no flash of the wrong theme.
  */
 
 export const THEMES = [
@@ -26,6 +27,9 @@ export const THEMES = [
 
 export type ThemeId = (typeof THEMES)[number]['id'];
 
+/** Used when the visitor has never picked a theme. Keep in sync with index.html. */
+export const DEFAULT_THEME: ThemeId = 'slate';
+
 const KEY = 'learncsharp.theme';
 
 export function currentTheme(): ThemeId {
@@ -35,7 +39,7 @@ export function currentTheme(): ThemeId {
   } catch {
     /* storage unavailable */
   }
-  return 'system';
+  return DEFAULT_THEME;
 }
 
 export function applyTheme(theme: ThemeId): void {
@@ -46,8 +50,9 @@ export function applyTheme(theme: ThemeId): void {
   }
 
   try {
-    if (theme === 'system') localStorage.removeItem(KEY);
-    else localStorage.setItem(KEY, theme);
+    // "system" is stored too - otherwise it could not be told apart from "never chose",
+    // which now falls back to Slate.
+    localStorage.setItem(KEY, theme);
   } catch {
     /* the theme still applies for this visit */
   }
