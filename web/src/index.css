@@ -900,19 +900,25 @@ button:disabled { cursor: default; }
 main > * { animation: fade-in-up 0.35s ease both; }
 
 /* Colourful, floating home hero */
-.hero h1 {
+.hero-title {
   font-size: 2.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;              /* a real gap - the hand can never touch the text */
+  flex-wrap: wrap;
+}
+.hero-title-text {
   background: linear-gradient(100deg, var(--m2), var(--m3), var(--m5));
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
   animation: shimmer 8s linear infinite;
 }
 .hero .emoji-wave {
   display: inline-block;
-  margin-left: 0.5rem;
-  -webkit-text-fill-color: initial;   /* opt out of the h1 gradient text-clip */
+  flex: none;
   transform-origin: 70% 80%;
   animation: hand-wave 2.4s ease-in-out infinite;
 }
@@ -986,7 +992,7 @@ main > * { animation: fade-in-up 0.35s ease both; }
 .exam-launch .num { background: color-mix(in srgb, var(--mc, var(--accent)) 18%, transparent); color: var(--mc, var(--accent)); }
 
 @media (prefers-reduced-motion: reduce) {
-  main > *, .hero h1, .hero .emoji-wave, .feedback-emoji, .result-emoji,
+  main > *, .hero-title-text, .hero .emoji-wave, .feedback-emoji, .result-emoji,
   .option.correct, .explanation, .module-card { animation: none !important; }
   .confetti-piece { display: none; }
 }

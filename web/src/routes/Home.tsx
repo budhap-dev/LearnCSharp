@@ -17,8 +17,9 @@ export function Home() {
   return (
     <>
       <section className="hero">
-        <h1>
-          Learn C# <span className="emoji-wave">👋</span>
+        <h1 className="hero-title">
+          <span className="hero-title-text">Learn C#</span>
+          <span className="emoji-wave">👋</span>
         </h1>
         <p className="lede">
           From your first <code>Console.WriteLine</code> to threads, LINQ and Dijkstra’s
