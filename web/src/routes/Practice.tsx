@@ -71,10 +71,14 @@ export function Practice() {
                   to={`/module/${m}/exam`}
                   state={{ from: 'practice' }}
                   className="exam-launch"
+                  style={{ ['--mc' as string]: `var(--m${m})` }}
                 >
                   <span className="num">{m}</span>
                   <span className="el-body">
-                    <strong>{MODULE_INFO[m]?.name}</strong>
+                    <strong>
+                      <span className="module-emoji">{MODULE_INFO[m]?.emoji}</span>{' '}
+                      {MODULE_INFO[m]?.name}
+                    </strong>
                     {best ? (
                       <span className="el-best">
                         best: {best.marks}/{best.totalMarks}{' '}
@@ -99,11 +103,13 @@ export function Practice() {
         <section id="panel-quizzes" role="tabpanel" aria-labelledby="tab-quizzes">
           <p className="muted">Ten questions each, with an explanation after every answer.</p>
           {modules.map((m) => (
-            <details key={m} className="module-accordion">
+            <details key={m} className="module-accordion" style={{ ['--mc' as string]: `var(--m${m})` }}>
               <summary>
                 <span className="num">{m}</span>
                 <span className="module-title">
-                  <strong>{MODULE_INFO[m]?.name}</strong>
+                  <strong>
+                    <span className="module-emoji">{MODULE_INFO[m]?.emoji}</span> {MODULE_INFO[m]?.name}
+                  </strong>
                   <span className="module-meta">{lessonsIn(syllabus, m).length} quizzes</span>
                 </span>
                 <span className="chevron" aria-hidden="true" />

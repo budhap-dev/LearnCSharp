@@ -11,7 +11,17 @@ export const THEMES = [
   { id: 'dark', label: 'Dark', hint: 'easy on the eyes' },
   { id: 'slate', label: 'Slate', hint: 'muted blue-grey' },
   { id: 'midnight', label: 'Midnight', hint: 'deep navy dark' },
-  { id: 'paper', label: 'Paper', hint: 'warm, book-like' },
+  { id: 'paper', label: 'Paper', hint: 'warm, plain' },
+  { id: 'paper-ruled', label: 'Ruled paper', hint: 'lined notebook' },
+  { id: 'paper-grid', label: 'Grid paper', hint: 'boxed / graph' },
+  { id: 'paper-dotted', label: 'Dotted paper', hint: 'dot grid' },
+  // Fun palettes for younger learners - original names/colours evoking the idea, no branding.
+  { id: 'webslinger', label: 'Web Slinger', hint: 'red-and-blue hero' },
+  { id: 'hero', label: 'Super Hero', hint: 'bold red and gold' },
+  { id: 'cube', label: 'Puzzle Cube', hint: 'bright six-colour' },
+  { id: 'grandmaster', label: 'Grandmaster', hint: 'chessboard & wood' },
+  { id: 'fairytale', label: 'Fairytale', hint: 'magical purple & pink' },
+  { id: 'matchday', label: 'Match Day', hint: 'football pitch green' },
 ] as const;
 
 export type ThemeId = (typeof THEMES)[number]['id'];

@@ -23,6 +23,9 @@
   --term-bg: #1c1f2b;
   --term-text: #d7dbe6;
   --radius: 10px;
+  --code-bg: #f6f8fa;
+  --code-text: #1f2328;
+  --code-border: #d7dbe0;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
@@ -101,7 +104,10 @@
 }
 
 /* Paper: warm sepia light - long-reading comfort */
-:root[data-theme="paper"] {
+:root[data-theme="paper"],
+:root[data-theme="paper-ruled"],
+:root[data-theme="paper-grid"],
+:root[data-theme="paper-dotted"] {
   color-scheme: light;
   --bg: #f7f2e9;
   --surface: #fdfaf3;
@@ -158,8 +164,17 @@ header {
 .brand span { color: var(--accent); }
 
 header nav { display: flex; gap: 1.1rem; }
-header nav a { text-decoration: none; color: var(--muted); font-size: 0.94rem; }
-header nav a.active, header nav a:hover { color: var(--text); }
+header nav a {
+  text-decoration: none; color: var(--muted); font-size: 0.94rem;
+  padding: 0.35rem 0.7rem; border-radius: 8px;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+header nav a:hover { color: var(--text); background: var(--accent-soft); }
+header nav a.active {
+  color: var(--accent); font-weight: 600;
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+}
 
 main { flex: 1; width: 100%; max-width: 62rem; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
@@ -254,7 +269,11 @@ button:disabled { cursor: default; }
   background: var(--accent-soft); color: var(--accent);
   padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.88em;
 }
-.prose pre { overflow-x: auto; border-radius: var(--radius); padding: 0.9rem 1.1rem; }
+.prose pre {
+  overflow-x: auto; border-radius: var(--radius); padding: 0.9rem 1.1rem;
+  background: var(--code-bg); border: 1px solid var(--code-border);
+}
+.prose pre code, .prose pre code.hljs { background: transparent; color: var(--code-text); }
 
 .callout {
   border: 1px dashed var(--border); border-radius: var(--radius);
@@ -284,7 +303,8 @@ button:disabled { cursor: default; }
 .quiz-panel h2 { margin-top: 0; }
 .progress-line { font-size: 0.85rem; color: var(--muted); }
 .quiz-code, .quiz pre {
-  background: var(--term-bg); color: var(--term-text);
+  background: var(--code-bg); color: var(--code-text);
+  border: 1px solid var(--code-border);
   padding: 0.8rem 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem;
 }
 .options { list-style: none; margin: 1rem 0; padding: 0; display: grid; gap: 0.5rem; }
@@ -462,7 +482,7 @@ button:disabled { cursor: default; }
 
 .theme-menu {
   position: absolute; right: 0; top: calc(100% + 6px); z-index: 20;
-  min-width: 15rem;
+  min-width: 20rem; max-width: 90vw;
   list-style: none; margin: 0; padding: 0.35rem;
   background: var(--surface);
   border: 1px solid var(--border); border-radius: var(--radius);
@@ -473,11 +493,20 @@ button:disabled { cursor: default; }
   background: none; color: var(--text);
   border: none; border-radius: 6px;
   padding: 0.5rem 0.6rem; font-size: 0.88rem; text-align: left;
+  white-space: nowrap;
 }
 .theme-menu button:hover { background: var(--accent-soft); }
-.theme-menu button.selected { background: var(--accent-soft); color: var(--accent); }
-.theme-name { font-weight: 600; }
-.theme-hint { margin-left: auto; color: var(--muted); font-size: 0.78rem; }
+.theme-menu button.selected {
+  background: var(--accent-soft);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent);
+  font-weight: 600;
+}
+.theme-menu button.selected::after {
+  content: '✓'; margin-left: 0.5rem; font-weight: 700; color: var(--accent);
+}
+.theme-name { font-weight: 600; white-space: nowrap; }
+.theme-hint { margin-left: auto; color: var(--muted); font-size: 0.78rem; white-space: nowrap; }
 
 @media (max-width: 640px) {
   .theme-button { padding: 0.35rem 0.5rem; }
@@ -833,3 +862,343 @@ button:disabled { cursor: default; }
   padding: 0.2rem 0.7rem; cursor: pointer;
 }
 .timer-start:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ============================================================
+   Student-friendly design layer: colour, motion, encouragement
+   ============================================================ */
+
+:root {
+  /* Per-module identity colours - mid-saturation so they read in light AND dark. */
+  --m1: #2e9e5b;  /* Foundations - green */
+  --m2: #7c5cff;  /* OOP - violet */
+  --m3: #2b8fd9;  /* Collections - blue */
+  --m4: #f0883e;  /* Advanced - orange */
+  --m5: #17b0a6;  /* Algorithms - teal */
+  --m6: #e05264;  /* Production - rose */
+  --m7: #d957c4;  /* Projects - magenta */
+  --celebrate: #ffb703;
+}
+
+/* Motion keyframes */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pop-in {
+  0%   { transform: scale(0.6); opacity: 0; }
+  60%  { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+@keyframes cheer-bounce {
+  0%, 100% { transform: translateY(0); }
+  30%      { transform: translateY(-8px); }
+  50%      { transform: translateY(0); }
+  70%      { transform: translateY(-4px); }
+}
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+/* Page content eases in */
+main > * { animation: fade-in-up 0.35s ease both; }
+
+/* Colourful, floating home hero */
+.hero-title {
+  font-size: 2.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;              /* a real gap - the hand can never touch the text */
+  flex-wrap: wrap;
+}
+.hero-title-text {
+  background: linear-gradient(100deg, var(--m2), var(--m3), var(--m5));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shimmer 8s linear infinite;
+}
+.hero .emoji-wave {
+  display: inline-block;
+  flex: none;
+  transform-origin: 70% 80%;
+  animation: hand-wave 2.4s ease-in-out infinite;
+}
+@keyframes hand-wave {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  10%, 30% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  40% { transform: rotate(-4deg); }
+}
+
+/* An encouraging progress banner on the home page */
+.encourage {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin: 1rem 0 0; padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, var(--accent-soft), transparent);
+  border: 1px solid var(--border);
+  font-size: 0.95rem;
+}
+.encourage .big { font-size: 1.5rem; }
+
+/* Module cards wear their colour */
+.module-card {
+  position: relative; overflow: hidden;
+  border-top: 3px solid var(--mc, var(--accent));
+}
+.module-card .num {
+  background: color-mix(in srgb, var(--mc, var(--accent)) 18%, transparent);
+  color: var(--mc, var(--accent));
+}
+.module-card h3 .module-link:hover { color: var(--mc, var(--accent)); }
+.module-emoji { font-size: 1.15rem; margin-right: 0.15rem; }
+
+/* Buttons get a touch of life */
+.button, button.primary, .cta .button:not(.ghost) {
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+.button:not(.ghost):hover { transform: translateY(-1px); filter: brightness(1.05); }
+.button:not(.ghost):active { transform: translateY(0); }
+
+/* Continue button invites a click */
+.cta .button:not(.ghost) {
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+/* Quiz feedback: emoji + colour + pop */
+.feedback-emoji { font-size: 1.3rem; display: inline-block; animation: pop-in 0.4s ease both; margin-right: 0.35rem; }
+.option.correct { animation: pop-in 0.35s ease; }
+.explanation { animation: fade-in-up 0.3s ease both; }
+
+/* Results headline celebrates */
+.quiz-result-head { display: flex; align-items: center; gap: 0.75rem; }
+.result-emoji { font-size: 2.4rem; animation: cheer-bounce 1s ease 0.1s both; }
+
+/* Exam grade chips get colour by band */
+.badge.grade-distinction { background: color-mix(in srgb, var(--celebrate) 22%, transparent); color: #a86a00; }
+:root:not([data-theme="light"]) .badge.grade-distinction { color: var(--celebrate); }
+
+/* Confetti */
+.confetti-piece {
+  position: fixed; top: -12px; width: 9px; height: 14px;
+  z-index: 100; pointer-events: none; border-radius: 2px;
+  will-change: transform, opacity;
+}
+@keyframes confetti-fall {
+  to { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+}
+
+/* Module number badges everywhere get their colour on the syllabus/practice */
+.module-accordion summary .num,
+.exam-launch .num { background: color-mix(in srgb, var(--mc, var(--accent)) 18%, transparent); color: var(--mc, var(--accent)); }
+
+@media (prefers-reduced-motion: reduce) {
+  main > *, .hero-title-text, .hero .emoji-wave, .feedback-emoji, .result-emoji,
+  .option.correct, .explanation, .module-card { animation: none !important; }
+  .confetti-piece { display: none; }
+}
+
+.exam-cheer { font-size: 1.05rem; font-weight: 600; margin: 0.25rem 0 1.25rem; }
+
+/* Lesson id badge wears its module colour */
+.lesson .lid.big { color: var(--mc, var(--accent)); }
+.lesson .objectives { border-left-color: var(--mc, var(--accent)); }
+
+/* ============================================================
+   Fun themes for younger learners (original palettes, no branding)
+   ============================================================ */
+
+/* Web Slinger — red & blue hero, dark */
+:root[data-theme="webslinger"] {
+  color-scheme: dark;
+  --bg: #0d1526; --surface: #14203a; --border: #26365c;
+  --text: #eaf0ff; --muted: #93a4cc;
+  --accent: #e23636; --accent-soft: #3a1420;
+  --correct: #4fc3d9; --correct-soft: #10293a;
+  --wrong: #ff8b96; --wrong-soft: #3a1620;
+  --term-bg: #070d1a; --term-text: #cdd8f0;
+}
+
+/* Super Hero — bold red & gold, dark comic */
+:root[data-theme="hero"] {
+  color-scheme: dark;
+  --bg: #17110f; --surface: #241a17; --border: #47332c;
+  --text: #fff3e6; --muted: #c6a893;
+  --accent: #ed1d24; --accent-soft: #3a1512;
+  --correct: #f0a500; --correct-soft: #33260a;
+  --wrong: #ff8f6b; --wrong-soft: #331a12;
+  --term-bg: #0f0a08; --term-text: #f4dcc8;
+  --celebrate: #f0a500;
+}
+
+/* Puzzle Cube — clean white with vivid cube colours, light */
+:root[data-theme="cube"] {
+  color-scheme: light;
+  --bg: #f4f6f8; --surface: #ffffff; --border: #dfe3ea;
+  --text: #14181f; --muted: #5a6472;
+  --accent: #0046ad; --accent-soft: #e3ecfb;
+  --correct: #009b48; --correct-soft: #e0f4e8;
+  --wrong: #d40000; --wrong-soft: #fde6e6;
+  --term-bg: #1b2733; --term-text: #eef2f6;
+  --celebrate: #ffd500;
+}
+
+/* Grandmaster — chessboard & wood, very very light */
+:root[data-theme="grandmaster"] {
+  color-scheme: light;
+  --bg: #fdfcf9; --surface: #ffffff; --border: #ece4d4;
+  --text: #23201a; --muted: #6d6250;
+  --accent: #7a5230; --accent-soft: #ece0cd;
+  --correct: #4f7a3a; --correct-soft: #e6eddc;
+  --wrong: #a33a2a; --wrong-soft: #f2e0da;
+  --term-bg: #2b2620; --term-text: #eae2d3;
+}
+
+/* Fairytale — magical purple & pink, dark dreamy */
+:root[data-theme="fairytale"] {
+  color-scheme: dark;
+  --bg: #17103a; --surface: #241751; --border: #3d2b78;
+  --text: #f3ecff; --muted: #b6a6e0;
+  --accent: #ff6fb5; --accent-soft: #351a44;
+  --correct: #5ce1c2; --correct-soft: #14332c;
+  --wrong: #ff8fae; --wrong-soft: #3a1a28;
+  --term-bg: #0f0a26; --term-text: #e6dcff;
+  --celebrate: #ffd166;
+}
+
+/* Match Day — football pitch green, dark */
+:root[data-theme="matchday"] {
+  color-scheme: dark;
+  --bg: #0e3320; --surface: #14472c; --border: #23623f;
+  --text: #eefdf2; --muted: #9ccfad;
+  --accent: #7bd389; --accent-soft: #12331f;
+  --correct: #b6f05a; --correct-soft: #1e3a12;
+  --wrong: #ff9d7a; --wrong-soft: #33241a;
+  --term-bg: #082416; --term-text: #d6f0dd;
+  --celebrate: #ffffff;
+}
+
+/* Picker swatches for the fun themes */
+.swatch[data-swatch="webslinger"]  { background: linear-gradient(135deg, #e23636 50%, #14203a 50%); }
+.swatch[data-swatch="hero"]        { background: linear-gradient(135deg, #ed1d24 50%, #f0a500 50%); }
+.swatch[data-swatch="cube"]        { background: conic-gradient(#d40000 0 25%, #009b48 0 50%, #0046ad 0 75%, #ffd500 0); }
+.swatch[data-swatch="grandmaster"] { background: conic-gradient(#2b2620 0 25%, #fbf8f1 0 50%, #2b2620 0 75%, #fbf8f1 0); }
+.swatch[data-swatch="fairytale"]   { background: linear-gradient(135deg, #ff6fb5 50%, #241751 50%); }
+.swatch[data-swatch="matchday"]    { background: linear-gradient(135deg, #7bd389 50%, #0e3320 50%); }
+
+/* ============================================================
+   Themed decorative motifs (playful themes only)
+   ============================================================ */
+.theme-decor { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.theme-decor .decor {
+  position: fixed; font-size: 3.2rem; line-height: 1;
+  opacity: 0.10; user-select: none;
+  filter: saturate(1.1);
+  animation: gentle-float 6s ease-in-out infinite;
+}
+/* Spread the motifs to the edges, well clear of the reading column. */
+.decor-tl { top: 5.5rem;  left: 1.5rem; }
+.decor-tr { top: 5.5rem;  right: 1.5rem; animation-delay: 0.6s; }
+.decor-bl { bottom: 2rem; left: 1.5rem;  animation-delay: 1.2s; }
+.decor-br { bottom: 2rem; right: 1.5rem; animation-delay: 1.8s; }
+.decor-ml { top: 45%;     left: 1rem;    animation-delay: 2.4s; font-size: 2.6rem; }
+.decor-mr { top: 55%;     right: 1rem;   animation-delay: 3.0s; font-size: 2.6rem; }
+.decor-tc { top: 5rem;    left: 50%;     animation-delay: 3.6s; font-size: 2.4rem; }
+.decor-bc { bottom: 1.5rem; left: 50%;   animation-delay: 4.2s; font-size: 2.4rem; }
+
+/* Slightly stronger presence for the flat-glyph chess theme, which reads faint otherwise. */
+:root[data-theme="grandmaster"] .theme-decor .decor { opacity: 0.13; color: var(--text); font-size: 6.4rem; }
+:root[data-theme="grandmaster"] .decor-ml,
+:root[data-theme="grandmaster"] .decor-mr,
+:root[data-theme="grandmaster"] .decor-tc,
+:root[data-theme="grandmaster"] .decor-bc { font-size: 5.2rem; }
+
+/* Colourful emoji glow far brighter on dark backgrounds - keep them a faint whisper there. */
+:root[data-theme="webslinger"] .theme-decor .decor,
+:root[data-theme="hero"] .theme-decor .decor,
+:root[data-theme="fairytale"] .theme-decor .decor,
+:root[data-theme="matchday"] .theme-decor .decor {
+  opacity: 0.05;
+  filter: saturate(0.7) brightness(0.85);
+}
+
+/* A whisper-faint themed background wash behind everything. */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background-image: none;
+}
+:root[data-theme="grandmaster"] body::before {
+  background-image:
+    linear-gradient(45deg, var(--border) 25%, transparent 25%, transparent 75%, var(--border) 75%),
+    linear-gradient(45deg, var(--border) 25%, transparent 25%, transparent 75%, var(--border) 75%);
+  background-size: 120px 120px;
+  background-position: 0 0, 60px 60px;
+  opacity: 0.55;
+}
+:root[data-theme="matchday"] body::before {
+  background-image: repeating-linear-gradient(
+    90deg, transparent 0 70px, color-mix(in srgb, var(--text) 6%, transparent) 70px 72px);
+}
+
+/* Hide decoration for anyone who prefers less motion/visual noise. */
+@media (prefers-reduced-motion: reduce) {
+  .theme-decor .decor { animation: none; }
+}
+
+/* On small screens, thin the decoration out so it never crowds the content. */
+@media (max-width: 700px) {
+  .decor-ml, .decor-mr, .decor-tc, .decor-bc { display: none; }
+  .theme-decor .decor { font-size: 2.4rem; opacity: 0.06; }
+}
+
+
+/* ============================================================
+   Paper theme textures - ruled, grid (boxed), dotted
+   ============================================================ */
+
+/* Ruled: horizontal notebook lines + a soft red margin rule. */
+:root[data-theme="paper-ruled"] body::before {
+  opacity: 1;
+  background-image:
+    linear-gradient(90deg, transparent 3rem, rgba(191, 90, 90, 0.35) 3rem 3.07rem, transparent 3.07rem),
+    repeating-linear-gradient(transparent 0 1.7rem, rgba(120, 150, 190, 0.28) 1.7rem 1.75rem);
+}
+
+/* Grid (boxed / graph paper): fine blue squares. */
+:root[data-theme="paper-grid"] body::before {
+  opacity: 1;
+  background-image:
+    repeating-linear-gradient(rgba(120, 150, 190, 0.22) 0 1px, transparent 1px 1.6rem),
+    repeating-linear-gradient(90deg, rgba(120, 150, 190, 0.22) 0 1px, transparent 1px 1.6rem);
+}
+
+/* Dotted: a bullet-journal dot grid. */
+:root[data-theme="paper-dotted"] body::before {
+  opacity: 1;
+  background-image: radial-gradient(rgba(120, 130, 150, 0.4) 1.4px, transparent 1.5px);
+  background-size: 1.5rem 1.5rem;
+}
+
+/* Picker swatches for the paper variants. */
+.swatch[data-swatch="paper-ruled"] {
+  background: #f7f2e9;
+  background-image: repeating-linear-gradient(#f7f2e9 0 3px, #9bb7d4 3px 4px);
+}
+.swatch[data-swatch="paper-grid"] {
+  background: #f7f2e9;
+  background-image:
+    repeating-linear-gradient(#9bb7d4 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(90deg, #9bb7d4 0 1px, transparent 1px 4px);
+}
+.swatch[data-swatch="paper-dotted"] {
+  background: #f7f2e9;
+  background-image: radial-gradient(#8a8496 1px, transparent 1.2px);
+  background-size: 4px 4px;
+}

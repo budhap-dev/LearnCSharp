@@ -72,11 +72,11 @@ export function Lesson() {
   const best = bestScore(lesson.id);
 
   return (
-    <article className="lesson">
+    <article className="lesson" style={{ ['--mc' as string]: `var(--m${lesson.module})` }}>
       <nav className="crumbs">
         <Link to="/syllabus">Syllabus</Link> <span>/</span>{' '}
         <span>
-          Module {lesson.module} — {MODULE_INFO[lesson.module]?.name}
+          {MODULE_INFO[lesson.module]?.emoji} Module {lesson.module} — {MODULE_INFO[lesson.module]?.name}
         </span>
       </nav>
 
