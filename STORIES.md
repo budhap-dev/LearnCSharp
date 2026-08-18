@@ -24,13 +24,14 @@ Legend: ✅ done · 🟡 partly done · ⬜ not started. Each story below carrie
 | **Summaries & objectives** | ✅ all 57 lessons self-describing on cards, syllabus and lesson pages |
 | **Site features** | ✅ home, accordion syllabus with deep links, lesson pages, prev/next, 6-theme picker, mobile pass |
 | **Diagrams** | 🟡 13 of ~110 (the most spatial concepts), themed SVG |
-| **Quizzes** | 🟡 player works; **530 / 620 questions** — Modules 1–5 fully covered |
+| **Quizzes** | ✅ **620 / 620 questions — every lesson has a full quiz** |
 | **Progress** | 🟡 localStorage store + per-module bars; no dashboard, export UI, streaks or revision |
 | **Module 6 (Production C#)** | ✅ written — threading, performance, security, serialization, DI |
 | **Worksheets, reference, search, pathways, module tests, topic exams** | ⬜ not started |
 
-**Current biggest gaps:** questions for Modules 6–7 (90 remaining), the richer question
-types and module tests/exams (US-403/405/407), and the diagram set (13 of ~110).
+**Current biggest gaps:** the richer question types beyond multiple-choice (US-403), module
+tests and topic exams that consume the now-complete bank (US-405/407), and the diagram set
+(13 of ~110).
 
 ---
 
@@ -1034,7 +1035,7 @@ exercises with model answers · read end-to-end for tone and reading age.
 1. ~~Sign off this plan~~ · ~~scaffold `web/`~~ · ~~output capture~~ · ~~ship 1.4 end to end~~ ·
    ~~write all Module 1–5 and 7 notes~~ · ~~deploy to Azure Free~~ — **done, live**.
 2. ~~Question bank for Modules 1 and 2~~ — **done: 260 questions**.
-3. Question bank for Modules 6–7 (~90 questions). *← current task*
+3. ~~Question bank~~ — **done: 620 questions, every lesson covered**.
 4. ~~Write the five Module 6 lessons~~ — **done, all 62 compile**.
 5. Remaining question types beyond multiple-choice (US-403), then module tests (US-405) and
    **topic exams with marks and graded sets (US-407)** — the bank from steps 2–3 feeds both.

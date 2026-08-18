@@ -1,0 +1,82 @@
+[
+  {
+    "id": "6.4-q1",
+    "topic": "naming policies",
+    "stem": "PropertyNamingPolicy = JsonNamingPolicy.CamelCase is set in options rather than renaming C# properties because:",
+    "options": ["It is faster", "JSON convention is camelCase, C# is PascalCase - bridge them ONCE centrally, keeping C# idiomatic", "Renaming breaks the build", "Policies are required"],
+    "answer": 1,
+    "explanation": "One setting reconciles two conventions. PropertyNameCaseInsensitive forgives either on the way in."
+  },
+  {
+    "id": "6.4-q2",
+    "topic": "JsonIgnore",
+    "stem": "[JsonIgnore] on a Secret property is:",
+    "options": ["A formatting choice", "A SECURITY habit (6.3) - the value never reaches the file", "For speed", "Optional decoration"],
+    "answer": 1,
+    "explanation": "Passwords, caches and computed state should not be serialised. WhenWritingNull omits nulls for smaller files and cleaner diffs."
+  },
+  {
+    "id": "6.4-q3",
+    "topic": "custom converters",
+    "stem": "A JsonConverter<Money> exists to:",
+    "options": ["Encrypt money", "Control the FORMAT of a type the serialiser handles wrongly by default - e.g. store Money as \"49.99 GBP\"", "Validate money", "Make it faster"],
+    "answer": 1,
+    "explanation": "~15 lines: Read parses your format, Write emits it. Reach for one for dates, units, money, legacy formats."
+  },
+  {
+    "id": "6.4-q4",
+    "topic": "polymorphism",
+    "stem": "Serialising a List<Shape> of Circle and Rect keeps the subtypes only if the base has:",
+    "options": ["A ToString override", "[JsonDerivedType] attributes writing a $type discriminator", "An interface", "Public fields"],
+    "answer": 1,
+    "explanation": "$type in the JSON rebuilds the right subclass on read (loaded[0] is Circle). Without it you get a Shape-shaped nothing - the 4.6 hierarchy made saveable."
+  },
+  {
+    "id": "6.4-q5",
+    "topic": "versioning: add",
+    "stem": "A v1 file loads into a v2 model with a new Health property because:",
+    "options": ["The serialiser guesses", "ADDING properties is safe - absent fields take their DEFAULT (Health = 100)", "v1 is upgraded", "It throws and retries"],
+    "answer": 1,
+    "explanation": "Rule 1 of schema versioning: add with defaults for free back-compat. The lesson loads an old file live to prove it."
+  },
+  {
+    "id": "6.4-q6",
+    "topic": "versioning: rename",
+    "stem": "RENAMING a serialised property between versions:",
+    "options": ["Is fine", "SILENTLY LOSES the old data - old files carry the old name, which no longer maps", "Throws helpfully", "Auto-migrates"],
+    "answer": 1,
+    "explanation": "Never rename, never repurpose. Old files still say the old thing; the value just vanishes with no error."
+  },
+  {
+    "id": "6.4-q7",
+    "topic": "versioning: schema field",
+    "stem": "A SchemaVersion property in the file enables:",
+    "options": ["Faster loading", "Real MIGRATIONS - read the version, run Migrate1To2, 2To3... each step small and testable", "Compression", "Encryption"],
+    "answer": 1,
+    "explanation": "Version explicitly from day one. Without it, migrating a genuinely changed shape becomes guesswork."
+  },
+  {
+    "id": "6.4-q8",
+    "topic": "JsonDocument",
+    "stem": "JsonDocument.Parse is for:",
+    "options": ["Faster serialising", "Reading JSON whose shape you DO NOT control, or needing just one field, without declaring a class", "Writing JSON", "Validation only"],
+    "answer": 1,
+    "explanation": "doc.RootElement.GetProperty(\"readings\")[0].GetDouble() dips into unknown JSON directly - no matching type required."
+  },
+  {
+    "id": "6.4-q9",
+    "topic": "BinaryFormatter",
+    "stem": "BinaryFormatter is REMOVED from modern .NET because:",
+    "options": ["It was slow", "Deserialising hostile bytes could EXECUTE CODE - a security hole (6.3)", "JSON replaced it", "It was undocumented"],
+    "answer": 1,
+    "explanation": "Meeting it in old code is a security bug, not a convenience. Untrusted deserialisation is a serious attack surface."
+  },
+  {
+    "id": "6.4-q10",
+    "topic": "options reuse",
+    "stem": "JsonSerializerOptions should be:",
+    "options": ["Rebuilt per call", "Created ONCE and shared - constructing it repeatedly is slow", "Avoided", "Per-thread"],
+    "answer": 1,
+    "explanation": "Set the policy and converters once, reuse everywhere. And validate after deserialising - annotations do not survive the wire (4.5)."
+  }
+]

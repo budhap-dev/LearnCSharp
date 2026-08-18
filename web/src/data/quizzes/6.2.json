@@ -1,0 +1,82 @@
+[
+  {
+    "id": "6.2-q1",
+    "topic": "rule one",
+    "stem": "The first rule of performance work is:",
+    "options": ["Rewrite in C", "MEASURE, never guess - intuition about what is slow is wrong more often than right", "Add threads", "Cache everything"],
+    "answer": 1,
+    "explanation": "Write clearly, measure to find the real hot spot, fix the top item, measure again. Everything else follows."
+  },
+  {
+    "id": "6.2-q2",
+    "topic": "honest measurement",
+    "stem": "Measuring with Stopwatch honestly requires:",
+    "options": ["A Debug build", "A RELEASE build, a warm-up run (JIT compiles on first call), and repetition", "One run is enough", "Timing the first call"],
+    "answer": 1,
+    "explanation": "Debug builds and cold JIT lie. For real work BenchmarkDotNet does warm-up and statistics; Stopwatch is the classroom tool for 2x-and-up effects."
+  },
+  {
+    "id": "6.2-q3",
+    "topic": "allocations",
+    "stem": "The hidden cost of allocating millions of objects is:",
+    "options": ["Disk usage", "Future GARBAGE-COLLECTOR work - allocation is cheap, collection is the price (4.8)", "Compile time", "Stack overflow"],
+    "answer": 1,
+    "explanation": "Bump-a-pointer is fast; the pauses come later. Reducing allocations is the real lever, not micro-tuning arithmetic."
+  },
+  {
+    "id": "6.2-q4",
+    "topic": "boxing",
+    "stem": "object o = i; sum += (int)o; in a two-million loop is slow because:",
+    "options": ["Casting is slow", "Each iteration BOXES an int onto the heap - millions of tiny objects, streams of gen-0 collections", "object is huge", "Addition boxes"],
+    "answer": 1,
+    "explanation": "The measured cost, and 3.4's closing argument: generics exist so List<int> never boxes."
+  },
+  {
+    "id": "6.2-q5",
+    "topic": "StringBuilder",
+    "stem": "s += \"x\" across 20,000 iterations is quadratic because:",
+    "options": ["+ is slow", "Immutable strings mean each += COPIES everything so far into a new string (1.8)", "The console blocks", "Strings have a limit"],
+    "answer": 1,
+    "explanation": "StringBuilder keeps one growable buffer: ~1ms vs hundreds. Now with the mechanism, not just the rule."
+  },
+  {
+    "id": "6.2-q6",
+    "topic": "capacity hints",
+    "stem": "new List<int>(2_000_000) beats a default-capacity list because:",
+    "options": ["It presorts", "It SKIPS ~21 doublings, each of which copied the whole array (3.1)", "It uses the stack", "It is parallel"],
+    "answer": 1,
+    "explanation": "The cheapest optimisation in the language - one constructor argument. List, Dictionary and StringBuilder all take a capacity."
+  },
+  {
+    "id": "6.2-q7",
+    "topic": "struct locality",
+    "stem": "A million-element struct array builds ~5x faster than a class array because:",
+    "options": ["Structs are simpler", "It is ONE allocation with values inline; the classes are 1,000,001 heap objects chased by reference (2.8)", "Structs skip constructors", "Classes are boxed"],
+    "answer": 1,
+    "explanation": "Contiguous values love the CPU cache; scattered objects cause misses. Why Point-like types should be structs."
+  },
+  {
+    "id": "6.2-q8",
+    "topic": "Span",
+    "stem": "Span<int> window = data.AsSpan(10, 10) differs from data[10..20] in that the span:",
+    "options": ["Is sorted", "Is a VIEW over the same memory - no copy; writes go through to the array", "Is immutable", "Is on the heap"],
+    "answer": 1,
+    "explanation": "Slicing without allocating - array, string, or stackalloc buffer. High-performance parsing lives on Span."
+  },
+  {
+    "id": "6.2-q9",
+    "topic": "Knuth",
+    "stem": "\"Premature optimisation is the root of all evil\" means:",
+    "options": ["Never optimise", "Clarity first; optimise the MEASURED hot spot - but it does NOT excuse an obvious O(n squared)", "Optimise last always", "Use assembly"],
+    "answer": 1,
+    "explanation": "Choosing the right algorithm and collection is design, not premature anything. The quote targets unmeasured micro-tuning of cold code."
+  },
+  {
+    "id": "6.2-q10",
+    "topic": "priority order",
+    "stem": "The performance win that matters MOST, first:",
+    "options": ["Parallelism", "The ALGORITHM - O(n squared) to O(n log n) beats every micro-tune (module 5)", "StringBuilder", "Span"],
+    "answer": 1,
+    "explanation": "Then the right collection (3.2), then fewer allocations, then batched I/O, and parallelism last. In that order."
+  }
+]

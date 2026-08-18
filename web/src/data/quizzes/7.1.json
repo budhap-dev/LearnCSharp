@@ -1,0 +1,82 @@
+[
+  {
+    "id": "7.1-q1",
+    "topic": "separation",
+    "stem": "GuessingGame has NO Console calls anywhere. The payoff:",
+    "options": ["Shorter code", "The same rules work in a console, a web page OR a test - and the COMPUTER can play it", "Faster guessing", "Less memory"],
+    "answer": 1,
+    "explanation": "Separating rules from I/O is the module's central habit. It is also what lets binary search drive the game automatically."
+  },
+  {
+    "id": "7.1-q2",
+    "topic": "encapsulated rules",
+    "stem": "Guess() throwing InvalidOperationException when IsOver is true demonstrates:",
+    "options": ["A bug", "The object ENFORCING its own rules - a finished game refuses more guesses (2.4, 4.7's 'wrong time')", "Poor design", "Slow validation"],
+    "answer": 1,
+    "explanation": "The state machine protects itself. Meanwhile an out-of-range guess RETURNS a value - bad input is expected, not exceptional."
+  },
+  {
+    "id": "7.1-q3",
+    "topic": "the strategy",
+    "stem": "The computer plays optimally by:",
+    "options": ["Guessing randomly", "BINARY SEARCH - 'too low/high' is exactly the comparison it needs (5.2)", "Trying 1,2,3...", "Remembering past games"],
+    "answer": 1,
+    "explanation": "Higher/lower IS the comparison; halving the range is optimal. The project turns 5.2 into a playable strategy."
+  },
+  {
+    "id": "7.1-q4",
+    "topic": "measured proof",
+    "stem": "Playing every secret 1-100, binary search's WORST case is:",
+    "options": ["100", "7 - ceil(log2 100) - vs linear's 100", "50", "10"],
+    "answer": 1,
+    "explanation": "The project proves 5.1's theory empirically: ~5.8 average and 7 worst, against linear's 50.5 average."
+  },
+  {
+    "id": "7.1-q5",
+    "topic": "enum result",
+    "stem": "GuessResult (TooLow/TooHigh/Correct/OutOfRange) as an enum rather than strings gives:",
+    "options": ["Speed", "Compile-checked results a switch can exhaust - no misspelled \"to low\" (2.8, 1.5)", "Smaller files", "Nothing"],
+    "answer": 1,
+    "explanation": "Enums make the possible outcomes explicit and the switch complete. Magic strings cannot be misspelled if they do not exist."
+  },
+  {
+    "id": "7.1-q6",
+    "topic": "out of range cost",
+    "stem": "An out-of-range guess returns OutOfRange WITHOUT incrementing Attempts because:",
+    "options": ["A bug", "It was not a real guess - a design decision that the rules class owns, not the UI", "Attempts is readonly", "Enums cannot count"],
+    "answer": 1,
+    "explanation": "The game defines what counts as an attempt - a rule living with its data, testable in isolation."
+  },
+  {
+    "id": "7.1-q7",
+    "topic": "reverse mode",
+    "stem": "'You think of a number, the computer guesses' reuses:",
+    "options": ["Nothing new", "The SAME binary-search brain already written - only the roles swap", "A neural network", "The enum only"],
+    "answer": 1,
+    "explanation": "Because rules and strategy are separate, the playing logic transplants directly. Good separation pays extension dividends."
+  },
+  {
+    "id": "7.1-q8",
+    "topic": "TryParse loop",
+    "stem": "The interactive front end stays crash-proof using:",
+    "options": ["try/catch everywhere", "while(true) + TryParse - the 1.3 validation loop; the rules class handles the rest", "A single Parse", "Recursion"],
+    "answer": 1,
+    "explanation": "The thin console layer is the 1.3 pattern; every game rule is already enforced by the class."
+  },
+  {
+    "id": "7.1-q9",
+    "topic": "testability",
+    "stem": "Because the game has no Console dependency, you can test it by:",
+    "options": ["Reading the screen", "Calling Guess() and asserting on the returned enum and Attempts - no I/O involved", "Timing it", "You cannot"],
+    "answer": 1,
+    "explanation": "A pure rules object is trivially testable - the recurring reward of keeping logic away from I/O."
+  },
+  {
+    "id": "7.1-q10",
+    "topic": "range scaling",
+    "stem": "Extending the range to 1-1,000,000, the worst-case optimal guesses become:",
+    "options": ["1,000,000", "20 - ceil(log2 1,000,000); halving barely notices", "500,000", "100"],
+    "answer": 1,
+    "explanation": "log2 scaling means a million-wide range costs 20, a billion costs 30. The power of halving, one last time."
+  }
+]

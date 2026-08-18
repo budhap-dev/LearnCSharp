@@ -1,0 +1,82 @@
+[
+  {
+    "id": "7.2-q1",
+    "topic": "two classes two jobs",
+    "stem": "Student owns its marks; SchoolRegister owns the collection and rules needing everyone. This split is:",
+    "options": ["Arbitrary", "The 2.15 rule-placement principle - a rule lives with the data it needs to see", "For speed", "Required by C#"],
+    "answer": 1,
+    "explanation": "\"Max marks\" lives on Student (its own data); \"no duplicate ids\" and class statistics live on the register (needs all students)."
+  },
+  {
+    "id": "7.2-q2",
+    "topic": "read-only exposure",
+    "stem": "Student exposes IReadOnlyDictionary<string,int> Marks so that:",
+    "options": ["It is faster", "Outsiders can READ marks but only the register can WRITE them - no mark dodges validation (2.4)", "Dictionaries need it", "It saves memory"],
+    "answer": 1,
+    "explanation": "Handing out the real Dictionary would let callers Add marks past every rule. The read-only view lets them look, not touch."
+  },
+  {
+    "id": "7.2-q3",
+    "topic": "reports as queries",
+    "stem": "Every teacher request (rank, who-needs-support, per-subject) becomes:",
+    "options": ["A loop", "A single LINQ QUERY - the Module 3 payoff", "A stored procedure", "A new class"],
+    "answer": 1,
+    "explanation": "OrderByDescending, Where, GroupBy - each report is one expression. This is the most realistic project shape: entities plus reports over them."
+  },
+  {
+    "id": "7.2-q4",
+    "topic": "SelectMany report",
+    "stem": "The per-subject breakdown needs SelectMany then GroupBy because:",
+    "options": ["It is shorter", "Marks live INSIDE students but the report groups them ACROSS students - flatten, then regroup (3.7)", "GroupBy needs it", "Subjects are nested"],
+    "answer": 1,
+    "explanation": "The 3.7 flatten-then-regroup pattern earning its keep: student-owned data reorganised by subject."
+  },
+  {
+    "id": "7.2-q5",
+    "topic": "throw vs return",
+    "stem": "RecordMark(1, \"Maths\", 150) THROWS but Find(99) returns NULL because:",
+    "options": ["Inconsistency", "A mark of 150 is a caller BUG; 'student not found' is a normal outcome (4.7's table)", "Find is faster", "150 is special"],
+    "answer": 1,
+    "explanation": "The decision table in practice: broken contracts throw, expected absences return null/false."
+  },
+  {
+    "id": "7.2-q6",
+    "topic": "duplicate id",
+    "stem": "Enrol throwing InvalidOperationException on a duplicate id signals:",
+    "options": ["A slow path", "A programming error the caller should FIX - two students cannot share an id", "A recoverable state", "A warning"],
+    "answer": 1,
+    "explanation": "Uniqueness is an invariant the register guards. Violating it is a bug worth hearing about loudly."
+  },
+  {
+    "id": "7.2-q7",
+    "topic": "computed grade",
+    "stem": "Student.Grade is computed from Average via a switch, storing nothing. So changing a mark:",
+    "options": ["Requires recomputing manually", "Updates the grade AUTOMATICALLY - a computed property can never go stale (2.4)", "Breaks the grade", "Needs an event"],
+    "answer": 1,
+    "explanation": "No stored grade means no chance of grade and marks disagreeing. Derived state as a computed property."
+  },
+  {
+    "id": "7.2-q8",
+    "topic": "validation location",
+    "stem": "SetMark validates 0-100 inside Student rather than in the register because:",
+    "options": ["Registers are busy", "The mark is STUDENT data - the rule belongs with what it governs, and applies however marks arrive", "It is faster there", "internal requires it"],
+    "answer": 1,
+    "explanation": "Validation at the source guarantees no path bypasses it - the same instinct as the library's Book.MarkLent (2.15)."
+  },
+  {
+    "id": "7.2-q9",
+    "topic": "extension: JSON",
+    "stem": "Saving the register as JSON would reuse which lesson - and hit which caveat?",
+    "options": ["3.2; none", "4.9 serialisation; records/collections may not round-trip == cleanly (2.9's List trap)", "5.1; overflow", "6.1; races"],
+    "answer": 1,
+    "explanation": "The projects are integration exercises: every extension names the earlier lesson it draws on, caveats included."
+  },
+  {
+    "id": "7.2-q10",
+    "topic": "weighted subjects",
+    "stem": "\"Maths counts double\" - where should that rule live?",
+    "options": ["In Main", "With the data it needs - likely a policy the register applies when computing class stats (2.15 critique)", "In Student.Grade only", "In the UI"],
+    "answer": 1,
+    "explanation": "Same question the library workshop asked: which object owns the data this rule needs? Weighting touches aggregation, so it belongs where aggregation happens."
+  }
+]
