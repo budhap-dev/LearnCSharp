@@ -41,7 +41,7 @@ function build(source) {
 }
 
 function run(input) {
-  const r = spawnSync('dotnet', [dll], { encoding: 'utf8', input: input ?? '', timeout: 20_000 });
+  const r = spawnSync('dotnet', [dll], { encoding: 'utf8', input: input ?? '', timeout: 20_000, cwd: join(dir, 'app') });
   return { out: r.stdout, err: r.stderr, status: r.status };
 }
 
