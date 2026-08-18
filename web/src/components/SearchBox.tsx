@@ -1,6 +1,21 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loadIndex, search, type SearchRecord } from '../lib/search';
+
+/** Wraps every occurrence of a search term in <mark> for highlighting. */
+function highlight(text: string, query: string): ReactNode {
+  const terms = query
+    .toLowerCase()
+    .split(/\s+/)
+    .map((t) => t.trim())
+    .filter((t) => t.length > 1);
+  if (terms.length === 0) return text;
+
+  const pattern = new RegExp(`(${terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
+  return text.split(pattern).map((part, i) =>
+    terms.includes(part.toLowerCase()) ? <mark key={i}>{part}</mark> : part,
+  );
+}
 
 /**
  * Header search with an autocomplete dropdown. Loads the index on first focus, suggests up to
@@ -94,7 +109,7 @@ export function SearchBox() {
                 }}
               >
                 <span className="ss-id">{hit.record.id}</span>
-                <span className="ss-title">{hit.record.title}</span>
+                <span className="ss-title">{highlight(hit.record.title, query)}</span>
               </button>
             </li>
           ))}

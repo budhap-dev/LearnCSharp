@@ -1,7 +1,20 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { loadIndex, search, type SearchRecord } from '../lib/search';
 import { MODULE_INFO } from '../lib/lessons';
+
+function highlight(text: string, query: string): ReactNode {
+  const terms = query
+    .toLowerCase()
+    .split(/\s+/)
+    .map((t) => t.trim())
+    .filter((t) => t.length > 1);
+  if (terms.length === 0) return text;
+  const pattern = new RegExp(`(${terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
+  return text.split(pattern).map((part, i) =>
+    terms.includes(part.toLowerCase()) ? <mark key={i}>{part}</mark> : part,
+  );
+}
 
 export function Search() {
   const [params, setParams] = useSearchParams();
@@ -52,10 +65,10 @@ export function Search() {
             <Link to={`/lesson/${record.id}`}>
               <div className="sr-head">
                 <span className="lid">{record.id}</span>
-                <strong>{record.title}</strong>
+                <strong>{highlight(record.title, query)}</strong>
                 <span className="sr-module">Module {record.module} · {MODULE_INFO[record.module]?.name}</span>
               </div>
-              <p className="sr-snippet">{snippet}</p>
+              <p className="sr-snippet">{highlight(snippet, query)}</p>
             </Link>
           </li>
         ))}
