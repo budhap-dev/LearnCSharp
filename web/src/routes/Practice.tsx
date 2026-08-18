@@ -76,7 +76,7 @@ export function Practice() {
                   );
                   return (
                     <li key={l.id}>
-                      <Link to={`/lesson/${l.id}`}>
+                      <Link to={`/quiz/${l.id}`}>
                         <span className="lid">{l.id}</span>
                         <span className="ltitle">
                           <strong>{l.title}</strong>

@@ -12,6 +12,7 @@ const Lesson = lazy(() => import('./routes/Lesson').then((m) => ({ default: m.Le
 const ModuleExam = lazy(() =>
   import('./routes/ModuleExam').then((m) => ({ default: m.ModuleExam })),
 );
+const QuizPage = lazy(() => import('./routes/QuizPage').then((m) => ({ default: m.QuizPage })));
 
 /**
  * HashRouter keeps deep links working on any static host with no rewrite rules,
@@ -31,6 +32,14 @@ export default function App() {
             element={
               <Suspense fallback={<p className="muted">Loading lesson…</p>}>
                 <Lesson />
+              </Suspense>
+            }
+          />
+          <Route
+            path="quiz/:id"
+            element={
+              <Suspense fallback={<p className="muted">Loading quiz…</p>}>
+                <QuizPage />
               </Suspense>
             }
           />
