@@ -1,0 +1,82 @@
+[
+  {
+    "id": "7.3-q1",
+    "topic": "capability not hierarchy",
+    "stem": "Key, Potion and Sword are modelled with interfaces (IItem, IUsable) rather than a base class because:",
+    "options": ["Interfaces are faster", "They share almost NOTHING - a common base would be the 2.5 is-a mistake; interfaces compose capabilities", "Classes cannot vary", "It is shorter"],
+    "answer": 1,
+    "explanation": "A Potion is IItem AND IUsable; a Key is only IItem. Capability, not ancestry - the 2.7 lesson driving the design."
+  },
+  {
+    "id": "7.3-q2",
+    "topic": "use by pattern",
+    "stem": "item switch { IUsable u => u.Use(player), _ => \"nothing happens\" } uses:",
+    "options": ["Reflection", "A TYPE PATTERN (4.6) - act on capability, ignore items that lack it", "A cast and catch", "An enum"],
+    "answer": 1,
+    "explanation": "The pattern tests IUsable and binds a typed variable in one step. Items without the capability fall to the discard."
+  },
+  {
+    "id": "7.3-q3",
+    "topic": "events react",
+    "stem": "player.HealthChanged and player.Died let the world react while Adventurer knows nothing about:",
+    "options": ["Its own health", "The UI, sounds or achievements that SUBSCRIBE (4.3's decoupling)", "The player name", "Its items"],
+    "answer": 1,
+    "explanation": "The publisher announces; unknown listeners react. Adventurer stays ignorant of who cares - Observer in a game."
+  },
+  {
+    "id": "7.3-q4",
+    "topic": "crossing-zero guard",
+    "stem": "Died fires only when health CROSSES zero. Putting that guard in the publisher means:",
+    "options": ["Faster events", "No SUBSCRIBER needs to de-duplicate - the event means exactly one thing, once (4.3)", "Health cannot hit zero", "Events fire once anyway"],
+    "answer": 1,
+    "explanation": "Semantics in the publisher: 'Died' as a single fact beats every listener writing its own already-dead check."
+  },
+  {
+    "id": "7.3-q5",
+    "topic": "map as graph",
+    "stem": "Rooms are nodes and exits are edges, stored as an adjacency list. This means the map:",
+    "options": ["Is just data", "Is a GRAPH - so 5.8's algorithms come free", "Cannot have cycles", "Needs sorting"],
+    "answer": 1,
+    "explanation": "The structure was not chosen to be clever - the problem IS a graph. Then twenty lines of Module 5 solve level design."
+  },
+  {
+    "id": "7.3-q6",
+    "topic": "BFS solves it",
+    "stem": "world.ShortestRoute(\"Hall\", \"Treasury\") is implemented with:",
+    "options": ["DFS", "BFS with breadcrumbs (5.8) - shortest unweighted path, and the basis of a 'hint' command", "Dijkstra", "A linear scan"],
+    "answer": 1,
+    "explanation": "The first step of that route IS the hint. Modelling the map as a graph made level-solving a library call."
+  },
+  {
+    "id": "7.3-q7",
+    "topic": "reachability QA",
+    "stem": "world.Reachable(\"Hall\").Count is useful to a level designer because:",
+    "options": ["It is fast", "It answers 'can the player get everywhere?' - graph connectivity as QA (5.8)", "It counts items", "It sorts rooms"],
+    "answer": 1,
+    "explanation": "A disconnected room is a design bug BFS finds automatically. Algorithms earning their keep in an unexpected place."
+  },
+  {
+    "id": "7.3-q8",
+    "topic": "command table",
+    "stem": "Commands are a Dictionary<string, Func<string,string>> rather than a giant switch so that:",
+    "options": ["It is faster", "Adding a verb = adding ONE entry; the parse loop never changes (4.2's grown-up calculator)", "Strings are keys", "It avoids enums"],
+    "answer": 1,
+    "explanation": "Behaviour in data. Unknown verbs fall out of TryGetValue naturally - the 4.2 pattern at project scale."
+  },
+  {
+    "id": "7.3-q9",
+    "topic": "reverse edges",
+    "stem": "Connect writes the reverse exit too, so:",
+    "options": ["Rooms sort", "Every corridor works BOTH ways - an undirected graph (5.8); forgetting it strands half the map", "Cycles form", "BFS speeds up"],
+    "answer": 1,
+    "explanation": "The undirected-edge detail from 5.8, applied: go north then south returns you. A one-line omission with confusing symptoms."
+  },
+  {
+    "id": "7.3-q10",
+    "topic": "integration density",
+    "stem": "The text adventure is the course's densest INTEGRATION exercise because it makes load-bearing use of:",
+    "options": ["Just interfaces", "Interfaces, events, delegates AND a graph together in one program", "Only LINQ", "Recursion only"],
+    "answer": 1,
+    "explanation": "Each concept is essential, not decorative - 2.7, 4.1-4.3 and 5.8 collaborating. That combination is the point."
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "6.1-q1",
+    "topic": "the race",
+    "stem": "Four threads each do counter++ 100,000 times. The final count is:",
+    "options": ["Always 400,000", "Usually LESS - and different every run, because counter++ is read-add-write and updates get lost", "Always 0", "Exactly 100,000"],
+    "answer": 1,
+    "explanation": "The lesson hit 164,123 once. Two threads read the same value, both add one, both write - one increment vanishes. A race condition."
+  },
+  {
+    "id": "6.1-q2",
+    "topic": "why ++ is unsafe",
+    "stem": "counter++ can lose updates because it is secretly:",
+    "options": ["One atomic instruction", "THREE steps - read, add one, write back - that two threads can interleave", "A method call", "Thread-safe already"],
+    "answer": 1,
+    "explanation": "Atomicity is the issue. Between one thread's read and write, another slips in - both compute from the same stale value."
+  },
+  {
+    "id": "6.1-q3",
+    "topic": "lock",
+    "stem": "lock (gate) { counter++; } guarantees correctness by:",
+    "options": ["Making it faster", "Letting only ONE thread hold the gate at a time - the three steps can no longer interleave", "Copying the counter", "Removing threads"],
+    "answer": 1,
+    "explanation": "Wait for the gate, take it, run the block, release. Lock on a PRIVATE object, never on this or a string that outsiders could also lock."
+  },
+  {
+    "id": "6.1-q4",
+    "topic": "Interlocked",
+    "stem": "Interlocked.Increment(ref counter) is preferred over lock for a simple counter because:",
+    "options": ["It is more readable", "It is ONE atomic hardware instruction - correct AND faster than taking a lock", "It never blocks anything", "It avoids threads"],
+    "answer": 1,
+    "explanation": "The CPU provides atomicity directly for simple updates. For anything more than a counter, lock or a concurrent collection."
+  },
+  {
+    "id": "6.1-q5",
+    "topic": "concurrent collections",
+    "stem": "A plain Dictionary written from several threads:",
+    "options": ["Is fine", "Can CORRUPT internally - use ConcurrentDictionary for concurrent writes", "Throws immediately", "Slows down only"],
+    "answer": 1,
+    "explanation": "Its internal structure is not thread-safe. ConcurrentDictionary, ConcurrentQueue and friends are built for it."
+  },
+  {
+    "id": "6.1-q6",
+    "topic": "deadlock",
+    "stem": "Thread A holds lock 1 wanting 2; thread B holds 2 wanting 1. The result:",
+    "options": ["An exception", "DEADLOCK - both wait forever, no crash, just silence", "One wins", "The GC intervenes"],
+    "answer": 1,
+    "explanation": "The prevention rule: every thread acquires multiple locks in the SAME ORDER. A cycle cannot form if everyone climbs the same ladder."
+  },
+  {
+    "id": "6.1-q7",
+    "topic": "Parallel.For",
+    "stem": "Inside Parallel.For, updating a shared total still needs Interlocked because:",
+    "options": ["Parallel.For is buggy", "Parallelism does not suspend the race rules - it MAKES them mandatory", "It runs sequentially", "Interlocked is decorative"],
+    "answer": 1,
+    "explanation": "Many threads, one variable - the exact race from question 1. The lesson uses Interlocked.Increment inside the prime-counting loop."
+  },
+  {
+    "id": "6.1-q8",
+    "topic": "when not to",
+    "stem": "Parallelising a TINY job is often slower because:",
+    "options": ["Threads are broken", "The COORDINATION cost exceeds the work - parallelise big, independent chunks and MEASURE", "Small data errors", "Cores idle"],
+    "answer": 1,
+    "explanation": "The lesson measures a tiny loop running slower under Parallel.For. Overhead is real; only big independent work repays it."
+  },
+  {
+    "id": "6.1-q9",
+    "topic": "immutable data",
+    "stem": "The safest way to share data across threads is:",
+    "options": ["A big lock", "IMMUTABLE data - it needs no locks at all (records, 2.9)", "Interlocked everywhere", "A static field"],
+    "answer": 1,
+    "explanation": "No mutation, no race. Rule 1: prefer no shared state; rule 2: if shared, immutable; only then reach for locks."
+  },
+  {
+    "id": "6.1-q10",
+    "topic": "Thread vs Task",
+    "stem": "For CPU-bound work today you normally use:",
+    "options": ["new Thread(...)", "Task.Run - borrowing a pooled thread; raw Thread is almost never used directly", "async/await", "A timer"],
+    "answer": 1,
+    "explanation": "Task.Run for CPU work, async/await for I/O waiting (4.10), Parallel.For for data parallelism. Raw threads are a last resort."
+  }
+]

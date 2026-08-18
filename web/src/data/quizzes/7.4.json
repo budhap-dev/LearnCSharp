@@ -1,0 +1,82 @@
+[
+  {
+    "id": "7.4-q1",
+    "topic": "layered architecture",
+    "stem": "TodoService -> ITodoStore -> JsonTodoStore/InMemoryTodoStore is a miniature of:",
+    "options": ["The MVC pattern", "The LAYERED architecture behind most real applications - rules, contract, implementations", "A database", "A state machine"],
+    "answer": 1,
+    "explanation": "The service holds rules; the interface is the seam; implementations vary. The last project is shaped most like professional code."
+  },
+  {
+    "id": "7.4-q2",
+    "topic": "depend on interface",
+    "stem": "TodoService depends on ITodoStore, never on the file, so that:",
+    "options": ["Files are slow", "Storage is SWAPPABLE - the same service runs against a file OR an in-memory fake, unchanged (2.13 D)", "JSON is optional", "It compiles faster"],
+    "answer": 1,
+    "explanation": "Dependency inversion as working code. Swap in a database store later and the service does not change by one line."
+  },
+  {
+    "id": "7.4-q3",
+    "topic": "testability payoff",
+    "stem": "InMemoryTodoStore exists to:",
+    "options": ["Run in production", "Test the service with NO disk, no cleanup, no async ceremony - the fake from 2.13/2.14 (Repository)", "Cache the file", "Speed up JSON"],
+    "answer": 1,
+    "explanation": "The whole point of the seam: business logic tested against Task.FromResult, not a filesystem."
+  },
+  {
+    "id": "7.4-q4",
+    "topic": "records + with",
+    "stem": "Completing a task is items[i] = items[i] with { IsDone = true } because:",
+    "options": ["Lists need it", "TodoItem is an immutable RECORD - completion is a COPY with one change, not a mutation (2.9)", "with is faster", "IsDone is readonly"],
+    "answer": 1,
+    "explanation": "Non-destructive update: a new record, one field changed. The immutable-data habit at project scale."
+  },
+  {
+    "id": "7.4-q5",
+    "topic": "meaningful null",
+    "stem": "DateOnly? Due uses nullability to mean:",
+    "options": ["An error", "'NO DEADLINE' - the 4.5 rule that ? should CARRY INFORMATION, not laziness", "Not set yet", "Always today"],
+    "answer": 1,
+    "explanation": "A nullable that says something. Compare a task with no due date versus one due today - the ? distinguishes them."
+  },
+  {
+    "id": "7.4-q6",
+    "topic": "defensive load",
+    "stem": "LoadAsync returns [] for a MISSING file and catches JsonException for a CORRUPT one because:",
+    "options": ["Files always exist", "External data is never trusted - first run is not an error, and corruption must not KILL the app at startup (4.9)", "JSON is fragile", "It is required"],
+    "answer": 1,
+    "explanation": "Missing = 'nothing saved yet'; corrupt = degrade to empty. A real app would also back up the corrupt file first."
+  },
+  {
+    "id": "7.4-q7",
+    "topic": "null sorts last",
+    "stem": "ThenBy(i => i.Due ?? DateOnly.MaxValue) is a trick that makes tasks with no deadline:",
+    "options": ["Error", "Sort LAST - substituting MaxValue for null avoids a special case", "Sort first", "Disappear"],
+    "answer": 1,
+    "explanation": "A small stealable idiom: coalesce null to an extreme so it falls where you want in an ordering."
+  },
+  {
+    "id": "7.4-q8",
+    "topic": "human sort",
+    "stem": "OrderBy(IsDone).ThenByDescending(Priority).ThenBy(Due) sorts the list:",
+    "options": ["Alphabetically", "The way a HUMAN wants: outstanding first, then most urgent, then soonest deadline", "By id", "Randomly"],
+    "answer": 1,
+    "explanation": "Three sort keys layered with ThenBy (3.6) - the multi-key sort producing a genuinely useful order."
+  },
+  {
+    "id": "7.4-q9",
+    "topic": "async all the way",
+    "stem": "LoadAsync/SaveAsync are async because storage is I/O, and the in-memory fake still returns Task via:",
+    "options": ["Blocking", "Task.FromResult / Task.CompletedTask - honouring the async contract with no real waiting (4.10)", "async void", "Thread.Sleep"],
+    "answer": 1,
+    "explanation": "The interface is async because a FILE store needs it; the fake satisfies the same signature synchronously."
+  },
+  {
+    "id": "7.4-q10",
+    "topic": "architecture grade",
+    "stem": "\"Swap JsonTodoStore for a CSV store - count how many files change\" - that number is:",
+    "options": ["Irrelevant", "The architecture's GRADE - good design means only the new store is added, the service untouched", "The bug count", "The line count"],
+    "answer": 1,
+    "explanation": "Low coupling made measurable: a well-placed seam means new storage is additive. The course's final lesson about design itself."
+  }
+]

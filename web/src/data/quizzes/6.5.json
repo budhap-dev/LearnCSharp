@@ -1,0 +1,82 @@
+[
+  {
+    "id": "6.5-q1",
+    "topic": "the problem",
+    "stem": "Hand-wiring dependencies (new A(new B(new C()))) becomes the maintenance burden because:",
+    "options": ["new is slow", "Every added constructor parameter RIPPLES through every place that builds the object - and real apps have hundreds", "It is unreadable only", "It boxes"],
+    "answer": 1,
+    "explanation": "The wiring itself is what a container solves - and the ONLY thing. At small scale, hand-wiring is correct (2.13)."
+  },
+  {
+    "id": "6.5-q2",
+    "topic": "resolution",
+    "stem": "provider.GetRequiredService<ReportService>() builds the whole object graph by:",
+    "options": ["Guessing", "Reading the constructor via reflection (4.11), supplying each dependency and THEIRS recursively", "Copying a template", "Running Main"],
+    "answer": 1,
+    "explanation": "Register the recipe once; the container assembles the graph. Add a fifth parameter tomorrow and nothing else changes."
+  },
+  {
+    "id": "6.5-q3",
+    "topic": "singleton lifetime",
+    "stem": "AddSingleton means the container hands out:",
+    "options": ["A new instance each time", "ONE instance for the whole application - config, caches", "One per request", "One per thread"],
+    "answer": 1,
+    "explanation": "The lesson's counter shows #1 every time, across scopes. A singleton must be THREAD-SAFE - every request shares it (6.1)."
+  },
+  {
+    "id": "6.5-q4",
+    "topic": "scoped lifetime",
+    "stem": "AddScoped gives:",
+    "options": ["A global instance", "ONE per scope - the same within a scope, a new one in the next (in ASP.NET a scope IS a request)", "A new one always", "A static"],
+    "answer": 1,
+    "explanation": "The counter: #1 twice in scope 1, #2 in scope 2. Per-request state lives here."
+  },
+  {
+    "id": "6.5-q5",
+    "topic": "transient lifetime",
+    "stem": "AddTransient produces:",
+    "options": ["One shared instance", "A NEW instance every time it is resolved - the safe default for cheap, stateless services", "One per scope", "A singleton"],
+    "answer": 1,
+    "explanation": "The counter shows #1 then #2 within one scope. Transient is the default; scoped and singleton are deliberate choices."
+  },
+  {
+    "id": "6.5-q6",
+    "topic": "composition root",
+    "stem": "The composition root principle says registration happens:",
+    "options": ["In every class", "In ONE place at startup - everywhere else, classes just declare constructor parameters", "In the container", "At compile time"],
+    "answer": 1,
+    "explanation": "Nobody else calls new or touches the container. Dependencies stay visible in constructor signatures."
+  },
+  {
+    "id": "6.5-q7",
+    "topic": "service locator",
+    "stem": "Injecting the ServiceProvider itself and calling GetService inside classes is:",
+    "options": ["Best practice", "The SERVICE LOCATOR anti-pattern - it HIDES dependencies again, undoing what constructor injection fixed", "Required", "Faster"],
+    "answer": 1,
+    "explanation": "A dependency belongs in the signature, visible. Asking the container for it from inside buries it once more."
+  },
+  {
+    "id": "6.5-q8",
+    "topic": "testing payoff",
+    "stem": "new ReportService(new FakeOrderStore(), ...) in a test shows that:",
+    "options": ["Containers are needed for tests", "DI the PRINCIPLE makes testing possible; the CONTAINER is only scale convenience - tests pass fakes directly", "Fakes are slow", "Tests need scopes"],
+    "answer": 1,
+    "explanation": "The 2.13 RecordingSender move: no SQL, no SMTP, no container. Unit tests usually skip the container entirely."
+  },
+  {
+    "id": "6.5-q9",
+    "topic": "when overkill",
+    "stem": "A DI container is overkill for:",
+    "options": ["An ASP.NET app", "A console tool with five classes - new them up in Main and be done (as this course does)", "A web API", "Any real app"],
+    "answer": 1,
+    "explanation": "The principle always; the container when the wiring HURTS. ASP.NET is built on this exact container, so AddSingleton there IS this lesson."
+  },
+  {
+    "id": "6.5-q10",
+    "topic": "lifetime bug",
+    "stem": "A SCOPED service captured by a SINGLETON is a bug because:",
+    "options": ["It is slow", "The scoped object OUTLIVES its scope - held by the app-lifetime singleton, causing subtle corruption", "Singletons cannot hold services", "It will not compile"],
+    "answer": 1,
+    "explanation": "The singleton pins one scoped instance forever, defeating per-request isolation. Lifetime mismatches are the classic DI trap."
+  }
+]

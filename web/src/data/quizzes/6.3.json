@@ -1,0 +1,82 @@
+[
+  {
+    "id": "6.3-q1",
+    "topic": "the mindset",
+    "stem": "The security mindset treats every input as:",
+    "options": ["Well-meaning", "HOSTILE until proven otherwise - users mistype, but attackers CRAFT input to be misread as code", "Pre-validated", "Read-only"],
+    "answer": 1,
+    "explanation": "Nearly every classic attack is one pattern: data crossing into code. Validation for users is UX; handling crafted data is security."
+  },
+  {
+    "id": "6.3-q2",
+    "topic": "SQL injection",
+    "stem": "sql = \"...WHERE Name = '\" + input + \"'\" with input ' OR '1'='1 does what?",
+    "options": ["Finds one user", "Makes the WHERE true for EVERY row - logged in as everyone", "Throws", "Returns nothing"],
+    "answer": 1,
+    "explanation": "The input was parsed as SQL. With '; DROP TABLE Users; -- it deletes the table. Gluing input into a query is the vulnerability."
+  },
+  {
+    "id": "6.3-q3",
+    "topic": "the fix",
+    "stem": "Parameterised queries (WHERE Name = @name) defeat injection because:",
+    "options": ["They escape quotes", "The input travels as pure DATA - the database never parses it as SQL", "They are encrypted", "They are faster"],
+    "answer": 1,
+    "explanation": "No input is weird enough to escape a parameter. The fix is total, and LESS code than manual escaping."
+  },
+  {
+    "id": "6.3-q4",
+    "topic": "password storage",
+    "stem": "Passwords should be stored:",
+    "options": ["Encrypted", "HASHED - one-way, so you can CHECK a password without being able to RECOVER it", "Plaintext but hidden", "Base64 encoded"],
+    "answer": 1,
+    "explanation": "Encryption keeps a key next to the data - same leak, one step. Plaintext is indefensible. Only hashing survives a database breach."
+  },
+  {
+    "id": "6.3-q5",
+    "topic": "fast hash is wrong",
+    "stem": "SHA-256 is the WRONG hash for passwords because:",
+    "options": ["It is insecure", "It is FAST - GPUs try billions/second, and rainbow tables precompute common passwords", "It is reversible", "It is too short"],
+    "answer": 1,
+    "explanation": "Fast hashing is for file integrity (5.9). Passwords need a DELIBERATELY SLOW hash."
+  },
+  {
+    "id": "6.3-q6",
+    "topic": "salt",
+    "stem": "A per-user random salt stored beside the hash:",
+    "options": ["Speeds login", "Makes identical passwords hash DIFFERENTLY - killing precomputed rainbow tables", "Encrypts the hash", "Is the password"],
+    "answer": 1,
+    "explanation": "No precomputed table can cover every possible salt. Combined with slow PBKDF2/bcrypt/Argon2, that is correct password storage."
+  },
+  {
+    "id": "6.3-q7",
+    "topic": "slow on purpose",
+    "stem": "PBKDF2 with 100,000 rounds is tuned so one attempt costs ~100ms because:",
+    "options": ["Servers are slow", "Nothing to a user logging in ONCE; ruinous to an attacker making BILLIONS of guesses", "It is the default", "SHA needs it"],
+    "answer": 1,
+    "explanation": "Deliberate slowness asymmetrically hurts the attacker. FixedTimeEquals then compares in constant time, blocking timing attacks."
+  },
+  {
+    "id": "6.3-q8",
+    "topic": "randomness",
+    "stem": "A password-reset code must come from:",
+    "options": ["new Random()", "RandomNumberGenerator - Random is seeded and PREDICTABLE; observe outputs, predict the rest", "DateTime.Now", "A counter"],
+    "answer": 1,
+    "explanation": "Anything an attacker would WANT to guess - tokens, codes, keys, salts - needs the cryptographic generator. Random is for dice (1.10)."
+  },
+  {
+    "id": "6.3-q9",
+    "topic": "secrets in source",
+    "stem": "const string ApiKey = \"sk-live-...\" in your code is dangerous because:",
+    "options": ["It is slow", "Git history keeps it FOREVER - leaked keys are scraped within minutes", "It is public by default", "Strings leak"],
+    "answer": 1,
+    "explanation": "History survives deletion. Use environment variables or a vault - which is why this course's deploy token lives in a GitHub secret, not the workflow."
+  },
+  {
+    "id": "6.3-q10",
+    "topic": "least privilege",
+    "stem": "Giving the app's database account only the rights it needs means an injection:",
+    "options": ["Cannot happen", "Does LESS HARM - an account that cannot DROP TABLE turns catastrophe into nuisance", "Is faster to detect", "Is encrypted"],
+    "answer": 1,
+    "explanation": "Defence in depth: least privilege limits the blast radius when another layer fails. Also: keep dependencies updated, log errors privately, do not invent crypto."
+  }
+]
