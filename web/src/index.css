@@ -909,7 +909,19 @@ main > * { animation: fade-in-up 0.35s ease both; }
   color: transparent;
   animation: shimmer 8s linear infinite;
 }
-.hero .emoji-wave { display: inline-block; animation: gentle-float 3s ease-in-out infinite; }
+.hero .emoji-wave {
+  display: inline-block;
+  margin-left: 0.5rem;
+  -webkit-text-fill-color: initial;   /* opt out of the h1 gradient text-clip */
+  transform-origin: 70% 80%;
+  animation: hand-wave 2.4s ease-in-out infinite;
+}
+@keyframes hand-wave {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  10%, 30% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  40% { transform: rotate(-4deg); }
+}
 
 /* An encouraging progress banner on the home page */
 .encourage {
