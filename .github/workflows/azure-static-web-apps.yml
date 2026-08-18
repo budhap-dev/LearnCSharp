@@ -44,6 +44,12 @@ jobs:
         run: npm ci
         working-directory: web
 
+      # Every worksheet starter must compile and every worksheet solution must print its
+      # stated target output - checked by really running each one through dotnet.
+      - name: Verify worksheet solutions
+        run: node scripts/verify-worksheets.mjs
+        working-directory: web
+
       - name: Build site
         run: npm run build
         working-directory: web
