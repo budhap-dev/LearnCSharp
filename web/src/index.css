@@ -23,6 +23,9 @@
   --term-bg: #1c1f2b;
   --term-text: #d7dbe6;
   --radius: 10px;
+  --code-bg: #f6f8fa;
+  --code-text: #1f2328;
+  --code-border: #d7dbe0;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
@@ -266,7 +269,11 @@ button:disabled { cursor: default; }
   background: var(--accent-soft); color: var(--accent);
   padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.88em;
 }
-.prose pre { overflow-x: auto; border-radius: var(--radius); padding: 0.9rem 1.1rem; }
+.prose pre {
+  overflow-x: auto; border-radius: var(--radius); padding: 0.9rem 1.1rem;
+  background: var(--code-bg); border: 1px solid var(--code-border);
+}
+.prose pre code, .prose pre code.hljs { background: transparent; color: var(--code-text); }
 
 .callout {
   border: 1px dashed var(--border); border-radius: var(--radius);
@@ -296,7 +303,8 @@ button:disabled { cursor: default; }
 .quiz-panel h2 { margin-top: 0; }
 .progress-line { font-size: 0.85rem; color: var(--muted); }
 .quiz-code, .quiz pre {
-  background: var(--term-bg); color: var(--term-text);
+  background: var(--code-bg); color: var(--code-text);
+  border: 1px solid var(--code-border);
   padding: 0.8rem 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem;
 }
 .options { list-style: none; margin: 1rem 0; padding: 0; display: grid; gap: 0.5rem; }
