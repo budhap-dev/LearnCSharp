@@ -1,7 +1,16 @@
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { ThemePicker } from './ThemePicker';
 
 export function Layout() {
+  const navigate = useNavigate();
+  const [q, setQ] = useState('');
+
+  function onSearch(e: React.FormEvent) {
+    e.preventDefault();
+    if (q.trim()) navigate(`/search?q=${encodeURIComponent(q.trim())}`);
+  }
+
   return (
     <div className="shell">
       <header>
@@ -11,8 +20,18 @@ export function Layout() {
         <nav>
           <NavLink to="/">Home</NavLink>
           <NavLink to="/syllabus">Syllabus</NavLink>
+          <NavLink to="/practice">Practice</NavLink>
         </nav>
         <div className="header-right">
+          <form className="header-search" onSubmit={onSearch} role="search">
+            <input
+              type="search"
+              placeholder="Search topics…"
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              aria-label="Search topics"
+            />
+          </form>
           <ThemePicker />
         </div>
       </header>

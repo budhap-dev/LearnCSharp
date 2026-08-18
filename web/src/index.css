@@ -690,3 +690,57 @@ button:disabled { cursor: default; }
   .result-headline { gap: 0.5rem; }
   .big-grade { margin-left: 0; }
 }
+
+/* ---- header search ---- */
+.header-search { display: flex; }
+.header-search input {
+  font: inherit; font-size: 0.85rem;
+  background: var(--bg); color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 0.35rem 0.7rem; width: 11rem; max-width: 40vw;
+}
+.header-search input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+
+/* ---- search page ---- */
+.search-input-big {
+  font: inherit; font-size: 1.1rem; width: 100%;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 0.7rem 1rem; margin: 0.5rem 0 1rem;
+}
+.search-input-big:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.result-count { margin-top: 0; }
+
+.search-results { list-style: none; padding: 0; margin: 0; }
+.search-results li { margin: 0.6rem 0; }
+.search-results a {
+  display: block; text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 0.75rem 0.9rem; background: var(--surface);
+}
+.search-results a:hover { border-color: var(--accent); }
+.sr-head { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+.sr-head strong { font-size: 1.02rem; }
+.sr-module { color: var(--muted); font-size: 0.8rem; margin-left: auto; }
+.sr-snippet { margin: 0.4rem 0 0; color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+
+/* ---- practice ---- */
+.exam-launch-grid {
+  display: grid; gap: 0.75rem; margin: 1rem 0 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+}
+.exam-launch {
+  display: flex; align-items: center; gap: 0.75rem;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--surface); padding: 0.85rem 1rem;
+  text-decoration: none; color: var(--text);
+}
+.exam-launch:hover { border-color: var(--accent); }
+.el-body { display: flex; flex-direction: column; gap: 0.15rem; }
+.el-best { font-size: 0.82rem; }
+.practice section { margin-bottom: 2rem; }
+
+@media (max-width: 640px) {
+  .header-search input { width: 8rem; }
+  .sr-module { margin-left: 0; width: 100%; }
+}

@@ -3,6 +3,8 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Home } from './routes/Home';
 import { Syllabus } from './routes/Syllabus';
+import { Search } from './routes/Search';
+import { Practice } from './routes/Practice';
 
 // The lesson page pulls in the markdown renderer and syntax highlighter, which are by far
 // the heaviest dependencies. Loading it lazily keeps the home and syllabus pages small.
@@ -22,6 +24,8 @@ export default function App() {
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="syllabus" element={<Syllabus />} />
+          <Route path="practice" element={<Practice />} />
+          <Route path="search" element={<Search />} />
           <Route
             path="lesson/:id"
             element={

@@ -22,7 +22,7 @@ Legend: ✅ done · 🟡 partly done · ⬜ not started. Each story below carrie
 | **Theory notes** | ✅ **62 / 62 lessons have full notes** — every module complete |
 | **Verified output pipeline** | ✅ capture → JSON → site, regenerated every build; a failing lesson fails the build |
 | **Summaries & objectives** | ✅ all 57 lessons self-describing on cards, syllabus and lesson pages |
-| **Site features** | ✅ home, accordion syllabus with deep links, lesson pages, prev/next, 6-theme picker, mobile pass |
+| **Site features** | ✅ home, accordion syllabus, lesson pages, prev/next, 6-theme picker, mobile pass, **full-text search**, **Practice tab** |
 | **Diagrams** | 🟡 13 of ~110 (the most spatial concepts), themed SVG |
 | **Quizzes** | ✅ **620 / 620 questions — every lesson has a full quiz** |
 | **Progress** | 🟡 localStorage store + per-module bars; no dashboard, export UI, streaks or revision |
@@ -488,7 +488,7 @@ place.
 - [ ] Last lesson of a module points at the module test
 - [ ] `←` / `→` keyboard shortcuts
 
-### US-304 · Full-text search *(Should, M)* · ⬜
+### US-304 · Full-text search *(Should, M)* · ✅ — *build-time index over titles, objectives, sections and notes body; weighted scorer; header box + /search*
 **As a** student **I want** to search everything **so that** I can find "yield" without knowing
 which lesson it is in.
 
