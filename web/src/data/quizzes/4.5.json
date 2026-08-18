@@ -1,0 +1,82 @@
+[
+  {
+    "id": "4.5-q1",
+    "topic": "the annotations",
+    "stem": "With nullable enabled, 'string name' versus 'string? name':",
+    "options": ["Identical", "string must never be null (compiler-enforced); string? may be, and must be checked before use", "? makes it optional to declare", "? is a comment"],
+    "answer": 1,
+    "explanation": "The type itself now states intent. The billion-dollar crash becomes a compile-time warning at your desk."
+  },
+  {
+    "id": "4.5-q2",
+    "topic": "operators",
+    "stem": "person?.Address?.City ?? \"unknown\" - when Address is null this evaluates to:",
+    "options": ["null", "\"unknown\" - ?. short-circuits the chain, ?? supplies the fallback", "A crash", "\"\""],
+    "answer": 1,
+    "explanation": "?. stops the whole chain at the first null (like && in 1.4); ?? converts the resulting null into your default."
+  },
+  {
+    "id": "4.5-q3",
+    "topic": "??=",
+    "stem": "user ??= \"guest\"; assigns when:",
+    "options": ["Always", "Only if user is currently null", "Never", "If guest is null"],
+    "answer": 1,
+    "explanation": "Null-coalescing assignment: a one-line 'default it if unset'."
+  },
+  {
+    "id": "4.5-q4",
+    "topic": "flow analysis",
+    "stem": "After 'if (input is not null)', why does input.Length stop warning inside the block?",
+    "options": ["Warnings are random", "The compiler TRACKS your checks and narrows the type where null is proven impossible", "Length allows null", "is disables checking"],
+    "answer": 1,
+    "explanation": "Flow-sensitive narrowing - IsNullOrEmpty and patterns narrow too. The compiler follows your logic, not just your annotations."
+  },
+  {
+    "id": "4.5-q5",
+    "topic": "the ! operator",
+    "stem": "value!.Length does what?",
+    "options": ["Checks for null at runtime", "SILENCES the warning only - if value is null it still crashes, now unwarned", "Converts null to empty", "Negates value"],
+    "answer": 1,
+    "explanation": "Null-forgiving = 'trust me'. It changes nothing at runtime. Every ! is a place the compiler can no longer help - treat each as debt."
+  },
+  {
+    "id": "4.5-q6",
+    "topic": "boundary guards",
+    "stem": "ArgumentNullException.ThrowIfNull(name); at the top of a method is the ____ pattern:",
+    "options": ["Silencing", "Guard-at-the-boundary: validate on arrival, stay non-null INSIDE", "Try-parse", "Lazy check"],
+    "answer": 1,
+    "explanation": "Check at the edges once; the interior then deals only in honest non-nullable types. The workable strategy for a whole codebase."
+  },
+  {
+    "id": "4.5-q7",
+    "topic": "int? vs string?",
+    "stem": "The deep difference between int? and string?:",
+    "options": ["None", "int? is a REAL runtime type (Nullable<int>, enforced); string? is a COMPILE-TIME annotation only", "string? is a struct", "int? warns only"],
+    "answer": 1,
+    "explanation": "count.Value on empty genuinely throws InvalidOperationException; string?'s protection is warnings. They look symmetric and are not."
+  },
+  {
+    "id": "4.5-q8",
+    "topic": "external data",
+    "stem": "JSON deserialised into a class with non-nullable properties can still contain nulls because:",
+    "options": ["JSON is broken", "Reference annotations DO NOT EXIST at runtime - the wire cannot be stopped by them; validate at the boundary", "The compiler missed it", "Nulls convert to defaults"],
+    "answer": 1,
+    "explanation": "Exactly why the boundary-guard pattern exists (and why 4.9/6.4 say 'validate after deserialising')."
+  },
+  {
+    "id": "4.5-q9",
+    "topic": "collections",
+    "stem": "A method finds no results. Best return?",
+    "options": ["null", "An EMPTY collection - callers foreach safely with no null checks", "-1", "throw"],
+    "answer": 1,
+    "explanation": "Null collections force every caller to check; empty ones just do nothing in loops. Rule 4 of the practical list."
+  },
+  {
+    "id": "4.5-q10",
+    "topic": "property pattern",
+    "stem": "if (maybeName is { Length: > 2 } longName) checks:",
+    "options": ["Only length", "Non-null AND Length > 2, capturing a typed non-null variable in one step", "Only null", "Type only"],
+    "answer": 1,
+    "explanation": "A property pattern never matches null, so it narrows and tests together - 1.5's patterns meeting null safety."
+  }
+]

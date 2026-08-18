@@ -1,0 +1,82 @@
+[
+  {
+    "id": "4.1-q1",
+    "topic": "what delegates are",
+    "stem": "A delegate variable holds:",
+    "options": ["Data only", "A reference to a METHOD - behaviour passed around like data", "A class", "A thread"],
+    "answer": 1,
+    "explanation": "operation = Add; stores the method itself; operation(3, 4) calls whatever it currently points at. Every lambda you passed in Module 3 travelled in one."
+  },
+  {
+    "id": "4.1-q2",
+    "topic": "the brackets trap",
+    "stem": "MathOperation op = Add(); fails (or misbehaves) because:",
+    "options": ["Add is private", "The brackets CALL Add and assign its RESULT - drop them to reference the method itself", "Delegates need new", "Add must be static"],
+    "answer": 1,
+    "explanation": "The method name without brackets IS the reference. With brackets you invoked it - assigning an int where a delegate belongs."
+  },
+  {
+    "id": "4.1-q3",
+    "topic": "Func shape",
+    "stem": "In Func<int, string, bool>, the return type is:",
+    "options": ["int", "string", "bool - the LAST type parameter", "void"],
+    "answer": 2,
+    "explanation": "Func's rule: parameters first, return type last. Func<int, string, bool> takes an int and a string, returns bool."
+  },
+  {
+    "id": "4.1-q4",
+    "topic": "Action",
+    "stem": "Action<string> differs from Func<string> how?",
+    "options": ["No difference", "Action returns NOTHING and takes a string; Func<string> takes nothing and RETURNS a string", "Action is faster", "Func cannot take lambdas"],
+    "answer": 1,
+    "explanation": "Action = void-returning; its type parameters are all inputs. Func's last parameter is the output. Easy to misread - worth pinning down."
+  },
+  {
+    "id": "4.1-q5",
+    "topic": "LINQ connection",
+    "stem": "items.Where(n => n < 50) - what type is that lambda travelling in?",
+    "options": ["Predicate<T>", "Func<T, bool>", "Action<T>", "Comparison<T>"],
+    "answer": 1,
+    "explanation": "Where takes Func<T, bool>. (List.Find takes the equivalent Predicate<T>.) Module 3 suddenly makes sense: LINQ is methods that take delegates."
+  },
+  {
+    "id": "4.1-q6",
+    "topic": "strategy",
+    "stem": "Apply(10, 5, Add) / Apply(10, 5, Subtract) - passing behaviour into a method is which pattern?",
+    "options": ["Observer", "Strategy (2.14), stripped to its essence", "Factory", "Adapter"],
+    "answer": 1,
+    "explanation": "One method, swappable algorithm. Delegates make Strategy a one-parameter affair instead of an interface hierarchy."
+  },
+  {
+    "id": "4.1-q7",
+    "topic": "multicast",
+    "stem": "pipeline += LogToFile; adds a method to a delegate. Invoking it then:",
+    "options": ["Runs only the newest", "Runs EVERY method in the chain, in the order added", "Picks one at random", "Throws"],
+    "answer": 1,
+    "explanation": "Multicast delegates hold an invocation list. += appends, -= removes - the machinery events (4.3) are built on."
+  },
+  {
+    "id": "4.1-q8",
+    "topic": "multicast null",
+    "stem": "After removing the LAST method with -=, the delegate variable is:",
+    "options": ["An empty delegate", "null - hence pipeline?.Invoke(...)", "Unchanged", "Reset to the first method"],
+    "answer": 1,
+    "explanation": "An emptied multicast delegate becomes null, and bare invocation throws NullReferenceException. ?.Invoke is the safe idiom."
+  },
+  {
+    "id": "4.1-q9",
+    "topic": "multicast Func",
+    "stem": "A multicast Func<int> with three methods returns:",
+    "options": ["All three results", "The LAST method's result - the others are discarded", "The sum", "It throws"],
+    "answer": 1,
+    "explanation": "Multicast really suits Action-shaped things. Chaining Funcs silently drops all but the final return value."
+  },
+  {
+    "id": "4.1-q10",
+    "topic": "returning functions",
+    "stem": "static Func<int,int> Multiplier(int factor) => n => n * factor; Multiplier(3)(7) is:",
+    "options": ["10", "21", "37", "It will not compile"],
+    "answer": 1,
+    "explanation": "Multiplier BUILDS a function that remembers factor=3; calling it with 7 gives 21. The remembering is a closure - 4.2's subject."
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "4.4-q1",
+    "topic": "mechanics",
+    "stem": "What makes a method an extension method?",
+    "options": ["The [Extension] attribute", "static method in a static class, with 'this' on the FIRST parameter", "Inheriting the type", "partial classes"],
+    "answer": 1,
+    "explanation": "public static int WordCount(this string text) - the 'this' lets callers write text.WordCount() as if string owned it."
+  },
+  {
+    "id": "4.4-q2",
+    "topic": "why they exist",
+    "stem": "Why can you not just add a method to string directly?",
+    "options": ["Strings are structs", "string is SEALED and lives in .NET - you cannot inherit or edit it", "Methods on strings are banned", "You can"],
+    "answer": 1,
+    "explanation": "Sealed framework types are closed (2.5). Extensions add call-syntax convenience from outside - which is their entire reason for existing."
+  },
+  {
+    "id": "4.4-q3",
+    "topic": "the truth",
+    "stem": "sentence.WordCount() and StringExtensions.WordCount(sentence) are:",
+    "options": ["Different methods", "IDENTICAL after compilation - extension syntax is sugar over a static call", "One is virtual", "One boxes"],
+    "answer": 1,
+    "explanation": "Just a static method with nicer spelling. Consequence: extensions see only the type's PUBLIC surface - no private access was ever granted."
+  },
+  {
+    "id": "4.4-q4",
+    "topic": "LINQ revealed",
+    "stem": "Where, Select and OrderBy are actually:",
+    "options": ["Compiler keywords", "Extension methods on IEnumerable<T> in the static class Enumerable", "Instance methods on List", "Interfaces"],
+    "answer": 1,
+    "explanation": "The reveal of the lesson: LINQ needs 'using System.Linq' because that is where the extensions live - and works on arrays, lists and your Playlist alike."
+  },
+  {
+    "id": "4.4-q5",
+    "topic": "using requirement",
+    "stem": "An extension method 'does not exist' until you:",
+    "options": ["Restart the IDE", "Add a using for the NAMESPACE it is declared in", "Make it public", "Reference string"],
+    "answer": 1,
+    "explanation": "Extensions are discovered via using directives. The confusing part: the compiler error ('no definition for X') never mentions the missing using."
+  },
+  {
+    "id": "4.4-q6",
+    "topic": "null oddity",
+    "stem": "string? s = null; s.IsNullOrBlank(); (an extension taking this string?) does what?",
+    "options": ["NullReferenceException", "Runs fine - the null ARRIVES AS THE ARGUMENT of a static call", "Compile error", "Returns null"],
+    "answer": 1,
+    "explanation": "A real instance call on null throws before entering. An extension is a static call, so the method receives the null and can handle it - handy, and easy to overuse."
+  },
+  {
+    "id": "4.4-q7",
+    "topic": "resolution",
+    "stem": "The type already has a REAL instance method with the same signature as your extension. Which wins?",
+    "options": ["Yours", "The instance method, always - yours is silently ignored", "Compile error", "Both run"],
+    "answer": 1,
+    "explanation": "Instance members beat extensions in resolution - silently. Your extension simply never runs, which can puzzle for hours."
+  },
+  {
+    "id": "4.4-q8",
+    "topic": "extending interfaces",
+    "stem": "Writing Median(this IEnumerable<int> source) rather than (this List<int>) means:",
+    "options": ["Slower code", "EVERY enumerable - arrays, lists, queries, your own types - gains the method", "Only lists work", "It cannot use LINQ"],
+    "answer": 1,
+    "explanation": "Extend the interface, and every implementer benefits - precisely LINQ's own trick, and the strongest use of extensions."
+  },
+  {
+    "id": "4.4-q9",
+    "topic": "when NOT",
+    "stem": "Which should NOT be an extension method?",
+    "options": ["Truncate(this string, int)", "Core domain logic that needs the class's PRIVATE state", "Median(this IEnumerable<int>)", "IsNullOrBlank(this string?)"],
+    "answer": 1,
+    "explanation": "Needs private access? It belongs IN the class. Extensions suit fluent helpers on types you cannot change."
+  },
+  {
+    "id": "4.4-q10",
+    "topic": "chaining",
+    "stem": "\"  hello world  \".Trim().ToTitleCase().Truncate(8) works because:",
+    "options": ["Special parser", "Each call returns a string, and extensions dispatch on that result like any method", "Trim is an extension", "Left-to-right is forced"],
+    "answer": 1,
+    "explanation": "Extensions chain exactly like instance methods - the fluent style that makes both LINQ and your own helpers readable."
+  }
+]

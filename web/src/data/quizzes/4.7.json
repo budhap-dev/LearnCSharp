@@ -1,0 +1,82 @@
+[
+  {
+    "id": "4.7-q1",
+    "topic": "hierarchy",
+    "stem": "catch (ArgumentException) also catches ArgumentNullException because:",
+    "options": ["They are aliases", "Exceptions are CLASSES and ArgumentNullException INHERITS from it - ordinary polymorphism", "catch is fuzzy", "It does not"],
+    "answer": 1,
+    "explanation": "The exception hierarchy is a class hierarchy (2.5). Catching a base catches all derived - which is why order matters."
+  },
+  {
+    "id": "4.7-q2",
+    "topic": "catch order",
+    "stem": "catch (Exception) placed BEFORE catch (FormatException):",
+    "options": ["Runs both", "COMPILE ERROR - the later, specific block would be unreachable", "Warns only", "Works fine"],
+    "answer": 1,
+    "explanation": "First match wins and Exception matches everything, so C# rejects the ordering outright - a polite guardrail."
+  },
+  {
+    "id": "4.7-q3",
+    "topic": "when filters",
+    "stem": "catch (HttpLikeException ex) when (ex.StatusCode == 404) - the advantage of the filter over catch-test-rethrow:",
+    "options": ["Shorter only", "A declining filter never UNWINDS the stack - unhandled exceptions keep their original throw point for the debugger", "It is compiled away", "It catches more"],
+    "answer": 1,
+    "explanation": "Filters decide WHETHER to catch. Catch-then-rethrow destroys context; a filter that says no was never there."
+  },
+  {
+    "id": "4.7-q4",
+    "topic": "throw vs throw ex",
+    "stem": "Inside a catch block, 'throw ex;' instead of 'throw;':",
+    "options": ["Is identical", "RESETS the stack trace to this line - the trail to the real failure is destroyed", "Is faster", "Rethrows twice"],
+    "answer": 1,
+    "explanation": "The lesson counts surviving stack frames to prove it. The analyzer flags it (CA2200); the bare 'throw;' preserves everything."
+  },
+  {
+    "id": "4.7-q5",
+    "topic": "wrapping",
+    "stem": "Catching IndexOutOfRange and throwing DataLoadException(message, inner) - why pass 'inner'?",
+    "options": ["Style", "InnerException preserves the ORIGINAL cause and trace while callers see a domain-level failure", "It prevents rethrow", "It is required"],
+    "answer": 1,
+    "explanation": "Translate layers without losing evidence: the user-facing message up top, the full chain underneath for the debugger."
+  },
+  {
+    "id": "4.7-q6",
+    "topic": "custom exceptions",
+    "stem": "InsufficientFundsException carrying Balance, Requested and Shortfall properties lets catchers:",
+    "options": ["Log prettier", "ACT on the data - suggest the maximum withdrawal - instead of parsing a message string", "Skip catch", "Serialize it"],
+    "answer": 1,
+    "explanation": "Write a custom type when callers might HANDLE your failure specifically; carry the facts as properties, not prose."
+  },
+  {
+    "id": "4.7-q7",
+    "topic": "when to define",
+    "stem": "You need to signal 'caller passed a negative count'. Best choice:",
+    "options": ["class NegativeCountException", "The built-in ArgumentOutOfRangeException - it already says exactly this", "return -1", "Console.WriteLine"],
+    "answer": 1,
+    "explanation": "Prefer built-ins when they say it: Argument..., InvalidOperation..., NotSupported... Custom types earn their keep only for domain-specific handling."
+  },
+  {
+    "id": "4.7-q8",
+    "topic": "guard helpers",
+    "stem": "ArgumentNullException.ThrowIfNull(player); replaces:",
+    "options": ["try/catch", "if (player is null) throw new ArgumentNullException(nameof(player)); - one line for the standard guard", "Validation", "?? checks"],
+    "answer": 1,
+    "explanation": "ThrowIfNull, ThrowIfNegative, ThrowIfNullOrWhiteSpace - the boundary guards (4.5) as one-liners, parameter name captured automatically."
+  },
+  {
+    "id": "4.7-q9",
+    "topic": "the decision table",
+    "stem": "Failure is a NORMAL expected outcome (user typed a bad number). The right tool:",
+    "options": ["throw", "TryX / return false - exceptions are for exceptional paths, and they are slow", "catch-all", "Assert"],
+    "answer": 1,
+    "explanation": "Contract broken -> throw. Wrong state -> InvalidOperation. Normal failure -> Try pattern. The 1.11 timing (hundreds of ms vs ~1) still applies."
+  },
+  {
+    "id": "4.7-q10",
+    "topic": "swallowing",
+    "stem": "catch (Exception) { } - an empty catch-all - is harmful because:",
+    "options": ["It does not compile", "The bug RESURFACES later, elsewhere, with all evidence destroyed", "It is slow", "It logs too much"],
+    "answer": 1,
+    "explanation": "If you cannot handle it, do not catch it. Swallowed exceptions become mystery corruption three functions away."
+  }
+]

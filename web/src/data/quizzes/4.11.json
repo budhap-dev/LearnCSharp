@@ -1,0 +1,82 @@
+[
+  {
+    "id": "4.11-q1",
+    "topic": "what reflection is",
+    "stem": "Reflection lets a program:",
+    "options": ["Run faster", "INSPECT AND DRIVE ITSELF at runtime - list members, read values by name, create objects from type info", "Compile code", "Access private OS data"],
+    "answer": 1,
+    "explanation": "Metadata as data: a Type object describes a type the way an object describes a thing."
+  },
+  {
+    "id": "4.11-q2",
+    "topic": "typeof vs GetType",
+    "stem": "typeof(Monster) vs goblin.GetType():",
+    "options": ["Identical always", "typeof is the compile-time name; GetType returns the object's REAL runtime type", "GetType is static", "typeof allocates"],
+    "answer": 1,
+    "explanation": "Animal a = new Dog(); a.GetType() is Dog. The distinction matters exactly where polymorphism does (2.6)."
+  },
+  {
+    "id": "4.11-q3",
+    "topic": "the serialiser loop",
+    "stem": "foreach (var p in type.GetProperties()) Console.WriteLine($\"{p.Name} = {p.GetValue(obj)}\"); works on:",
+    "options": ["Only Monster", "ANY object - no compile-time knowledge needed; precisely how JSON serialisers work", "Only public classes", "Structs only"],
+    "answer": 1,
+    "explanation": "Reading values by name, generically, is the machinery under 4.9's JsonSerializer."
+  },
+  {
+    "id": "4.11-q4",
+    "topic": "dynamic creation",
+    "stem": "Activator.CreateInstance(typeof(Monster), \"Dragon\", 500, 90) does what?",
+    "options": ["Nothing", "Constructs a Monster at runtime from type info - the mechanism behind this course's own lesson menu", "Copies a Monster", "Throws always"],
+    "answer": 1,
+    "explanation": "LessonRegistry scans for ILesson implementers and Activator-creates each - adding lesson 63 needs zero registration code."
+  },
+  {
+    "id": "4.11-q5",
+    "topic": "nameof",
+    "stem": "type.GetMethod(nameof(Monster.Attack)) beats GetMethod(\"Attack\") because:",
+    "options": ["It is faster", "A RENAME breaks nameof at COMPILE time; the string version fails silently at runtime", "Strings are slower", "nameof caches"],
+    "answer": 1,
+    "explanation": "Reflection's string-based nature is its danger; nameof restores compile-time checking wherever a member name is needed."
+  },
+  {
+    "id": "4.11-q6",
+    "topic": "attributes",
+    "stem": "An attribute like [Column(\"player\", 1)] is:",
+    "options": ["A comment", "METADATA pinned to code, stored in the assembly, readable later via reflection", "A method call at startup", "A macro"],
+    "answer": 1,
+    "explanation": "Attributes do nothing by themselves - a tool reads them with GetCustomAttribute and acts. Declare-what, discover-how."
+  },
+  {
+    "id": "4.11-q7",
+    "topic": "custom attributes",
+    "stem": "Defining one requires:",
+    "options": ["Nothing special", "A class inheriting Attribute, typically with [AttributeUsage] restricting targets", "An interface", "The compiler's permission list"],
+    "answer": 1,
+    "explanation": "ColumnAttribute : Attribute, used as [Column(...)] - the suffix drops at the use site."
+  },
+  {
+    "id": "4.11-q8",
+    "topic": "the payoff",
+    "stem": "The generic ToCsvRow<T> works 'for ANY class marked with [Column]' because it:",
+    "options": ["Hardcodes SaveGame", "Discovers attributed properties at runtime, orders and reads them - serialisers, ORMs and test runners scale this exact pattern", "Uses inheritance", "Parses source files"],
+    "answer": 1,
+    "explanation": "Attributes + reflection = frameworks: code that handles types it has never seen, driven by declarations."
+  },
+  {
+    "id": "4.11-q9",
+    "topic": "cost",
+    "stem": "Reflection in a hot loop should:",
+    "options": ["Be fine", "CACHE the MethodInfo/PropertyInfo - reflective calls run ~10-100x slower than direct ones", "Use strings", "Be async"],
+    "answer": 1,
+    "explanation": "Look up once, invoke many. Real serialisers go further and generate compiled delegates."
+  },
+  {
+    "id": "4.11-q10",
+    "topic": "judgement",
+    "stem": "The lesson's closing advice on reflection:",
+    "options": ["Use it everywhere", "Wonderful for FRAMEWORKS; in everyday code, if you know the type, call it directly", "Never use it", "Only in tests"],
+    "answer": 1,
+    "explanation": "Reaching for reflection to dodge a design problem creates two problems. Its home is code that must handle unknown types."
+  }
+]

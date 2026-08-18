@@ -1,0 +1,82 @@
+[
+  {
+    "id": "4.3-q1",
+    "topic": "purpose",
+    "stem": "An event lets an object:",
+    "options": ["Call a known method faster", "Announce 'this happened' to any number of listeners it knows NOTHING about", "Return many values", "Run threads"],
+    "answer": 1,
+    "explanation": "Publisher and subscribers are decoupled: the timer knows nothing of loggers or UI, and listeners know nothing of each other. Observer (2.14), built in."
+  },
+  {
+    "id": "4.3-q2",
+    "topic": "event vs delegate field",
+    "stem": "Why 'event Action<int> Tick' instead of a public Action<int> field?",
+    "options": ["Speed", "event restricts outsiders to += and -= ONLY - nobody can wipe others' subscriptions or fire it externally", "Fields cannot hold delegates", "Events serialise"],
+    "answer": 1,
+    "explanation": "With a plain field, any code could do timer.Tick = null or timer.Tick.Invoke(999). The event keyword reserves assign-and-raise for the declaring class."
+  },
+  {
+    "id": "4.3-q3",
+    "topic": "raising safely",
+    "stem": "Tick?.Invoke(second); - why the ?. ?",
+    "options": ["Style", "An event with NO subscribers is null - bare Invoke would crash the publisher", "It is faster", "Invoke requires it"],
+    "answer": 1,
+    "explanation": "One of the most common event bugs: everything works until the day nobody happens to be subscribed."
+  },
+  {
+    "id": "4.3-q4",
+    "topic": "unsubscription trap",
+    "stem": "timer.Tick -= s => Console.WriteLine(s); after adding the same-looking lambda removes:",
+    "options": ["That handler", "NOTHING - it is a different lambda instance; -= needs the SAME reference you added", "All handlers", "The event"],
+    "answer": 1,
+    "explanation": "Store the delegate in a variable if you will ever detach it. An anonymous lambda added inline is gone beyond reach."
+  },
+  {
+    "id": "4.3-q5",
+    "topic": "the leak",
+    "stem": "A long-lived publisher with never-unsubscribed handlers causes:",
+    "options": ["Nothing", "A memory leak - the publisher's invocation list keeps every subscriber ALIVE", "Faster GC", "Deadlock"],
+    "answer": 1,
+    "explanation": "The delegate holds a reference to each subscriber object (4.8's managed leak). Long-running apps must -= what they +=."
+  },
+  {
+    "id": "4.3-q6",
+    "topic": "standard pattern",
+    "stem": "The conventional .NET event signature is:",
+    "options": ["(int code)", "(object? sender, TEventArgs e)", "()", "(string message)"],
+    "answer": 1,
+    "explanation": "EventHandler<TEventArgs>: sender says WHO raised it (useful when one handler watches many), e carries the data in an EventArgs subclass."
+  },
+  {
+    "id": "4.3-q7",
+    "topic": "OnX convention",
+    "stem": "Raising through 'protected virtual void OnItemAdded(BasketEventArgs e)' exists so that:",
+    "options": ["It compiles", "Subclasses can extend or intercept the raise", "Events need two methods", "It is faster"],
+    "answer": 1,
+    "explanation": "The protected virtual OnX method is the standard extension point - a derived Basket can add behaviour around the announcement."
+  },
+  {
+    "id": "4.3-q8",
+    "topic": "naming",
+    "stem": "Events are conventionally named:",
+    "options": ["DoClick, DoSave", "Past tense: Clicked, Saved, ItemAdded - 'it happened'", "OnClickNow", "click_event"],
+    "answer": 1,
+    "explanation": "The name announces a completed fact. (Pre-events like 'Closing' exist for cancellable operations.)"
+  },
+  {
+    "id": "4.3-q9",
+    "topic": "crossing-zero guard",
+    "stem": "In 7.3, Died fires only when health CROSSES zero, not on every hit at zero. Why guard inside the publisher?",
+    "options": ["Performance", "So no subscriber ever needs to de-duplicate - the event means exactly one thing, once", "Events fire once by rule", "To avoid null"],
+    "answer": 1,
+    "explanation": "Put the semantics in the publisher: 'Died' as a single fact beats every listener writing its own already-dead bookkeeping."
+  },
+  {
+    "id": "4.3-q10",
+    "topic": "when not events",
+    "stem": "One object calling ONE known collaborator and needing a result back should use:",
+    "options": ["An event", "A plain method call - events are broadcast and fire-and-forget", "A static field", "Reflection"],
+    "answer": 1,
+    "explanation": "Events shine for optional, multiple, unknown listeners. A known single callee wanting a return value is just... a method."
+  }
+]

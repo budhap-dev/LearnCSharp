@@ -1,0 +1,82 @@
+[
+  {
+    "id": "4.10-q1",
+    "topic": "what await does",
+    "stem": "await FetchAsync(...) differs from .Result in that await:",
+    "options": ["Is slower", "RELEASES the thread while waiting; .Result BLOCKS it and can deadlock UI apps", "Returns a Task", "Retries on failure"],
+    "answer": 1,
+    "explanation": "The whole point of async: the thread walks away from the wait. .Result/.Wait() hold it hostage - the deadlock recipe."
+  },
+  {
+    "id": "4.10-q2",
+    "topic": "sequential await",
+    "stem": "Three awaits in a row for independent 150ms operations take ~450ms because:",
+    "options": ["async is broken", "await WAITS before starting the next - sequential awaits do not overlap anything", "The thread pool is full", "150ms is minimum"],
+    "answer": 1,
+    "explanation": "Awaiting one at a time frees the thread but not the clock. The elapsed time only drops when the operations overlap."
+  },
+  {
+    "id": "4.10-q3",
+    "topic": "WhenAll",
+    "stem": "The pattern that makes the same three take ~150ms:",
+    "options": ["Task.Delay", "START all three (calling the methods), THEN await Task.WhenAll of them", "Thread.Sleep", "Parallel.For"],
+    "answer": 1,
+    "explanation": "Calling an async method STARTS it; await only waits. Start everything independent first, await once - the lesson measures 450 -> 150."
+  },
+  {
+    "id": "4.10-q4",
+    "topic": "Task<T>",
+    "stem": "async Task<int> means the method:",
+    "options": ["Returns int immediately", "Returns a PROMISE of an int - await unwraps it to a plain int", "Runs on a new thread always", "Cannot throw"],
+    "answer": 1,
+    "explanation": "int x = await FetchAsync(...) reads like synchronous code and frees the thread anyway. That readability is the feature."
+  },
+  {
+    "id": "4.10-q5",
+    "topic": "async void",
+    "stem": "async void is dangerous because:",
+    "options": ["It is slow",  "Its exceptions CANNOT be caught by callers and can kill the process - reserve it for event handlers only", "It blocks", "void cannot be async"],
+    "answer": 1,
+    "explanation": "No Task = nothing to await, nothing to observe failures through. Event handlers are the one sanctioned use (their signature demands void)."
+  },
+  {
+    "id": "4.10-q6",
+    "topic": "exceptions",
+    "stem": "try { await FailingAsync(); } catch (InvalidOperationException) - does this work?",
+    "options": ["No - async loses exceptions", "Yes - await RE-THROWS faithfully, so ordinary try/catch just works", "Only with WhenAll", "Only synchronously"],
+    "answer": 1,
+    "explanation": "await surfaces the task's exception at the await site. (WhenAll throws the first; the rest sit on task.Exception.InnerExceptions.)"
+  },
+  {
+    "id": "4.10-q7",
+    "topic": "cancellation",
+    "stem": "Cooperative cancellation means:",
+    "options": ["Tasks are killed forcibly", "A CancellationToken is PASSED DOWN and the work checks it - including Task.Delay and I/O calls that accept it", "Ctrl+C", "Timeouts are automatic"],
+    "answer": 1,
+    "explanation": "CancelAfter + passing the token lets the wait itself be interrupted, surfacing as OperationCanceledException."
+  },
+  {
+    "id": "4.10-q8",
+    "topic": "Thread.Sleep",
+    "stem": "Thread.Sleep inside async code is wrong because:",
+    "options": ["It throws", "It BLOCKS the thread you were supposed to free - await Task.Delay instead", "It is imprecise", "Sleep is obsolete"],
+    "answer": 1,
+    "explanation": "Sleep holds the thread; Task.Delay releases it. The lesson's FetchBlocking vs FetchAsync is exactly this contrast."
+  },
+  {
+    "id": "4.10-q9",
+    "topic": "IO vs CPU",
+    "stem": "async/await helps with which kind of work?",
+    "options": ["Pure computation", "I/O-BOUND waiting (network, disk, timers) - CPU-bound work needs Task.Run/Parallel instead", "Both equally", "Neither"],
+    "answer": 1,
+    "explanation": "Async is for waiting, not working: awaiting a calculation still computes on somebody's thread. CPU work moves explicitly (6.1)."
+  },
+  {
+    "id": "4.10-q10",
+    "topic": "WhenAny",
+    "stem": "await Task.WhenAny(operation, Task.Delay(500)) implements:",
+    "options": ["Retry", "A TIMEOUT - whichever finishes first resolves the race", "Cancellation", "Parallelism"],
+    "answer": 1,
+    "explanation": "WhenAny returns the first completed task. Compare it against the delay to know whether the operation beat the clock."
+  }
+]
