@@ -194,6 +194,16 @@ button:disabled { cursor: default; }
 .module-card {
   border: 1px solid var(--border); border-radius: var(--radius);
   background: var(--surface); padding: 1.1rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 6px 16px rgb(0 0 0 / 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.module-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.06), 0 14px 30px rgb(0 0 0 / 0.14);
+}
+@media (prefers-reduced-motion: reduce) {
+  .module-card { transition: none; }
+  .module-card:hover { transform: none; }
 }
 .module-card h3 { margin: 0 0 0.25rem; display: flex; align-items: center; gap: 0.5rem; }
 .module-card p { color: var(--muted); font-size: 0.85rem; margin: 0 0 0.6rem; }
@@ -421,7 +431,13 @@ button:disabled { cursor: default; }
 
 /* ---- theme picker ---- */
 
-.header-right { margin-left: auto; }
+.header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;               /* allow the search box to shrink instead of overflowing */
+}
 
 .theme-picker { position: relative; }
 
@@ -694,10 +710,10 @@ button:disabled { cursor: default; }
 /* ---- header search ---- */
 .header-search { display: flex; }
 .header-search input {
-  font: inherit; font-size: 0.85rem;
+  font: inherit; font-size: 0.95rem;
   background: var(--bg); color: var(--text);
   border: 1px solid var(--border); border-radius: 8px;
-  padding: 0.35rem 0.7rem; width: 11rem; max-width: 40vw;
+  padding: 0.5rem 0.85rem; width: 18rem; max-width: 100%;
 }
 .header-search input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
 
@@ -741,7 +757,7 @@ button:disabled { cursor: default; }
 .practice section { margin-bottom: 2rem; }
 
 @media (max-width: 640px) {
-  .header-search input { width: 8rem; }
+  .header-search input { width: 9rem; font-size: 0.85rem; padding: 0.4rem 0.65rem; }
   .sr-module { margin-left: 0; width: 100%; }
 }
 
@@ -767,6 +783,53 @@ button:disabled { cursor: default; }
 .search-suggest button:hover { background: var(--accent-soft); }
 .ss-id { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); min-width: 2.4rem; }
 .ss-title { font-size: 0.9rem; }
+.search-suggest mark,
+.search-results mark {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 3px;
+  padding: 0 1px;
+  font-weight: 700;
+}
 .ss-empty { padding: 0.5rem 0.6rem; color: var(--muted); font-size: 0.88rem; }
 .ss-all { border-top: 1px solid var(--border); margin-top: 0.2rem; }
 .ss-all button { color: var(--accent); font-size: 0.85rem; }
+
+/* ---- tabs (Practice) ---- */
+.tablist {
+  display: flex; gap: 0.25rem;
+  border-bottom: 1px solid var(--border);
+  margin: 1.25rem 0 1.5rem;
+}
+.tab {
+  background: none; border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--muted); cursor: pointer;
+  font: inherit; font-size: 0.95rem; font-weight: 600;
+  padding: 0.6rem 1rem; margin-bottom: -1px;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+/* ---- timers ---- */
+.timer-toggle {
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  margin: 0 0 1.25rem; cursor: pointer; font-size: 0.95rem;
+}
+.timer-toggle input { margin-top: 0.2rem; }
+
+.exam-timer {
+  font-family: var(--mono); font-weight: 700; font-size: 0.9rem;
+  padding: 0.15rem 0.55rem; border-radius: 99px;
+  background: var(--accent-soft); color: var(--accent);
+}
+.exam-timer.low { background: var(--wrong-soft); color: var(--wrong); }
+
+.quiz-top { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.timer-start {
+  background: none; border: 1px solid var(--border); border-radius: 99px;
+  color: var(--muted); font: inherit; font-size: 0.82rem;
+  padding: 0.2rem 0.7rem; cursor: pointer;
+}
+.timer-start:hover { border-color: var(--accent); color: var(--accent); }

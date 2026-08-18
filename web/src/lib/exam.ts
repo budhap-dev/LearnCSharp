@@ -9,6 +9,9 @@
  */
 import type { Question } from '../components/Quiz';
 
+/** Seconds allowed per question when an exam is timed - length-based and predictable. */
+export const EXAM_SECONDS_PER_QUESTION = 45;
+
 export type Level = 'foundation' | 'standard' | 'challenge';
 
 export interface LevelInfo {
@@ -149,4 +152,8 @@ export function buildPaper(
     questions,
     totalMarks: questions.reduce((sum, q) => sum + q.marks, 0),
   };
+}
+
+export function examSeconds(paper: ExamPaper): number {
+  return paper.questions.length * EXAM_SECONDS_PER_QUESTION;
 }

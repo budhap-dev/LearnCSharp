@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import type { Question } from '../components/Quiz';
 import { Exam } from '../components/Exam';
-import { LEVELS, buildPaper, type ExamPaper, type Level } from '../lib/exam';
+import { LEVELS, EXAM_SECONDS_PER_QUESTION, buildPaper, type ExamPaper, type Level } from '../lib/exam';
 import { MODULE_INFO } from '../lib/lessons';
 import { examHistory } from '../lib/progress';
 
@@ -23,12 +23,20 @@ async function loadModuleQuestions(module: number): Promise<Record<string, Quest
 
 export function ModuleExam() {
   const { module } = useParams();
+  const { state } = useLocation() as { state?: { from?: string } };
   const moduleNum = Number(module);
   const info = MODULE_INFO[moduleNum];
+
+  // Reflect where the student came from; default to the syllabus on a fresh load.
+  const origin =
+    state?.from === 'practice'
+      ? { to: '/practice', label: 'Practice' }
+      : { to: '/syllabus', label: 'Syllabus' };
 
   const [byLesson, setByLesson] = useState<Record<string, Question[]> | null>(null);
   const [paper, setPaper] = useState<ExamPaper | null>(null);
   const [seed, setSeed] = useState(1);
+  const [timed, setTimed] = useState(false);
 
   useEffect(() => {
     setByLesson(null);
@@ -59,7 +67,7 @@ export function ModuleExam() {
     return (
       <article className="exam-page">
         <nav className="crumbs">
-          <Link to="/syllabus">Syllabus</Link> <span>/</span>{' '}
+          <Link to={origin.to}>{origin.label}</Link> <span>/</span>{' '}
           <button className="linkish" onClick={() => setPaper(null)}>
             Module {moduleNum} exam
           </button>{' '}
@@ -69,10 +77,11 @@ export function ModuleExam() {
           Module {moduleNum} exam — {LEVELS.find((l) => l.id === paper.level)!.label}
         </h1>
         <p className="muted">
-          {paper.questions.length} questions · {paper.totalMarks} marks · no feedback until you
-          submit.
+          {paper.questions.length} questions · {paper.totalMarks} marks ·{' '}
+          {timed ? `${Math.round((paper.questions.length * EXAM_SECONDS_PER_QUESTION) / 60)} min limit` : 'untimed'} · no
+          feedback until you submit.
         </p>
-        <Exam paper={paper} onRetry={() => setPaper(null)} />
+        <Exam paper={paper} timed={timed} onRetry={() => setPaper(null)} />
       </article>
     );
   }
@@ -84,7 +93,7 @@ export function ModuleExam() {
   return (
     <article className="exam-page">
       <nav className="crumbs">
-        <Link to="/syllabus">Syllabus</Link> <span>/</span> Module {moduleNum} exam
+        <Link to={origin.to}>{origin.label}</Link> <span>/</span> Module {moduleNum} exam
       </nav>
 
       <h1>
@@ -100,19 +109,33 @@ export function ModuleExam() {
       ) : available === 0 ? (
         <p className="callout">No questions for this module yet.</p>
       ) : (
-        <div className="level-grid">
-          {LEVELS.map((level) => (
-            <article key={level.id} className="level-card">
-              <h2>{level.label}</h2>
-              <p>{level.blurb}</p>
-              <p className="level-meta">
-                {level.size === 0 ? 'the whole module' : `~${level.size} questions`} · pass{' '}
-                {level.pass}%
-              </p>
-              <button onClick={() => start(level.id)}>Start {level.label}</button>
-            </article>
-          ))}
-        </div>
+        <>
+          <label className="timer-toggle">
+            <input type="checkbox" checked={timed} onChange={(e) => setTimed(e.target.checked)} />
+            <span>
+              Timed exam
+              <span className="muted"> — a time limit is set from the paper's length</span>
+            </span>
+          </label>
+
+          <div className="level-grid">
+            {LEVELS.map((level) => {
+              const count = level.size === 0 ? available : level.size;
+              const mins = Math.round((count * EXAM_SECONDS_PER_QUESTION) / 60);
+              return (
+                <article key={level.id} className="level-card">
+                  <h2>{level.label}</h2>
+                  <p>{level.blurb}</p>
+                  <p className="level-meta">
+                    {level.size === 0 ? 'the whole module' : `~${level.size} questions`} · pass{' '}
+                    {level.pass}%{timed ? ` · ${mins} min` : ''}
+                  </p>
+                  <button onClick={() => start(level.id)}>Start {level.label}</button>
+                </article>
+              );
+            })}
+          </div>
+        </>
       )}
 
       {history.length > 0 && (

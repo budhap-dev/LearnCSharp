@@ -3,9 +3,13 @@ import { Link } from 'react-router-dom';
 import type { ExamPaper } from '../lib/exam';
 import { gradeFor } from '../lib/exam';
 import { recordExam } from '../lib/progress';
+import { examSeconds } from '../lib/exam';
+import { useCountdown, formatTime } from '../lib/useCountdown';
+import { useUnsavedWarning } from '../lib/useUnsavedWarning';
 
 interface Props {
   paper: ExamPaper;
+  timed: boolean;
   onRetry: () => void;
 }
 
@@ -13,10 +17,16 @@ interface Props {
  * Exam conditions: answerable in any order, NO explanations until submission, an answer-sheet
  * overview, then a full marked review. Distinct from the teaching Quiz on purpose.
  */
-export function Exam({ paper, onRetry }: Props) {
+export function Exam({ paper, timed, onRetry }: Props) {
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(() => paper.questions.map(() => null));
   const [submitted, setSubmitted] = useState(false);
+
+  // The countdown runs only when timed and not yet submitted; at zero it submits what is answered.
+  const remaining = useCountdown(examSeconds(paper), timed && !submitted, () => submit());
+
+  // Warn before leaving once any answer has been made and the exam is not yet submitted.
+  useUnsavedWarning(!submitted && answers.some((a) => a !== null));
 
   const answeredCount = answers.filter((a) => a !== null).length;
 
@@ -143,6 +153,11 @@ export function Exam({ paper, onRetry }: Props) {
         <span className="answered">
           {answeredCount} / {paper.questions.length} answered
         </span>
+        {timed && (
+          <span className={`exam-timer ${remaining <= 60 ? 'low' : ''}`} role="timer" aria-live="off">
+            ⏱ {formatTime(remaining)}
+          </span>
+        )}
       </div>
 
       <h3>{q.stem}</h3>

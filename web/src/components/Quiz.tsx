@@ -1,5 +1,9 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { recordQuiz } from '../lib/progress';
+import { useCountdown, formatTime } from '../lib/useCountdown';
+import { useUnsavedWarning } from '../lib/useUnsavedWarning';
+
+const QUIZ_SECONDS_PER_QUESTION = 60;
 
 export interface Question {
   id: string;
@@ -26,8 +30,24 @@ export function Quiz({ lessonId, questions }: Props) {
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
   const [wrong, setWrong] = useState<Question[]>([]);
+  const [timerOn, setTimerOn] = useState(false);
+  const scoreRef = useRef(0);
+  scoreRef.current = score;
 
   const question = questions[index];
+
+  // Optional, student-initiated timer. On expiry the quiz ends and records the score so far.
+  const remaining = useCountdown(
+    questions.length * QUIZ_SECONDS_PER_QUESTION,
+    timerOn && !finished,
+    () => {
+      recordQuiz(lessonId, scoreRef.current, questions.length);
+      setFinished(true);
+    },
+  );
+
+  // Warn before leaving once the quiz is under way and not finished.
+  useUnsavedWarning(!finished && (index > 0 || picked !== null));
 
   function choose(option: number) {
     if (picked !== null) return; // already answered
@@ -93,9 +113,20 @@ export function Quiz({ lessonId, questions }: Props) {
 
   return (
     <section className="quiz">
-      <p className="progress-line">
-        Question {index + 1} of {questions.length}
-      </p>
+      <div className="quiz-top">
+        <p className="progress-line">
+          Question {index + 1} of {questions.length}
+        </p>
+        {timerOn ? (
+          <span className={`exam-timer ${remaining <= 30 ? 'low' : ''}`} role="timer">
+            ⏱ {formatTime(remaining)}
+          </span>
+        ) : (
+          <button className="timer-start" onClick={() => setTimerOn(true)}>
+            ⏱ Start timer ({formatTime(questions.length * QUIZ_SECONDS_PER_QUESTION)})
+          </button>
+        )}
+      </div>
 
       <h3>{question.stem}</h3>
 
