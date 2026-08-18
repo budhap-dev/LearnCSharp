@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { loadIndex, search, type SearchRecord } from '../lib/search';
 import { MODULE_INFO } from '../lib/lessons';
+import { searchGlossary } from '../lib/glossary';
+import { Rich } from '../components/Rich';
 
 function highlight(text: string, query: string): ReactNode {
   const terms = query
@@ -35,6 +37,10 @@ export function Search() {
   }, [query, setParams]);
 
   const hits = useMemo(() => (records ? search(records, query) : []), [records, query]);
+  const terms = useMemo(
+    () => (query.trim().length > 1 ? searchGlossary(query).slice(0, 3) : []),
+    [query],
+  );
 
   return (
     <>
@@ -52,6 +58,25 @@ export function Search() {
       />
 
       {records === null && <p className="muted">Loading the index…</p>}
+
+      {terms.length > 0 && (
+        <section className="search-terms" aria-label="Glossary matches">
+          <h2>In the glossary</h2>
+          <ul>
+            {terms.map(({ entry }) => (
+              <li key={entry.slug}>
+                <Link to={`/glossary?term=${entry.slug}`}>
+                  <strong>{highlight(entry.term, query)}</strong>
+                </Link>
+                <span className="muted"> — <Rich text={entry.definition} query={query} /></span>
+              </li>
+            ))}
+          </ul>
+          <Link className="more" to={`/glossary?q=${encodeURIComponent(query.trim())}`}>
+            Search the whole glossary →
+          </Link>
+        </section>
+      )}
 
       {records !== null && query.trim().length > 1 && (
         <p className="muted result-count">

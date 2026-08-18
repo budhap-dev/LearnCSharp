@@ -1,0 +1,2671 @@
+[
+  {
+    "term": "Statement",
+    "definition": "A single instruction the program carries out, ending in a semicolon. Declaring a variable, calling a method and assigning a value are all statements.",
+    "example": "int total = 0;",
+    "lessons": [
+      "1.1"
+    ],
+    "related": [
+      "Expression",
+      "Block"
+    ]
+  },
+  {
+    "term": "Block",
+    "aliases": [
+      "code block",
+      "curly braces"
+    ],
+    "definition": "Zero or more statements wrapped in `{ }` braces. Blocks are the bodies of methods, loops and if statements, and each one is a scope for the variables declared inside it.",
+    "lessons": [
+      "1.1",
+      "1.5"
+    ],
+    "related": [
+      "Statement",
+      "Scope"
+    ]
+  },
+  {
+    "term": "Main method",
+    "aliases": [
+      "entry point",
+      "Main"
+    ],
+    "definition": "The method the runtime calls to start the program. With top-level statements the compiler writes `Main` for you, but it still exists.",
+    "example": "static void Main(string[] args) { }",
+    "lessons": [
+      "1.1"
+    ],
+    "related": [
+      "Top-level statements",
+      "Method"
+    ]
+  },
+  {
+    "term": "Top-level statements",
+    "definition": "A modern C# feature that lets a file contain statements with no class or `Main` method around them - the compiler generates the `Main` method behind the scenes.",
+    "lessons": [
+      "1.1"
+    ],
+    "related": [
+      "Main method"
+    ]
+  },
+  {
+    "term": "Namespace",
+    "definition": "A named container that groups related types and keeps their names from clashing. `using System;` brings the `System` namespace into scope so you can write `Console` instead of `System.Console`.",
+    "example": "namespace MyApp;",
+    "lessons": [
+      "1.1"
+    ],
+    "related": [
+      "using directive"
+    ]
+  },
+  {
+    "term": "using directive",
+    "aliases": [
+      "using"
+    ],
+    "definition": "A line at the top of a file that imports a namespace so its types can be used by their short names. Not to be confused with a `using` statement, which disposes a resource.",
+    "example": "using System.Collections.Generic;",
+    "lessons": [
+      "1.1"
+    ],
+    "related": [
+      "Namespace",
+      "using statement"
+    ]
+  },
+  {
+    "term": "Compiler",
+    "aliases": [
+      "compile",
+      "compiled language"
+    ],
+    "definition": "The tool that checks the whole program for mistakes and translates it into runnable code before anything executes. Because C# is compiled, many errors are found before the program ever runs.",
+    "lessons": [
+      "1.1",
+      "1.11"
+    ],
+    "related": [
+      "Static typing",
+      "Compile-time error"
+    ]
+  },
+  {
+    "term": "Static typing",
+    "aliases": [
+      "statically typed",
+      "type safety"
+    ],
+    "definition": "Every variable has a fixed type known at compile time, and the compiler refuses to mix them up. You cannot store text in an `int`.",
+    "lessons": [
+      "1.1",
+      "1.2"
+    ],
+    "related": [
+      "Compiler",
+      "Data type"
+    ]
+  },
+  {
+    "term": "Variable",
+    "definition": "A named slot that stores a value of one particular type. Declared with a type and a name, and given a value with `=`.",
+    "example": "int age = 16;",
+    "lessons": [
+      "1.2"
+    ],
+    "related": [
+      "Data type",
+      "Constant",
+      "Scope"
+    ]
+  },
+  {
+    "term": "Data type",
+    "aliases": [
+      "type"
+    ],
+    "definition": "What kind of value a variable holds and what you can do with it: `int` for whole numbers, `double` for decimals, `bool` for true/false, `char` for a single character, `string` for text.",
+    "lessons": [
+      "1.2"
+    ],
+    "related": [
+      "Variable",
+      "Value type",
+      "Reference type"
+    ]
+  },
+  {
+    "term": "Constant",
+    "aliases": [
+      "const"
+    ],
+    "definition": "A named value fixed at compile time that can never change, declared with `const`. Use one instead of a magic number so the meaning is clear.",
+    "example": "const double VatRate = 0.2;",
+    "lessons": [
+      "1.2"
+    ],
+    "related": [
+      "Variable",
+      "readonly"
+    ]
+  },
+  {
+    "term": "var",
+    "aliases": [
+      "implicit typing",
+      "type inference"
+    ],
+    "definition": "Lets the compiler work out a local variable's type from the value you assign. The type is still fixed - `var` is not 'any type', it is 'you can see the type from the right-hand side'.",
+    "example": "var names = new List<string>();",
+    "lessons": [
+      "1.2"
+    ],
+    "related": [
+      "Static typing",
+      "Variable"
+    ]
+  },
+  {
+    "term": "String interpolation",
+    "aliases": [
+      "interpolated string",
+      "$ string"
+    ],
+    "definition": "Building a string by putting expressions inside braces in a string prefixed with `$`. Cleaner than joining pieces with `+`.",
+    "example": "$\"Hello, {name}! You are {age}.\"",
+    "lessons": [
+      "1.3",
+      "1.8"
+    ],
+    "related": [
+      "Format specifier",
+      "String"
+    ]
+  },
+  {
+    "term": "Format specifier",
+    "aliases": [
+      "format string",
+      "N2",
+      "C"
+    ],
+    "definition": "A code after a colon inside an interpolated string that controls how a value is printed - `:N2` for two decimal places with thousands separators, `:C` for currency, `:P` for a percentage.",
+    "example": "$\"{price:C}\" // £3.50",
+    "lessons": [
+      "1.3"
+    ],
+    "related": [
+      "String interpolation"
+    ]
+  },
+  {
+    "term": "Console",
+    "aliases": [
+      "Console.WriteLine",
+      "Console.ReadLine"
+    ],
+    "definition": "The class for text input and output in a terminal program. `WriteLine` prints a line, `Write` prints without a newline, `ReadLine` reads a line the user types (always as a `string`).",
+    "example": "string? input = Console.ReadLine();",
+    "lessons": [
+      "1.1",
+      "1.3"
+    ],
+    "related": [
+      "Parsing"
+    ]
+  },
+  {
+    "term": "Parsing",
+    "aliases": [
+      "int.Parse",
+      "TryParse"
+    ],
+    "definition": "Turning text into a value of another type. `int.Parse` throws if the text is not a number; `int.TryParse` returns `false` instead, which is what you want for user input.",
+    "example": "if (int.TryParse(text, out int n)) { }",
+    "lessons": [
+      "1.3",
+      "1.10"
+    ],
+    "related": [
+      "Console",
+      "Type conversion",
+      "Exception"
+    ]
+  },
+  {
+    "term": "Operator",
+    "definition": "A symbol that combines values into a new one: arithmetic (`+ - * / %`), comparison (`== != < >`), logical (`&& || !`) and assignment (`= += -=`).",
+    "lessons": [
+      "1.4"
+    ],
+    "related": [
+      "Expression",
+      "Modulo",
+      "Integer division"
+    ]
+  },
+  {
+    "term": "Expression",
+    "definition": "Anything that produces a value: a literal, a variable, a method call, or operators combined. `age >= 18` is an expression whose value is a `bool`.",
+    "lessons": [
+      "1.4"
+    ],
+    "related": [
+      "Statement",
+      "Operator"
+    ]
+  },
+  {
+    "term": "Integer division",
+    "definition": "Dividing one `int` by another throws away the remainder: `7 / 2` is `3`, not `3.5`. Make one side a `double` if you want the decimal answer.",
+    "example": "7 / 2 == 3; 7 / 2.0 == 3.5",
+    "lessons": [
+      "1.4"
+    ],
+    "related": [
+      "Modulo",
+      "Type conversion"
+    ]
+  },
+  {
+    "term": "Modulo",
+    "aliases": [
+      "%",
+      "remainder",
+      "MOD"
+    ],
+    "definition": "The `%` operator gives the remainder after integer division. GCSE pseudocode calls it `MOD`. Handy for 'is it even?' (`n % 2 == 0`) and wrapping around.",
+    "example": "17 % 5 == 2",
+    "lessons": [
+      "1.4"
+    ],
+    "related": [
+      "Integer division",
+      "Operator"
+    ]
+  },
+  {
+    "term": "Short-circuit evaluation",
+    "aliases": [
+      "&&",
+      "||"
+    ],
+    "definition": "With `&&` and `||`, the right-hand side is only evaluated if it can still change the answer. So `list != null && list.Count > 0` is safe - the `Count` is never read on a `null` list.",
+    "lessons": [
+      "1.4",
+      "4.5"
+    ],
+    "related": [
+      "Operator",
+      "Null"
+    ]
+  },
+  {
+    "term": "Ternary operator",
+    "aliases": [
+      "conditional operator",
+      "?:"
+    ],
+    "definition": "A compact if/else that produces a value: `condition ? valueIfTrue : valueIfFalse`.",
+    "example": "string label = score >= 50 ? \"pass\" : \"fail\";",
+    "lessons": [
+      "1.4",
+      "1.5"
+    ],
+    "related": [
+      "Selection"
+    ]
+  },
+  {
+    "term": "Selection",
+    "aliases": [
+      "if",
+      "else",
+      "branching"
+    ],
+    "definition": "Choosing which code runs based on a condition - `if`, `else if`, `else` and `switch`. One of the three building blocks of every program alongside sequence and iteration.",
+    "lessons": [
+      "1.5"
+    ],
+    "related": [
+      "Iteration",
+      "switch",
+      "Pattern matching"
+    ]
+  },
+  {
+    "term": "switch",
+    "aliases": [
+      "switch statement",
+      "switch expression",
+      "case"
+    ],
+    "definition": "Selection with many branches on one value. The `switch` statement uses `case` labels; the newer switch expression returns a value directly and works well with pattern matching.",
+    "example": "string day = n switch { 1 => \"Mon\", 2 => \"Tue\", _ => \"?\" };",
+    "lessons": [
+      "1.5",
+      "4.6"
+    ],
+    "related": [
+      "Selection",
+      "Pattern matching"
+    ]
+  },
+  {
+    "term": "Pattern matching",
+    "aliases": [
+      "is pattern",
+      "property pattern",
+      "relational pattern"
+    ],
+    "definition": "Testing a value against a shape - a type, a range, a property value or a tuple - and pulling pieces out at the same time. Used with `is` and `switch`.",
+    "example": "if (shape is Circle { Radius: > 10 } big) { }",
+    "lessons": [
+      "1.5",
+      "4.6"
+    ],
+    "related": [
+      "switch",
+      "Deconstruction",
+      "Tuple"
+    ]
+  },
+  {
+    "term": "Iteration",
+    "aliases": [
+      "loop",
+      "looping"
+    ],
+    "definition": "Repeating a block of code. C# has `for` (count-controlled), `while` and `do-while` (condition-controlled) and `foreach` (over every item in a collection).",
+    "lessons": [
+      "1.6"
+    ],
+    "related": [
+      "foreach",
+      "Selection",
+      "break and continue"
+    ]
+  },
+  {
+    "term": "foreach",
+    "definition": "A loop that visits every element of a collection in turn without you managing an index. Works with anything that is `IEnumerable`.",
+    "example": "foreach (string name in names) { }",
+    "lessons": [
+      "1.6",
+      "3.5"
+    ],
+    "related": [
+      "Iteration",
+      "IEnumerable"
+    ]
+  },
+  {
+    "term": "break and continue",
+    "aliases": [
+      "break",
+      "continue"
+    ],
+    "definition": "`break` leaves the innermost loop (or `switch`) immediately; `continue` skips the rest of this pass and goes straight to the next iteration.",
+    "lessons": [
+      "1.6"
+    ],
+    "related": [
+      "Iteration"
+    ]
+  },
+  {
+    "term": "Array",
+    "definition": "A fixed-size, zero-indexed sequence of values all of the same type. `Length` never changes once created; use `List<T>` when you need to grow.",
+    "example": "int[] scores = new int[5];",
+    "lessons": [
+      "1.7"
+    ],
+    "related": [
+      "List<T>",
+      "Index",
+      "Jagged array",
+      "Multidimensional array"
+    ]
+  },
+  {
+    "term": "Index",
+    "aliases": [
+      "zero-based",
+      "IndexOutOfRangeException"
+    ],
+    "definition": "The position of an element, counted from 0. The last valid index is `Length - 1`; going past it throws `IndexOutOfRangeException` - the classic off-by-one bug.",
+    "lessons": [
+      "1.7"
+    ],
+    "related": [
+      "Array",
+      "Off-by-one error"
+    ]
+  },
+  {
+    "term": "Off-by-one error",
+    "definition": "A bug where a loop runs one time too many or too few, usually from mixing up `<` and `<=` or forgetting arrays start at 0.",
+    "lessons": [
+      "1.6",
+      "1.7"
+    ],
+    "related": [
+      "Index",
+      "Iteration"
+    ]
+  },
+  {
+    "term": "Multidimensional array",
+    "aliases": [
+      "2D array",
+      "rectangular array"
+    ],
+    "definition": "A grid with a fixed number of rows and columns, declared with a comma: `int[,]`. Every row is the same length.",
+    "example": "int[,] grid = new int[3, 4];",
+    "lessons": [
+      "1.7"
+    ],
+    "related": [
+      "Array",
+      "Jagged array"
+    ]
+  },
+  {
+    "term": "Jagged array",
+    "aliases": [
+      "array of arrays"
+    ],
+    "definition": "An array whose elements are themselves arrays, so each row can be a different length: `int[][]`.",
+    "example": "int[][] rows = new int[3][];",
+    "lessons": [
+      "1.7"
+    ],
+    "related": [
+      "Array",
+      "Multidimensional array"
+    ]
+  },
+  {
+    "term": "String",
+    "aliases": [
+      "string",
+      "text"
+    ],
+    "definition": "A sequence of characters. Strings are immutable - methods like `ToUpper` or `Replace` return a new string rather than changing the original.",
+    "lessons": [
+      "1.8"
+    ],
+    "related": [
+      "Immutability",
+      "StringBuilder",
+      "String interpolation",
+      "char"
+    ]
+  },
+  {
+    "term": "char",
+    "aliases": [
+      "character"
+    ],
+    "definition": "A single character in single quotes, such as `'a'` or `'7'`. A string is made of chars, and you can index into it: `name[0]`.",
+    "lessons": [
+      "1.2",
+      "1.8"
+    ],
+    "related": [
+      "String"
+    ]
+  },
+  {
+    "term": "StringBuilder",
+    "definition": "A mutable buffer for building up a large string piece by piece. Much faster than repeated `+` in a loop, because it does not create a new string each time.",
+    "example": "var sb = new StringBuilder(); sb.Append(\"x\");",
+    "lessons": [
+      "1.8",
+      "6.2"
+    ],
+    "related": [
+      "String",
+      "Immutability"
+    ]
+  },
+  {
+    "term": "Method",
+    "aliases": [
+      "function",
+      "subroutine",
+      "procedure"
+    ],
+    "definition": "A named block of code you can call. Takes parameters, may return a value, and lets you name and reuse a piece of logic. GCSE pseudocode calls them subroutines, functions or procedures.",
+    "example": "static int Square(int n) => n * n;",
+    "lessons": [
+      "1.9"
+    ],
+    "related": [
+      "Parameter",
+      "Return value",
+      "Overloading",
+      "Signature"
+    ]
+  },
+  {
+    "term": "Parameter",
+    "aliases": [
+      "argument"
+    ],
+    "definition": "A variable listed in a method's declaration that receives a value when the method is called. The value passed in is the argument.",
+    "lessons": [
+      "1.9"
+    ],
+    "related": [
+      "Method",
+      "ref and out",
+      "Optional parameter"
+    ]
+  },
+  {
+    "term": "Return value",
+    "aliases": [
+      "return"
+    ],
+    "definition": "The result a method hands back to its caller with the `return` keyword. A method declared `void` returns nothing.",
+    "lessons": [
+      "1.9"
+    ],
+    "related": [
+      "Method"
+    ]
+  },
+  {
+    "term": "Signature",
+    "aliases": [
+      "method signature"
+    ],
+    "definition": "A method's name plus the number, types and order of its parameters. Two methods in the same class may share a name only if their signatures differ.",
+    "lessons": [
+      "1.9"
+    ],
+    "related": [
+      "Overloading",
+      "Method"
+    ]
+  },
+  {
+    "term": "Overloading",
+    "aliases": [
+      "method overloading"
+    ],
+    "definition": "Defining several methods with the same name but different parameter lists. The compiler picks the one that matches the arguments.",
+    "example": "void Print(int n) {} void Print(string s) {}",
+    "lessons": [
+      "1.9",
+      "2.10"
+    ],
+    "related": [
+      "Signature",
+      "Operator overloading",
+      "Overriding"
+    ]
+  },
+  {
+    "term": "Optional parameter",
+    "aliases": [
+      "default parameter",
+      "named argument"
+    ],
+    "definition": "A parameter with a default value that the caller may leave out. Named arguments (`Greet(name: \"Ada\")`) let you pass them in any order.",
+    "example": "void Greet(string name, bool shout = false)",
+    "lessons": [
+      "1.9"
+    ],
+    "related": [
+      "Parameter"
+    ]
+  },
+  {
+    "term": "ref and out",
+    "aliases": [
+      "ref",
+      "out",
+      "pass by reference"
+    ],
+    "definition": "Modifiers that make a parameter refer to the caller's variable rather than a copy. `out` means the method must assign it - the way `TryParse` gives you the number back.",
+    "example": "int.TryParse(s, out int value)",
+    "lessons": [
+      "1.9"
+    ],
+    "related": [
+      "Parameter",
+      "Value type"
+    ]
+  },
+  {
+    "term": "Type conversion",
+    "aliases": [
+      "casting",
+      "cast",
+      "implicit conversion",
+      "explicit conversion"
+    ],
+    "definition": "Changing a value from one type to another. Widening (`int` to `double`) is implicit and safe; narrowing (`double` to `int`) needs an explicit cast and can lose data.",
+    "example": "int whole = (int)3.99; // 3",
+    "lessons": [
+      "1.10"
+    ],
+    "related": [
+      "Parsing",
+      "Convert class",
+      "Boxing and unboxing"
+    ]
+  },
+  {
+    "term": "Convert class",
+    "aliases": [
+      "Convert.ToInt32"
+    ],
+    "definition": "A helper with methods like `Convert.ToInt32` and `Convert.ToDouble` that convert between types, including from strings, with rounding rather than truncation.",
+    "lessons": [
+      "1.10"
+    ],
+    "related": [
+      "Type conversion",
+      "Parsing"
+    ]
+  },
+  {
+    "term": "Math class",
+    "aliases": [
+      "Math.Round",
+      "Math.Sqrt",
+      "Math.Max"
+    ],
+    "definition": "A `static` class of maths helpers: `Math.Sqrt`, `Math.Pow`, `Math.Round`, `Math.Abs`, `Math.Max` and `Math.Min`. Note `Math.Round` uses banker's rounding by default.",
+    "lessons": [
+      "1.10"
+    ],
+    "related": [
+      "Static member"
+    ]
+  },
+  {
+    "term": "Random",
+    "aliases": [
+      "Random.Shared",
+      "random number"
+    ],
+    "definition": "The class for pseudo-random numbers. `Random.Shared.Next(1, 7)` gives 1 to 6 - the upper bound is exclusive. Seed one for repeatable results in tests.",
+    "lessons": [
+      "1.10",
+      "7.1"
+    ],
+    "related": []
+  },
+  {
+    "term": "Exception",
+    "aliases": [
+      "runtime error",
+      "throw"
+    ],
+    "definition": "An object that describes something going wrong at run time - a missing file, a bad cast, division by zero. Thrown with `throw` and caught with `try`/`catch`; unhandled, it crashes the program.",
+    "example": "throw new ArgumentException(\"Age cannot be negative\");",
+    "lessons": [
+      "1.11",
+      "4.7"
+    ],
+    "related": [
+      "try / catch / finally",
+      "Custom exception",
+      "Stack trace"
+    ]
+  },
+  {
+    "term": "try / catch / finally",
+    "aliases": [
+      "try",
+      "catch",
+      "finally",
+      "exception handling"
+    ],
+    "definition": "The structure for handling exceptions: code that might fail goes in `try`, recovery in `catch` (most specific type first), and `finally` always runs for clean-up.",
+    "lessons": [
+      "1.11",
+      "4.7"
+    ],
+    "related": [
+      "Exception",
+      "using statement"
+    ]
+  },
+  {
+    "term": "Stack trace",
+    "definition": "The list of method calls that were active when an exception was thrown, printed newest first. Read it top-down to find the line that failed.",
+    "lessons": [
+      "1.11"
+    ],
+    "related": [
+      "Exception",
+      "Debugging",
+      "Call stack"
+    ]
+  },
+  {
+    "term": "Debugging",
+    "aliases": [
+      "breakpoint",
+      "step through"
+    ],
+    "definition": "Finding and fixing bugs. A debugger lets you pause on a breakpoint, inspect variables and step through one line at a time - faster than sprinkling `Console.WriteLine` everywhere.",
+    "lessons": [
+      "1.11"
+    ],
+    "related": [
+      "Stack trace",
+      "Compile-time error"
+    ]
+  },
+  {
+    "term": "Compile-time error",
+    "aliases": [
+      "syntax error",
+      "build error"
+    ],
+    "definition": "A mistake the compiler catches before the program runs, such as a missing semicolon or assigning a `string` to an `int`. Contrast with a runtime error (an exception) or a logic error (wrong answer, no crash).",
+    "lessons": [
+      "1.11"
+    ],
+    "related": [
+      "Compiler",
+      "Exception",
+      "Logic error"
+    ]
+  },
+  {
+    "term": "Logic error",
+    "definition": "The program runs without crashing but gives the wrong answer - the hardest kind of bug, found with tests and careful reading, not the compiler.",
+    "lessons": [
+      "1.11"
+    ],
+    "related": [
+      "Compile-time error",
+      "Debugging"
+    ]
+  },
+  {
+    "term": "Object-oriented programming",
+    "aliases": [
+      "OOP",
+      "object oriented"
+    ],
+    "definition": "Organising a program around objects that bundle data (fields) with the behaviour that works on it (methods). Built on four ideas: abstraction, encapsulation, inheritance and polymorphism.",
+    "lessons": [
+      "2.1"
+    ],
+    "related": [
+      "Class",
+      "Object",
+      "Abstraction",
+      "Encapsulation",
+      "Inheritance",
+      "Polymorphism"
+    ]
+  },
+  {
+    "term": "Class",
+    "definition": "A blueprint that describes what a kind of object stores and can do. Defines fields, properties, constructors and methods; objects are made from it with `new`.",
+    "example": "class Student { public string Name { get; set; } }",
+    "lessons": [
+      "2.2"
+    ],
+    "related": [
+      "Object",
+      "Constructor",
+      "Field",
+      "Property"
+    ]
+  },
+  {
+    "term": "Object",
+    "aliases": [
+      "instance",
+      "instantiate"
+    ],
+    "definition": "One concrete thing made from a class with `new` - an instance. Each object has its own copy of the instance fields.",
+    "example": "var ada = new Student();",
+    "lessons": [
+      "2.1",
+      "2.2"
+    ],
+    "related": [
+      "Class",
+      "Reference type"
+    ]
+  },
+  {
+    "term": "Constructor",
+    "aliases": [
+      "ctor"
+    ],
+    "definition": "A special method with the class's name that runs when an object is created, usually to set the initial values of its fields. A class can have several (overloaded) constructors.",
+    "example": "public Student(string name) { Name = name; }",
+    "lessons": [
+      "2.2"
+    ],
+    "related": [
+      "Class",
+      "Object",
+      "Overloading"
+    ]
+  },
+  {
+    "term": "Field",
+    "aliases": [
+      "member variable",
+      "instance variable"
+    ],
+    "definition": "A variable declared inside a class that belongs to each object. Usually kept `private` and exposed through a property.",
+    "example": "private int _balance;",
+    "lessons": [
+      "2.2",
+      "2.4"
+    ],
+    "related": [
+      "Property",
+      "Encapsulation",
+      "Access modifier"
+    ]
+  },
+  {
+    "term": "Property",
+    "aliases": [
+      "getter",
+      "setter",
+      "auto-property",
+      "get",
+      "set",
+      "init"
+    ],
+    "definition": "A member that looks like a field from outside but runs code (`get` / `set`) when read or written, so a class can validate or compute values. `{ get; set; }` is an auto-property; `init` lets it be set only during construction.",
+    "example": "public int Age { get; private set; }",
+    "lessons": [
+      "2.4"
+    ],
+    "related": [
+      "Field",
+      "Encapsulation",
+      "Immutability"
+    ]
+  },
+  {
+    "term": "this",
+    "definition": "A keyword referring to the current object - the instance the method was called on. Used to tell a field from a parameter of the same name, or to pass the object elsewhere.",
+    "lessons": [
+      "2.2"
+    ],
+    "related": [
+      "Object"
+    ]
+  },
+  {
+    "term": "Abstraction",
+    "definition": "Showing what something does while hiding how. You call `list.Sort()` without knowing the algorithm. Interfaces and abstract classes are how C# expresses it.",
+    "lessons": [
+      "2.3"
+    ],
+    "related": [
+      "Encapsulation",
+      "Interface",
+      "Abstract class"
+    ]
+  },
+  {
+    "term": "Encapsulation",
+    "aliases": [
+      "information hiding"
+    ],
+    "definition": "Keeping an object's data private and controlling all access through methods and properties, so the object can guarantee its own rules (a balance can never go negative).",
+    "lessons": [
+      "2.4"
+    ],
+    "related": [
+      "Access modifier",
+      "Property",
+      "Field"
+    ]
+  },
+  {
+    "term": "Access modifier",
+    "aliases": [
+      "public",
+      "private",
+      "protected",
+      "internal"
+    ],
+    "definition": "A keyword that says who can see a member: `public` (anyone), `private` (this class only), `protected` (this class and subclasses), `internal` (this project). Default for members is `private`.",
+    "lessons": [
+      "2.4"
+    ],
+    "related": [
+      "Encapsulation"
+    ]
+  },
+  {
+    "term": "Inheritance",
+    "aliases": [
+      "base class",
+      "derived class",
+      "subclass",
+      "superclass",
+      "parent class",
+      "child class"
+    ],
+    "definition": "Making a new class from an existing one so it gets all the base class's members and can add or change behaviour. Written `class Dog : Animal`. Every class ultimately inherits from `object`.",
+    "example": "class Dog : Animal { }",
+    "lessons": [
+      "2.5"
+    ],
+    "related": [
+      "Polymorphism",
+      "Overriding",
+      "base keyword",
+      "Composition"
+    ]
+  },
+  {
+    "term": "base keyword",
+    "aliases": [
+      "base"
+    ],
+    "definition": "Refers to the parent class: `base(...)` in a constructor calls the parent's constructor, `base.Method()` calls the parent's version of an overridden method.",
+    "lessons": [
+      "2.5"
+    ],
+    "related": [
+      "Inheritance",
+      "Overriding"
+    ]
+  },
+  {
+    "term": "Polymorphism",
+    "definition": "'Many forms': calling the same method on different objects and getting behaviour appropriate to each. A `List<Shape>` can hold circles and squares, and `shape.Area()` runs the right code for each.",
+    "lessons": [
+      "2.6"
+    ],
+    "related": [
+      "Overriding",
+      "virtual",
+      "Abstract class",
+      "Interface"
+    ]
+  },
+  {
+    "term": "virtual",
+    "definition": "Marks a method in a base class that subclasses are allowed to replace with `override`. Without `virtual`, a subclass method of the same name just hides the parent's.",
+    "lessons": [
+      "2.6"
+    ],
+    "related": [
+      "Overriding",
+      "Polymorphism"
+    ]
+  },
+  {
+    "term": "Overriding",
+    "aliases": [
+      "override"
+    ],
+    "definition": "Providing a subclass's own version of a `virtual` or `abstract` method from its parent, using the `override` keyword. Different from overloading, which is same name with different parameters.",
+    "example": "public override double Area() => Math.PI * r * r;",
+    "lessons": [
+      "2.6"
+    ],
+    "related": [
+      "virtual",
+      "Overloading",
+      "Polymorphism"
+    ]
+  },
+  {
+    "term": "Abstract class",
+    "aliases": [
+      "abstract",
+      "abstract method"
+    ],
+    "definition": "A class that cannot be instantiated and exists to be inherited from. May contain `abstract` methods - declared with no body - that every concrete subclass must `override`.",
+    "example": "abstract class Shape { public abstract double Area(); }",
+    "lessons": [
+      "2.6"
+    ],
+    "related": [
+      "Interface",
+      "Inheritance",
+      "Abstraction"
+    ]
+  },
+  {
+    "term": "sealed",
+    "definition": "Stops a class being inherited from, or an `override` being overridden further. Records and most well-designed classes are `sealed` unless inheritance is intended.",
+    "lessons": [
+      "2.5",
+      "2.6"
+    ],
+    "related": [
+      "Inheritance"
+    ]
+  },
+  {
+    "term": "Interface",
+    "definition": "A contract listing members a type promises to provide, with no implementation of its own. A class can implement many interfaces; names start with `I` by convention (`IComparable`, `IEnumerable`).",
+    "example": "interface IShape { double Area(); }",
+    "lessons": [
+      "2.7"
+    ],
+    "related": [
+      "Abstract class",
+      "Polymorphism",
+      "Dependency injection"
+    ]
+  },
+  {
+    "term": "Value type",
+    "aliases": [
+      "struct",
+      "stack"
+    ],
+    "definition": "A type whose variable holds the value itself - `int`, `double`, `bool`, `char`, structs and enums. Copying a value type copies the data; two copies are independent.",
+    "lessons": [
+      "2.8"
+    ],
+    "related": [
+      "Reference type",
+      "Struct",
+      "Enum",
+      "Boxing and unboxing"
+    ]
+  },
+  {
+    "term": "Reference type",
+    "aliases": [
+      "heap"
+    ],
+    "definition": "A type whose variable holds a reference (an address) to an object on the heap - classes, strings, arrays, delegates. Copying the variable copies the reference, so both point at the same object.",
+    "lessons": [
+      "2.8"
+    ],
+    "related": [
+      "Value type",
+      "Null",
+      "Garbage collector"
+    ]
+  },
+  {
+    "term": "Struct",
+    "definition": "A lightweight value type you define yourself, good for small immutable data like a point or a colour. Copied on assignment; cannot inherit from another struct or class.",
+    "example": "struct Point { public int X; public int Y; }",
+    "lessons": [
+      "2.8"
+    ],
+    "related": [
+      "Value type",
+      "Record",
+      "Class"
+    ]
+  },
+  {
+    "term": "Enum",
+    "aliases": [
+      "enumeration"
+    ],
+    "definition": "A type with a fixed set of named values, backed by an integer. Use one instead of magic numbers or strings for things like days or states.",
+    "example": "enum Suit { Hearts, Diamonds, Clubs, Spades }",
+    "lessons": [
+      "2.8"
+    ],
+    "related": [
+      "Value type",
+      "switch"
+    ]
+  },
+  {
+    "term": "Record",
+    "aliases": [
+      "record class",
+      "record struct",
+      "with expression"
+    ],
+    "definition": "A type designed for holding data: it gets value-based equality, a readable `ToString` and a `with` expression for making changed copies for free. Positional records declare properties in the header.",
+    "example": "record Point(int X, int Y);",
+    "lessons": [
+      "2.9"
+    ],
+    "related": [
+      "Immutability",
+      "Equality",
+      "Struct"
+    ]
+  },
+  {
+    "term": "Immutability",
+    "aliases": [
+      "immutable",
+      "readonly",
+      "init-only"
+    ],
+    "definition": "An object whose state cannot change after it is created. Safer to share and reason about; you make changed copies instead of mutating. Strings, records and `readonly` fields are all immutable.",
+    "lessons": [
+      "2.9"
+    ],
+    "related": [
+      "Record",
+      "String",
+      "Property"
+    ]
+  },
+  {
+    "term": "readonly",
+    "definition": "A field modifier meaning it can only be assigned in the declaration or a constructor. Unlike `const`, the value can be computed at run time.",
+    "lessons": [
+      "2.9",
+      "2.4"
+    ],
+    "related": [
+      "Immutability",
+      "Constant"
+    ]
+  },
+  {
+    "term": "Equality",
+    "aliases": [
+      "Equals",
+      "GetHashCode",
+      "==",
+      "reference equality",
+      "value equality"
+    ],
+    "definition": "Reference equality asks 'same object?'; value equality asks 'same contents?'. Classes get reference equality by default; override `Equals` and `GetHashCode` together (or use a `record`) to get value equality.",
+    "lessons": [
+      "2.10"
+    ],
+    "related": [
+      "Record",
+      "Hash table",
+      "Operator overloading"
+    ]
+  },
+  {
+    "term": "ToString",
+    "definition": "The method every object has for describing itself as text. Override it so `Console.WriteLine(myObject)` prints something useful instead of the type name.",
+    "example": "public override string ToString() => $\"{Name} ({Age})\";",
+    "lessons": [
+      "2.10"
+    ],
+    "related": [
+      "Overriding",
+      "Equality"
+    ]
+  },
+  {
+    "term": "Operator overloading",
+    "definition": "Defining what `+`, `==`, `<` and so on mean for your own type, with a `static operator` method. Sensible for maths-like types (Money, Vector), confusing for anything else.",
+    "example": "public static Money operator +(Money a, Money b)",
+    "lessons": [
+      "2.10"
+    ],
+    "related": [
+      "Overloading",
+      "Equality"
+    ]
+  },
+  {
+    "term": "Static member",
+    "aliases": [
+      "static",
+      "static class",
+      "static method"
+    ],
+    "definition": "A member that belongs to the class rather than to any object - one copy shared by all. Called on the type name, like `Math.Sqrt`. A `static` class can only contain `static` members.",
+    "lessons": [
+      "2.11"
+    ],
+    "related": [
+      "Math class",
+      "Extension method",
+      "Singleton"
+    ]
+  },
+  {
+    "term": "Composition",
+    "aliases": [
+      "has-a",
+      "composition over inheritance"
+    ],
+    "definition": "Building a class out of other objects it holds as fields ('has-a') rather than inheriting from them ('is-a'). Usually more flexible - prefer it unless the is-a relationship is genuine.",
+    "lessons": [
+      "2.11",
+      "2.12"
+    ],
+    "related": [
+      "Inheritance",
+      "Aggregation"
+    ]
+  },
+  {
+    "term": "Aggregation",
+    "aliases": [
+      "association"
+    ],
+    "definition": "A weaker has-a relationship where the parts can exist independently of the whole - a Team has Players, but the Players survive if the Team is deleted. Drawn with a hollow diamond in UML.",
+    "lessons": [
+      "2.12"
+    ],
+    "related": [
+      "Composition",
+      "UML"
+    ]
+  },
+  {
+    "term": "UML",
+    "aliases": [
+      "class diagram"
+    ],
+    "definition": "Unified Modelling Language - a standard way to draw the classes in a design, their members and how they relate (inheritance arrows, association lines, multiplicity).",
+    "lessons": [
+      "2.12"
+    ],
+    "related": [
+      "Composition",
+      "Aggregation",
+      "Inheritance"
+    ]
+  },
+  {
+    "term": "Coupling",
+    "aliases": [
+      "loose coupling",
+      "tight coupling"
+    ],
+    "definition": "How much one class depends on the details of another. Low (loose) coupling is the goal: change one class and the others do not break. Interfaces and dependency injection reduce it.",
+    "lessons": [
+      "2.13"
+    ],
+    "related": [
+      "Cohesion",
+      "SOLID",
+      "Dependency injection"
+    ]
+  },
+  {
+    "term": "Cohesion",
+    "definition": "How focused a class is on one job. High cohesion is good: everything in the class belongs together. A 'Utils' class that does everything has low cohesion.",
+    "lessons": [
+      "2.13"
+    ],
+    "related": [
+      "Coupling",
+      "SOLID"
+    ]
+  },
+  {
+    "term": "SOLID",
+    "aliases": [
+      "single responsibility",
+      "open/closed",
+      "Liskov substitution",
+      "interface segregation",
+      "dependency inversion"
+    ],
+    "definition": "Five design principles: Single responsibility, Open/closed, Liskov substitution, Interface segregation, Dependency inversion. Together they push towards small, focused, loosely coupled classes.",
+    "lessons": [
+      "2.13"
+    ],
+    "related": [
+      "Coupling",
+      "Cohesion",
+      "Dependency injection"
+    ]
+  },
+  {
+    "term": "Design pattern",
+    "aliases": [
+      "Strategy pattern",
+      "Observer pattern",
+      "Factory pattern",
+      "Repository pattern"
+    ],
+    "definition": "A named, reusable solution to a common design problem - Strategy (swap an algorithm via an interface), Observer (events), Factory (a method that decides which class to create), Repository (hide the data store).",
+    "lessons": [
+      "2.14"
+    ],
+    "related": [
+      "Singleton",
+      "Interface",
+      "Event"
+    ]
+  },
+  {
+    "term": "Singleton",
+    "definition": "A pattern that guarantees exactly one instance of a class exists and gives global access to it. Easy to overuse - it is a global variable in disguise, which makes testing harder.",
+    "lessons": [
+      "2.14"
+    ],
+    "related": [
+      "Design pattern",
+      "Static member"
+    ]
+  },
+  {
+    "term": "List<T>",
+    "aliases": [
+      "List",
+      "generic list"
+    ],
+    "definition": "A resizable array. `Add`, `Remove`, `Insert`, `Contains`, `IndexOf` and an indexer, plus `Sort` and everything LINQ offers. The default collection to reach for.",
+    "example": "var names = new List<string> { \"Ada\", \"Alan\" };",
+    "lessons": [
+      "3.1"
+    ],
+    "related": [
+      "Array",
+      "Generics",
+      "Collection"
+    ]
+  },
+  {
+    "term": "Collection",
+    "aliases": [
+      "collections"
+    ],
+    "definition": "Any object that holds a group of items - arrays, `List<T>`, `Dictionary`, `HashSet`, `Stack`, `Queue`. Most live in `System.Collections.Generic` and all can be iterated with `foreach`.",
+    "lessons": [
+      "3.1",
+      "3.2",
+      "3.3"
+    ],
+    "related": [
+      "List<T>",
+      "Dictionary",
+      "IEnumerable"
+    ]
+  },
+  {
+    "term": "Dictionary",
+    "aliases": [
+      "Dictionary<TKey, TValue>",
+      "key-value pair",
+      "map"
+    ],
+    "definition": "A collection of key/value pairs with near-instant lookup by key. Keys must be unique. Use `TryGetValue` to look up safely without an exception.",
+    "example": "var ages = new Dictionary<string, int>(); ages[\"Ada\"] = 36;",
+    "lessons": [
+      "3.2"
+    ],
+    "related": [
+      "HashSet",
+      "Hash table",
+      "Equality"
+    ]
+  },
+  {
+    "term": "HashSet",
+    "aliases": [
+      "HashSet<T>",
+      "set"
+    ],
+    "definition": "A collection of unique items with fast `Contains`, `Add` and `Remove`, and set operations like `UnionWith` and `IntersectWith`. Order is not guaranteed.",
+    "lessons": [
+      "3.2"
+    ],
+    "related": [
+      "Dictionary",
+      "Hash table"
+    ]
+  },
+  {
+    "term": "Stack",
+    "aliases": [
+      "Stack<T>",
+      "LIFO",
+      "push",
+      "pop"
+    ],
+    "definition": "A last-in, first-out collection: `Push` adds to the top, `Pop` removes from the top, `Peek` looks without removing. Used for undo, bracket matching and the call stack itself.",
+    "lessons": [
+      "3.3",
+      "5.6"
+    ],
+    "related": [
+      "Queue",
+      "Call stack"
+    ]
+  },
+  {
+    "term": "Queue",
+    "aliases": [
+      "Queue<T>",
+      "FIFO",
+      "enqueue",
+      "dequeue"
+    ],
+    "definition": "A first-in, first-out collection: `Enqueue` joins the back, `Dequeue` leaves the front. Used for print queues, breadth-first search and anything processed in arrival order.",
+    "lessons": [
+      "3.3",
+      "5.6",
+      "5.8"
+    ],
+    "related": [
+      "Stack",
+      "Breadth-first search"
+    ]
+  },
+  {
+    "term": "Linked list",
+    "aliases": [
+      "LinkedList<T>",
+      "node",
+      "singly linked",
+      "doubly linked"
+    ],
+    "definition": "A sequence of nodes where each node holds a value and a reference to the next (and, if doubly linked, the previous). Cheap to insert or remove in the middle; slow to reach the nth item.",
+    "lessons": [
+      "3.3",
+      "5.5"
+    ],
+    "related": [
+      "Array",
+      "Node"
+    ]
+  },
+  {
+    "term": "Node",
+    "definition": "One element in a linked structure - a linked list, tree or graph - holding a value plus references to its neighbours.",
+    "lessons": [
+      "5.5",
+      "5.7",
+      "5.8"
+    ],
+    "related": [
+      "Linked list",
+      "Binary search tree",
+      "Graph"
+    ]
+  },
+  {
+    "term": "Generics",
+    "aliases": [
+      "generic",
+      "type parameter",
+      "<T>",
+      "generic method",
+      "constraint",
+      "where T"
+    ],
+    "definition": "Writing a class or method once with a placeholder type `T` that is filled in when it is used. `List<T>` works for any `T`. Constraints like `where T : IComparable<T>` say what `T` must support.",
+    "example": "T Max<T>(T a, T b) where T : IComparable<T>",
+    "lessons": [
+      "3.4"
+    ],
+    "related": [
+      "List<T>",
+      "Interface"
+    ]
+  },
+  {
+    "term": "IEnumerable",
+    "aliases": [
+      "IEnumerable<T>",
+      "IEnumerator",
+      "enumerable"
+    ],
+    "definition": "The interface for 'a sequence you can loop over'. Anything `foreach` accepts is `IEnumerable`, and every LINQ method works on it. It promises only forward, one-at-a-time access.",
+    "lessons": [
+      "3.5"
+    ],
+    "related": [
+      "foreach",
+      "yield",
+      "LINQ",
+      "Deferred execution"
+    ]
+  },
+  {
+    "term": "yield",
+    "aliases": [
+      "yield return",
+      "iterator",
+      "iterator method"
+    ],
+    "definition": "Turns a method into an iterator: each `yield return` hands out one item and pauses until the caller asks for the next. Lets you produce sequences lazily, even infinite ones.",
+    "example": "IEnumerable<int> Evens() { for (int i = 0; ; i += 2) yield return i; }",
+    "lessons": [
+      "3.5"
+    ],
+    "related": [
+      "IEnumerable",
+      "Deferred execution"
+    ]
+  },
+  {
+    "term": "Deferred execution",
+    "aliases": [
+      "lazy evaluation"
+    ],
+    "definition": "A LINQ query or iterator does no work when you write it - only when something enumerates it. Call `ToList()` to run it once and keep the results.",
+    "lessons": [
+      "3.5",
+      "3.6"
+    ],
+    "related": [
+      "LINQ",
+      "yield",
+      "IEnumerable"
+    ]
+  },
+  {
+    "term": "LINQ",
+    "aliases": [
+      "Language Integrated Query",
+      "Where",
+      "Select",
+      "OrderBy",
+      "query"
+    ],
+    "definition": "A set of methods for querying any sequence in a declarative style: `Where` filters, `Select` projects (transforms), `OrderBy` sorts, and many more chain together.",
+    "example": "names.Where(n => n.StartsWith(\"A\")).OrderBy(n => n)",
+    "lessons": [
+      "3.6",
+      "3.7"
+    ],
+    "related": [
+      "Lambda",
+      "IEnumerable",
+      "Deferred execution",
+      "Projection",
+      "Aggregation (LINQ)"
+    ]
+  },
+  {
+    "term": "Projection",
+    "aliases": [
+      "Select"
+    ],
+    "definition": "Transforming each item of a sequence into something else with `Select` - names into lengths, orders into totals, objects into anonymous types.",
+    "example": "people.Select(p => p.Name)",
+    "lessons": [
+      "3.6"
+    ],
+    "related": [
+      "LINQ",
+      "Anonymous type"
+    ]
+  },
+  {
+    "term": "Anonymous type",
+    "definition": "A throwaway class the compiler creates from `new { Name = ..., Age = ... }`, handy for shaping LINQ results without declaring a class. Only usable inside the method that makes it.",
+    "lessons": [
+      "3.6"
+    ],
+    "related": [
+      "Projection",
+      "var",
+      "Tuple"
+    ]
+  },
+  {
+    "term": "Aggregation (LINQ)",
+    "aliases": [
+      "Sum",
+      "Count",
+      "Average",
+      "Min",
+      "Max",
+      "Aggregate"
+    ],
+    "definition": "Collapsing a sequence to a single value: `Count`, `Sum`, `Average`, `Min`, `Max`, or the general `Aggregate` for anything else.",
+    "lessons": [
+      "3.7"
+    ],
+    "related": [
+      "LINQ",
+      "GroupBy"
+    ]
+  },
+  {
+    "term": "GroupBy",
+    "aliases": [
+      "grouping",
+      "Join"
+    ],
+    "definition": "Splits a sequence into groups sharing a key - students by class, orders by month - each group being a key plus its items. `Join` matches items from two sequences on a key.",
+    "example": "students.GroupBy(s => s.Class)",
+    "lessons": [
+      "3.7"
+    ],
+    "related": [
+      "LINQ",
+      "Aggregation (LINQ)"
+    ]
+  },
+  {
+    "term": "Delegate",
+    "aliases": [
+      "Func",
+      "Action",
+      "Predicate",
+      "function pointer"
+    ],
+    "definition": "A type that holds a reference to a method, so methods can be stored in variables and passed as arguments. `Func<T, TResult>` returns a value, `Action<T>` returns `void`, `Predicate<T>` returns `bool`.",
+    "example": "Func<int, int> square = n => n * n;",
+    "lessons": [
+      "4.1"
+    ],
+    "related": [
+      "Lambda",
+      "Event",
+      "Callback"
+    ]
+  },
+  {
+    "term": "Callback",
+    "definition": "A method you hand to some other code so it can call you back later - when a button is clicked, when a download finishes, for each item it processes. Delegates and lambdas are how C# passes them.",
+    "lessons": [
+      "4.1",
+      "4.3"
+    ],
+    "related": [
+      "Delegate",
+      "Event"
+    ]
+  },
+  {
+    "term": "Lambda",
+    "aliases": [
+      "lambda expression",
+      "=>",
+      "anonymous function",
+      "arrow function"
+    ],
+    "definition": "An inline, unnamed method written as `parameters => body`. Used everywhere in LINQ and event handling.",
+    "example": "x => x * 2",
+    "lessons": [
+      "4.2"
+    ],
+    "related": [
+      "Delegate",
+      "LINQ",
+      "Closure",
+      "Expression-bodied member"
+    ]
+  },
+  {
+    "term": "Closure",
+    "aliases": [
+      "captured variable"
+    ],
+    "definition": "A lambda that uses a variable from the surrounding method 'captures' it and keeps it alive - the lambda can read and change it even after the method has returned.",
+    "lessons": [
+      "4.2"
+    ],
+    "related": [
+      "Lambda",
+      "Scope"
+    ]
+  },
+  {
+    "term": "Expression-bodied member",
+    "aliases": [
+      "expression body"
+    ],
+    "definition": "A one-line method or property written with `=>` instead of a block: `int Double(int n) => n * 2;`. Same meaning, less ceremony.",
+    "lessons": [
+      "1.9",
+      "4.2"
+    ],
+    "related": [
+      "Lambda",
+      "Method"
+    ]
+  },
+  {
+    "term": "Higher-order function",
+    "aliases": [
+      "functional style",
+      "functional programming"
+    ],
+    "definition": "A method that takes another method as a parameter or returns one - `Where`, `Select` and `Sort(comparison)` all are. Composing small pure functions is the heart of functional style.",
+    "lessons": [
+      "4.2"
+    ],
+    "related": [
+      "Delegate",
+      "Lambda",
+      "LINQ"
+    ]
+  },
+  {
+    "term": "Event",
+    "aliases": [
+      "EventHandler",
+      "publish/subscribe",
+      "subscribe",
+      "+="
+    ],
+    "definition": "A member a class raises to announce something happened, which any number of listeners can subscribe to with `+=`. Built on delegates; the publisher does not know who is listening.",
+    "example": "button.Clicked += OnClicked;",
+    "lessons": [
+      "4.3"
+    ],
+    "related": [
+      "Delegate",
+      "Callback",
+      "Design pattern"
+    ]
+  },
+  {
+    "term": "Extension method",
+    "definition": "A `static` method that can be called as if it were an instance method on another type, thanks to `this` on its first parameter. It is how LINQ adds `Where` and `Select` to every `IEnumerable`.",
+    "example": "static bool IsEven(this int n) => n % 2 == 0;",
+    "lessons": [
+      "4.4"
+    ],
+    "related": [
+      "Static member",
+      "LINQ"
+    ]
+  },
+  {
+    "term": "Null",
+    "aliases": [
+      "null",
+      "NullReferenceException"
+    ],
+    "definition": "The value meaning 'no object here'. Using a member on a `null` reference throws `NullReferenceException` - historically the most common bug in C#.",
+    "lessons": [
+      "4.5"
+    ],
+    "related": [
+      "Nullable reference types",
+      "Null-conditional operator",
+      "Null-coalescing operator",
+      "Reference type"
+    ]
+  },
+  {
+    "term": "Nullable reference types",
+    "aliases": [
+      "string?",
+      "nullable",
+      "?"
+    ],
+    "definition": "A compiler feature where a reference type is non-null unless you write `?` after it (`string?`). The compiler then warns wherever a possibly-null value is used without a check.",
+    "lessons": [
+      "4.5"
+    ],
+    "related": [
+      "Null",
+      "Nullable value type"
+    ]
+  },
+  {
+    "term": "Nullable value type",
+    "aliases": [
+      "int?",
+      "Nullable<T>",
+      "HasValue"
+    ],
+    "definition": "A value type that can also be `null`, written `int?`. Check `HasValue` or compare to `null` before reading `.Value`.",
+    "lessons": [
+      "4.5"
+    ],
+    "related": [
+      "Nullable reference types",
+      "Value type"
+    ]
+  },
+  {
+    "term": "Null-conditional operator",
+    "aliases": [
+      "?.",
+      "?[]",
+      "safe navigation"
+    ],
+    "definition": "`?.` calls a member only if the object is not `null`, otherwise the whole expression is `null`. Saves a nest of `if` checks.",
+    "example": "int? len = name?.Length;",
+    "lessons": [
+      "4.5"
+    ],
+    "related": [
+      "Null",
+      "Null-coalescing operator"
+    ]
+  },
+  {
+    "term": "Null-coalescing operator",
+    "aliases": [
+      "??",
+      "??="
+    ],
+    "definition": "`??` gives a fallback when the left side is `null`: `name ?? \"Unknown\"`. `??=` assigns the fallback only if the variable is currently `null`.",
+    "lessons": [
+      "4.5"
+    ],
+    "related": [
+      "Null",
+      "Null-conditional operator"
+    ]
+  },
+  {
+    "term": "Tuple",
+    "aliases": [
+      "value tuple",
+      "(int, string)"
+    ],
+    "definition": "A lightweight bundle of several values with optional names, without declaring a type. Handy for returning two things from a method.",
+    "example": "(int min, int max) Range() => (1, 10);",
+    "lessons": [
+      "4.6"
+    ],
+    "related": [
+      "Deconstruction",
+      "Record",
+      "Anonymous type"
+    ]
+  },
+  {
+    "term": "Deconstruction",
+    "aliases": [
+      "deconstruct"
+    ],
+    "definition": "Unpacking a tuple or record into separate variables in one line: `var (x, y) = point;`. Any type can support it by providing a `Deconstruct` method.",
+    "lessons": [
+      "4.6"
+    ],
+    "related": [
+      "Tuple",
+      "Record",
+      "Pattern matching"
+    ]
+  },
+  {
+    "term": "Custom exception",
+    "definition": "Your own exception class, inheriting from `Exception`, so callers can catch a specific failure by type. Name it with the `Exception` suffix and give it a useful message.",
+    "example": "class InsufficientFundsException : Exception { }",
+    "lessons": [
+      "4.7"
+    ],
+    "related": [
+      "Exception",
+      "Inheritance"
+    ]
+  },
+  {
+    "term": "Exception filter",
+    "aliases": [
+      "catch when",
+      "rethrow"
+    ],
+    "definition": "`catch (X e) when (condition)` catches only when the condition holds. To rethrow and keep the stack trace, use bare `throw;`, not `throw e;`.",
+    "lessons": [
+      "4.7"
+    ],
+    "related": [
+      "try / catch / finally",
+      "Stack trace"
+    ]
+  },
+  {
+    "term": "IDisposable",
+    "aliases": [
+      "Dispose"
+    ],
+    "definition": "The interface for objects holding something that must be released promptly - a file handle, a network connection. Its one method, `Dispose`, does the clean-up; a `using` statement calls it for you.",
+    "lessons": [
+      "4.8"
+    ],
+    "related": [
+      "using statement",
+      "Garbage collector"
+    ]
+  },
+  {
+    "term": "using statement",
+    "aliases": [
+      "using declaration"
+    ],
+    "definition": "Guarantees `Dispose` is called on an `IDisposable` when the block ends, even if an exception is thrown. `using var file = File.OpenRead(path);` disposes at the end of the enclosing scope.",
+    "example": "using (var reader = new StreamReader(path)) { }",
+    "lessons": [
+      "4.8",
+      "4.9"
+    ],
+    "related": [
+      "IDisposable",
+      "using directive",
+      "try / catch / finally"
+    ]
+  },
+  {
+    "term": "Garbage collector",
+    "aliases": [
+      "GC",
+      "managed memory",
+      "memory management"
+    ],
+    "definition": "The part of the .NET runtime that automatically frees memory for objects nothing references any more. You never delete objects by hand - but you do still `Dispose` unmanaged resources.",
+    "lessons": [
+      "4.8",
+      "6.2"
+    ],
+    "related": [
+      "Reference type",
+      "IDisposable",
+      "Heap and stack"
+    ]
+  },
+  {
+    "term": "Heap and stack",
+    "aliases": [
+      "heap",
+      "stack memory"
+    ],
+    "definition": "The two regions of memory a program uses. The stack holds local variables and method calls, freed automatically as methods return; the heap holds objects, freed by the garbage collector.",
+    "lessons": [
+      "2.8",
+      "4.8"
+    ],
+    "related": [
+      "Value type",
+      "Reference type",
+      "Garbage collector",
+      "Call stack"
+    ]
+  },
+  {
+    "term": "File I/O",
+    "aliases": [
+      "File.ReadAllText",
+      "File.WriteAllText",
+      "StreamReader",
+      "StreamWriter",
+      "Path",
+      "Directory"
+    ],
+    "definition": "Reading and writing files. `File.ReadAllText` / `WriteAllLines` for small files, `StreamReader` / `StreamWriter` for line by line, `Path.Combine` to build paths safely, `Directory` to list folders.",
+    "example": "string[] lines = File.ReadAllLines(\"scores.txt\");",
+    "lessons": [
+      "4.9"
+    ],
+    "related": [
+      "using statement",
+      "JSON"
+    ]
+  },
+  {
+    "term": "JSON",
+    "aliases": [
+      "System.Text.Json",
+      "JsonSerializer"
+    ],
+    "definition": "JavaScript Object Notation - a text format for structured data. `JsonSerializer.Serialize` turns an object into JSON; `Deserialize<T>` turns it back.",
+    "example": "string json = JsonSerializer.Serialize(student);",
+    "lessons": [
+      "4.9",
+      "6.4"
+    ],
+    "related": [
+      "Serialization",
+      "File I/O"
+    ]
+  },
+  {
+    "term": "Serialization",
+    "aliases": [
+      "deserialization",
+      "serialise",
+      "deserialise"
+    ],
+    "definition": "Turning an object into a form that can be saved or sent - JSON, XML, bytes - and back again (deserialization). Watch out for cycles, private fields and versioning.",
+    "lessons": [
+      "6.4"
+    ],
+    "related": [
+      "JSON",
+      "File I/O"
+    ]
+  },
+  {
+    "term": "Asynchronous programming",
+    "aliases": [
+      "async",
+      "await",
+      "asynchronous"
+    ],
+    "definition": "Starting slow work (a download, a file read) without blocking the thread while it completes. Mark the method `async`, and `await` the `Task` - the method pauses without freezing the program.",
+    "example": "string html = await client.GetStringAsync(url);",
+    "lessons": [
+      "4.10"
+    ],
+    "related": [
+      "Task",
+      "Thread",
+      "Concurrency"
+    ]
+  },
+  {
+    "term": "Task",
+    "aliases": [
+      "Task<T>",
+      "Task.WhenAll",
+      "Task.Run"
+    ],
+    "definition": "An object representing work that will finish in the future, possibly with a result (`Task<T>`). `await` it to get the result; `Task.WhenAll` waits for several at once.",
+    "lessons": [
+      "4.10",
+      "6.1"
+    ],
+    "related": [
+      "Asynchronous programming",
+      "Thread"
+    ]
+  },
+  {
+    "term": "Attribute",
+    "aliases": [
+      "[Obsolete]",
+      "annotation"
+    ],
+    "definition": "Metadata attached to code in square brackets - `[Obsolete]`, `[JsonIgnore]`, `[Fact]` - that tools and libraries read at run time via reflection.",
+    "example": "[Obsolete(\"Use NewMethod\")]",
+    "lessons": [
+      "4.11"
+    ],
+    "related": [
+      "Reflection"
+    ]
+  },
+  {
+    "term": "Reflection",
+    "aliases": [
+      "typeof",
+      "GetType"
+    ],
+    "definition": "Code that inspects types at run time - listing a class's properties, reading attributes, creating objects by name. Powerful and slow; it is how serializers and test frameworks work.",
+    "lessons": [
+      "4.11"
+    ],
+    "related": [
+      "Attribute"
+    ]
+  },
+  {
+    "term": "Big-O notation",
+    "aliases": [
+      "time complexity",
+      "O(n)",
+      "O(1)",
+      "O(log n)",
+      "O(n log n)",
+      "O(n²)",
+      "complexity"
+    ],
+    "definition": "Describes how an algorithm's running time or memory grows with input size `n`, ignoring constants. `O(1)` constant, `O(log n)` logarithmic, `O(n)` linear, `O(n log n)`, `O(n²)` quadratic, `O(2ⁿ)` exponential.",
+    "lessons": [
+      "5.1"
+    ],
+    "related": [
+      "Linear search",
+      "Binary search",
+      "Sorting algorithm"
+    ]
+  },
+  {
+    "term": "Algorithm",
+    "definition": "A precise, finite sequence of steps that solves a problem. Judged on correctness first, then time and space complexity.",
+    "lessons": [
+      "5.1"
+    ],
+    "related": [
+      "Big-O notation",
+      "Data structure"
+    ]
+  },
+  {
+    "term": "Data structure",
+    "definition": "A way of organising data so particular operations are fast - arrays for indexing, hash tables for lookup, trees for ordered data, graphs for networks.",
+    "lessons": [
+      "5.1",
+      "5.5"
+    ],
+    "related": [
+      "Algorithm",
+      "Collection"
+    ]
+  },
+  {
+    "term": "Linear search",
+    "aliases": [
+      "sequential search"
+    ],
+    "definition": "Checking each item in turn until you find the target. Works on unsorted data; `O(n)` time.",
+    "lessons": [
+      "5.2"
+    ],
+    "related": [
+      "Binary search",
+      "Big-O notation"
+    ]
+  },
+  {
+    "term": "Binary search",
+    "definition": "Searching sorted data by repeatedly halving the range: look at the middle, discard the half that cannot contain the target. `O(log n)` - a million items in about 20 steps.",
+    "lessons": [
+      "5.2"
+    ],
+    "related": [
+      "Linear search",
+      "Big-O notation",
+      "Binary search tree"
+    ]
+  },
+  {
+    "term": "Sorting algorithm",
+    "aliases": [
+      "sort",
+      "bubble sort",
+      "insertion sort",
+      "selection sort"
+    ],
+    "definition": "Putting items in order. Bubble, insertion and selection sort are simple and `O(n²)`; merge sort and quicksort are `O(n log n)` and what real libraries use.",
+    "lessons": [
+      "5.3"
+    ],
+    "related": [
+      "Merge sort",
+      "Quicksort",
+      "Big-O notation"
+    ]
+  },
+  {
+    "term": "Merge sort",
+    "definition": "A divide-and-conquer sort: split the list in half, sort each half recursively, then merge the two sorted halves. Always `O(n log n)` and stable, at the cost of extra memory.",
+    "lessons": [
+      "5.3"
+    ],
+    "related": [
+      "Sorting algorithm",
+      "Quicksort",
+      "Recursion"
+    ]
+  },
+  {
+    "term": "Quicksort",
+    "aliases": [
+      "pivot",
+      "partition"
+    ],
+    "definition": "A divide-and-conquer sort: pick a pivot, partition items into less-than and greater-than, then sort each side recursively. `O(n log n)` on average, in place, but `O(n²)` with a bad pivot.",
+    "lessons": [
+      "5.3"
+    ],
+    "related": [
+      "Sorting algorithm",
+      "Merge sort",
+      "Recursion"
+    ]
+  },
+  {
+    "term": "Recursion",
+    "aliases": [
+      "recursive",
+      "base case",
+      "recursive case"
+    ],
+    "definition": "A method that calls itself on a smaller version of the problem. Every recursive method needs a base case that stops, or it recurses until the stack overflows.",
+    "example": "int Fact(int n) => n <= 1 ? 1 : n * Fact(n - 1);",
+    "lessons": [
+      "5.4"
+    ],
+    "related": [
+      "Call stack",
+      "Stack overflow",
+      "Merge sort"
+    ]
+  },
+  {
+    "term": "Call stack",
+    "aliases": [
+      "stack frame"
+    ],
+    "definition": "The runtime's record of which methods are currently running, each with its local variables. A call pushes a frame; a return pops it. Deep recursion grows it fast.",
+    "lessons": [
+      "5.4",
+      "1.11"
+    ],
+    "related": [
+      "Recursion",
+      "Stack trace",
+      "Stack overflow",
+      "Stack"
+    ]
+  },
+  {
+    "term": "Stack overflow",
+    "aliases": [
+      "StackOverflowException"
+    ],
+    "definition": "The crash when the call stack runs out of room - almost always recursion with a missing or unreachable base case.",
+    "lessons": [
+      "5.4"
+    ],
+    "related": [
+      "Recursion",
+      "Call stack"
+    ]
+  },
+  {
+    "term": "Binary search tree",
+    "aliases": [
+      "BST",
+      "binary tree",
+      "tree",
+      "root",
+      "leaf"
+    ],
+    "definition": "A tree where each node has at most two children, everything in the left subtree is smaller and everything in the right is larger. Search, insert and delete are `O(log n)` when balanced.",
+    "lessons": [
+      "5.7"
+    ],
+    "related": [
+      "Tree traversal",
+      "Node",
+      "Binary search"
+    ]
+  },
+  {
+    "term": "Tree traversal",
+    "aliases": [
+      "in-order",
+      "pre-order",
+      "post-order",
+      "inorder",
+      "preorder",
+      "postorder"
+    ],
+    "definition": "Visiting every node of a tree in a defined order. In-order (left, node, right) gives a BST's items sorted; pre-order (node, left, right) copies the structure; post-order (left, right, node) deletes safely.",
+    "lessons": [
+      "5.7"
+    ],
+    "related": [
+      "Binary search tree",
+      "Recursion",
+      "Depth-first search"
+    ]
+  },
+  {
+    "term": "Graph",
+    "aliases": [
+      "vertex",
+      "edge",
+      "adjacency list",
+      "adjacency matrix",
+      "directed",
+      "weighted"
+    ],
+    "definition": "A set of vertices (nodes) joined by edges. Edges may be directed or undirected, weighted or not. Stored as an adjacency list (each node's neighbours) or adjacency matrix (a grid).",
+    "lessons": [
+      "5.8"
+    ],
+    "related": [
+      "Breadth-first search",
+      "Depth-first search",
+      "Dijkstra's algorithm",
+      "Node"
+    ]
+  },
+  {
+    "term": "Breadth-first search",
+    "aliases": [
+      "BFS"
+    ],
+    "definition": "Exploring a graph level by level from a start node using a queue. Finds the shortest path in number of edges on an unweighted graph.",
+    "lessons": [
+      "5.8"
+    ],
+    "related": [
+      "Depth-first search",
+      "Graph",
+      "Queue"
+    ]
+  },
+  {
+    "term": "Depth-first search",
+    "aliases": [
+      "DFS"
+    ],
+    "definition": "Exploring a graph by following one path as far as it goes before backtracking, using recursion or an explicit stack. Good for detecting cycles and exploring mazes.",
+    "lessons": [
+      "5.8"
+    ],
+    "related": [
+      "Breadth-first search",
+      "Graph",
+      "Stack",
+      "Recursion"
+    ]
+  },
+  {
+    "term": "Dijkstra's algorithm",
+    "aliases": [
+      "dijkstra",
+      "shortest path"
+    ],
+    "definition": "Finds the cheapest path from one node to all others in a weighted graph with no negative edges, always expanding the closest unvisited node next (a priority queue makes that fast).",
+    "lessons": [
+      "5.8"
+    ],
+    "related": [
+      "Graph",
+      "Breadth-first search",
+      "Priority queue"
+    ]
+  },
+  {
+    "term": "Priority queue",
+    "aliases": [
+      "PriorityQueue<TElement, TPriority>",
+      "min-heap"
+    ],
+    "definition": "A queue where `Dequeue` always returns the item with the lowest priority value rather than the oldest. .NET's `PriorityQueue` is a binary heap; Dijkstra's algorithm depends on one.",
+    "lessons": [
+      "5.8"
+    ],
+    "related": [
+      "Queue",
+      "Dijkstra's algorithm"
+    ]
+  },
+  {
+    "term": "Hash table",
+    "aliases": [
+      "hashing",
+      "hash function",
+      "bucket",
+      "collision"
+    ],
+    "definition": "A structure that turns a key into an array index with a hash function, giving `O(1)` average lookup. Two keys landing in the same bucket is a collision, handled by chaining or probing. `Dictionary` and `HashSet` are hash tables.",
+    "lessons": [
+      "5.9"
+    ],
+    "related": [
+      "Dictionary",
+      "HashSet",
+      "Equality",
+      "Hash function"
+    ]
+  },
+  {
+    "term": "Hash function",
+    "aliases": [
+      "GetHashCode",
+      "SHA-256",
+      "hash"
+    ],
+    "definition": "A function that maps data of any size to a fixed-size number. Hash tables use a fast one (`GetHashCode`); security uses a cryptographic one (`SHA-256`) that is practically impossible to reverse.",
+    "lessons": [
+      "5.9",
+      "6.3"
+    ],
+    "related": [
+      "Hash table",
+      "Equality",
+      "Password hashing"
+    ]
+  },
+  {
+    "term": "Thread",
+    "aliases": [
+      "threading",
+      "multithreading",
+      "thread pool"
+    ],
+    "definition": "An independent path of execution inside a program. Several threads can run at once on different cores. Sharing data between them safely is the hard part.",
+    "lessons": [
+      "6.1"
+    ],
+    "related": [
+      "Concurrency",
+      "Race condition",
+      "lock",
+      "Task"
+    ]
+  },
+  {
+    "term": "Concurrency",
+    "aliases": [
+      "parallelism",
+      "parallel",
+      "Parallel.For"
+    ],
+    "definition": "Doing more than one thing at a time - or appearing to. Parallelism uses several cores at once for CPU work; asynchrony frees a thread while waiting for I/O.",
+    "lessons": [
+      "6.1"
+    ],
+    "related": [
+      "Thread",
+      "Asynchronous programming",
+      "Race condition"
+    ]
+  },
+  {
+    "term": "Race condition",
+    "aliases": [
+      "data race",
+      "thread safety",
+      "thread-safe"
+    ],
+    "definition": "A bug where the result depends on the exact timing of threads - two threads incrementing the same counter can lose updates. Fixed by locking or by not sharing mutable state.",
+    "lessons": [
+      "6.1"
+    ],
+    "related": [
+      "lock",
+      "Thread",
+      "Immutability"
+    ]
+  },
+  {
+    "term": "lock",
+    "aliases": [
+      "mutex",
+      "Interlocked",
+      "critical section",
+      "deadlock"
+    ],
+    "definition": "A statement that lets only one thread at a time run a block of code, protecting shared data. `Interlocked` offers cheaper atomic operations for simple counters. Two threads each waiting for the other's lock is a deadlock.",
+    "example": "lock (_sync) { _count++; }",
+    "lessons": [
+      "6.1"
+    ],
+    "related": [
+      "Race condition",
+      "Thread"
+    ]
+  },
+  {
+    "term": "Benchmarking",
+    "aliases": [
+      "Stopwatch",
+      "profiling",
+      "performance"
+    ],
+    "definition": "Measuring how long code really takes rather than guessing. `Stopwatch` for quick checks, `BenchmarkDotNet` for serious numbers. Measure before you optimise.",
+    "lessons": [
+      "6.2"
+    ],
+    "related": [
+      "Big-O notation",
+      "Span<T>",
+      "StringBuilder"
+    ]
+  },
+  {
+    "term": "Span<T>",
+    "aliases": [
+      "Span",
+      "ReadOnlySpan",
+      "allocation"
+    ],
+    "definition": "A view over a slice of memory - part of an array or string - with no copying and no heap allocation. Used in performance-sensitive code to avoid creating garbage.",
+    "lessons": [
+      "6.2"
+    ],
+    "related": [
+      "Benchmarking",
+      "Garbage collector"
+    ]
+  },
+  {
+    "term": "Boxing and unboxing",
+    "aliases": [
+      "boxing",
+      "unboxing"
+    ],
+    "definition": "Boxing wraps a value type in an object on the heap (`int` stored as `object`); unboxing takes it out again. Both cost time and memory - generics exist largely to avoid it.",
+    "lessons": [
+      "2.8",
+      "6.2"
+    ],
+    "related": [
+      "Value type",
+      "Reference type",
+      "Generics"
+    ]
+  },
+  {
+    "term": "Password hashing",
+    "aliases": [
+      "salt",
+      "PBKDF2",
+      "bcrypt"
+    ],
+    "definition": "Never store passwords - store a slow, salted hash of them (PBKDF2, bcrypt, Argon2) and compare hashes at login. A salt is random data added so identical passwords hash differently.",
+    "lessons": [
+      "6.3"
+    ],
+    "related": [
+      "Hash function",
+      "Encryption"
+    ]
+  },
+  {
+    "term": "Encryption",
+    "aliases": [
+      "AES",
+      "symmetric",
+      "asymmetric",
+      "public key",
+      "cryptography"
+    ],
+    "definition": "Scrambling data so only someone with the key can read it. Symmetric (AES) uses one shared key; asymmetric (RSA) uses a public/private pair. Unlike hashing, encryption is reversible.",
+    "lessons": [
+      "6.3"
+    ],
+    "related": [
+      "Password hashing",
+      "Hash function"
+    ]
+  },
+  {
+    "term": "Input validation",
+    "aliases": [
+      "injection",
+      "SQL injection",
+      "sanitise"
+    ],
+    "definition": "Never trusting data from outside the program. Check length, range and format; use parameterised queries so user text can never be run as SQL (injection).",
+    "lessons": [
+      "6.3",
+      "1.3"
+    ],
+    "related": [
+      "Parsing",
+      "Exception"
+    ]
+  },
+  {
+    "term": "Dependency injection",
+    "aliases": [
+      "DI",
+      "inversion of control",
+      "IoC",
+      "service container"
+    ],
+    "definition": "Giving a class the things it depends on (through its constructor) instead of letting it create them. Depend on interfaces, and you can swap a real database for a fake one in tests.",
+    "example": "public OrderService(IOrderRepository repo) { _repo = repo; }",
+    "lessons": [
+      "6.5"
+    ],
+    "related": [
+      "Interface",
+      "Coupling",
+      "SOLID",
+      "Unit test"
+    ]
+  },
+  {
+    "term": "Unit test",
+    "aliases": [
+      "testing",
+      "xUnit",
+      "NUnit",
+      "test-driven"
+    ],
+    "definition": "A small automated test that checks one piece of code gives the expected result. Frameworks like `xUnit` run them all on every build, so a change that breaks something is caught immediately.",
+    "lessons": [
+      "6.5",
+      "2.15"
+    ],
+    "related": [
+      "Dependency injection",
+      "Logic error"
+    ]
+  },
+  {
+    "term": "Layered architecture",
+    "aliases": [
+      "architecture",
+      "separation of concerns",
+      "clean architecture"
+    ],
+    "definition": "Splitting a program into layers - user interface, business logic, data access - each depending only on the layer beneath. Keeps concerns separate so each part can change or be tested alone.",
+    "lessons": [
+      "6.5",
+      "2.15"
+    ],
+    "related": [
+      "Dependency injection",
+      "Coupling",
+      "Cohesion"
+    ]
+  },
+  {
+    "term": "Scope",
+    "aliases": [
+      "local variable",
+      "lifetime"
+    ],
+    "definition": "The region of code where a variable can be seen - from its declaration to the end of the enclosing block. A local declared inside a loop does not exist outside it.",
+    "lessons": [
+      "1.2",
+      "1.9"
+    ],
+    "related": [
+      "Block",
+      "Variable",
+      "Closure"
+    ]
+  }
+]

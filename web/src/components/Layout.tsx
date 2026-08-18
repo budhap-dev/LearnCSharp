@@ -15,6 +15,7 @@ export function Layout() {
           <NavLink to="/">Home</NavLink>
           <NavLink to="/syllabus">Syllabus</NavLink>
           <NavLink to="/practice">Practice</NavLink>
+          <NavLink to="/glossary">Glossary</NavLink>
         </nav>
         <div className="header-right">
           <SearchBox />
@@ -28,8 +29,7 @@ export function Layout() {
 
       <footer>
         <p>
-          Every output block on this site was captured from a C# program that really ran.
-          {' '}
+          Every lesson on this site is backed by a C# program that really runs.{' '}
           <a href="https://github.com">Source</a>
         </p>
       </footer>

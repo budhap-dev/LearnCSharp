@@ -1202,3 +1202,124 @@ body::before {
 .code-card:hover .copy-button, .copy-button:focus-visible { opacity: 1; }
 .copy-button:hover { color: var(--accent); border-color: var(--accent); }
 .copy-button.copied { color: var(--correct); border-color: var(--correct); }
+
+/* ---- glossary ---- */
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.glossary-controls { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+.glossary-controls .search-input-big { flex: 1 1 18rem; margin: 0.5rem 0; }
+.glossary-module select {
+  font: inherit; font-size: 0.95rem; color: var(--text); background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 0.65rem 0.8rem; cursor: pointer;
+}
+.glossary-module select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.letter-bar {
+  display: flex; flex-wrap: wrap; gap: 0.25rem; margin: 0.75rem 0 1.5rem;
+  position: sticky; top: 0; z-index: 5; padding: 0.5rem 0;
+  background: var(--bg);
+}
+.letter-bar button {
+  font: inherit; font-size: 0.82rem; font-weight: 600; min-width: 2rem;
+  padding: 0.3rem 0.4rem; border-radius: 6px; cursor: pointer;
+  background: var(--surface); color: var(--accent); border: 1px solid var(--border);
+}
+.letter-bar button:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
+.letter-bar button:disabled { color: var(--muted); opacity: 0.45; cursor: default; }
+
+.glossary-letter { scroll-margin-top: 4rem; }
+.glossary-letter h2 {
+  font-size: 1.6rem; color: var(--accent); margin: 1.5rem 0 0.25rem;
+  border-bottom: 1px solid var(--border); padding-bottom: 0.2rem;
+}
+.glossary-list { margin: 0; }
+.glossary-entry {
+  padding: 0.85rem 1rem; margin: 0.6rem 0;
+  border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+  scroll-margin-top: 4rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.glossary-entry.flash { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.glossary-entry dt { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; font-size: 1.08rem; font-weight: 700; }
+.glossary-entry dt .term-anchor { color: var(--text); text-decoration: none; }
+.glossary-entry dt .term-anchor:hover { color: var(--accent); }
+.glossary-entry .aliases { font-size: 0.8rem; font-weight: 400; color: var(--muted); }
+.glossary-entry .aliases code { font-size: 0.78rem; }
+.glossary-entry dd { margin: 0.35rem 0 0; }
+.glossary-entry dd p { margin: 0 0 0.4rem; line-height: 1.55; }
+.glossary-example {
+  margin: 0.4rem 0 0.6rem; padding: 0.55rem 0.8rem; font-size: 0.82rem;
+  background: var(--code-bg); color: var(--code-text);
+  border: 1px solid var(--code-border); border-radius: 8px; overflow-x: auto;
+}
+.glossary-example code { background: transparent; color: inherit; }
+.entry-meta { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; font-size: 0.82rem; color: var(--muted); }
+.entry-meta a { color: var(--accent); text-decoration: none; }
+.entry-meta a:hover { text-decoration: underline; }
+.entry-meta .lid { font-size: 0.78rem; min-width: 0; }
+.see-also { display: inline-flex; flex-wrap: wrap; gap: 0.3rem; align-items: center; }
+.term-chip {
+  font: inherit; font-size: 0.76rem; cursor: pointer;
+  background: var(--accent-soft); color: var(--accent); border: none;
+  border-radius: 999px; padding: 0.12rem 0.55rem;
+}
+.term-chip:hover { text-decoration: underline; }
+.glossary mark, .search-terms mark {
+  background: var(--accent-soft); color: var(--accent); border-radius: 3px; padding: 0 1px; font-weight: 700;
+}
+
+/* glossary matches on the search page */
+.search-terms {
+  border: 1px solid var(--border); border-left: 4px solid var(--accent);
+  border-radius: var(--radius); background: var(--surface);
+  padding: 0.75rem 1rem; margin: 0 0 1.25rem;
+}
+.search-terms h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin: 0 0 0.4rem; }
+.search-terms ul { list-style: none; margin: 0; padding: 0; }
+.search-terms li { margin: 0.35rem 0; font-size: 0.92rem; line-height: 1.5; }
+.search-terms li a { color: var(--accent); text-decoration: none; }
+.search-terms li a:hover { text-decoration: underline; }
+.search-terms .more { display: inline-block; margin-top: 0.4rem; font-size: 0.85rem; color: var(--accent); text-decoration: none; }
+
+/* key terms on a lesson page */
+.key-terms {
+  border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+  padding: 1rem 1.25rem; margin: 2rem 0;
+}
+.key-terms h2 { margin-top: 0; }
+.key-terms dl { margin: 0; display: grid; gap: 0.6rem; }
+.key-terms dt { font-weight: 700; }
+.key-terms dt a { color: var(--accent); text-decoration: none; }
+.key-terms dt a:hover { text-decoration: underline; }
+.key-terms dd { margin: 0.1rem 0 0; color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
+.key-terms > p { margin: 0.9rem 0 0; font-size: 0.88rem; }
+.key-terms > p a { color: var(--accent); }
+
+@media (max-width: 640px) {
+  .glossary-controls .search-input-big { flex-basis: 100%; }
+  .glossary-module { width: 100%; }
+  .glossary-module select { width: 100%; }
+}
+
+/* floating back-to-top on long pages */
+.to-top {
+  position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 40;
+  font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  background: var(--accent); color: #fff; border: none; border-radius: 999px;
+  padding: 0.6rem 1rem; box-shadow: 0 6px 18px rgb(0 0 0 / 0.22);
+  animation: to-top-in 0.18s ease-out;
+}
+.to-top:hover { filter: brightness(1.1); }
+.to-top:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+@keyframes to-top-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .to-top { animation: none; } }
+
+/* inline code inside glossary text */
+.glossary-entry dd code, .key-terms dd code, .search-terms li code {
+  font-family: var(--mono); font-size: 0.85em;
+  background: var(--code-bg); color: var(--code-text);
+  border: 1px solid var(--code-border); border-radius: 4px; padding: 0.05em 0.35em;
+}
