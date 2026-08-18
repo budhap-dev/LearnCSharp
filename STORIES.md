@@ -29,9 +29,9 @@ Legend: ✅ done · 🟡 partly done · ⬜ not started. Each story below carrie
 | **Module 6 (Production C#)** | ✅ written — threading, performance, security, serialization, DI |
 | **Worksheets, reference, search, pathways, module tests, topic exams** | ⬜ not started |
 
-**Current biggest gaps:** the richer question types beyond multiple-choice (US-403), module
-tests and topic exams that consume the now-complete bank (US-405/407), and the diagram set
-(13 of ~110).
+**Current biggest gaps:** the richer question types beyond multiple-choice (US-403), the
+diagram set (13 of ~110), and progress dashboard/export UI (US-602/603). Topic exams (US-407)
+now ship a working player over the complete bank.
 
 ---
 
@@ -547,7 +547,7 @@ it, not just recognised it.
 - [ ] Balanced across difficulty 1–3
 - [ ] At least three `predict-output` questions per lesson, generated from verified code
 
-### US-407 · Topic exams with marks and graded sets *(Should, L)* · ⬜
+### US-407 · Topic exams with marks and graded sets *(Should, L)* · 🟡 — *player built; difficulty tiers by breadth/pass-bar, not a per-question field*
 **As a** student **I want** a marked exam per topic at easy, medium or hard level **so that** I
 can test myself under exam conditions and see exactly where I stand.
 

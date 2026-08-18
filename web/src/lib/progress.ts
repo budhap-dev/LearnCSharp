@@ -13,13 +13,23 @@ export interface QuizAttempt {
   at: string;
 }
 
+export interface ExamAttempt {
+  module: number;
+  level: string;
+  marks: number;
+  totalMarks: number;
+  grade: string;
+  at: string;
+}
+
 export interface Progress {
   version: 1;
   lessons: Record<string, LessonState>;
   quizzes: Record<string, QuizAttempt[]>;
+  exams?: ExamAttempt[];
 }
 
-const empty: Progress = { version: 1, lessons: {}, quizzes: {} };
+const empty: Progress = { version: 1, lessons: {}, quizzes: {}, exams: [] };
 
 export function read(): Progress {
   try {
@@ -63,6 +73,16 @@ export function bestScore(id: string): QuizAttempt | null {
   const attempts = read().quizzes[id] ?? [];
   if (attempts.length === 0) return null;
   return attempts.reduce((best, a) => (a.score > best.score ? a : best));
+}
+
+export function recordExam(attempt: ExamAttempt): void {
+  const progress = read();
+  progress.exams = [...(progress.exams ?? []), attempt];
+  write(progress);
+}
+
+export function examHistory(module: number): ExamAttempt[] {
+  return (read().exams ?? []).filter((e) => e.module === module);
 }
 
 export function reset(): void {

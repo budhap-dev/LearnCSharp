@@ -7,6 +7,9 @@ import { Syllabus } from './routes/Syllabus';
 // The lesson page pulls in the markdown renderer and syntax highlighter, which are by far
 // the heaviest dependencies. Loading it lazily keeps the home and syllabus pages small.
 const Lesson = lazy(() => import('./routes/Lesson').then((m) => ({ default: m.Lesson })));
+const ModuleExam = lazy(() =>
+  import('./routes/ModuleExam').then((m) => ({ default: m.ModuleExam })),
+);
 
 /**
  * HashRouter keeps deep links working on any static host with no rewrite rules,
@@ -24,6 +27,14 @@ export default function App() {
             element={
               <Suspense fallback={<p className="muted">Loading lesson…</p>}>
                 <Lesson />
+              </Suspense>
+            }
+          />
+          <Route
+            path="module/:module/exam"
+            element={
+              <Suspense fallback={<p className="muted">Loading exam…</p>}>
+                <ModuleExam />
               </Suspense>
             }
           />
