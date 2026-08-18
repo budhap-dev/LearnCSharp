@@ -1,0 +1,82 @@
+[
+  {
+    "id": "3.4-q1",
+    "topic": "the problem",
+    "stem": "Pre-generics containers stored object. The runtime cost of getting an int back out was:",
+    "options": ["Nothing", "A cast that can THROW at run time, after compiling fine", "Slow compilation", "Extra memory only"],
+    "answer": 1,
+    "explanation": "(int)box.Item compiles whatever Item holds - and explodes with InvalidCastException in front of the user. Generics move that error to compile time."
+  },
+  {
+    "id": "3.4-q2",
+    "topic": "type parameters",
+    "stem": "In class Box<T>, what is T?",
+    "options": ["A special string type", "A PLACEHOLDER filled in by whoever uses the class - Box<string>, Box<int>...", "An interface", "The base class"],
+    "answer": 1,
+    "explanation": "One class definition, every type, full compile-time safety: words.Item.Length works because the compiler KNOWS it is a string."
+  },
+  {
+    "id": "3.4-q3",
+    "topic": "inference",
+    "stem": "Calling First(new[] {3, 1, 2}) without writing First<int> works because:",
+    "options": ["int is default", "The compiler INFERS T from the argument", "Arrays are special", "It does not work"],
+    "answer": 1,
+    "explanation": "Type inference reads T from what you pass - which is why you have called dozens of generic methods without noticing they were generic."
+  },
+  {
+    "id": "3.4-q4",
+    "topic": "constraints",
+    "stem": "Why does calling item.CompareTo(best) inside Largest<T> fail WITHOUT a constraint?",
+    "options": ["CompareTo is private", "T could be ANY type, and not every type has CompareTo", "Generics forbid methods", "It needs ref"],
+    "answer": 1,
+    "explanation": "Unconstrained T only promises object's members. 'where T : IComparable<T>' narrows T in exchange for the capability."
+  },
+  {
+    "id": "3.4-q5",
+    "topic": "constraint syntax",
+    "stem": "To write 'new T()' inside a generic method you need:",
+    "options": ["where T : class", "where T : new() - a public parameterless constructor", "where T : struct", "Nothing"],
+    "answer": 1,
+    "explanation": "Each constraint unlocks an ability: new() for construction, IComparable for ordering, a base class for its members."
+  },
+  {
+    "id": "3.4-q6",
+    "topic": "no boxing",
+    "stem": "List<int> beats the old ArrayList because:",
+    "options": ["Newer API", "The runtime generates an int-specialised version - real ints, NO boxing, no casts", "It is sorted", "It is thread-safe"],
+    "answer": 1,
+    "explanation": "For value types, generics are specialised at runtime: safer AND faster with no trade-off. 6.2 measures what boxing costs."
+  },
+  {
+    "id": "3.4-q7",
+    "topic": "generic methods",
+    "stem": "static T First<T>(T[] items) => items[0]; is a:",
+    "options": ["Generic class", "Generic METHOD - its own type parameter, independent of any class", "Delegate", "Constraint"],
+    "answer": 1,
+    "explanation": "Methods can be generic on their own. The <T> after the name declares it; usage rarely needs to spell it out."
+  },
+  {
+    "id": "3.4-q8",
+    "topic": "multiple parameters",
+    "stem": "Pair<TFirst, TSecond> shows that generic types may:",
+    "options": ["Have at most one parameter", "Take SEVERAL type parameters, conventionally named descriptively", "Only pair value types", "Not be records"],
+    "answer": 1,
+    "explanation": "Dictionary<TKey, TValue> and Func<T, TResult> follow the same convention: T alone when single, TDescriptive when several."
+  },
+  {
+    "id": "3.4-q9",
+    "topic": "everyday generics",
+    "stem": "Which of these is NOT built on generics?",
+    "options": ["int? (Nullable<int>)", "Task<T>", "Func<T, TResult>", "Console.WriteLine"],
+    "answer": 3,
+    "explanation": "Nullable, Task, Func, IEnumerable, the collections - generics run through the whole platform. WriteLine is plain overloading."
+  },
+  {
+    "id": "3.4-q10",
+    "topic": "the from-scratch stack",
+    "stem": "SimpleStack<T> was ~20 lines and works for every type ever. The lesson's point:",
+    "options": ["Stacks are hard", "There is NO MAGIC in Stack<T> - generics let one small class serve all types safely", "Arrays resize themselves", "T must be int"],
+    "answer": 1,
+    "explanation": "Push/Pop over a doubling array plus one type parameter = the real collection, unpolished. 5.6 finishes the job."
+  }
+]

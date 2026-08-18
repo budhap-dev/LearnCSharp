@@ -1,0 +1,83 @@
+[
+  {
+    "id": "3.6-q1",
+    "topic": "Where vs Select",
+    "stem": "Where and Select differ how?",
+    "options": ["Synonyms", "Where FILTERS (keeps matching items); Select TRANSFORMS (each item becomes something else)", "Select filters", "Where sorts"],
+    "answer": 1,
+    "explanation": "Where: same items, fewer of them. Select: same count, different shape. The two halves of most queries."
+  },
+  {
+    "id": "3.6-q2",
+    "topic": "First family",
+    "stem": "Nothing matches. pupils.First(p => p.Mark > 99) versus FirstOrDefault:",
+    "options": ["Both null", "First THROWS InvalidOperationException; FirstOrDefault returns null/default", "Both throw", "First returns -1"],
+    "answer": 1,
+    "explanation": "Choose by meaning: FirstOrDefault when absence is normal (then null-check); First when absence would be a bug worth hearing about."
+  },
+  {
+    "id": "3.6-q3",
+    "topic": "Single",
+    "stem": "When would you use Single(...) instead of First(...)?",
+    "options": ["For speed", "When TWO matches would mean corrupt data - Single throws on duplicates, First silently takes one", "Never", "On sorted data"],
+    "answer": 1,
+    "explanation": "Single asserts exactly-one: find-by-unique-id is the classic case. First shrugs at extras."
+  },
+  {
+    "id": "3.6-q4",
+    "topic": "MaxBy",
+    "stem": "pupils.Max(p => p.Mark) vs pupils.MaxBy(p => p.Mark):",
+    "options": ["Identical", "Max gives the highest MARK (an int); MaxBy gives the PUPIL who has it", "MaxBy sorts", "Max throws"],
+    "answer": 1,
+    "explanation": "Wanting the top scorer and reaching for Max then searching again is the long way round - MaxBy returns the item directly."
+  },
+  {
+    "id": "3.6-q5",
+    "topic": "Any vs Count",
+    "stem": "Prefer Any() to Count() > 0 because:",
+    "options": ["Shorter only", "Any STOPS at the first item; Count walks the entire sequence", "Count is wrong", "Any caches"],
+    "answer": 1,
+    "explanation": "On a lazy or large source that difference is real work. Any(predicate) similarly stops at the first match."
+  },
+  {
+    "id": "3.6-q6",
+    "topic": "chaining order",
+    "stem": "Where before Select in a chain is preferred because:",
+    "options": ["Alphabetical", "You TRANSFORM FEWER items - filter first, then shape survivors", "Select cannot follow Where", "It compiles faster"],
+    "answer": 1,
+    "explanation": "Both orders can be correct; filtering first does less work. Same instinct scales up in 3.7's reports."
+  },
+  {
+    "id": "3.6-q7",
+    "topic": "predict output",
+    "stem": "What does this produce?",
+    "code": "int[] ns = { 5, 2, 8, 1 };\nvar r = ns.Where(n => n > 2).OrderBy(n => n).Select(n => n * 10);\nConsole.WriteLine(string.Join(\",\", r));",
+    "options": ["50,80", "50,20,80,10", "80,50", "30,60"],
+    "answer": 0,
+    "explanation": "Keep >2 (5, 8), order (5, 8), times ten (50, 80). Reading a chain top to bottom like a sentence is the skill."
+  },
+  {
+    "id": "3.6-q8",
+    "topic": "paging",
+    "stem": "Page 3 of results, 10 per page:",
+    "options": ["Take(30)", "Skip(20).Take(10)", "Skip(30).Take(10)", "Take(10).Skip(20)"],
+    "answer": 1,
+    "explanation": "Skip past two full pages (20 items), take the next 10. Take-then-Skip would slice the wrong end."
+  },
+  {
+    "id": "3.6-q9",
+    "topic": "ThenBy",
+    "stem": "Sorting by subject, ties broken by mark descending:",
+    "options": [".OrderBy(p => p.Subject).OrderByDescending(p => p.Mark)", ".OrderBy(p => p.Subject).ThenByDescending(p => p.Mark)", ".Sort(subject, mark)", ".OrderBy(p => p.Subject + p.Mark)"],
+    "answer": 1,
+    "explanation": "ThenBy adds a tiebreak; a second OrderBy would REPLACE the first ordering entirely - a classic silent bug."
+  },
+  {
+    "id": "3.6-q10",
+    "topic": "query syntax",
+    "stem": "from p in pupils where p.Year == 10 select p.Name - versus method syntax:",
+    "options": ["Faster", "IDENTICAL meaning - two spellings of the same query", "Runs eagerly", "Old and deprecated"],
+    "answer": 1,
+    "explanation": "The compiler translates query syntax into the same Where/Select calls. Read both; write whichever is clearer for the query at hand."
+  }
+]

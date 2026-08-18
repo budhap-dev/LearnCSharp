@@ -1,0 +1,82 @@
+[
+  {
+    "id": "3.3-q1",
+    "topic": "LIFO/FIFO",
+    "stem": "Stack and Queue differ how?",
+    "options": ["Speed", "Stack: last in, FIRST out. Queue: first in, first out", "Stack is sorted", "Queue is fixed size"],
+    "answer": 1,
+    "explanation": "Plates vs checkout line. The restriction IS the feature - with one reachable item, whole bug categories vanish."
+  },
+  {
+    "id": "3.3-q2",
+    "topic": "operations",
+    "stem": "The core stack operations are:",
+    "options": ["Add / Remove", "Push / Pop / Peek", "Enqueue / Dequeue", "Insert / Delete"],
+    "answer": 1,
+    "explanation": "Push adds to the top, Pop removes from the top, Peek looks without taking. Queues speak Enqueue/Dequeue instead."
+  },
+  {
+    "id": "3.3-q3",
+    "topic": "empty pop",
+    "stem": "Pop() on an empty Stack:",
+    "options": ["Returns default", "Returns null", "Throws InvalidOperationException", "Blocks"],
+    "answer": 2,
+    "explanation": "Empty stack, wrong TIME to pop - InvalidOperationException (4.7's 'right arguments, wrong state'). TryPop returns false instead."
+  },
+  {
+    "id": "3.3-q4",
+    "topic": "reversal",
+    "stem": "Push every char of \"stressed\" then pop them all. You get:",
+    "options": ["stressed", "desserts", "sserts", "Random order"],
+    "answer": 1,
+    "explanation": "LIFO reverses for free - last pushed, first popped. 5.6 uses exactly this to fix binary digits coming out backwards."
+  },
+  {
+    "id": "3.3-q5",
+    "topic": "bracket matching",
+    "stem": "Why is a STACK the right tool for checking balanced brackets?",
+    "options": ["Brackets are characters", "The most recent unclosed opener must close FIRST - exactly LIFO", "It is fastest", "Queues cannot hold chars"],
+    "answer": 1,
+    "explanation": "Push openers; each closer must match the POP. Wrong kind or empty stack = unbalanced. This is how compilers check your braces."
+  },
+  {
+    "id": "3.3-q6",
+    "topic": "queue uses",
+    "stem": "Which task naturally wants a QUEUE?",
+    "options": ["Undo history", "A print spooler - first submitted, first printed", "Matching brackets", "The call stack"],
+    "answer": 1,
+    "explanation": "First-come-first-served = FIFO. Undo, back-buttons and call frames are LIFO; spoolers, buffers and BFS are queues."
+  },
+  {
+    "id": "3.3-q7",
+    "topic": "PriorityQueue",
+    "stem": "hospital.Enqueue(\"chest pain\", 1); hospital.Enqueue(\"sprain\", 5); Dequeue() returns:",
+    "options": ["\"sprain\" - highest number", "\"chest pain\" - LOWEST priority number comes out first", "Whichever arrived first", "Both"],
+    "answer": 1,
+    "explanation": "PriorityQueue serves smallest-priority first. Dijkstra (5.8) is built on exactly this collection."
+  },
+  {
+    "id": "3.3-q8",
+    "topic": "list as queue",
+    "stem": "Using list.RemoveAt(0) as 'dequeue' is bad because:",
+    "options": ["It throws", "Every removal shuffles the whole list left - O(n) each time; Queue<T> is O(1)", "Lists lose items", "It reverses order"],
+    "answer": 1,
+    "explanation": "The array underneath must close the gap. Queue<T> uses a circular buffer (built from scratch in 5.6) and never shuffles."
+  },
+  {
+    "id": "3.3-q9",
+    "topic": "linked list honesty",
+    "stem": "Why does chain[2] not exist on a LinkedList<int>?",
+    "options": ["A bug", "No index arithmetic exists - nodes are scattered, reachable only by walking pointers", "It is private", "Only strings index"],
+    "answer": 1,
+    "explanation": "Linked lists trade O(1) indexing for O(1) inserts at known nodes. And honestly: List<T> usually beats it anyway - you study it because trees are built from the same idea."
+  },
+  {
+    "id": "3.3-q10",
+    "topic": "choosing",
+    "stem": "Browser Back button; keyboard input buffer; unique visitor IDs. The collections, in order:",
+    "options": ["Queue, Stack, List", "Stack, Queue, HashSet", "List, List, List", "HashSet, Stack, Queue"],
+    "answer": 1,
+    "explanation": "Back = most recent first (Stack); typed keys processed in order (Queue); uniqueness with fast membership (HashSet)."
+  }
+]

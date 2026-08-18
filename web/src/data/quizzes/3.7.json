@@ -1,0 +1,82 @@
+[
+  {
+    "id": "3.7-q1",
+    "topic": "IGrouping",
+    "stem": "Each element of sales.GroupBy(s => s.Category) is:",
+    "options": ["A Dictionary", "An IGrouping - a small sequence of sales WITH a .Key attached", "A tuple", "A category string"],
+    "answer": 1,
+    "explanation": "A group is itself enumerable, so Count(), Sum(), Max() all work INSIDE it - which powers the summary pattern."
+  },
+  {
+    "id": "3.7-q2",
+    "topic": "the report pattern",
+    "stem": "GroupBy then Select(g => new { g.Key, Total = g.Sum(...) }) is the shape of:",
+    "options": ["A join", "Almost every summary report - bucket, then shape each bucket into a row", "Flattening", "Sorting"],
+    "answer": 1,
+    "explanation": "'Sales by customer', 'average per subject', 'count per category' - commit the group-then-project shape to memory; you will write it hundreds of times."
+  },
+  {
+    "id": "3.7-q3",
+    "topic": "computed keys",
+    "stem": "sales.GroupBy(s => s.Amount >= 20) groups by:",
+    "options": ["Amount", "A COMPUTED bool - two buckets, big and small", "Nothing", "It throws"],
+    "answer": 1,
+    "explanation": "The key can be any expression: a property, a bool, a calculation, a switch over months into quarters."
+  },
+  {
+    "id": "3.7-q4",
+    "topic": "Join drops",
+    "stem": "customers.Join(sales, ...) - what happens to a customer with NO sales?",
+    "options": ["Appears with 0", "DISAPPEARS from the result - Join keeps matches only, like an inner join", "Throws", "Appears as null"],
+    "answer": 1,
+    "explanation": "Choose by the question: should unmatched items vanish (Join) or appear with an empty group (GroupJoin)? Dev's missing row was the lesson's proof."
+  },
+  {
+    "id": "3.7-q5",
+    "topic": "GroupJoin keeps",
+    "stem": "GroupJoin for the same customer with no sales yields:",
+    "options": ["Nothing", "The customer WITH an empty group - so a total of 0 is expressible", "An exception", "A duplicate"],
+    "answer": 1,
+    "explanation": "Every left item once, paired with ALL its matches (possibly none) - like a left join summarised."
+  },
+  {
+    "id": "3.7-q6",
+    "topic": "SelectMany",
+    "stem": "baskets.Select(b => b.Items) vs baskets.SelectMany(b => b.Items):",
+    "options": ["Same", "Select: a sequence OF LISTS. SelectMany: one FLAT sequence of items", "SelectMany sorts", "Select flattens"],
+    "answer": 1,
+    "explanation": "Whenever you find a List<List<T>> and a nested foreach, SelectMany was the operator you wanted."
+  },
+  {
+    "id": "3.7-q7",
+    "topic": "Aggregate",
+    "stem": "numbers.Aggregate((total, n) => total * n) computes:",
+    "options": ["The sum", "The PRODUCT - Aggregate folds the sequence with your combining function", "The max", "A string"],
+    "answer": 1,
+    "explanation": "Aggregate is the general fold that Sum/Min/Max are shortcuts for. Prefer the named ones when they exist - they say what they mean."
+  },
+  {
+    "id": "3.7-q8",
+    "topic": "Range",
+    "stem": "Enumerable.Range(5, 4) yields:",
+    "options": ["5, 6, 7, 8", "5, 6, 7, 8, 9... to 4? nothing", "4, 5", "1..5 four times"],
+    "answer": 0,
+    "explanation": "Range(start, COUNT) - the second argument is how many, not where to stop. A perennial off-by-surprise."
+  },
+  {
+    "id": "3.7-q9",
+    "topic": "ToLookup",
+    "stem": "ToLookup vs GroupBy - the practical difference:",
+    "options": ["None", "ToLookup builds the index ONCE, reusable; lookup[missingKey] is an EMPTY sequence, never an error", "GroupBy is eager", "ToLookup sorts"],
+    "answer": 1,
+    "explanation": "GroupBy is a lazy query that re-runs per enumeration (3.5); ToLookup materialises a reusable one-to-many index with safe misses."
+  },
+  {
+    "id": "3.7-q10",
+    "topic": "full pipeline",
+    "stem": "The 'realistic report' pipeline order is:",
+    "options": ["Group, filter, order, shape", "Filter -> Group -> shape each group -> Order -> ToList once at the end", "ToList first", "Order first always"],
+    "answer": 1,
+    "explanation": "Where before GroupBy (fewer to bucket), summarise, rank, materialise once. Most reporting queries you ever write are this pipeline renamed."
+  }
+]
