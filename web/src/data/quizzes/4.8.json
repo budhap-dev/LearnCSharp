@@ -1,0 +1,82 @@
+[
+  {
+    "id": "4.8-q1",
+    "topic": "stack vs heap",
+    "stem": "A value-type LOCAL variable is freed:",
+    "options": ["By the GC eventually", "The instant its method returns - stack frames vanish wholesale", "Never", "When you Dispose it"],
+    "answer": 1,
+    "explanation": "The stack is automatic and free. Objects on the HEAP wait for the garbage collector to prove nothing references them."
+  },
+  {
+    "id": "4.8-q2",
+    "topic": "generations",
+    "stem": "The GC splits the heap into generations because:",
+    "options": ["Alphabetical order", "MOST OBJECTS DIE YOUNG - collecting new objects often and cheaply exploits that", "Threads need lanes", "Security"],
+    "answer": 1,
+    "explanation": "Gen 0 collects constantly and cheaply; survivors promote to 1 then 2, collected rarely. The design is tuned to real allocation patterns."
+  },
+  {
+    "id": "4.8-q3",
+    "topic": "GC.Collect",
+    "stem": "Calling GC.Collect() in production code is:",
+    "options": ["Recommended hourly", "Almost always WRONG - the runtime schedules better than you; the lesson calls it once purely to demonstrate", "Required after using", "A syntax error"],
+    "answer": 1,
+    "explanation": "Forcing collections usually hurts throughput. Reduce allocations (6.2) instead of micromanaging the collector."
+  },
+  {
+    "id": "4.8-q4",
+    "topic": "what GC misses",
+    "stem": "The GC does NOT release:",
+    "options": ["Strings", "File handles, sockets, DB connections - operating-system resources your objects hold", "Arrays", "Boxed ints"],
+    "answer": 1,
+    "explanation": "Managed MEMORY is the GC's whole job. Unmanaged resources need deterministic cleanup - IDisposable."
+  },
+  {
+    "id": "4.8-q5",
+    "topic": "why using",
+    "stem": "Manual .Dispose() at the end of a method fails when:",
+    "options": ["The file is big", "An EXCEPTION between open and dispose skips it - using guarantees disposal on every exit path", "Dispose is private", "It never fails"],
+    "answer": 1,
+    "explanation": "using compiles to try/finally around Dispose - 1.11's finally doing its one great job automatically."
+  },
+  {
+    "id": "4.8-q6",
+    "topic": "using declaration",
+    "stem": "'using FakeFile f = new(...);' with no braces disposes:",
+    "options": ["Immediately", "At the END of the enclosing scope", "Never", "On GC"],
+    "answer": 1,
+    "explanation": "The brace-free form scopes to the containing block. Stacked usings dispose in REVERSE order - inner first."
+  },
+  {
+    "id": "4.8-q7",
+    "topic": "dispose contract",
+    "stem": "A correct Dispose implementation must be:",
+    "options": ["Called only once or it throws", "SAFE TO CALL TWICE (idempotent), and the object should refuse work after disposal", "async", "private"],
+    "answer": 1,
+    "explanation": "Guard with a flag; ObjectDisposedException.ThrowIf for post-disposal use. Double-dispose happens in real code paths."
+  },
+  {
+    "id": "4.8-q8",
+    "topic": "managed leaks",
+    "stem": "In C#, a 'memory leak' usually means:",
+    "options": ["The GC is broken", "Accidentally KEEPING A REFERENCE - event subscriptions, static collections, captured closures", "malloc without free", "Fragmentation"],
+    "answer": 1,
+    "explanation": "The GC frees only the unreachable. A static list or a publisher's invocation list (4.3) keeps things reachable forever."
+  },
+  {
+    "id": "4.8-q9",
+    "topic": "boxing",
+    "stem": "object o = 42; performs:",
+    "options": ["A cast, free", "BOXING - the int is COPIED onto the heap as a new object", "A reference share", "Interning"],
+    "answer": 1,
+    "explanation": "And (int)o copies back out. One box is nothing; millions in a loop are GC pressure - the reason generics exist (3.4, 6.2 measures it)."
+  },
+  {
+    "id": "4.8-q10",
+    "topic": "HttpClient exception",
+    "stem": "The famous exception to 'using every IDisposable' is:",
+    "options": ["StreamReader", "HttpClient - create ONE and share it app-wide", "FileStream", "SqlConnection"],
+    "answer": 1,
+    "explanation": "Disposing HttpClient per request exhausts sockets. Rule of thumb holds elsewhere: if it is IDisposable, you using it - unless its docs say otherwise."
+  }
+]

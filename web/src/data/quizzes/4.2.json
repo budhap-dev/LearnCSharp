@@ -1,0 +1,83 @@
+[
+  {
+    "id": "4.2-q1",
+    "topic": "syntax",
+    "stem": "Which lambda is equivalent to: (int x) => { return x * x; } ?",
+    "options": ["x => x * x", "x -> x * x", "lambda x: x * x", "=> x * x"],
+    "answer": 0,
+    "explanation": "Types infer, single parameters need no brackets, and an expression body needs no braces or return. All four spellings in the lesson are one function."
+  },
+  {
+    "id": "4.2-q2",
+    "topic": "closures capture variables",
+    "stem": "What does this print?",
+    "code": "int factor = 3;\nFunc<int,int> scale = n => n * factor;\nfactor = 10;\nConsole.WriteLine(scale(10));",
+    "options": ["30", "100", "3", "It will not compile"],
+    "answer": 1,
+    "explanation": "The lambda captured the VARIABLE, not its value at creation. factor is 10 when scale runs, so 100. The most important closure fact."
+  },
+  {
+    "id": "4.2-q3",
+    "topic": "state outlives methods",
+    "stem": "MakeCounter returns () => ++count where count is a local. After MakeCounter finishes, count:",
+    "options": ["Is destroyed", "LIVES ON, privately owned by the returned lambda", "Becomes static", "Resets each call"],
+    "answer": 1,
+    "explanation": "Captured locals survive their method. Each MakeCounter() call creates fresh state - two counters count independently. Object-like behaviour, no class."
+  },
+  {
+    "id": "4.2-q4",
+    "topic": "loop capture",
+    "stem": "for (int i = 0; i < 3; i++) fs.Add(() => i); Calling all three lambdas afterwards prints:",
+    "options": ["0, 1, 2", "3, 3, 3 - all captured the ONE loop variable, now 3", "0, 0, 0", "It throws"],
+    "answer": 1,
+    "explanation": "The for-loop trap: one shared i. Copy into a local inside the body (int copy = i) to capture per-iteration. (foreach was fixed in C# 5; for was not.)"
+  },
+  {
+    "id": "4.2-q5",
+    "topic": "static lambdas",
+    "stem": "Func<int,int> f = static n => n * 2; The static means:",
+    "options": ["It runs at startup", "The lambda CAPTURES NOTHING - the compiler enforces it", "It is shared", "It cannot be passed"],
+    "answer": 1,
+    "explanation": "A guarantee against accidental capture (and its hidden allocation). Try to touch an outer variable and it will not compile."
+  },
+  {
+    "id": "4.2-q6",
+    "topic": "method groups",
+    "stem": "strings.Select(s => int.Parse(s)) can be shortened to:",
+    "options": ["strings.Select(int.Parse)", "strings.Select(Parse)", "strings.int.Parse()", "It cannot"],
+    "answer": 0,
+    "explanation": "When a lambda only forwards to one method, pass the method group directly - same behaviour, less noise."
+  },
+  {
+    "id": "4.2-q7",
+    "topic": "multi-statement",
+    "stem": "A lambda body with an if and two returns requires:",
+    "options": ["Nothing special", "Braces AND explicit return statements", "A named method - lambdas cannot branch", "async"],
+    "answer": 1,
+    "explanation": "n => { if (n < 0) return \"neg\"; return \"pos\"; } - braces turn it into a statement body. If it grows past a few lines, extract a named method."
+  },
+  {
+    "id": "4.2-q8",
+    "topic": "functions in data",
+    "stem": "A Dictionary<string, Func<double,double,double>> keyed by \"+\", \"-\"... replaces:",
+    "options": ["LINQ", "A switch over operators - and drove the 7.3 command table", "Inheritance entirely", "Events"],
+    "answer": 1,
+    "explanation": "Behaviour stored in collections: operations[\"*\"](12, 4). Adding an operator = adding an entry; the lookup code never changes."
+  },
+  {
+    "id": "4.2-q9",
+    "topic": "why LINQ reads",
+    "stem": "Lambdas matter to LINQ because:",
+    "options": ["They are compiled differently", "Each operator takes a tiny INLINE rule - without lambdas every rule would be a named method three lines away", "They sort faster", "They avoid delegates"],
+    "answer": 1,
+    "explanation": "words.Where(w => w.Length <= 4).OrderBy(w => w) reads as a sentence precisely because the rules sit inside it."
+  },
+  {
+    "id": "4.2-q10",
+    "topic": "capture cost",
+    "stem": "A lambda that captures locals differs from one that captures nothing in that it:",
+    "options": ["Cannot be stored", "Requires an allocated closure object to carry the captured state", "Runs twice", "Is impossible in C#"],
+    "answer": 1,
+    "explanation": "Captured state lives in a compiler-generated heap object. Usually irrelevant; in a hot path it is 6.2's hidden-allocation story - hence static lambdas."
+  }
+]

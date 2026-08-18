@@ -1,0 +1,82 @@
+[
+  {
+    "id": "4.6-q1",
+    "topic": "tuples",
+    "stem": "static (int min, int max) MinMax(int[] a) returns:",
+    "options": ["Two separate values via out", "ONE tuple value with named members .min and .max", "An array", "A record"],
+    "answer": 1,
+    "explanation": "Tuples bundle values with no type declaration - the modern replacement for paired out parameters (1.9)."
+  },
+  {
+    "id": "4.6-q2",
+    "topic": "deconstruction",
+    "stem": "(int low, int high, _) = Analyse(data); The _ is:",
+    "options": ["A variable named underscore", "A DISCARD - that component is deliberately ignored", "An error", "Zero"],
+    "answer": 1,
+    "explanation": "Deconstruction splits the tuple into locals; _ marks the parts you do not want without inventing a name."
+  },
+  {
+    "id": "4.6-q3",
+    "topic": "value equality",
+    "stem": "(1, \"x\") == (1, \"x\") evaluates to:",
+    "options": ["false", "true - tuples compare COMPONENT BY COMPONENT", "Compile error", "Reference-dependent"],
+    "answer": 1,
+    "explanation": "Value semantics come free - which also makes tuples usable as composite dictionary keys."
+  },
+  {
+    "id": "4.6-q4",
+    "topic": "tuple vs record",
+    "stem": "A tuple crossing a PUBLIC API boundary usually wants to become:",
+    "options": ["An array", "A record - fixed, documented member names instead of per-usage ones", "A class with fields", "out parameters"],
+    "answer": 1,
+    "explanation": "Tuples suit private helpers and quick pairs; the same shape renamed slightly at every call site is how confusion breeds. Records fix the names (2.9)."
+  },
+  {
+    "id": "4.6-q5",
+    "topic": "tuple switch",
+    "stem": "(p1, p2) switch { (\"rock\", \"scissors\") => ..., (var x, var y) when x == y => \"draw\", ... } matches on:",
+    "options": ["One value", "The COMBINATION of both values - rock-paper-scissors as a table of cases", "Types only", "Strings only"],
+    "answer": 1,
+    "explanation": "Positional patterns over a tuple turn paired logic into a readable truth table - compare with the nested-if version."
+  },
+  {
+    "id": "4.6-q6",
+    "topic": "property patterns",
+    "stem": "order switch { { Country: \"UK\", Amount: > 50 } => \"free\", ... } is matching on:",
+    "options": ["The order's type", "The VALUES of its properties - no casts, no temporaries", "Its hash", "Its ToString"],
+    "answer": 1,
+    "explanation": "Property patterns read like the pricing table a human would write - which is exactly the point."
+  },
+  {
+    "id": "4.6-q7",
+    "topic": "list patterns",
+    "stem": "values switch { [] => \"empty\", [var only] => ..., [1, ..] => \"starts with 1\", ... } - the .. means:",
+    "options": ["Range of values", "A SLICE: any number of items here", "Two dots error", "Null"],
+    "answer": 1,
+    "explanation": "List patterns (C# 11) match on shape: emptiness, exact lengths, first/last elements, with .. absorbing the middle."
+  },
+  {
+    "id": "4.6-q8",
+    "topic": "positional + records",
+    "stem": "Circle(var r) when r > 5 => \"big\" works on a record because records generate:",
+    "options": ["ToString", "Deconstruct - so positional patterns can take them apart", "GetHashCode", "Interfaces"],
+    "answer": 1,
+    "explanation": "The generated Deconstruct (2.9) is what positional matching calls. Records + switch = functional-style modelling with exhaustiveness help."
+  },
+  {
+    "id": "4.6-q9",
+    "topic": "patterns vs polymorphism",
+    "stem": "Prefer a pattern SWITCH over virtual methods when:",
+    "options": ["Always", "The logic spans several values/shapes, or the data types cannot be given methods", "Never", "Classes are sealed"],
+    "answer": 1,
+    "explanation": "Behaviour belonging to the type, types added often -> virtual (2.6). Cross-cutting rules over shapes, cases added often -> patterns. Complementary tools."
+  },
+  {
+    "id": "4.6-q10",
+    "topic": "swap",
+    "stem": "(a, b) = (b, a); is:",
+    "options": ["A compile error", "Tuple deconstruction swapping two variables with no temp - used throughout the sorting lessons", "A reference trick", "Undefined"],
+    "answer": 1,
+    "explanation": "Build a tuple, deconstruct into the opposite slots. You have been using tuple machinery since lesson 5.3."
+  }
+]
