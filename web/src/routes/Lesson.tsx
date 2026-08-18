@@ -7,9 +7,9 @@ import type { PluggableList } from 'unified';
 import csharp from 'highlight.js/lib/languages/csharp';
 import { loadNotes, stripFrontmatter, MODULE_INFO } from '../lib/lessons';
 import { useSyllabus } from '../lib/useSyllabus';
-import { LessonOutput } from '../components/LessonOutput';
 import { MarkdownLink } from '../components/MarkdownLink';
 import { Diagram } from '../components/Diagram';
+import { CodeBlock } from '../components/CodeBlock';
 import { Quiz, type Question } from '../components/Quiz';
 import { bestScore, setLessonState } from '../lib/progress';
 
@@ -25,7 +25,24 @@ function PreBlock(props: React.ComponentProps<'pre'>) {
     return <Diagram name={String(child?.props?.children).trim()} />;
   }
 
-  return <pre {...props} />;
+  // Recover the raw text for the clipboard. After highlighting, children are nested spans,
+  // so walk them and concatenate their text.
+  const source = textOf(child?.props?.children);
+  return (
+    <CodeBlock source={source}>
+      <pre {...props} />
+    </CodeBlock>
+  );
+}
+
+function textOf(node: React.ReactNode): string {
+  if (node == null || typeof node === 'boolean') return '';
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(textOf).join('');
+  if (typeof node === 'object' && 'props' in node) {
+    return textOf((node as React.ReactElement<{ children?: React.ReactNode }>).props.children);
+  }
+  return '';
 }
 
 // Only C# is registered, so highlight.js does not drag in 190 other grammars.
@@ -111,17 +128,10 @@ export function Lesson() {
       ) : (
         <p className="callout">
           <strong>The written notes for this lesson are still being prepared.</strong> The
-          worked example below is complete and runnable — it shows the idea in code, with the
-          real output underneath. Open the source file listed at the foot of this page to read
-          the fully commented version.
+          worked example is complete and runnable — open the source file listed at the foot of
+          this page to read the fully commented version.
         </p>
       )}
-
-      <h2>The worked example, and what it prints</h2>
-      <p className="muted">
-        Captured by running the real lesson, so it can never drift out of date.
-      </p>
-      <LessonOutput lesson={lesson.id} />
 
       <section className="quiz-panel">
         <h2>Check yourself</h2>
@@ -144,8 +154,9 @@ export function Lesson() {
       </section>
 
       <p className="source-note">
-        Source: <code>{lesson.doc.replace('docs/', '').replace('.md', '')}</code> — run it
-        yourself with <code>dotnet run --project src/LearnCSharp.Lessons -- {lesson.id}</code>
+        Every snippet above is plain C# you can copy into your own console app. To run the full
+        worked example — verified in CI on every change — clone the repo and run{' '}
+        <code>dotnet run --project src/LearnCSharp.Lessons -- {lesson.id}</code>
       </p>
 
       <nav className="pager">

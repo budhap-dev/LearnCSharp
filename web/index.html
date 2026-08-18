@@ -15,8 +15,9 @@
     <script>
       // Applied inline, before React loads, so the page never flashes the wrong theme.
       try {
-        var theme = localStorage.getItem('learncsharp.theme');
-        if (theme) document.documentElement.setAttribute('data-theme', theme);
+        // Keep the fallback in sync with DEFAULT_THEME in src/lib/theme.ts.
+        var theme = localStorage.getItem('learncsharp.theme') || 'slate';
+        if (theme !== 'system') document.documentElement.setAttribute('data-theme', theme);
       } catch (e) {}
     </script>
     <div id="root"></div>

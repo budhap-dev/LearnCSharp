@@ -18,8 +18,10 @@ public static partial class OutputCapture
     private static partial Regex SectionBanner();
 
     /// <summary>
-    /// Writes a small syllabus index plus one file per lesson, so the website can load a
-    /// lesson's output on demand instead of shipping all 57 in its main bundle.
+    /// Writes a small syllabus index (the website's lesson list, summaries and objectives)
+    /// plus one output file per lesson. The site no longer displays the raw output dump - the
+    /// notes carry their own snippets - but running every lesson here is what proves, on
+    /// every build, that all of them still compile and run. That guarantee is the point.
     /// </summary>
     public static int WriteTo(string folder)
     {

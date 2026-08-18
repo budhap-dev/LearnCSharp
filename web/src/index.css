@@ -280,21 +280,6 @@ button:disabled { cursor: default; }
   padding: 0.9rem 1.1rem; color: var(--muted);
 }
 
-/* verified output */
-.output { margin: 1rem 0 2rem; }
-.output figcaption {
-  display: flex; align-items: center; gap: 0.5rem;
-  font-size: 0.78rem; color: var(--muted);
-  text-transform: uppercase; letter-spacing: 0.05em;
-  margin-bottom: 0.4rem;
-}
-.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--correct); }
-.output pre {
-  background: var(--term-bg); color: var(--term-text);
-  border-radius: var(--radius); padding: 1rem 1.2rem;
-  overflow-x: auto; margin: 0; font-size: 0.83rem; line-height: 1.55;
-}
-
 /* quiz */
 .quiz-panel {
   border: 1px solid var(--border); border-radius: var(--radius);
@@ -360,7 +345,7 @@ button:disabled { cursor: default; }
   .lid { min-width: 2.2rem; }
   .badge { align-self: flex-start; }
 
-  .output pre, .quiz-code, .prose pre { font-size: 0.78rem; padding: 0.75rem 0.9rem; }
+  .quiz-code, .prose pre { font-size: 0.78rem; padding: 0.75rem 0.9rem; }
   .prose th, .prose td { padding: 0.35rem 0.5rem; font-size: 0.85rem; }
 
   .objectives { padding: 0.85rem 1rem; }
@@ -1202,3 +1187,18 @@ body::before {
   background-image: radial-gradient(#8a8496 1px, transparent 1.2px);
   background-size: 4px 4px;
 }
+
+/* ---- code cards with a copy button ---- */
+.code-card { position: relative; margin: 1rem 0; }
+.code-card pre { margin: 0; padding-top: 2.1rem; }   /* room for the button */
+.copy-button {
+  position: absolute; top: 0.45rem; right: 0.5rem;
+  font: inherit; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em;
+  background: var(--surface); color: var(--muted);
+  border: 1px solid var(--code-border); border-radius: 6px;
+  padding: 0.2rem 0.55rem; cursor: pointer;
+  opacity: 0.85; transition: opacity 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+.code-card:hover .copy-button, .copy-button:focus-visible { opacity: 1; }
+.copy-button:hover { color: var(--accent); border-color: var(--accent); }
+.copy-button.copied { color: var(--correct); border-color: var(--correct); }
