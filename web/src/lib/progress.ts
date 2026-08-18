@@ -27,9 +27,11 @@ export interface Progress {
   lessons: Record<string, LessonState>;
   quizzes: Record<string, QuizAttempt[]>;
   exams?: ExamAttempt[];
+  /** Worksheet task ids the student has ticked off as done. */
+  worksheets?: string[];
 }
 
-const empty: Progress = { version: 1, lessons: {}, quizzes: {}, exams: [] };
+const empty: Progress = { version: 1, lessons: {}, quizzes: {}, exams: [], worksheets: [] };
 
 export function read(): Progress {
   try {
@@ -83,6 +85,19 @@ export function recordExam(attempt: ExamAttempt): void {
 
 export function examHistory(module: number): ExamAttempt[] {
   return (read().exams ?? []).filter((e) => e.module === module);
+}
+
+export function worksheetDone(id: string): boolean {
+  return (read().worksheets ?? []).includes(id);
+}
+
+export function toggleWorksheet(id: string): void {
+  const progress = read();
+  const done = new Set(progress.worksheets ?? []);
+  if (done.has(id)) done.delete(id);
+  else done.add(id);
+  progress.worksheets = [...done];
+  write(progress);
 }
 
 export function reset(): void {

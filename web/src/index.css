@@ -1323,3 +1323,62 @@ body::before {
   background: var(--code-bg); color: var(--code-text);
   border: 1px solid var(--code-border); border-radius: 4px; padding: 0.05em 0.35em;
 }
+
+/* ---- worksheets ---- */
+.worksheets .lede { margin-bottom: 1rem; }
+.ws-how { margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 0.4rem 1rem; }
+.ws-how summary { cursor: pointer; font-weight: 600; padding: 0.5rem 0; }
+.ws-how ol { margin: 0.4rem 0 0.6rem; padding-left: 1.3rem; }
+.ws-how li { margin: 0.3rem 0; line-height: 1.5; }
+.ws-how code { font-family: var(--mono); font-size: 0.85em; background: var(--code-bg); color: var(--code-text); border: 1px solid var(--code-border); border-radius: 4px; padding: 0.05em 0.35em; }
+.ws-how a, .ws-lesson { color: var(--accent); }
+
+.ws-modules { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.25rem; }
+.ws-modules button {
+  font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  background: var(--surface); color: var(--muted);
+  border: 1px solid var(--border); border-radius: 999px; padding: 0.35rem 0.8rem;
+}
+.ws-modules button:hover { color: var(--text); border-color: var(--mc); }
+.ws-modules button.active { color: #fff; background: var(--mc); border-color: var(--mc); }
+
+.ws-head { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; border-bottom: 2px solid var(--mc); padding-bottom: 0.3rem; }
+.ws-head h2 { margin: 0; }
+.ws-progress { margin-left: auto; font-size: 0.85rem; color: var(--muted); }
+.ws-intro { margin: 0.5rem 0 1.5rem; }
+
+.ws-list { list-style: none; margin: 0; padding: 0; }
+.ws-task { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 1rem 1.25rem; margin: 0 0 1rem; }
+.ws-task.is-done { border-color: var(--correct); }
+.ws-task-head { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.ws-task-head h3 { margin: 0; font-size: 1.1rem; }
+.ws-num { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+.ws-level { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; border-radius: 999px; padding: 0.1rem 0.5rem; }
+.ws-level.lvl-1 { background: var(--correct-soft); color: var(--correct); }
+.ws-level.lvl-2 { background: var(--accent-soft); color: var(--accent); }
+.ws-level.lvl-3 { background: var(--wrong-soft); color: var(--wrong); }
+.ws-lesson { margin-left: auto; font-size: 0.8rem; text-decoration: none; }
+.ws-lesson:hover { text-decoration: underline; }
+.ws-brief { line-height: 1.6; margin: 0.6rem 0 0.9rem; }
+.ws-brief code, .ws-hints code { font-family: var(--mono); font-size: 0.85em; background: var(--code-bg); color: var(--code-text); border: 1px solid var(--code-border); border-radius: 4px; padding: 0.05em 0.35em; }
+
+.ws-block { margin: 0.6rem 0; }
+.ws-block-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 0.25rem; }
+.ws-block-head .copy-button { position: static; }
+.ws-code, .ws-io {
+  margin: 0; padding: 0.8rem 1rem; overflow-x: auto;
+  font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; border-radius: 8px;
+}
+.ws-code { background: var(--code-bg); color: var(--code-text); border: 1px solid var(--code-border); }
+.ws-io { background: var(--term-bg); color: var(--term-text); }
+.ws-expected { border: 1px dashed color-mix(in srgb, var(--term-text) 40%, transparent); }
+
+.ws-actions { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.8rem 0 0.2rem; }
+.ws-ghost { font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer; background: none; color: var(--accent); border: 1px solid var(--border); border-radius: 6px; padding: 0.3rem 0.7rem; }
+.ws-ghost:hover { border-color: var(--accent); }
+.ws-check { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: var(--muted); margin-left: auto; cursor: pointer; }
+.ws-check input { accent-color: var(--correct); }
+
+.ws-hints { margin: 0.7rem 0 0; padding-left: 1.2rem; }
+.ws-hints li { margin: 0.35rem 0; line-height: 1.55; color: var(--text); }
+.ws-solution { margin-top: 0.8rem; }

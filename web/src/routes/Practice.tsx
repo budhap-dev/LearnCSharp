@@ -25,7 +25,8 @@ export function Practice() {
       <h1>Practice</h1>
       <p className="lede">
         A <strong>quiz</strong> teaches, with an explanation after every answer; an{' '}
-        <strong>exam</strong> measures, with marks and a grade.
+        <strong>exam</strong> measures, with marks and a grade. To write code yourself, head to{' '}
+        <Link to="/worksheets">Worksheets</Link>.
       </p>
 
       <div className="tablist" role="tablist" aria-label="Practice mode">
