@@ -1,0 +1,82 @@
+[
+  {
+    "id": "5.3-q1",
+    "topic": "bubble mechanics",
+    "stem": "One full pass of bubble sort guarantees:",
+    "options": ["The array is sorted", "The LARGEST remaining value has bubbled to its final position at the end", "The smallest is first", "Nothing"],
+    "answer": 1,
+    "explanation": "Adjacent swaps carry the maximum rightward each pass - which is why the inner loop can shrink by one each time."
+  },
+  {
+    "id": "5.3-q2",
+    "topic": "the swapped flag",
+    "stem": "The 'if (!swapped) break;' in bubble sort buys:",
+    "options": ["Stability", "O(n) BEST case on already-sorted data - one calm pass proves it is done", "Less memory", "Nothing"],
+    "answer": 1,
+    "explanation": "A pass with zero swaps means sorted. Without the flag, bubble grinds its full quadratic work regardless."
+  },
+  {
+    "id": "5.3-q3",
+    "topic": "insertion's niche",
+    "stem": "Insertion sort is genuinely the right choice for:",
+    "options": ["A million random items", "SMALL or NEARLY-SORTED arrays - O(n) when nearly ordered", "Linked lists only", "Nothing, ever"],
+    "answer": 1,
+    "explanation": "The lesson measures it: ~0ms on 8,000 nearly-sorted items while selection grinds. Real sorts use it for small partitions."
+  },
+  {
+    "id": "5.3-q4",
+    "topic": "selection's constancy",
+    "stem": "Selection sort is O(n squared) in EVERY case because:",
+    "options": ["It swaps too much", "It always scans the whole unsorted region for the minimum - luck cannot help it", "It is recursive", "It copies arrays"],
+    "answer": 1,
+    "explanation": "Its one virtue: fewest swaps (n-1). Insertion exploits nearly-sorted input; selection cannot."
+  },
+  {
+    "id": "5.3-q5",
+    "topic": "merge mechanics",
+    "stem": "The MERGE step combines two sorted halves by:",
+    "options": ["Concatenating then re-sorting", "Repeatedly taking the SMALLER front item of the two", "Swapping neighbours", "Hashing"],
+    "answer": 1,
+    "explanation": "Two fingers walking two sorted arrays - O(n) per level, log n levels = O(n log n) in ALL cases. Concat-and-resort would wreck the complexity."
+  },
+  {
+    "id": "5.3-q6",
+    "topic": "quicksort partition",
+    "stem": "After one quicksort PARTITION, the pivot is:",
+    "options": ["At index 0", "In its FINAL sorted position - smaller left, larger right", "Removed", "Sorted last"],
+    "answer": 1,
+    "explanation": "Each partition finally-places one element and splits the rest - recursion does the halves. Average O(n log n), in place."
+  },
+  {
+    "id": "5.3-q7",
+    "topic": "quicksort worst",
+    "stem": "Last-element pivot on ALREADY-SORTED data gives quicksort:",
+    "options": ["Its best case", "O(n squared) - every partition is maximally lopsided", "O(n)", "A crash"],
+    "answer": 1,
+    "explanation": "The pivot ends up at one extreme each time: n levels of n work. Middle or random pivots dodge it; introsort detects and switches."
+  },
+  {
+    "id": "5.3-q8",
+    "topic": "stability",
+    "stem": "A STABLE sort matters when:",
+    "options": ["Data is numeric", "Sorting by one key AFTER another - equal items keep their previous order (name within year)", "Arrays are big", "Never"],
+    "answer": 1,
+    "explanation": "Sort by name, then stably by year: names stay ordered within each year. Merge and OrderBy are stable; Array.Sort and selection are not."
+  },
+  {
+    "id": "5.3-q9",
+    "topic": "the race",
+    "stem": "Quadrupling n made bubble ~16x slower but merge only ~4x. Because:",
+    "options": ["Merge cheats", "n squared grows 16x for 4x data; n log n grows ~4x - the gap only widens", "The GC", "Caching"],
+    "answer": 1,
+    "explanation": "The lesson's measured table: at a million items that is half an hour versus a quarter second."
+  },
+  {
+    "id": "5.3-q10",
+    "topic": "real .NET",
+    "stem": "Array.Sort actually uses:",
+    "options": ["Bubble sort", "INTROSORT: quicksort, switching to heapsort if recursion sours and insertion for small partitions", "Pure merge", "Selection"],
+    "answer": 1,
+    "explanation": "Best of three worlds - killing quicksort's worst case. In real code: Array.Sort or OrderBy, every time; the five classics are for understanding and exams."
+  }
+]

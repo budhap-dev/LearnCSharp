@@ -1,0 +1,82 @@
+[
+  {
+    "id": "5.8-q1",
+    "topic": "graphs vs trees",
+    "stem": "A tree is a special graph with:",
+    "options": ["Weighted edges", "NO CYCLES and exactly one route between any two nodes", "More nodes", "Directed edges"],
+    "answer": 1,
+    "explanation": "Graphs have no shape rules - cycles allowed, any connections. That freedom is why searches need a 'seen' set that trees never did."
+  },
+  {
+    "id": "5.8-q2",
+    "topic": "storage",
+    "stem": "The adjacency LIST (node -> neighbours dictionary) beats a matrix when:",
+    "options": ["Always", "The graph is SPARSE - matrix memory is O(V squared) regardless of edges", "Edges are weighted", "Nodes are strings"],
+    "answer": 1,
+    "explanation": "Most real graphs are sparse. The matrix earns its place only when almost everything connects to almost everything."
+  },
+  {
+    "id": "5.8-q3",
+    "topic": "undirected edges",
+    "stem": "AddEdge for an undirected graph must:",
+    "options": ["Add one entry", "Record the edge BOTH ways - forget the reverse and half the map is unreachable", "Sort neighbours", "Check weights"],
+    "answer": 1,
+    "explanation": "adjacency[from].Add(to) AND adjacency[to].Add(from). A classic one-line omission with confusing symptoms."
+  },
+  {
+    "id": "5.8-q4",
+    "topic": "BFS machinery",
+    "stem": "BFS is built from a QUEUE plus a HashSet where items are marked seen:",
+    "options": ["When dequeued", "When ENQUEUED - via HashSet.Add's bool - or nodes queue twice", "At the end", "Never"],
+    "answer": 1,
+    "explanation": "Mark-on-enqueue is the correctness detail: 3.2's if (seen.Add(x)) doing structural work. The 5.6 queue + 3.2 set, assembled."
+  },
+  {
+    "id": "5.8-q5",
+    "topic": "why BFS is shortest",
+    "stem": "BFS finds the shortest UNWEIGHTED path because it explores:",
+    "options": ["Deepest first", "In RINGS - everything one hop away before anything two hops away", "Alphabetically", "Randomly"],
+    "answer": 1,
+    "explanation": "You cannot reach ring 3 before exhausting ring 2, so the first arrival is via a minimal-hop route."
+  },
+  {
+    "id": "5.8-q6",
+    "topic": "DFS",
+    "stem": "DFS swaps BFS's queue for:",
+    "options": ["A dictionary", "A STACK - or equivalently the call stack via recursion (5.4)", "A heap", "Two queues"],
+    "answer": 1,
+    "explanation": "Charge down one path, backtrack, try the next. Less frontier memory; does NOT find shortest paths. Its homes: mazes, cycle detection, topological sort."
+  },
+  {
+    "id": "5.8-q7",
+    "topic": "path recovery",
+    "stem": "ShortestPath rebuilds the route using a cameFrom dictionary by:",
+    "options": ["Running BFS twice", "Walking BREADCRUMBS backwards from the end, then reversing", "Storing every path", "Sorting nodes"],
+    "answer": 1,
+    "explanation": "Record how each node was first reached; the trail end-to-start plus one Reverse() is the answer - A to F: A,B,D,E,F."
+  },
+  {
+    "id": "5.8-q8",
+    "topic": "the seen set",
+    "stem": "Omitting the 'seen' set from graph search causes:",
+    "options": ["Slower runs", "An INFINITE LOOP on the first cycle - A to B to A forever", "Wrong weights", "A crash on empty graphs"],
+    "answer": 1,
+    "explanation": "The hazard trees never had. Cycles are legal in graphs; the seen set is what tames them."
+  },
+  {
+    "id": "5.8-q9",
+    "topic": "Dijkstra's difference",
+    "stem": "Dijkstra can prefer a FIVE-hop route over a four-hop one when:",
+    "options": ["It malfunctions", "The five hops COST LESS - it minimises total weight, not hop count (13 vs 14 in the lesson)", "Hops are equal", "The graph is directed"],
+    "answer": 1,
+    "explanation": "Fewest hops (BFS) and cheapest (Dijkstra) are different questions - your satnav taking three extra junctions to dodge the toll road."
+  },
+  {
+    "id": "5.8-q10",
+    "topic": "Dijkstra machinery",
+    "stem": "Dijkstra upgrades BFS by replacing the plain queue with:",
+    "options": ["A stack", "A PRIORITY QUEUE always yielding the cheapest-known unexplored node (3.3)", "Two sets", "Recursion"],
+    "answer": 1,
+    "explanation": "Plus edge 'relaxation': if distance[node] + weight beats distance[to], record the cheaper way in. One caveat: no negative weights."
+  }
+]

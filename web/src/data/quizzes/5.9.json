@@ -1,0 +1,82 @@
+[
+  {
+    "id": "5.9-q1",
+    "topic": "the idea",
+    "stem": "A hash table achieves O(1) lookup by:",
+    "options": ["Keeping data sorted", "COMPUTING the slot from the key itself: index = hash(key) % tableSize", "Caching", "Binary search"],
+    "answer": 1,
+    "explanation": "No comparisons, no scanning - jump straight there. The box 3.2 asked you to trust, opened."
+  },
+  {
+    "id": "5.9-q2",
+    "topic": "bad hash",
+    "stem": "Summing a string's letters is a poor hash because:",
+    "options": ["Slow", "Order is ignored - EVERY ANAGRAM collides: 'abc' and 'cba' hash identically", "Too random", "Negative results"],
+    "answer": 1,
+    "explanation": "The fix multiplies by a prime as it goes (hash*31 + c) so position matters - essentially what string.GetHashCode does."
+  },
+  {
+    "id": "5.9-q3",
+    "topic": "collisions inevitable",
+    "stem": "Collisions MUST happen because:",
+    "options": ["Hash functions are buggy", "Infinitely many possible keys, finitely many slots - the pigeonhole principle", "Memory is limited only", "They do not"],
+    "answer": 1,
+    "explanation": "And the birthday paradox says sooner than intuition expects (23 people, 50% shared birthday). A table is DEFINED by its collision strategy."
+  },
+  {
+    "id": "5.9-q4",
+    "topic": "chaining",
+    "stem": "Separate chaining handles a collision by:",
+    "options": ["Rejecting the key", "Each slot holding a LIST - colliders share the bucket, lookup walks the short chain", "Rehashing everything", "Probing"],
+    "answer": 1,
+    "explanation": "Hash to the bucket, then Equals within it - which is EXACTLY why Equals and GetHashCode are partners (2.10). .NET's Dictionary chains."
+  },
+  {
+    "id": "5.9-q5",
+    "topic": "probing",
+    "stem": "Linear probing handles a collision by:",
+    "options": ["Chaining", "Trying the NEXT slot along, wrapping at the end - lookup stops at the key or an EMPTY slot", "Doubling", "Failing"],
+    "answer": 1,
+    "explanation": "Empty means 'definitely not here' - which is why naive deletion breaks OTHER keys' probe chains (needs tombstones)."
+  },
+  {
+    "id": "5.9-q6",
+    "topic": "load factor",
+    "stem": "load factor = items / slots. Past ~0.7 a table should:",
+    "options": ["Refuse inserts", "RESIZE - a bigger array and re-hash EVERY key, since index = hash % newSize", "Sort itself", "Switch to a tree"],
+    "answer": 1,
+    "explanation": "Same amortised bargain as List's doubling (3.1): occasional O(n) buys everyday O(1). Dictionary does it for you around this threshold."
+  },
+  {
+    "id": "5.9-q7",
+    "topic": "worst case",
+    "stem": "Hash table lookup degrades to O(n) when:",
+    "options": ["The table is empty", "EVERY key collides into one chain - a bad hash function's gift", "Keys are strings", "n is odd"],
+    "answer": 1,
+    "explanation": "Average O(1) rests on spread. All-in-one-bucket = a linked list with extra steps. (Hash-flooding attacks exploit exactly this.)"
+  },
+  {
+    "id": "5.9-q8",
+    "topic": "randomised hashes",
+    "stem": "\"Ada\".GetHashCode() differs BETWEEN RUNS because:",
+    "options": ["A bug", "String hashing is deliberately randomised per process (hash-flooding defence) - NEVER persist a hash code", "The GC moves it", "Culture settings"],
+    "answer": 1,
+    "explanation": "Saved to a file or database, it will not match tomorrow. In-process bucketing only."
+  },
+  {
+    "id": "5.9-q9",
+    "topic": "the buried key",
+    "stem": "Mutating an object's key fields WHILE it is in a Dictionary:",
+    "options": ["Updates the entry", "Loses it - filed under the OLD hash, in a bucket nobody will search again", "Throws", "Rehashes it"],
+    "answer": 1,
+    "explanation": "The lesson buries one alive. Hence: immutable keys - strings and records (2.9) are ideal."
+  },
+  {
+    "id": "5.9-q10",
+    "topic": "crypto vs table",
+    "stem": "SHA-256 for a hash TABLE, or GetHashCode for PASSWORDS, is wrong because:",
+    "options": ["Both work anywhere", "They solve OPPOSITE problems: table hashes must be fast; password hashes must be SLOW and irreversible (6.3)", "SHA is insecure", "GetHashCode is secret"],
+    "answer": 1,
+    "explanation": "Fast hashing accelerates lookups AND password-cracking alike. Never substitute one family for the other."
+  }
+]

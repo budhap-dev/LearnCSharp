@@ -1,0 +1,82 @@
+[
+  {
+    "id": "5.2-q1",
+    "topic": "linear's virtue",
+    "stem": "Linear search's advantage over binary search:",
+    "options": ["Speed", "It needs NO sorted data - and works on any enumerable", "Less code", "None"],
+    "answer": 1,
+    "explanation": "O(n) but zero preconditions. Array.IndexOf and LINQ's First are linear searches in a suit."
+  },
+  {
+    "id": "5.2-q2",
+    "topic": "the precondition",
+    "stem": "Binary search on UNSORTED data:",
+    "options": ["Throws", "Returns WRONG ANSWERS with no error - the worst failure mode", "Sorts it first", "Is just slower"],
+    "answer": 1,
+    "explanation": "The halving logic assumes order; violated silently, it discards the half containing the target and reports 'not found' for present items."
+  },
+  {
+    "id": "5.2-q3",
+    "topic": "trace it",
+    "stem": "Searching for 71 in [8,17,23,42,55,71,93]: after comparing with middle 42, the next range is:",
+    "options": ["[8..42]", "[55, 71, 93] - 71 > 42 discards the left half AND the middle", "[42..93]", "The whole array"],
+    "answer": 1,
+    "explanation": "low becomes middle+1. Step 2's middle is 71: found in two comparisons - the lesson's exact trace."
+  },
+  {
+    "id": "5.2-q4",
+    "topic": "step count",
+    "stem": "Worst-case comparisons for binary search on 1,000,000 items:",
+    "options": ["1,000,000", "~20 - ceil(log2 n)", "500,000", "100"],
+    "answer": 1,
+    "explanation": "2 to the 20 is about a million. A billion needs 30. Halving is that powerful."
+  },
+  {
+    "id": "5.2-q5",
+    "topic": "midpoint overflow",
+    "stem": "low + (high - low) / 2 instead of (low + high) / 2 because:",
+    "options": ["Faster", "low + high can OVERFLOW int on huge arrays - a real bug that sat in the JDK for years", "Rounding differs", "Style"],
+    "answer": 1,
+    "explanation": "Same value, no overflow. Free insurance - write it by habit."
+  },
+  {
+    "id": "5.2-q6",
+    "topic": "loop bound",
+    "stem": "The loop must be while (low <= high), not <, because:",
+    "options": ["Style", "A ONE-ITEM range (low == high) is still searchable - < would skip it", "It ends faster", "high can be negative"],
+    "answer": 1,
+    "explanation": "One of binary search's three classic off-by-ones; the others are moving to middle±1 and adapting bounds for variants."
+  },
+  {
+    "id": "5.2-q7",
+    "topic": "negative results",
+    "stem": "Array.BinarySearch(sorted, 20) returning -3 means:",
+    "options": ["Error code 3", "Not found, and ~(-3)=2 is the INSERTION POINT where 20 belongs", "Found at index 3", "Three matches"],
+    "answer": 1,
+    "explanation": "The bitwise complement encodes where the value would go - making insert-in-sorted-order a two-liner."
+  },
+  {
+    "id": "5.2-q8",
+    "topic": "sort first?",
+    "stem": "ONE search of unsorted data: sort-then-binary or just linear?",
+    "options": ["Sort then binary", "LINEAR - sorting costs O(n log n), more than the O(n) single search it would save", "Either", "Binary without sorting"],
+    "answer": 1,
+    "explanation": "Sort pays off across MANY searches. Many lookups by key? A Dictionary beats even binary search (3.2)."
+  },
+  {
+    "id": "5.2-q9",
+    "topic": "guessing game",
+    "stem": "\"Guess my number 1-100, I say higher/lower\" is beatable in at most:",
+    "options": ["50 guesses", "7 - ceil(log2 100), binary search as a strategy", "10", "100"],
+    "answer": 1,
+    "explanation": "Higher/lower IS the comparison; halving the range is optimal play. Project 7.1 proves it empirically over all 100 secrets."
+  },
+  {
+    "id": "5.2-q10",
+    "topic": "infinite loop bug",
+    "stem": "Setting high = middle (instead of middle - 1) risks:",
+    "options": ["Missing items", "An INFINITE LOOP - a two-item range can stop shrinking", "Overflow", "Nothing"],
+    "answer": 1,
+    "explanation": "If middle rounds to low, the range never narrows. The middle is already checked - exclude it on both sides."
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "5.7-q1",
+    "topic": "the BST rule",
+    "stem": "The binary search tree invariant is:",
+    "options": ["Left child bigger", "Everything SMALLER lives left, everything LARGER lives right - at EVERY node", "Balanced heights", "Complete rows"],
+    "answer": 1,
+    "explanation": "The rule holds recursively for whole subtrees, not just children - which is what makes search a walk and in-order sorted."
+  },
+  {
+    "id": "5.7-q2",
+    "topic": "search cost",
+    "stem": "BST search is O(height) because:",
+    "options": ["It checks every node", "Each comparison discards an ENTIRE subtree - binary search in structure form", "Trees are fast", "Hashing"],
+    "answer": 1,
+    "explanation": "The lesson's trace: 50 -> 30 -> 40 -> 35, four comparisons in an 8-node tree. Which makes height everything - see the degenerate case."
+  },
+  {
+    "id": "5.7-q3",
+    "topic": "in-order",
+    "stem": "An IN-ORDER traversal of any BST visits values:",
+    "options": ["Root first", "In SORTED order, free - left, node, right honours the rule", "Randomly", "By level"],
+    "answer": 1,
+    "explanation": "The traversal order IS the definition: everything smaller, then me, then everything larger."
+  },
+  {
+    "id": "5.7-q4",
+    "topic": "traversal jobs",
+    "stem": "Deleting a whole tree safely wants which traversal?",
+    "options": ["Pre-order", "POST-ORDER - children before parents, so nothing is orphaned mid-delete", "In-order", "Level-order"],
+    "answer": 1,
+    "explanation": "Pre-order copies/serialises (parent first); post-order tears down and evaluates expressions; level-order prints by rows and needs a QUEUE."
+  },
+  {
+    "id": "5.7-q5",
+    "topic": "level-order",
+    "stem": "Level-order traversal uses a Queue rather than recursion because:",
+    "options": ["Recursion is slow", "Row-by-row is BREADTH-first - FIFO order, not the call stack's depth-first", "Queues sort", "Trees lack pointers"],
+    "answer": 1,
+    "explanation": "Enqueue root; dequeue, visit, enqueue children; repeat - the exact shape BFS takes on graphs (5.8)."
+  },
+  {
+    "id": "5.7-q6",
+    "topic": "min/max",
+    "stem": "The minimum of a BST is found by:",
+    "options": ["In-order traversal fully", "Walking LEFT until you cannot - the leftmost node", "Checking every leaf", "The root"],
+    "answer": 1,
+    "explanation": "Smaller is always left, so keep going. Max is the mirror: rightmost."
+  },
+  {
+    "id": "5.7-q7",
+    "topic": "two-child delete",
+    "stem": "Deleting a node with TWO children replaces its value with:",
+    "options": ["Its left child", "Its IN-ORDER SUCCESSOR - the smallest value in the right subtree - then deletes that", "The root", "Null"],
+    "answer": 1,
+    "explanation": "The successor is the smallest thing bigger than the node, so the BST rule survives. The case exams and interviews probe."
+  },
+  {
+    "id": "5.7-q8",
+    "topic": "degenerate",
+    "stem": "Inserting 10,20,30,40,50,60,70 - already sorted - into a plain BST yields:",
+    "options": ["A balanced tree", "A LINKED LIST in a tree costume: height 7, search back to O(n)", "An error", "A heap"],
+    "answer": 1,
+    "explanation": "Every insert goes right. Balance is everything: the same keys shuffled give height 3. Sorted input is the BST's worst enemy."
+  },
+  {
+    "id": "5.7-q9",
+    "topic": "self-balancing",
+    "stem": ".NET's SortedSet and SortedDictionary avoid degeneration by being:",
+    "options": ["Hash tables", "RED-BLACK TREES - self-balancing via rotations, O(log n) guaranteed", "Arrays", "Skip lists"],
+    "answer": 1,
+    "explanation": "You need not implement AVL/red-black - but must know WHY they exist, and the trade: Dictionary O(1) unordered vs Sorted* O(log n) ordered."
+  },
+  {
+    "id": "5.7-q10",
+    "topic": "expression trees",
+    "stem": "For the tree of (3 + 4) * 5, the POST-order walk produces:",
+    "options": ["(3 + 4) * 5", "3 4 + 5 * - exactly the RPN the 5.6 stack evaluates", "* + 3 4 5", "5 * 4 + 3"],
+    "answer": 1,
+    "explanation": "In-order gives infix, pre-order gives Polish, post-order gives RPN - and post-order evaluation computes 35. Compilers parse your source into exactly such trees."
+  }
+]
