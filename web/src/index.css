@@ -744,3 +744,29 @@ button:disabled { cursor: default; }
   .header-search input { width: 8rem; }
   .sr-module { margin-left: 0; width: 100%; }
 }
+
+/* ---- search autocomplete ---- */
+.header-search { position: relative; }
+
+.search-suggest {
+  position: absolute; top: calc(100% + 4px); right: 0; z-index: 30;
+  width: min(24rem, 80vw);
+  list-style: none; margin: 0; padding: 0.3rem;
+  background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.16);
+  max-height: 70vh; overflow-y: auto;
+}
+.search-suggest li { margin: 0; }
+.search-suggest button {
+  width: 100%; display: flex; align-items: baseline; gap: 0.6rem;
+  background: none; border: none; border-radius: 6px;
+  padding: 0.5rem 0.6rem; text-align: left; color: var(--text); cursor: pointer;
+}
+.search-suggest button.active,
+.search-suggest button:hover { background: var(--accent-soft); }
+.ss-id { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); min-width: 2.4rem; }
+.ss-title { font-size: 0.9rem; }
+.ss-empty { padding: 0.5rem 0.6rem; color: var(--muted); font-size: 0.88rem; }
+.ss-all { border-top: 1px solid var(--border); margin-top: 0.2rem; }
+.ss-all button { color: var(--accent); font-size: 0.85rem; }
