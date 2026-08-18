@@ -10,6 +10,8 @@ import { useSyllabus } from '../lib/useSyllabus';
 import { MarkdownLink } from '../components/MarkdownLink';
 import { Diagram } from '../components/Diagram';
 import { CodeBlock } from '../components/CodeBlock';
+import { termsForLesson } from '../lib/glossary';
+import { Rich } from '../components/Rich';
 import { Quiz, type Question } from '../components/Quiz';
 import { bestScore, setLessonState } from '../lib/progress';
 
@@ -133,6 +135,8 @@ export function Lesson() {
         </p>
       )}
 
+      <KeyTerms lessonId={lesson.id} />
+
       <section className="quiz-panel">
         <h2>Check yourself</h2>
 
@@ -174,5 +178,29 @@ export function Lesson() {
         )}
       </nav>
     </article>
+  );
+}
+
+/** The glossary entries this lesson teaches, as a quick recap before the quiz. */
+function KeyTerms({ lessonId }: { lessonId: string }) {
+  const terms = termsForLesson(lessonId);
+  if (terms.length === 0) return null;
+  return (
+    <section className="key-terms">
+      <h2>Key terms</h2>
+      <dl>
+        {terms.map((t) => (
+          <div key={t.slug}>
+            <dt>
+              <Link to={`/glossary?term=${t.slug}`}>{t.term}</Link>
+            </dt>
+            <dd><Rich text={t.definition} /></dd>
+          </div>
+        ))}
+      </dl>
+      <p className="muted">
+        <Link to="/glossary">Browse the full glossary →</Link>
+      </p>
+    </section>
   );
 }
