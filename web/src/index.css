@@ -570,3 +570,123 @@ button:disabled { cursor: default; }
   margin-left: auto;
   margin-right: auto;
 }
+
+/* ---- topic exams ---- */
+
+.exam-link {
+  display: inline-block;
+  margin: 0 0 0.9rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.exam-link:hover { background: var(--accent-soft); }
+
+.linkish {
+  background: none; border: none; padding: 0; margin: 0;
+  color: var(--accent); cursor: pointer; font: inherit;
+}
+
+.level-grid {
+  display: grid; gap: 1rem; margin: 1.5rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+.level-card {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--surface); padding: 1.1rem;
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.level-card h2 { margin: 0; font-size: 1.15rem; }
+.level-card p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.level-meta { font-size: 0.8rem !important; }
+.level-card button { margin-top: auto; }
+
+.exam-bar {
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  padding-bottom: 0.75rem; margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem; color: var(--muted);
+}
+.exam-bar .answered { margin-left: auto; }
+
+.marks-chip {
+  display: inline-block;
+  background: var(--accent-soft); color: var(--accent);
+  font-size: 0.75rem; font-weight: 700;
+  padding: 0.1rem 0.5rem; border-radius: 99px;
+  margin-right: 0.5rem;
+}
+
+.option.chosen { border-color: var(--accent); background: var(--accent-soft); }
+
+.exam-nav {
+  display: flex; justify-content: space-between; gap: 1rem;
+  margin: 1.25rem 0;
+}
+
+.answer-sheet {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  padding-top: 1rem; border-top: 1px solid var(--border);
+}
+.sheet-dot {
+  width: 2rem; height: 2rem; padding: 0;
+  border: 1px solid var(--border); border-radius: 6px;
+  background: var(--bg); color: var(--muted);
+  font-size: 0.8rem; cursor: pointer;
+}
+.sheet-dot.done { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.sheet-dot.here { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.result-headline {
+  display: flex; align-items: baseline; gap: 1.25rem; flex-wrap: wrap;
+  padding: 1.25rem; margin: 0.5rem 0 1.5rem;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--surface);
+}
+.big-mark { font-size: 2rem; font-weight: 700; }
+.big-percent { font-size: 1.3rem; color: var(--muted); }
+.big-grade { font-size: 1.1rem; font-weight: 700; margin-left: auto; }
+.grade-distinction .big-grade, .badge.grade-distinction { color: var(--correct); }
+.grade-merit .big-grade, .badge.grade-merit { color: var(--accent); }
+.grade-pass .big-grade, .badge.grade-pass { color: var(--text); }
+.grade-not-yet .big-grade, .badge.grade-not-yet { color: var(--wrong); }
+
+.per-lesson { list-style: none; padding: 0; margin: 0 0 1.5rem; }
+.per-lesson li {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--border);
+}
+.per-lesson .full { color: var(--correct); font-weight: 600; }
+.per-lesson .none { color: var(--wrong); }
+
+.review-list { padding-left: 0; list-style: none; }
+.review-list li {
+  border-left: 3px solid var(--border); padding: 0.5rem 0 0.5rem 1rem; margin: 1rem 0;
+}
+.review-list li.correct { border-left-color: var(--correct); }
+.review-list li.wrong { border-left-color: var(--wrong); }
+.review-stem { font-weight: 600; margin: 0 0 0.5rem; }
+.review-answer { font-size: 0.9rem; margin: 0.4rem 0; }
+.review-why { font-size: 0.9rem; color: var(--muted); margin: 0.3rem 0 0; }
+
+.exam-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+
+.exam-history { margin-top: 2.5rem; }
+.exam-history ul { list-style: none; padding: 0; }
+.exam-history li {
+  display: flex; align-items: center; gap: 0.85rem;
+  padding: 0.45rem 0.5rem; border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+.hist-level { text-transform: capitalize; min-width: 6rem; }
+.hist-mark { font-family: var(--mono); }
+.hist-date { margin-left: auto; color: var(--muted); font-size: 0.82rem; }
+
+@media (max-width: 640px) {
+  .exam-nav { flex-direction: column; }
+  .result-headline { gap: 0.5rem; }
+  .big-grade { margin-left: 0; }
+}
