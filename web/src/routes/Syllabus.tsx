@@ -45,11 +45,19 @@ export function Syllabus() {
         return (
           // <details> gives us an accessible accordion with zero JS: keyboard,
           // screen-reader and no-JS behaviour all come from the browser.
-          <details key={m} id={`m${m}`} className="module-accordion" open={m === currentModule}>
+          <details
+            key={m}
+            id={`m${m}`}
+            className="module-accordion"
+            open={m === currentModule}
+            style={{ ['--mc' as string]: `var(--m${m})` }}
+          >
             <summary>
               <span className="num">{m}</span>
               <span className="module-title">
-                <strong>{MODULE_INFO[m]?.name}</strong>
+                <strong>
+                  <span className="module-emoji">{MODULE_INFO[m]?.emoji}</span> {MODULE_INFO[m]?.name}
+                </strong>
                 <span className="module-meta">
                   {done > 0 ? `${done} of ${inModule.length} lessons done` : `${inModule.length} lessons`}
                 </span>

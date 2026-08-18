@@ -1,10 +1,12 @@
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { ThemePicker } from './ThemePicker';
 import { SearchBox } from './SearchBox';
+import { ThemeDecor } from './ThemeDecor';
 
 export function Layout() {
   return (
     <div className="shell">
+      <ThemeDecor />
       <header>
         <Link to="/" className="brand">
           Learn<span>C#</span>

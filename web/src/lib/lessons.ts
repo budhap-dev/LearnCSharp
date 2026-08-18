@@ -25,9 +25,10 @@ export interface LessonOutputData {
 }
 
 /** What each module is about, so a student can see the shape of the course at a glance. */
-export const MODULE_INFO: Record<number, { name: string; blurb: string }> = {
+export const MODULE_INFO: Record<number, { name: string; blurb: string; emoji: string }> = {
   1: {
     name: 'Foundations',
+    emoji: '🌱',
     blurb:
       'The building blocks every program is made of: variables, decisions, loops, arrays, ' +
       'text and methods. Starts from GCSE pseudocode and ends with you able to write any ' +
@@ -35,6 +36,7 @@ export const MODULE_INFO: Record<number, { name: string; blurb: string }> = {
   },
   2: {
     name: 'Object-Oriented Programming',
+    emoji: '🧩',
     blurb:
       'The big shift: from a list of instructions to a set of objects that own their data ' +
       'and collaborate. Covers the concepts first, then the C# that expresses them, then how ' +
@@ -42,18 +44,21 @@ export const MODULE_INFO: Record<number, { name: string; blurb: string }> = {
   },
   3: {
     name: 'Collections, Generics and LINQ',
+    emoji: '📚',
     blurb:
       'Choosing the right way to store many things - lists, dictionaries, sets, stacks and ' +
       'queues - and then querying them in one readable line instead of a loop.',
   },
   4: {
     name: 'Advanced C#',
+    emoji: '🚀',
     blurb:
       'The features that separate a beginner from someone employable: delegates, lambdas, ' +
       'events, null safety, exceptions, files, JSON, async and reflection.',
   },
   5: {
     name: 'Data Structures and Algorithms',
+    emoji: '🧠',
     blurb:
       'How to measure an algorithm and how the classic ones actually work. Searching, ' +
       'sorting, recursion, linked lists, trees, graphs and hashing - each built from scratch ' +
@@ -61,12 +66,14 @@ export const MODULE_INFO: Record<number, { name: string; blurb: string }> = {
   },
   6: {
     name: 'Production C#',
+    emoji: '🛡️',
     blurb:
       'Writing code other people depend on: threading, performance, security, serialization ' +
       'and dependency injection - the module that turns working code into dependable code.',
   },
   7: {
     name: 'Mini Projects',
+    emoji: '🎮',
     blurb:
       'Everything above combined into complete, working programs - a game, a grade manager, ' +
       'a text adventure and a to-do app that saves to disk.',

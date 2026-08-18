@@ -6,6 +6,7 @@ import { recordExam } from '../lib/progress';
 import { examSeconds } from '../lib/exam';
 import { useCountdown, formatTime } from '../lib/useCountdown';
 import { useUnsavedWarning } from '../lib/useUnsavedWarning';
+import { confetti, examMessage } from '../lib/celebrate';
 
 interface Props {
   paper: ExamPaper;
@@ -73,6 +74,7 @@ export function Exam({ paper, timed, onRetry }: Props) {
   }
 
   if (submitted && result) {
+    if (result.grade === 'Distinction' || result.grade === 'Merit') confetti();
     return (
       <section className="exam-results" aria-live="polite">
         <div className={`result-headline grade-${result.grade.toLowerCase().replace(/\s+/g, '-')}`}>
@@ -82,6 +84,7 @@ export function Exam({ paper, timed, onRetry }: Props) {
           <span className="big-percent">{result.percent}%</span>
           <span className="big-grade">{result.grade}</span>
         </div>
+        <p className="exam-cheer">{examMessage(result.grade)}</p>
 
         <h3>By lesson</h3>
         <ul className="per-lesson">

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { MODULE_INFO, lessonsIn, modulesOf } from '../lib/lessons';
 import { useSyllabus } from '../lib/useSyllabus';
 import { read } from '../lib/progress';
+import { homeMessage } from '../lib/celebrate';
 
 export function Home() {
   const syllabus = useSyllabus();
@@ -11,16 +12,23 @@ export function Home() {
   const progress = read();
   const done = Object.values(progress.lessons).filter((s) => s === 'done').length;
   const next = syllabus.find((l) => progress.lessons[l.id] !== 'done') ?? syllabus[0];
+  const cheer = homeMessage(done, syllabus.length);
 
   return (
     <>
       <section className="hero">
-        <h1>Learn C#</h1>
+        <h1>
+          Learn C# <span className="emoji-wave">👋</span>
+        </h1>
         <p className="lede">
           From your first <code>Console.WriteLine</code> to threads, LINQ and Dijkstra’s
-          algorithm. Built for GCSE and A-Level students, and for developers arriving from
-          another language.
+          algorithm — one small, friendly step at a time.
         </p>
+
+        <div className="encourage">
+          <span className="big">{cheer.emoji}</span>
+          <span>{cheer.text}</span>
+        </div>
 
         <div className="cta">
           <Link className="button" to={`/lesson/${next.id}`}>
@@ -44,10 +52,16 @@ export function Home() {
           {modulesOf(syllabus).map((m) => {
             const inModule = lessonsIn(syllabus, m);
             return (
-              <article key={m} className="module-card">
+              <article
+                key={m}
+                className="module-card"
+                style={{ ['--mc' as string]: `var(--m${m})` }}
+              >
                 <h3>
                   <Link to={`/syllabus#m${m}`} className="module-link">
-                    <span className="num">{m}</span> {MODULE_INFO[m]?.name}
+                    <span className="num">{m}</span>
+                    <span className="module-emoji">{MODULE_INFO[m]?.emoji}</span>{' '}
+                    {MODULE_INFO[m]?.name}
                   </Link>
                 </h3>
                 <p className="blurb">{MODULE_INFO[m]?.blurb}</p>

@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { recordQuiz } from '../lib/progress';
 import { useCountdown, formatTime } from '../lib/useCountdown';
 import { useUnsavedWarning } from '../lib/useUnsavedWarning';
+import { confetti, quizMessage } from '../lib/celebrate';
 
 const QUIZ_SECONDS_PER_QUESTION = 60;
 
@@ -82,16 +83,17 @@ export function Quiz({ lessonId, questions }: Props) {
 
   if (finished) {
     const percent = Math.round((score / questions.length) * 100);
+    const cheer = quizMessage(percent);
+    if (percent >= 80) confetti();
     return (
       <section className="quiz" aria-live="polite">
-        <h3>
-          {score} / {questions.length} — {percent}%
-        </h3>
-        <p>
-          {percent >= 80
-            ? 'Lesson marked complete. Well done.'
-            : 'Marked as “needs review” — worth another read before moving on.'}
-        </p>
+        <div className="quiz-result-head">
+          <span className="result-emoji">{cheer.emoji}</span>
+          <h3>
+            {score} / {questions.length} — {percent}%
+          </h3>
+        </div>
+        <p>{cheer.text}</p>
 
         {wrong.length > 0 && (
           <>
@@ -160,7 +162,8 @@ export function Quiz({ lessonId, questions }: Props) {
       {picked !== null && (
         <div className="explanation" aria-live="polite">
           <p>
-            <strong>{picked === question.answer ? 'Correct.' : 'Not quite.'}</strong>{' '}
+            <span className="feedback-emoji">{picked === question.answer ? '✅' : '🤔'}</span>
+            <strong>{picked === question.answer ? 'Correct!' : 'Not quite.'}</strong>{' '}
             {question.explanation}
           </p>
           <button onClick={next}>
