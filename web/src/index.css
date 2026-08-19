@@ -1382,3 +1382,31 @@ body::before {
 .ws-hints { margin: 0.7rem 0 0; padding-left: 1.2rem; }
 .ws-hints li { margin: 0.35rem 0; line-height: 1.55; color: var(--text); }
 .ws-solution { margin-top: 0.8rem; }
+
+/* ---- "Practice this" on a lesson page, and deep-linked task flash ---- */
+.practice-this {
+  border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+  padding: 1rem 1.25rem; margin: 2rem 0;
+}
+.practice-this h2 { margin-top: 0; }
+.practice-this > p { margin: 0 0 0.75rem; }
+.practice-this-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+.practice-this-list a {
+  display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+  text-decoration: none; color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 0.75rem;
+  background: var(--bg);
+}
+.practice-this-list a:hover { border-color: var(--accent); }
+.practice-this .pt-num { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); min-width: 2.2rem; }
+.practice-this .pt-title { font-weight: 600; }
+.practice-this .pt-level {
+  margin-left: auto; font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.03em; border-radius: 999px; padding: 0.1rem 0.5rem;
+}
+.practice-this .pt-level.level-1 { background: var(--correct-soft); color: var(--correct); }
+.practice-this .pt-level.level-2 { background: var(--accent-soft); color: var(--accent); }
+.practice-this .pt-level.level-3 { background: var(--wrong-soft); color: var(--wrong); }
+
+.ws-task { scroll-margin-top: 4.5rem; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+.ws-task.flash { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }

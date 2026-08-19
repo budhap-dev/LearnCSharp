@@ -21,7 +21,8 @@ const modules = WORKSHEETS.map((w) => w.module);
  */
 export function Worksheets() {
   const [params, setParams] = useSearchParams();
-  const paramModule = Number(params.get('module'));
+  const paramTask = params.get('task');
+  const paramModule = paramTask ? Number(paramTask.split('.')[0]) : Number(params.get('module'));
   const active = modules.includes(paramModule) ? paramModule : modules[0];
   const worksheet = WORKSHEETS.find((w) => w.module === active)!;
 
@@ -37,6 +38,17 @@ export function Worksheets() {
   function setModule(m: number) {
     setParams(m === modules[0] ? {} : { module: String(m) }, { replace: true });
   }
+
+  // Deep link from a lesson's "Practice this": scroll the task into view and flash it.
+  useEffect(() => {
+    if (!paramTask) return;
+    const el = document.getElementById(`task-${paramTask}`);
+    if (!el) return;
+    el.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    el.classList.add('flash');
+    const t = setTimeout(() => el.classList.remove('flash'), 1800);
+    return () => clearTimeout(t);
+  }, [paramTask]);
 
   const doneCount = useMemo(() => worksheet.tasks.filter((t) => done.has(t.id)).length, [worksheet, done]);
 
@@ -115,7 +127,7 @@ function Task({ task, done, onToggle }: { task: WorksheetTask; done: boolean; on
   const level = LEVEL[task.level];
 
   return (
-    <li className={`ws-task ${done ? 'is-done' : ''}`}>
+    <li id={`task-${task.id}`} className={`ws-task ${done ? 'is-done' : ''}`}>
       <div className="ws-task-head">
         <span className="ws-num">{task.id}</span>
         <h3>{task.title}</h3>
