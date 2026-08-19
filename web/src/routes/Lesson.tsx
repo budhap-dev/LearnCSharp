@@ -11,6 +11,7 @@ import { MarkdownLink } from '../components/MarkdownLink';
 import { Diagram } from '../components/Diagram';
 import { CodeBlock } from '../components/CodeBlock';
 import { termsForLesson } from '../lib/glossary';
+import { tasksForLesson, moduleOfTask } from '../lib/worksheets';
 import { Rich } from '../components/Rich';
 import { Quiz, type Question } from '../components/Quiz';
 import { bestScore, setLessonState } from '../lib/progress';
@@ -137,6 +138,8 @@ export function Lesson() {
 
       <KeyTerms lessonId={lesson.id} />
 
+      <PracticeThis lessonId={lesson.id} />
+
       <section className="quiz-panel">
         <h2>Check yourself</h2>
 
@@ -178,6 +181,33 @@ export function Lesson() {
         )}
       </nav>
     </article>
+  );
+}
+
+const LEVEL_LABEL: Record<number, string> = { 1: 'Warm-up', 2: 'Standard', 3: 'Challenge' };
+
+/** Worksheet tasks that practise this lesson, linking to them in the student's own editor. */
+function PracticeThis({ lessonId }: { lessonId: string }) {
+  const tasks = tasksForLesson(lessonId);
+  if (tasks.length === 0) return null;
+  return (
+    <section className="practice-this">
+      <h2>Practice this in your editor</h2>
+      <p className="muted">
+        Open a C# console app, copy the starter, and make it print the target output.
+      </p>
+      <ul className="practice-this-list">
+        {tasks.map((t) => (
+          <li key={t.id}>
+            <Link to={`/worksheets?module=${moduleOfTask(t)}&task=${t.id}`}>
+              <span className="pt-num">{t.id}</span>
+              <span className="pt-title">{t.title}</span>
+              <span className={`pt-level level-${t.level}`}>{LEVEL_LABEL[t.level]}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 
