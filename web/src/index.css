@@ -244,12 +244,20 @@ button:disabled { cursor: default; }
 .module-block { margin-bottom: 2rem; }
 .module-block h2 { display: flex; align-items: center; gap: 0.6rem; }
 .lesson-list { list-style: none; margin: 0; padding: 0; }
+/* Grid so the summary can drop to its own row and span the full width, instead of being
+   boxed into a narrow column beside the badge. */
 .lesson-list a {
-  display: flex; align-items: center; gap: 0.85rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;   /* id | title | badge */
+  align-items: baseline; column-gap: 0.85rem; row-gap: 0.25rem;
   padding: 0.55rem 0.75rem; text-decoration: none; color: var(--text);
   border: 1px solid transparent; border-radius: 8px;
 }
 .lesson-list a:hover { background: var(--surface); border-color: var(--border); }
+.lesson-list a .lid { grid-column: 1; }
+.lesson-list a .ltitle { grid-column: 2; }
+.lesson-list a .badge { grid-column: 3; justify-self: end; align-self: start; }
+.lesson-list a .lsummary { grid-column: 2 / -1; }   /* full width under the title */
 .lid { font-family: var(--mono); color: var(--muted); font-size: 0.85rem; min-width: 2.6rem; }
 .lid.big { color: var(--accent); margin-right: 0.6rem; }
 .ltitle { flex: 1; }
@@ -348,7 +356,7 @@ button:disabled { cursor: default; }
   .module-grid { grid-template-columns: 1fr; }
 
   /* syllabus rows: summary below title, badge stays readable */
-  .lesson-list a { padding: 0.6rem 0.5rem; gap: 0.6rem; }
+  .lesson-list a { padding: 0.6rem 0.5rem; column-gap: 0.6rem; row-gap: 0.25rem; }
   .lid { min-width: 2.2rem; }
   .badge { align-self: flex-start; }
 
