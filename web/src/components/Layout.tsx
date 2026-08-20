@@ -4,12 +4,14 @@ import { ThemePicker } from './ThemePicker';
 import { SearchBox } from './SearchBox';
 import { ThemeDecor } from './ThemeDecor';
 
+// Each link gets a friendly emoji and its own colour, reusing the module palette so the
+// menu feels like the rest of the (deliberately playful) site.
 const LINKS = [
-  { to: '/', label: 'Home', end: true },
-  { to: '/syllabus', label: 'Syllabus' },
-  { to: '/practice', label: 'Practice' },
-  { to: '/worksheets', label: 'Worksheets' },
-  { to: '/glossary', label: 'Glossary' },
+  { to: '/', label: 'Home', emoji: '🏠', color: 'var(--m1)', end: true },
+  { to: '/syllabus', label: 'Syllabus', emoji: '🗺️', color: 'var(--m3)' },
+  { to: '/practice', label: 'Practice', emoji: '🎯', color: 'var(--m4)' },
+  { to: '/worksheets', label: 'Worksheets', emoji: '💻', color: 'var(--m5)' },
+  { to: '/glossary', label: 'Glossary', emoji: '📖', color: 'var(--m2)' },
 ];
 
 export function Layout() {
@@ -55,8 +57,14 @@ export function Layout() {
         </Link>
 
         <nav id="main-nav" className={menuOpen ? 'is-open' : ''}>
+          <span className="nav-drawer-title" aria-hidden="true">
+            Explore <span className="nav-drawer-title-emoji">🎒</span>
+          </span>
           {LINKS.map((l) => (
-            <NavLink key={l.to} to={l.to} end={l.end}>
+            <NavLink key={l.to} to={l.to} end={l.end} style={{ ['--nav-c' as string]: l.color }}>
+              <span className="nav-emoji" aria-hidden="true">
+                {l.emoji}
+              </span>
               {l.label}
             </NavLink>
           ))}
