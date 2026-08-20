@@ -459,6 +459,7 @@ button:disabled { cursor: default; }
   background: var(--surface); color: var(--text);
   border: 1px solid var(--border); border-radius: 8px;
   padding: 0.35rem 0.7rem; font-size: 0.85rem;
+  white-space: nowrap;   /* never break a two-word theme name onto two lines */
 }
 .theme-button:hover { border-color: var(--accent); }
 
@@ -480,6 +481,11 @@ button:disabled { cursor: default; }
   background: var(--surface);
   border: 1px solid var(--border); border-radius: var(--radius);
   box-shadow: 0 8px 24px rgb(0 0 0 / 0.14);
+  /* The list is taller than a phone screen: scroll it inside itself, and keep that
+     scroll from chaining to the page behind. */
+  max-height: min(70vh, 30rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .theme-menu button {
   width: 100%; display: flex; align-items: center; gap: 0.6rem;
@@ -503,7 +509,7 @@ button:disabled { cursor: default; }
 
 @media (max-width: 640px) {
   .theme-button { padding: 0.35rem 0.5rem; }
-  .theme-button > :not(.swatch) { display: none; }   /* icon-only on phones */
+  .theme-button .theme-label { display: none; }   /* icon-only on phones */
 }
 
 /* ---- syllabus accordion ---- */
