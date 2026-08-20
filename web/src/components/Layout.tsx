@@ -57,9 +57,6 @@ export function Layout() {
         </Link>
 
         <nav id="main-nav" className={menuOpen ? 'is-open' : ''}>
-          <span className="nav-drawer-title" aria-hidden="true">
-            Explore <span className="nav-drawer-title-emoji">🎒</span>
-          </span>
           {LINKS.map((l) => (
             <NavLink key={l.to} to={l.to} end={l.end} style={{ ['--nav-c' as string]: l.color }}>
               <span className="nav-emoji" aria-hidden="true">

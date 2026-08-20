@@ -178,7 +178,6 @@ header nav a.active {
 
 /* A friendly emoji sits before each nav label. */
 header nav a .nav-emoji { margin-right: 0.35rem; font-size: 1.05rem; }
-.nav-drawer-title { display: none; }   /* drawer-only heading, shown on mobile */
 
 /* Hamburger + slide-out drawer are mobile-only; hidden on desktop. */
 .nav-toggle { display: none; }
@@ -1000,7 +999,7 @@ main > * { animation: fade-in-up 0.35s ease both; }
 
 @media (prefers-reduced-motion: reduce) {
   main > *, .hero-title-text, .hero .emoji-wave, .feedback-emoji, .result-emoji,
-  .option.correct, .explanation, .module-card, .nav-drawer-title-emoji { animation: none !important; }
+  .option.correct, .explanation, .module-card { animation: none !important; }
   .confetti-piece { display: none; }
 }
 
@@ -1468,7 +1467,7 @@ body.nav-locked { overflow: hidden; }
     padding: 4.75rem 0.9rem 1.5rem;
     background: var(--surface);
     border-right: 1px solid var(--border);
-    border-top-right-radius: 22px; border-bottom-right-radius: 22px;   /* curvy corners */
+    border-top-right-radius: 16px; border-bottom-right-radius: 16px;   /* softly rounded */
     box-shadow: none;
     transform: translateX(-100%);
     /* Stay visible through the slide-out, then hide so the rounded edge and shadow
@@ -1484,45 +1483,28 @@ body.nav-locked { overflow: hidden; }
     transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s;
   }
 
-  /* Playful drawer heading. */
-  .nav-drawer-title {
-    display: flex; align-items: center; gap: 0.4rem;
-    font-size: 1.25rem; font-weight: 800; color: var(--muted);
-    margin: 0 0.3rem 0.6rem;
-  }
-  .nav-drawer-title-emoji { font-size: 1.4rem; display: inline-block; animation: gentle-float 3s ease-in-out infinite; }
-
-  /* Kid-friendly links: a colourful emoji chip, a bold label, a little bounce. */
+  /* A clean list: neutral rows, a muted icon, and each page's colour shown only as a
+     slim active indicator — friendly, but grown-up. */
   header nav a {
     --nav-c: var(--accent);
-    display: flex; align-items: center; gap: 0.7rem;
-    font-size: 1.05rem; font-weight: 700;
-    padding: 0.55rem 0.7rem; border-radius: 16px;
-    color: var(--text);
-    background: color-mix(in srgb, var(--nav-c) 9%, var(--surface));
-    border: 1.5px solid color-mix(in srgb, var(--nav-c) 28%, transparent);
-    box-shadow: none;
-    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 1rem; font-weight: 600;
+    padding: 0.7rem 0.85rem; border-radius: 10px;
+    color: var(--text); background: transparent; border: none; box-shadow: none;
+    transition: background 0.15s ease, color 0.15s ease;
   }
   header nav a .nav-emoji {
-    margin: 0; font-size: 1.3rem; line-height: 1;
-    width: 2.2rem; height: 2.2rem; flex: none;
-    display: inline-flex; align-items: center; justify-content: center;
-    border-radius: 12px;
-    background: color-mix(in srgb, var(--nav-c) 20%, var(--surface));
+    margin: 0; font-size: 1.15rem; line-height: 1; width: 1.5rem; flex: none;
+    text-align: center; opacity: 0.85;
   }
-  header nav a:hover {
-    transform: translateX(4px) scale(1.015);
-    background: color-mix(in srgb, var(--nav-c) 16%, var(--surface));
-    color: var(--text);
-  }
+  header nav a:hover { background: var(--accent-soft); color: var(--text); }
   header nav a.active {
-    color: color-mix(in srgb, var(--nav-c) 65%, var(--text));
-    background: color-mix(in srgb, var(--nav-c) 20%, var(--surface));
-    border-color: var(--nav-c);
-    box-shadow: none;
+    color: color-mix(in srgb, var(--nav-c) 68%, var(--text));
+    background: color-mix(in srgb, var(--nav-c) 12%, var(--surface));
+    box-shadow: inset 3px 0 0 var(--nav-c);
+    font-weight: 700;
   }
-  header nav a.active .nav-emoji { background: color-mix(in srgb, var(--nav-c) 32%, var(--surface)); }
+  header nav a.active .nav-emoji { opacity: 1; }
 
   /* Dimmed backdrop behind the open drawer. */
   .nav-backdrop {
