@@ -176,6 +176,10 @@ header nav a.active {
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
+/* Hamburger + slide-out drawer are mobile-only; hidden on desktop. */
+.nav-toggle { display: none; }
+.nav-backdrop { display: none; }
+
 main { flex: 1; width: 100%; max-width: 62rem; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
 footer {
@@ -1410,3 +1414,62 @@ body::before {
 
 .ws-task { scroll-margin-top: 4.5rem; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
 .ws-task.flash { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+/* ---- mobile navigation drawer (hamburger, slides in from the left) ---- */
+body.nav-locked { overflow: hidden; }
+
+@media (max-width: 640px) {
+  /* The hamburger, kept at the far left of the header. */
+  .nav-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; padding: 0; flex: none;
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--border); border-radius: 12px;   /* curvy corners */
+    cursor: pointer;
+  }
+  .nav-toggle:hover { border-color: var(--accent); }
+  .nav-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .nav-toggle-bars {
+    display: flex; flex-direction: column; justify-content: center; gap: 5px;
+    width: 20px; height: 16px;
+  }
+  .nav-toggle-bars span {
+    height: 2px; width: 100%; border-radius: 2px; background: currentColor;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+  /* Bars morph into an X when open. */
+  .nav-toggle.is-open .nav-toggle-bars span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.is-open .nav-toggle-bars span:nth-child(2) { opacity: 0; }
+  .nav-toggle.is-open .nav-toggle-bars span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* The nav becomes an off-canvas panel that slides in from the left. */
+  header nav {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: min(80vw, 300px);
+    flex-direction: column; align-items: stretch; gap: 0.3rem;
+    padding: 4.75rem 0.9rem 1.5rem;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    border-top-right-radius: 22px; border-bottom-right-radius: 22px;   /* curvy corners */
+    box-shadow: 8px 0 34px rgb(0 0 0 / 0.24);
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 60; will-change: transform;
+  }
+  header nav.is-open { transform: translateX(0); }
+  header nav a { font-size: 1rem; padding: 0.7rem 0.9rem; border-radius: 12px; }
+
+  /* Dimmed backdrop behind the open drawer. */
+  .nav-backdrop {
+    display: block; position: fixed; inset: 0;
+    background: rgb(0 0 0 / 0.45);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.28s ease; z-index: 55;
+  }
+  .nav-backdrop.is-open { opacity: 1; pointer-events: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  header nav, .nav-backdrop, .nav-toggle-bars span { transition: none; }
+}
