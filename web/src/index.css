@@ -176,6 +176,13 @@ header nav a.active {
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
+/* A friendly emoji sits before each nav label. */
+header nav a .nav-emoji { margin-right: 0.35rem; font-size: 1.05rem; }
+
+/* Hamburger + slide-out drawer are mobile-only; hidden on desktop. */
+.nav-toggle { display: none; }
+.nav-backdrop { display: none; }
+
 main { flex: 1; width: 100%; max-width: 62rem; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
 footer {
@@ -451,6 +458,7 @@ button:disabled { cursor: default; }
   background: var(--surface); color: var(--text);
   border: 1px solid var(--border); border-radius: 8px;
   padding: 0.35rem 0.7rem; font-size: 0.85rem;
+  white-space: nowrap;   /* never break a two-word theme name onto two lines */
 }
 .theme-button:hover { border-color: var(--accent); }
 
@@ -472,6 +480,11 @@ button:disabled { cursor: default; }
   background: var(--surface);
   border: 1px solid var(--border); border-radius: var(--radius);
   box-shadow: 0 8px 24px rgb(0 0 0 / 0.14);
+  /* The list is taller than a phone screen: scroll it inside itself, and keep that
+     scroll from chaining to the page behind. */
+  max-height: min(70vh, 30rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .theme-menu button {
   width: 100%; display: flex; align-items: center; gap: 0.6rem;
@@ -495,7 +508,7 @@ button:disabled { cursor: default; }
 
 @media (max-width: 640px) {
   .theme-button { padding: 0.35rem 0.5rem; }
-  .theme-button > :not(.swatch) { display: none; }   /* icon-only on phones */
+  .theme-button .theme-label { display: none; }   /* icon-only on phones */
 }
 
 /* ---- syllabus accordion ---- */
@@ -1410,3 +1423,100 @@ body::before {
 
 .ws-task { scroll-margin-top: 4.5rem; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
 .ws-task.flash { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+/* ---- mobile navigation drawer (hamburger, slides in from the left) ---- */
+body.nav-locked { overflow: hidden; }
+
+@media (max-width: 640px) {
+  /* Keep the top bar on one row: hamburger + brand at the left, a flexible search
+     and the theme button at the right. */
+  header { flex-wrap: nowrap; gap: 0.5rem; }
+  .header-right { gap: 0.5rem; }
+  .header-search { flex: 1 1 auto; min-width: 0; }
+  .header-search input { width: 100%; min-width: 0; }
+
+  /* The hamburger, kept at the far left of the header. */
+  .nav-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; padding: 0; flex: none;
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--border); border-radius: 12px;   /* curvy corners */
+    cursor: pointer;
+  }
+  .nav-toggle:hover { border-color: var(--accent); }
+  .nav-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .nav-toggle-bars {
+    display: flex; flex-direction: column; justify-content: center; gap: 5px;
+    width: 20px; height: 16px;
+  }
+  .nav-toggle-bars span {
+    height: 2px; width: 100%; border-radius: 2px; background: currentColor;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+  /* Bars morph into an X when open. */
+  .nav-toggle.is-open .nav-toggle-bars span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.is-open .nav-toggle-bars span:nth-child(2) { opacity: 0; }
+  .nav-toggle.is-open .nav-toggle-bars span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* The nav becomes an off-canvas panel that slides in from the left. */
+  header nav {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: min(80vw, 300px);
+    flex-direction: column; align-items: stretch; gap: 0.3rem;
+    padding: 4.75rem 0.9rem 1.5rem;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);   /* completes the rounded bottom-right corner */
+    border-top-right-radius: 16px; border-bottom-right-radius: 16px;   /* softly rounded */
+    box-shadow: none;
+    transform: translateX(-100%);
+    /* Stay visible through the slide-out, then hide so the rounded edge and shadow
+       never peek at the screen's left when closed. */
+    visibility: hidden;
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.28s;
+    z-index: 60; will-change: transform;
+  }
+  header nav.is-open {
+    transform: translateX(0);
+    visibility: visible;
+    box-shadow: 8px 0 34px rgb(0 0 0 / 0.24);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s;
+  }
+
+  /* A clean list: neutral rows, a muted icon, and each page's colour shown only as a
+     slim active indicator — friendly, but grown-up. */
+  header nav a {
+    --nav-c: var(--accent);
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 1rem; font-weight: 600;
+    padding: 0.7rem 0.85rem; border-radius: 10px;
+    color: var(--text); background: transparent; border: none; box-shadow: none;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  header nav a .nav-emoji {
+    margin: 0; font-size: 1.15rem; line-height: 1; width: 1.5rem; flex: none;
+    text-align: center; opacity: 0.85;
+  }
+  header nav a:hover { background: var(--accent-soft); color: var(--text); }
+  header nav a.active {
+    color: color-mix(in srgb, var(--nav-c) 68%, var(--text));
+    background: color-mix(in srgb, var(--nav-c) 12%, var(--surface));
+    box-shadow: inset 3px 0 0 var(--nav-c);
+    font-weight: 700;
+  }
+  header nav a.active .nav-emoji { opacity: 1; }
+
+  /* Dimmed backdrop behind the open drawer. */
+  .nav-backdrop {
+    display: block; position: fixed; inset: 0;
+    background: rgb(0 0 0 / 0.45);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.28s ease; z-index: 55;
+  }
+  .nav-backdrop.is-open { opacity: 1; pointer-events: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  header nav, .nav-backdrop, .nav-toggle-bars span { transition: none; }
+}

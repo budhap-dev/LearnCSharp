@@ -41,7 +41,7 @@ export function ThemePicker() {
         title="Change theme"
       >
         <span className="swatch" data-swatch={active.id} aria-hidden="true" />
-        {active.label}
+        <span className="theme-label">{active.label}</span>
       </button>
 
       {open && (
