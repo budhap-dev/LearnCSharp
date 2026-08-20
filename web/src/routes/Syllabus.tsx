@@ -25,17 +25,16 @@ export function Syllabus() {
   const progress = read();
   const modules = modulesOf(syllabus);
 
-  // Which module starts open: one deep-linked from a course card, otherwise the one
-  // holding the student's next incomplete lesson.
+  // Modules stay collapsed by default; only a module explicitly deep-linked from a
+  // course card opens on arrival.
   const linked = /^#m(\d+)$/.exec(hash);
-  const next = syllabus.find((l) => progress.lessons[l.id] !== 'done') ?? syllabus[0];
-  const currentModule = linked ? Number(linked[1]) : next.module;
+  const openModule = linked ? Number(linked[1]) : null;
 
   return (
     <>
       <h1>Syllabus</h1>
       <p className="lede syllabus-lede">
-        {syllabus.length} lessons across {modules.length} modules — your current module is open.
+        {syllabus.length} lessons across {modules.length} modules — tap a module to open it.
       </p>
 
       {modules.map((m) => {
@@ -49,7 +48,7 @@ export function Syllabus() {
             key={m}
             id={`m${m}`}
             className="module-accordion"
-            open={m === currentModule}
+            open={m === openModule}
             style={{ ['--mc' as string]: `var(--m${m})` }}
           >
             <summary>
@@ -93,11 +92,9 @@ export function Syllabus() {
                     <li key={l.id}>
                       <Link to={`/lesson/${l.id}`}>
                         <span className="lid">{l.id}</span>
-                        <span className="ltitle">
-                          <strong>{l.title}</strong>
-                          <span className="lsummary">{l.summary}</span>
-                        </span>
+                        <strong className="ltitle">{l.title}</strong>
                         {state && <span className={`badge ${state}`}>{LABEL[state] ?? state}</span>}
+                        <span className="lsummary">{l.summary}</span>
                       </Link>
                     </li>
                   );
