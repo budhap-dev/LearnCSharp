@@ -1467,6 +1467,7 @@ body.nav-locked { overflow: hidden; }
     padding: 4.75rem 0.9rem 1.5rem;
     background: var(--surface);
     border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);   /* completes the rounded bottom-right corner */
     border-top-right-radius: 16px; border-bottom-right-radius: 16px;   /* softly rounded */
     box-shadow: none;
     transform: translateX(-100%);
