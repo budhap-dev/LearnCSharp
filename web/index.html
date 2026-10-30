@@ -2,9 +2,17 @@
 <html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
+    <!-- Installable app: the manifest drives Android/Chrome; iOS also reads the apple-* tags. -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Learn C#" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <!-- Kept in step with the chosen theme by syncThemeColor() in src/lib/theme.ts. -->
+    <meta name="theme-color" content="#fdfefe" />
     <meta
       name="description"
       content="Learn C# from your first Console.WriteLine to threads, LINQ and Dijkstra's algorithm. For GCSE and A-Level students, and developers coming from another language."

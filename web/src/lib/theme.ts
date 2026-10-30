@@ -49,6 +49,8 @@ export function applyTheme(theme: ThemeId): void {
     document.documentElement.setAttribute('data-theme', theme);
   }
 
+  syncThemeColor();
+
   try {
     // "system" is stored too - otherwise it could not be told apart from "never chose",
     // which now falls back to Slate.
@@ -56,4 +58,13 @@ export function applyTheme(theme: ThemeId): void {
   } catch {
     /* the theme still applies for this visit */
   }
+}
+
+/**
+ * Matches the browser chrome (the phone status bar, and the title bar of the installed app)
+ * to the header, which is drawn in --surface.
+ */
+export function syncThemeColor(): void {
+  const surface = getComputedStyle(document.documentElement).getPropertyValue('--surface').trim();
+  if (surface) document.querySelector('meta[name="theme-color"]')?.setAttribute('content', surface);
 }
