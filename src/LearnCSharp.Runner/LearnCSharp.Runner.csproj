@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+
+  <!-- The C# compiler and .NET runtime that run worksheet code in the student's browser.
+       Published to web/public/runner by web/scripts/build-runner.mjs. It is deliberately not in
+       LearnCSharp.slnx: the site build publishes it, and the lessons build does not need it. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>LearnCSharp.Runner</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- Student code can call any part of the framework, so none of it can be trimmed away. -->
+    <PublishTrimmed>false</PublishTrimmed>
+    <!-- The default swaps exception messages for keys such as "Arg_IndexOutOfRangeException".
+         Students need to read the real message. -->
+    <UseSystemResourceKeys>false</UseSystemResourceKeys>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <!-- Every file is versioned together by the folder it is published to (see build-runner.mjs),
+         and worker.js needs a stable name to import dotnet.js by. -->
+    <WasmFingerprintAssets>false</WasmFingerprintAssets>
+    <!-- Console.In and friends are flagged as unsupported on browser, but work once redirected. -->
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Roslyn 5.0 is the compiler the .NET 10 SDK ships with, so C# 14 here matches `dotnet run`. -->
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
+  </ItemGroup>
+
+  <!-- Roslyn compiles against reference assemblies, which are not part of a published app.
+       Zip the framework's set so the browser can fetch them in one request. -->
+  <Target Name="PublishReferenceAssemblies" AfterTargets="Publish">
+    <ItemGroup>
+      <_FrameworkReference Include="@(ReferencePath)" Condition="'%(ReferencePath.FrameworkReferenceName)' == 'Microsoft.NETCore.App'" />
+    </ItemGroup>
+    <RemoveDir Directories="$(IntermediateOutputPath)refs" />
+    <Copy SourceFiles="@(_FrameworkReference)" DestinationFolder="$(IntermediateOutputPath)refs" />
+    <ZipDirectory SourceDirectory="$(IntermediateOutputPath)refs" DestinationFile="$(PublishDir)wwwroot/refs.zip" Overwrite="true" />
+  </Target>
+
+</Project>

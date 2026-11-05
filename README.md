@@ -59,6 +59,7 @@ src/LearnCSharp.Lessons/
   Lessons/M5_DataStructures/
   Lessons/M6_Production/
   Lessons/M7_Projects/
+src/LearnCSharp.Runner/    the C# compiler that runs worksheet code in the browser
 ```
 
 ## Suggested pace

@@ -5,14 +5,22 @@
   "type": "module",
   "scripts": {
     "capture": "cd .. && dotnet run --project src/LearnCSharp.Lessons -- capture web/public/data",
-    "dev": "npm run capture && npm run content && vite",
-    "build": "npm run capture && npm run content && tsc -b && vite build",
+    "dev": "npm run capture && npm run content && npm run runner && vite",
+    "build": "npm run capture && npm run content && npm run runner && tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
     "content": "node scripts/build-content.mjs",
-    "verify:worksheets": "node scripts/verify-worksheets.mjs"
+    "verify:worksheets": "node scripts/verify-worksheets.mjs",
+    "runner": "node scripts/build-runner.mjs",
+    "verify:runner": "node scripts/verify-runner.mjs"
   },
   "dependencies": {
+    "@codemirror/commands": "^6.11.1",
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/legacy-modes": "^6.5.5",
+    "@codemirror/state": "^6.7.6",
+    "@codemirror/view": "^6.43.15",
+    "@lezer/highlight": "^1.2.5",
     "highlight.js": "^11.12.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

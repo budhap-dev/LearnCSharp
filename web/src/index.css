@@ -1400,6 +1400,83 @@ body::before {
 .ws-check { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: var(--muted); margin-left: auto; cursor: pointer; }
 .ws-check input { accent-color: var(--correct); }
 
+/* Run C# in the browser. Amber is mixed from the theme's own colours, so every theme gets one. */
+.ws-try, .runner-run {
+  font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  background: var(--correct); color: var(--surface); border: 1px solid transparent; border-radius: 8px;
+  padding: 0.35rem 0.85rem; transition: filter 0.12s ease, transform 0.12s ease;
+}
+.ws-try:hover, .runner-run:not(:disabled):hover { filter: brightness(1.08); transform: translateY(-1px); }
+.runner-run { font-size: 0.95rem; padding: 0.5rem 1.2rem; }
+.runner-run:disabled { opacity: 0.5; }
+
+.runner {
+  --warn: color-mix(in srgb, #b36b00 60%, var(--text));
+  --warn-soft: color-mix(in srgb, #e69500 16%, var(--surface));
+  margin: 0.9rem 0;
+}
+.runner label { font: inherit; }
+.ws-ghost.runner-reset { font-size: 0.75rem; padding: 0.15rem 0.6rem; text-transform: none; letter-spacing: 0; }
+.ws-ghost.runner-reset:disabled { opacity: 0.45; cursor: default; }
+.runner-input {
+  display: block; width: 100%; box-sizing: border-box; resize: vertical; padding: 0.6rem 0.8rem;
+  font-family: var(--mono); font-size: 16px; line-height: 1.5;
+  background: var(--term-bg); color: var(--term-text); border: 1px solid transparent; border-radius: 8px;
+}
+.runner-actions { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.75rem; }
+.runner-tip { font-size: 0.78rem; }
+@media (hover: none) { .runner-tip { display: none; } }
+
+.code-editor .cm-editor { background: var(--code-bg); color: var(--code-text); border: 1px solid var(--code-border); border-radius: 8px; overflow: hidden; }
+.code-editor .cm-editor.cm-focused { outline: 2px solid var(--accent); outline-offset: 1px; }
+/* 16px stops iPhones zooming the page when the editor is tapped. */
+.code-editor .cm-scroller { font-family: var(--mono); font-size: 16px; line-height: 1.5; min-height: 8rem; max-height: 28rem; overflow: auto; }
+@media (hover: hover) { .code-editor .cm-scroller, .runner-input { font-size: 0.85rem; } }
+.code-editor .cm-content { caret-color: var(--code-text); }
+.code-editor .cm-cursor { border-left-color: var(--code-text); }
+.code-editor .cm-selectionBackground, .code-editor .cm-content ::selection { background: color-mix(in srgb, var(--accent) 28%, transparent); }
+.code-editor .cm-gutters { background: transparent; color: color-mix(in srgb, var(--code-text) 55%, var(--code-bg)); border-right: 1px solid var(--code-border); }
+.code-editor .cm-matchingBracket { background: color-mix(in srgb, var(--accent) 22%, transparent); outline: none; }
+/* Code stays on a light card in every theme, so these match the notes' snippets (github.css), not the theme. */
+.code-editor .tok-keyword { color: #d73a49; }
+.code-editor .tok-string, .code-editor .tok-string2 { color: #032f62; }
+.code-editor .tok-number, .code-editor .tok-bool, .code-editor .tok-atom { color: #005cc5; }
+.code-editor .tok-comment { color: #6a737d; }
+.code-editor .tok-typeName, .code-editor .tok-className { color: #6f42c1; }
+
+.runner-banner {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.15rem 0.75rem;
+  margin-top: 0.75rem; padding: 0.55rem 0.85rem; font-size: 0.9rem; font-weight: 600;
+  border: 1px solid; border-bottom: 0; border-radius: 8px 8px 0 0;
+}
+.runner-banner small { font-size: 0.75rem; font-weight: 400; color: var(--muted); }
+.runner-banner a { color: inherit; }
+.runner-banner.busy, .runner-banner.standalone { border-bottom: 1px solid; border-radius: 8px; }
+.runner-banner.busy { justify-content: flex-start; background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.runner-banner.ok { background: var(--correct-soft); color: var(--correct); border-color: var(--correct); }
+.runner-banner.err { background: var(--wrong-soft); color: var(--wrong); border-color: var(--wrong); }
+.runner-banner.warn { background: var(--warn-soft); color: var(--warn); border-color: var(--warn); }
+.runner-spinner { width: 0.8rem; height: 0.8rem; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: runner-spin 0.8s linear infinite; }
+@keyframes runner-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .runner-spinner { animation: none; } }
+
+.runner-term {
+  margin: 0; padding: 0.7rem 0.85rem; min-height: 3rem; white-space: pre-wrap; overflow-wrap: anywhere;
+  background: var(--term-bg); color: var(--term-text); font-family: var(--mono); font-size: 0.82rem; line-height: 1.5;
+  border: 1px solid; border-top: 0; border-radius: 0 0 8px 8px;
+}
+.runner-term.ok { border-color: var(--correct); }
+.runner-term.err { border-color: var(--wrong); }
+.runner-term.warn { border-color: var(--warn); }
+.runner-term .bad { display: block; color: #ff9aa5; }
+.runner-term .note { display: block; color: #f2b45a; }
+
+.runner-diff { margin: 0.6rem 0 0; padding: 0.6rem 0.85rem; font-size: 0.85rem; background: var(--warn-soft); border-left: 4px solid var(--warn); border-radius: 6px; }
+.runner-diff dt { font-weight: 600; color: var(--warn); margin-bottom: 0.25rem; }
+.runner-diff dd { display: flex; gap: 0.5rem; margin: 0.15rem 0; }
+.runner-diff-label { flex: 0 0 3.2rem; color: var(--muted); }
+.runner-diff code { font-family: var(--mono); font-size: 0.82rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+
 .ws-hints { margin: 0.7rem 0 0; padding-left: 1.2rem; }
 .ws-hints li { margin: 0.35rem 0; line-height: 1.55; color: var(--text); }
 .ws-solution { margin-top: 0.8rem; }
