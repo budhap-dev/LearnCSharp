@@ -5,7 +5,7 @@
 export default {
   module: 5,
   intro:
-    'Searching, sorting, recursion and the classic data structures - built from scratch so you can see the mechanism, the way the AQA specification expects.',
+    'Searching, sorting, recursion, graphs, hashing and the classic data structures - built from scratch so you can see the mechanism, the way the AQA specification expects.',
   tasks: [
     {
       id: '5.1',
@@ -301,6 +301,446 @@ class Bst
         Walk(node.Left, result);
         result.Add(node.Value);
         Walk(node.Right, result);
+    }
+}`,
+    },
+    {
+      id: '5.7',
+      lesson: '5.6',
+      title: 'A circular queue',
+      level: 3,
+      task: 'Finish `Enqueue` and `Dequeue` so the queue reuses the space at the front of its array. Each one moves its own position forward by one, wrapping back to 0 past the end. Throw an `InvalidOperationException` with the message "The queue is full." or "The queue is empty." when it cannot do what was asked. Notice in the output that a full queue has `head` equal to `tail`, which is why it also needs `count`.',
+      starter: `CircularQueue queue = new(4);
+
+queue.Enqueue("Mo");
+queue.Enqueue("Priya");
+queue.Enqueue("Sam");
+Console.WriteLine(queue.State);
+
+Console.WriteLine($"Served {queue.Dequeue()}");
+Console.WriteLine($"Served {queue.Dequeue()}");
+Console.WriteLine(queue.State);
+
+queue.Enqueue("Tia");
+queue.Enqueue("Uma");
+queue.Enqueue("Vic");
+Console.WriteLine(queue.State);
+
+try
+{
+    queue.Enqueue("Wes");
+}
+catch (InvalidOperationException ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+try
+{
+    for (int i = 0; i < 5; i++)
+    {
+        Console.WriteLine($"Served {queue.Dequeue()}");
+    }
+}
+catch (InvalidOperationException ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+public class CircularQueue
+{
+    private readonly string[] _items;
+    private int _head;  // where to read
+    private int _tail;  // where to write
+    private int _count;
+
+    public CircularQueue(int capacity)
+    {
+        _items = new string[capacity];
+    }
+
+    public string State => $"head={_head} tail={_tail} count={_count}";
+
+    public void Enqueue(string item)
+    {
+        // TODO
+    }
+
+    public string Dequeue()
+    {
+        // TODO
+        return "";
+    }
+}`,
+      expected: `head=0 tail=3 count=3
+Served Mo
+Served Priya
+head=2 tail=3 count=1
+head=2 tail=2 count=4
+The queue is full.
+Served Sam
+Served Tia
+Served Uma
+Served Vic
+The queue is empty.`,
+      hints: [
+        'The queue is full when _count == _items.Length, and empty when _count == 0. Check that first.',
+        'The wrap is one line: _tail = (_tail + 1) % _items.Length;',
+        'In Dequeue, save _items[_head] in a variable before you move _head on, and return that variable.',
+      ],
+      solution: `CircularQueue queue = new(4);
+
+queue.Enqueue("Mo");
+queue.Enqueue("Priya");
+queue.Enqueue("Sam");
+Console.WriteLine(queue.State);
+
+Console.WriteLine($"Served {queue.Dequeue()}");
+Console.WriteLine($"Served {queue.Dequeue()}");
+Console.WriteLine(queue.State);
+
+queue.Enqueue("Tia");
+queue.Enqueue("Uma");
+queue.Enqueue("Vic");
+Console.WriteLine(queue.State);
+
+try
+{
+    queue.Enqueue("Wes");
+}
+catch (InvalidOperationException ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+try
+{
+    for (int i = 0; i < 5; i++)
+    {
+        Console.WriteLine($"Served {queue.Dequeue()}");
+    }
+}
+catch (InvalidOperationException ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+public class CircularQueue
+{
+    private readonly string[] _items;
+    private int _head;  // where to read
+    private int _tail;  // where to write
+    private int _count;
+
+    public CircularQueue(int capacity)
+    {
+        _items = new string[capacity];
+    }
+
+    public string State => $"head={_head} tail={_tail} count={_count}";
+
+    public void Enqueue(string item)
+    {
+        if (_count == _items.Length)
+        {
+            throw new InvalidOperationException("The queue is full.");
+        }
+
+        _items[_tail] = item;
+        _tail = (_tail + 1) % _items.Length;
+        _count++;
+    }
+
+    public string Dequeue()
+    {
+        if (_count == 0)
+        {
+            throw new InvalidOperationException("The queue is empty.");
+        }
+
+        string item = _items[_head];
+        _head = (_head + 1) % _items.Length;
+        _count--;
+        return item;
+    }
+}`,
+    },
+    {
+      id: '5.8',
+      lesson: '5.8',
+      title: 'Fewest hops with breadth-first search',
+      level: 3,
+      task: 'Finish the breadth-first search from Leeds. `cameFrom` records how each town was first reached, so it also tells you which towns have been seen. Then write `PrintRoute`: walk back from the end town using `cameFrom`, reverse the list and print the route with its number of hops. Print "No route to" and the town name if the search never reached it.',
+      starter: `Dictionary<string, List<string>> roads = new() { ["Bude"] = new() };
+
+void AddRoad(string a, string b)
+{
+    roads.TryAdd(a, new());
+    roads.TryAdd(b, new());
+    roads[a].Add(b);
+    roads[b].Add(a);
+}
+
+AddRoad("Leeds", "York");
+AddRoad("Leeds", "Derby");
+AddRoad("York", "Hull");
+AddRoad("Derby", "Stoke");
+AddRoad("Hull", "Stoke");
+AddRoad("Stoke", "Crewe");
+
+List<string> order = new();
+Dictionary<string, string?> cameFrom = new() { ["Leeds"] = null };
+Queue<string> pending = new();
+pending.Enqueue("Leeds");
+
+while (pending.Count > 0)
+{
+    string town = pending.Dequeue();
+    order.Add(town);
+
+    // TODO: queue each neighbour not yet in cameFrom, recording how it was reached
+}
+
+Console.WriteLine($"Visit order: {string.Join(", ", order)}");
+
+PrintRoute("Crewe");
+PrintRoute("Bude");
+
+void PrintRoute(string end)
+{
+    // TODO
+}`,
+      expected: `Visit order: Leeds, York, Derby, Hull, Stoke, Crewe
+Leeds -> Derby -> Stoke -> Crewe (3 hops)
+No route to Bude`,
+      hints: [
+        'foreach (string next in roads[town]), then if (cameFrom.TryAdd(next, town)) pending.Enqueue(next); TryAdd returns false if the town is already there.',
+        'Start with string? step = end; and loop while step is not null: add it to a list, then step = cameFrom[step];',
+        'The list comes out backwards, so call route.Reverse() before string.Join(" -> ", route). The hops are one fewer than the towns.',
+      ],
+      solution: `Dictionary<string, List<string>> roads = new() { ["Bude"] = new() };
+
+void AddRoad(string a, string b)
+{
+    roads.TryAdd(a, new());
+    roads.TryAdd(b, new());
+    roads[a].Add(b);
+    roads[b].Add(a);
+}
+
+AddRoad("Leeds", "York");
+AddRoad("Leeds", "Derby");
+AddRoad("York", "Hull");
+AddRoad("Derby", "Stoke");
+AddRoad("Hull", "Stoke");
+AddRoad("Stoke", "Crewe");
+
+List<string> order = new();
+Dictionary<string, string?> cameFrom = new() { ["Leeds"] = null };
+Queue<string> pending = new();
+pending.Enqueue("Leeds");
+
+while (pending.Count > 0)
+{
+    string town = pending.Dequeue();
+    order.Add(town);
+
+    foreach (string next in roads[town])
+    {
+        if (cameFrom.TryAdd(next, town))
+        {
+            pending.Enqueue(next);
+        }
+    }
+}
+
+Console.WriteLine($"Visit order: {string.Join(", ", order)}");
+
+PrintRoute("Crewe");
+PrintRoute("Bude");
+
+void PrintRoute(string end)
+{
+    if (!cameFrom.ContainsKey(end))
+    {
+        Console.WriteLine($"No route to {end}");
+        return;
+    }
+
+    List<string> route = new();
+    string? step = end;
+
+    while (step is not null)
+    {
+        route.Add(step);
+        step = cameFrom[step];
+    }
+
+    route.Reverse();
+    Console.WriteLine($"{string.Join(" -> ", route)} ({route.Count - 1} hops)");
+}`,
+    },
+    {
+      id: '5.9',
+      lesson: '5.9',
+      title: 'A hash table with chaining',
+      level: 3,
+      task: 'Finish `Set` and `Get`. Both use `SlotFor` to choose a slot, then look along that slot\'s chain. `Set` updates the value if the key is already there and adds it otherwise. `Get` returns null if the key is missing. Ben and Cara land in the same slot, so both must survive. `SlotFor` uses its own hash because `string.GetHashCode` changes on every run.',
+      starter: `ScoreTable table = new(4);
+
+table.Set("Ada", 91);
+table.Set("Ben", 64);
+table.Set("Cara", 78);
+table.Set("Dev", 55);
+table.Set("Ben", 70);
+
+table.Print();
+
+Console.WriteLine($"Items: {table.Count}");
+Console.WriteLine($"Cara: {table.Get("Cara")?.ToString() ?? "not found"}");
+Console.WriteLine($"Zed: {table.Get("Zed")?.ToString() ?? "not found"}");
+
+public class ScoreTable
+{
+    private readonly List<(string Key, int Value)>[] _slots;
+
+    public ScoreTable(int size)
+    {
+        _slots = new List<(string Key, int Value)>[size];
+
+        for (int i = 0; i < size; i++)
+        {
+            _slots[i] = new();
+        }
+    }
+
+    public int Count { get; private set; }
+
+    private int SlotFor(string key)
+    {
+        int hash = 17;
+
+        foreach (char c in key)
+        {
+            hash = hash * 31 + c;
+        }
+
+        return Math.Abs(hash) % _slots.Length;
+    }
+
+    public void Set(string key, int value)
+    {
+        // TODO
+    }
+
+    public int? Get(string key)
+    {
+        // TODO
+        return null;
+    }
+
+    public void Print()
+    {
+        for (int i = 0; i < _slots.Length; i++)
+        {
+            IEnumerable<string> items = _slots[i].Select(e => $"{e.Key}={e.Value}");
+            string text = _slots[i].Count == 0 ? "(empty)" : string.Join(" -> ", items);
+            Console.WriteLine($"slot {i}: {text}");
+        }
+    }
+}`,
+      expected: `slot 0: Dev=55
+slot 1: Ada=91
+slot 2: Ben=70 -> Cara=78
+slot 3: (empty)
+Items: 4
+Cara: 78
+Zed: not found`,
+      hints: [
+        'var chain = _slots[SlotFor(key)]; gives you the list for that key.',
+        'Tuples in a list cannot be changed in place, so replace the whole entry: chain[i] = (key, value); and return straight away.',
+        'Only add to Count when the key is new. Setting Ben a second time must not make Items go up.',
+      ],
+      solution: `ScoreTable table = new(4);
+
+table.Set("Ada", 91);
+table.Set("Ben", 64);
+table.Set("Cara", 78);
+table.Set("Dev", 55);
+table.Set("Ben", 70);
+
+table.Print();
+
+Console.WriteLine($"Items: {table.Count}");
+Console.WriteLine($"Cara: {table.Get("Cara")?.ToString() ?? "not found"}");
+Console.WriteLine($"Zed: {table.Get("Zed")?.ToString() ?? "not found"}");
+
+public class ScoreTable
+{
+    private readonly List<(string Key, int Value)>[] _slots;
+
+    public ScoreTable(int size)
+    {
+        _slots = new List<(string Key, int Value)>[size];
+
+        for (int i = 0; i < size; i++)
+        {
+            _slots[i] = new();
+        }
+    }
+
+    public int Count { get; private set; }
+
+    private int SlotFor(string key)
+    {
+        int hash = 17;
+
+        foreach (char c in key)
+        {
+            hash = hash * 31 + c;
+        }
+
+        return Math.Abs(hash) % _slots.Length;
+    }
+
+    public void Set(string key, int value)
+    {
+        var chain = _slots[SlotFor(key)];
+
+        for (int i = 0; i < chain.Count; i++)
+        {
+            if (chain[i].Key == key)
+            {
+                chain[i] = (key, value);
+                return;
+            }
+        }
+
+        chain.Add((key, value));
+        Count++;
+    }
+
+    public int? Get(string key)
+    {
+        foreach (var entry in _slots[SlotFor(key)])
+        {
+            if (entry.Key == key)
+            {
+                return entry.Value;
+            }
+        }
+
+        return null;
+    }
+
+    public void Print()
+    {
+        for (int i = 0; i < _slots.Length; i++)
+        {
+            IEnumerable<string> items = _slots[i].Select(e => $"{e.Key}={e.Value}");
+            string text = _slots[i].Count == 0 ? "(empty)" : string.Join(" -> ", items);
+            Console.WriteLine($"slot {i}: {text}");
+        }
     }
 }`,
     },

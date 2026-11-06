@@ -423,5 +423,50 @@ finally
     Console.WriteLine("Finished");
 }`,
     },
+    {
+      id: '1.12',
+      lesson: '1.3',
+      title: 'Till receipt',
+      level: 1,
+      task: 'This program reads an item name, a quantity and a price, one per line. Parse the quantity with `int.TryParse` and the price with `decimal.TryParse`, then print the receipt in lined-up columns using alignment and `F2`. The widths are 12 (left-aligned) for the item, 5 for the quantity and 7 each for the price and total.',
+      input: `Notebook
+3
+2.50
+`,
+      starter: `string item = Console.ReadLine() ?? "";
+string? quantityText = Console.ReadLine();
+string? priceText = Console.ReadLine();
+
+int quantity = 0;
+decimal price = 0m;
+
+// TODO: parse quantityText into quantity and priceText into price
+
+decimal total = quantity * price;
+
+// TODO: replace this line with the two rows of the receipt
+Console.WriteLine($"{item} {quantity} {price} {total}");`,
+      expected: `|Item        |  Qty|  Price|  Total|
+|Notebook    |    3|   2.50|   7.50|`,
+      hints: [
+        'int.TryParse(quantityText, out quantity); fills in quantity when the text is a valid number.',
+        'A negative width lines text up on the left: {"Item",-12}. A positive width lines it up on the right: {"Qty",5}.',
+        'Width and format go together, with the width first: {price,7:F2}.',
+      ],
+      solution: `string item = Console.ReadLine() ?? "";
+string? quantityText = Console.ReadLine();
+string? priceText = Console.ReadLine();
+
+int quantity = 0;
+decimal price = 0m;
+
+int.TryParse(quantityText, out quantity);
+decimal.TryParse(priceText, out price);
+
+decimal total = quantity * price;
+
+Console.WriteLine($"|{"Item",-12}|{"Qty",5}|{"Price",7}|{"Total",7}|");
+Console.WriteLine($"|{item,-12}|{quantity,5}|{price,7:F2}|{total,7:F2}|");`,
+    },
   ],
 };

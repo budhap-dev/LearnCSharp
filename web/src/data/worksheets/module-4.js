@@ -5,7 +5,7 @@
 export default {
   module: 4,
   intro:
-    'Methods as values, functional style, null safety, pattern matching, custom exceptions, deterministic clean-up and async/await.',
+    'Methods as values, functional style, events, null safety, pattern matching, custom exceptions, deterministic clean-up, async/await and reflection.',
   tasks: [
     {
       id: '4.1',
@@ -353,6 +353,185 @@ async Task<int> SlowSquare(int n)
 {
     await Task.Delay(1);
     return n * n;
+}`,
+    },
+    {
+      id: '4.9',
+      lesson: '4.3',
+      title: 'A thermostat that raises events',
+      level: 2,
+      task: 'Make `Record` raise the `TooHot` event when the temperature is above the limit. Subscribe `fan`, then a second handler that prints "Logged" and adds the temperature to `log`. Unsubscribe `fan` after the second reading, so only the logger hears the third.',
+      starter: `Thermostat stat = new(22);
+List<int> log = new();
+
+Action<int> fan = t => Console.WriteLine($"Fan on at {t}");
+
+// TODO: subscribe fan and a logging handler to stat.TooHot
+
+stat.Record(18);
+stat.Record(24);
+
+// TODO: unsubscribe fan
+
+stat.Record(29);
+
+Console.WriteLine($"Warnings logged: {log.Count}");
+
+public class Thermostat
+{
+    private readonly int _limit;
+
+    public Thermostat(int limit)
+    {
+        _limit = limit;
+    }
+
+    public event Action<int>? TooHot;
+
+    public void Record(int temperature)
+    {
+        Console.WriteLine($"{temperature} degrees");
+
+        // TODO: raise TooHot if temperature is above the limit
+    }
+}`,
+      expected: `18 degrees
+24 degrees
+Fan on at 24
+Logged 24
+29 degrees
+Logged 29
+Warnings logged: 2`,
+      hints: [
+        'Raise it with TooHot?.Invoke(temperature); The ?. means nothing happens if nobody is listening.',
+        'stat.TooHot += fan; subscribes. Handlers run in the order they subscribed, so fan prints first.',
+        'stat.TooHot -= fan; works because fan is a variable. You could not remove a lambda written straight on the += line.',
+      ],
+      solution: `Thermostat stat = new(22);
+List<int> log = new();
+
+Action<int> fan = t => Console.WriteLine($"Fan on at {t}");
+
+stat.TooHot += fan;
+stat.TooHot += t =>
+{
+    Console.WriteLine($"Logged {t}");
+    log.Add(t);
+};
+
+stat.Record(18);
+stat.Record(24);
+
+stat.TooHot -= fan;
+
+stat.Record(29);
+
+Console.WriteLine($"Warnings logged: {log.Count}");
+
+public class Thermostat
+{
+    private readonly int _limit;
+
+    public Thermostat(int limit)
+    {
+        _limit = limit;
+    }
+
+    public event Action<int>? TooHot;
+
+    public void Record(int temperature)
+    {
+        Console.WriteLine($"{temperature} degrees");
+
+        if (temperature > _limit)
+        {
+            TooHot?.Invoke(temperature);
+        }
+    }
+}`,
+    },
+    {
+      id: '4.10',
+      lesson: '4.11',
+      title: 'Hide secrets with an attribute',
+      level: 3,
+      task: 'Write `Describe` so it works on any object, using reflection: print the type name, then each property on its own line, indented by two spaces, as "Name = value". Mark `Password` and `Key` with `[Secret]`, and print `***` instead of the value of any property that has that attribute. `Describe` must not mention `Account` or `Router`.',
+      starter: `using System.Reflection;
+
+Describe(new Account { Name = "Ada", Password = "hunter2", Level = 7 });
+Describe(new Router { Network = "HomeNet", Key = "abc123" });
+
+static void Describe(object item)
+{
+    Type type = item.GetType();
+    Console.WriteLine(type.Name);
+
+    // TODO: loop over the properties and print each one, hiding any marked [Secret]
+}
+
+[AttributeUsage(AttributeTargets.Property)]
+public sealed class SecretAttribute : Attribute
+{
+}
+
+public class Account
+{
+    public string Name { get; set; } = "";
+    public string Password { get; set; } = ""; // TODO: mark this [Secret]
+    public int Level { get; set; }
+}
+
+public class Router
+{
+    public string Network { get; set; } = "";
+    public string Key { get; set; } = ""; // TODO: mark this [Secret]
+}`,
+      expected: `Account
+  Name = Ada
+  Password = ***
+  Level = 7
+Router
+  Network = HomeNet
+  Key = ***`,
+      hints: [
+        'foreach (PropertyInfo property in type.GetProperties()) visits every public property.',
+        'property.GetCustomAttribute<SecretAttribute>() returns null when the attribute is not there.',
+        'property.GetValue(item) reads the value. You write [Secret] on the property, leaving off the word Attribute.',
+      ],
+      solution: `using System.Reflection;
+
+Describe(new Account { Name = "Ada", Password = "hunter2", Level = 7 });
+Describe(new Router { Network = "HomeNet", Key = "abc123" });
+
+static void Describe(object item)
+{
+    Type type = item.GetType();
+    Console.WriteLine(type.Name);
+
+    foreach (PropertyInfo property in type.GetProperties())
+    {
+        bool secret = property.GetCustomAttribute<SecretAttribute>() is not null;
+        object? value = secret ? "***" : property.GetValue(item);
+        Console.WriteLine($"  {property.Name} = {value}");
+    }
+}
+
+[AttributeUsage(AttributeTargets.Property)]
+public sealed class SecretAttribute : Attribute
+{
+}
+
+public class Account
+{
+    public string Name { get; set; } = "";
+    [Secret] public string Password { get; set; } = "";
+    public int Level { get; set; }
+}
+
+public class Router
+{
+    public string Network { get; set; } = "";
+    [Secret] public string Key { get; set; } = "";
 }`,
     },
   ],

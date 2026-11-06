@@ -4,7 +4,7 @@
 export default {
   module: 3,
   intro:
-    'Lists, dictionaries and sets, your own generic method, iterators with yield, and LINQ for filtering, projecting, grouping and aggregating.',
+    'Lists, dictionaries, sets and stacks, your own generic method, iterators with yield, and LINQ for filtering, projecting, grouping and aggregating.',
   tasks: [
     {
       id: '3.1',
@@ -260,6 +260,95 @@ var totals = sales
 foreach (var t in totals)
 {
     Console.WriteLine($"{t.Product}: {t.Total}");
+}`,
+    },
+    {
+      id: '3.8',
+      lesson: '3.3',
+      title: 'Back and forward buttons',
+      level: 2,
+      task: 'A browser\'s Back and Forward buttons are two stacks. Work through the actions. `visit` pushes the current page onto `back`, moves to the new page and clears `forward`. `back` and `forward` each save the current page on the other stack and pop their own. After every action print "Now on: page", or "Nothing to go back to" or "Nothing to go forward to" if that stack is empty.',
+      starter: `string[] actions =
+{
+    "visit home", "visit news", "visit sport",
+    "back", "back", "forward",
+    "visit maths", "forward",
+    "back", "back", "back", "back",
+};
+
+string current = "start";
+Stack<string> back = new();
+Stack<string> forward = new();
+
+foreach (string action in actions)
+{
+    string[] parts = action.Split(' ');
+
+    // TODO: parts[0] is visit, back or forward. For visit, parts[1] is the page.
+}`,
+      expected: `Now on: home
+Now on: news
+Now on: sport
+Now on: news
+Now on: home
+Now on: news
+Now on: maths
+Nothing to go forward to
+Now on: news
+Now on: home
+Now on: start
+Nothing to go back to`,
+      hints: [
+        'For visit: back.Push(current); current = parts[1]; forward.Clear();',
+        'For back: forward.Push(current); current = back.Pop(); Going forward is the same with the two stacks swapped.',
+        'Check back.Count == 0 before you Pop. Pop on an empty stack throws an exception.',
+      ],
+      solution: `string[] actions =
+{
+    "visit home", "visit news", "visit sport",
+    "back", "back", "forward",
+    "visit maths", "forward",
+    "back", "back", "back", "back",
+};
+
+string current = "start";
+Stack<string> back = new();
+Stack<string> forward = new();
+
+foreach (string action in actions)
+{
+    string[] parts = action.Split(' ');
+
+    if (parts[0] == "visit")
+    {
+        back.Push(current);
+        current = parts[1];
+        forward.Clear();
+    }
+    else if (parts[0] == "back")
+    {
+        if (back.Count == 0)
+        {
+            Console.WriteLine("Nothing to go back to");
+            continue;
+        }
+
+        forward.Push(current);
+        current = back.Pop();
+    }
+    else
+    {
+        if (forward.Count == 0)
+        {
+            Console.WriteLine("Nothing to go forward to");
+            continue;
+        }
+
+        back.Push(current);
+        current = forward.Pop();
+    }
+
+    Console.WriteLine($"Now on: {current}");
 }`,
     },
   ],
