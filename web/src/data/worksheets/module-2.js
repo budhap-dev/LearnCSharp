@@ -534,5 +534,106 @@ class Checkout
     public decimal Total(decimal basket) => _discount.Apply(basket);
 }`,
     },
+    {
+      id: '2.9',
+      lesson: '2.5',
+      title: 'A van is a vehicle',
+      level: 2,
+      task: 'Make `Van` inherit from `Vehicle`. Its constructor passes the registration up with `: base(reg)`, stores the limit in a `MaxLoad` property and prints the "Van built" line. Add a `Deliver` method that takes 30 off the protected `_fuel`. Then call `van.Deliver()`, add the van to the fleet, and use `is` to print the limit of any vehicle that is a `Van`. Look at the order of the first three lines: the base constructor runs first.',
+      starter: `Vehicle car = new("AB12 CDE");
+Van van = new("XY34 ZZZ", 800);
+
+// TODO: make the van deliver something
+
+Vehicle[] fleet = { car }; // TODO: add the van once Van inherits from Vehicle
+
+foreach (Vehicle v in fleet)
+{
+    Console.WriteLine(v.Describe());
+
+    // TODO: if v is a Van, print "Limit: 800 kg" using its MaxLoad
+}
+
+public class Vehicle
+{
+    protected int _fuel = 100;
+
+    public Vehicle(string reg)
+    {
+        Reg = reg;
+        Console.WriteLine($"Vehicle built: {reg}");
+    }
+
+    public string Reg { get; }
+
+    public string Describe() => $"{Reg}, fuel {_fuel}";
+}
+
+// TODO: inherit from Vehicle, add MaxLoad and Deliver
+public class Van
+{
+    public Van(string reg, int maxLoad)
+    {
+    }
+}`,
+      expected: `Vehicle built: AB12 CDE
+Vehicle built: XY34 ZZZ
+Van built: 800 kg limit
+AB12 CDE, fuel 100
+XY34 ZZZ, fuel 70
+Limit: 800 kg`,
+      hints: [
+        'public class Van : Vehicle, and public Van(string reg, int maxLoad) : base(reg) on the constructor.',
+        '_fuel is protected, so code inside Van can change it: public void Deliver() { _fuel -= 30; }',
+        'A Van fits in a Vehicle array. To get back to the Van: if (v is Van loaded) Console.WriteLine($"Limit: {loaded.MaxLoad} kg");',
+      ],
+      solution: `Vehicle car = new("AB12 CDE");
+Van van = new("XY34 ZZZ", 800);
+
+van.Deliver();
+
+Vehicle[] fleet = { car, van };
+
+foreach (Vehicle v in fleet)
+{
+    Console.WriteLine(v.Describe());
+
+    if (v is Van loaded)
+    {
+        Console.WriteLine($"Limit: {loaded.MaxLoad} kg");
+    }
+}
+
+public class Vehicle
+{
+    protected int _fuel = 100;
+
+    public Vehicle(string reg)
+    {
+        Reg = reg;
+        Console.WriteLine($"Vehicle built: {reg}");
+    }
+
+    public string Reg { get; }
+
+    public string Describe() => $"{Reg}, fuel {_fuel}";
+}
+
+public class Van : Vehicle
+{
+    public Van(string reg, int maxLoad) : base(reg)
+    {
+        MaxLoad = maxLoad;
+        Console.WriteLine($"Van built: {maxLoad} kg limit");
+    }
+
+    public int MaxLoad { get; }
+
+    public void Deliver()
+    {
+        _fuel -= 30;
+    }
+}`,
+    },
   ],
 };
