@@ -997,7 +997,7 @@ proven pattern.
 
 | Idea | Why later |
 |---|---|
-| In-browser C# execution (Blazor WASM + Roslyn) | 10–20MB payload; revisit once content is proven |
+| In-browser C# outside the worksheets | Worksheets run in the browser (`src/LearnCSharp.Runner`, about 13 MB, loaded on first Run). A free-form playground and Run buttons in the notes can reuse it |
 | Accounts and cloud sync | Needs a backend; breaks "purely static" |
 | Tutor dashboard and class management | Depends on accounts |
 | Adaptive difficulty | Needs usage data we do not have yet |

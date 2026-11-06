@@ -4,6 +4,7 @@ import { WORKSHEETS, type WorksheetTask } from '../data/worksheets/index.js';
 import { MODULE_INFO } from '../lib/lessons';
 import { Rich } from '../components/Rich';
 import { CopyButton } from '../components/CopyButton';
+import { TaskRunner } from '../components/TaskRunner';
 import { toggleWorksheet, worksheetDone } from '../lib/progress';
 
 const LEVEL = {
@@ -15,8 +16,8 @@ const LEVEL = {
 const modules = WORKSHEETS.map((w) => w.module);
 
 /**
- * Programming worksheets: tasks a student solves in their own IDE. Each gives a runnable
- * starter to copy, the exact output to aim for, staged hints, and a checked solution. All
+ * Programming worksheets: tasks a student solves here in the browser or in their own IDE. Each
+ * gives a runnable starter, the exact output to aim for, staged hints, and a checked solution. All
  * solutions are verified by scripts/verify-worksheets.mjs, so the target output is real.
  */
 export function Worksheets() {
@@ -56,12 +57,12 @@ export function Worksheets() {
     <div className="worksheets">
       <h1>Worksheets</h1>
       <p className="lede">
-        Practice you do in your own editor. Copy a starter into a C# console app, make it print
-        the target output, and check your answer.
+        Write real C# and make it print the target output. Press <strong>Try it here</strong> to run
+        it in your browser, or copy the starter into your own editor.
       </p>
 
       <details className="ws-how">
-        <summary>How to run these</summary>
+        <summary>How to run these on your own computer</summary>
         <ol>
           <li>
             Install the <a href="https://dotnet.microsoft.com/download" target="_blank" rel="noreferrer">.NET SDK</a>{' '}
@@ -82,9 +83,9 @@ export function Worksheets() {
           <li>Stuck? Reveal a hint. Finished? Reveal the solution and compare.</li>
         </ol>
         <p className="muted">
-          No editor to hand? Paste into an online runner such as{' '}
-          <a href="https://dotnetfiddle.net" target="_blank" rel="noreferrer">.NET Fiddle</a> — but typing it
-          into a real IDE is the point.
+          Try it here is great for practice, but a few things only work on your own computer, such as{' '}
+          <code>Console.ReadKey</code> and creating a <code>Thread</code>. Setting up a real IDE is worth
+          doing too.
         </p>
       </details>
 
@@ -124,6 +125,7 @@ export function Worksheets() {
 function Task({ task, done, onToggle }: { task: WorksheetTask; done: boolean; onToggle: () => void }) {
   const [hintsShown, setHintsShown] = useState(0);
   const [showSolution, setShowSolution] = useState(false);
+  const [trying, setTrying] = useState(false);
   const level = LEVEL[task.level];
 
   return (
@@ -141,17 +143,19 @@ function Task({ task, done, onToggle }: { task: WorksheetTask; done: boolean; on
         <Rich text={task.task} />
       </p>
 
-      <div className="ws-block">
-        <div className="ws-block-head">
-          <span>Starter — copy into Program.cs</span>
-          <CopyButton source={task.starter} />
+      {!trying && (
+        <div className="ws-block">
+          <div className="ws-block-head">
+            <span>Starter — copy into Program.cs</span>
+            <CopyButton source={task.starter} />
+          </div>
+          <pre className="ws-code">
+            <code>{task.starter}</code>
+          </pre>
         </div>
-        <pre className="ws-code">
-          <code>{task.starter}</code>
-        </pre>
-      </div>
+      )}
 
-      {task.input !== undefined && (
+      {!trying && task.input !== undefined && (
         <div className="ws-block">
           <div className="ws-block-head">
             <span>Type this in when it runs</span>
@@ -172,7 +176,17 @@ function Task({ task, done, onToggle }: { task: WorksheetTask; done: boolean; on
         </pre>
       </div>
 
+      {trying && <TaskRunner task={task} onPass={() => !worksheetDone(task.id) && onToggle()} />}
+
       <div className="ws-actions">
+        <button
+          type="button"
+          className={trying ? 'ws-ghost' : 'ws-try'}
+          aria-expanded={trying}
+          onClick={() => setTrying((open) => !open)}
+        >
+          {trying ? 'Close editor' : '▶ Try it here'}
+        </button>
         {hintsShown < task.hints.length && (
           <button type="button" className="ws-ghost" onClick={() => setHintsShown((n) => n + 1)}>
             {hintsShown === 0 ? 'Show a hint' : 'Next hint'} ({hintsShown}/{task.hints.length})
